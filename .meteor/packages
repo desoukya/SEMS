@@ -23,3 +23,5 @@ flemay:less-autoprefixer
 iron:router
 accounts-ui
 accounts-password
+cfs:standard-packages
+cfs:filesystem
