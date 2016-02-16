@@ -1,27 +1,25 @@
-<template name = "header">
-<div class="ui large top hidden menu">
-	<div class="ui container">
-		<a class="active item " href="{{pathFor 'home'}}">Home</a>
-		{{#if currentUser}}
-		<a class="item" href="{{pathFor 'profile'}}">Profile</a>
-		{{/if}}
-		<a class="item">Company</a>
-		<a class="item">Careers</a>
-		
-		<div class="right menu">
-			{{#if currentUser}}
-			<div class="item">
-				<a class="ui button logout" >Log Out</a>
-			</div>
-			{{else}}
-			<div class="item">
-				<a class="ui button" href="{{pathFor 'signIn'}}">Log in</a>
-			</div>
-			<div class="item">
-				<a class="ui primary button" href="{{pathFor 'signUp'}}">Sign Up</a>
-			</div>
-			{{/if}}
-		</div>
-	</div>
-</div>
+<template name="header">
+  <div class="ui large top hidden menu">
+    <div class="ui container">
+      <a class="active item " href="{{pathFor 'home'}}">Home</a>
+      {{#if currentUser}}
+        <a class="item" href="{{pathFor 'profile'}}">Profile</a>
+      {{/if}}
+
+      <div class="right menu">
+        {{#if currentUser}}
+          <div class="item">
+            <a class="ui button logout">Logout</a>
+          </div>
+        {{else}}
+          <div class="item">
+            <a class="ui button" href="{{pathFor 'user.login'}}">Login</a>
+          </div>
+          <div class="item">
+            <a class="ui primary button" href="{{pathFor 'user.register'}}">Sign Up</a>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
 </template>

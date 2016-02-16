@@ -1,15 +1,15 @@
-var debug = function(ev, text) {
-  ev.preventDefault();
+var debug = function(event, text) {
+  event.preventDefault();
   console.log(text);
 
 }
-Template.signUp.events({
-  "submit form": function(ev) {
-    debug(ev, "submit2");
-    var firstName = ev.target.firstname.value;
-    var lastName = ev.target.lastname.value;
-    var email = ev.target.email.value;
-    var password = ev.target.pass.value;
+Template.register.events({
+  "submit form": function(event) {
+    debug(event, "submit2");
+    var firstName = event.target.firstname.value;
+    var lastName = event.target.lastname.value;
+    var email = event.target.email.value;
+    var password = event.target.pass.value;
     Accounts.createUser({
       email: email,
       password: password,
@@ -27,7 +27,7 @@ Template.signUp.events({
 });
 
 
-Template.signUp.rendered = function() {
+Template.register.rendered = function() {
   $('.ui.form').form({
     fields: {
       firstname: {

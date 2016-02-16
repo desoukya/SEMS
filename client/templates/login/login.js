@@ -2,7 +2,8 @@ var debug = function(ev, text) {
   ev.preventDefault();
   console.log(text);
 }
-Template.signIn.events({
+
+Template.login.events({
   "submit .form": function(ev) {
     debug(ev, "submit2");
     var email = ev.target.email.value;
@@ -21,7 +22,7 @@ Template.signIn.events({
   }
 });
 
-Template.signIn.rendered = function() {
+Template.login.rendered = function() {
   $(document)
     .ready(function() {
       $('.ui.form')
