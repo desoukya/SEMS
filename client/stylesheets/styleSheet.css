@@ -1,8 +1,31 @@
-body
-{
-    background-color: #dadada;
+* {
+  box-sizing: border-box;
 }
-body > .grid
-{
-    height: 100%;
+
+*:before, *:after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  position: relative;
+}
+
+body {
+  background-color: #dadada;
+}
+
+.main-container {
+  min-height: 100vh;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  /* footer height*/
+  padding-bottom: 141px;
+}
+
+footer {
+  position: absolute !important;
+  bottom: 0;
+  width: 100%;
 }
