@@ -6,11 +6,3 @@ body > .grid
 {
     height: 100%;
 }
-.column
-{
-    max-width: 800px;
-}
-.login-form
-{
-    max-width: 450px;
-}
