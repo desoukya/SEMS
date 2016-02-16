@@ -6,6 +6,10 @@
         <a class="item" href="{{pathFor 'profile'}}">Profile</a>
       {{/if}}
 
+      {{#if isInRole "admin"}}
+        <a href="{{pathFor 'admin.panel'}}" class="item">Admin</a>
+      {{/if}}
+
       <div class="right menu">
         {{#if currentUser}}
           <div class="item">
