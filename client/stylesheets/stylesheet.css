@@ -21,11 +21,19 @@ body {
   display: block;
   position: relative;
   /* footer height*/
-  padding-bottom: 141px;
+  padding-bottom: 47px;
 }
 
 footer {
   position: absolute !important;
   bottom: 0;
   width: 100%;
+}
+
+#login-wrapper {
+  height: 88vh;
+}
+
+.centered.text {
+  text-align: center;
 }
