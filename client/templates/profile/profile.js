@@ -19,7 +19,8 @@ Template.profile.events({
         }
       });
     });
-  }
+  },
+
 });
 
 Template.imageShow.helpers({
