@@ -37,3 +37,8 @@ footer {
 .centered.text {
   text-align: center;
 }
+
+.not.styled.link {
+  color: inherit;
+  text-decoration: none;
+}
