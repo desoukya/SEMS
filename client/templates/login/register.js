@@ -10,19 +10,16 @@ Template.register.events({
     var lastName = event.target.lastname.value;
     var email = event.target.email.value;
     var password = event.target.pass.value;
-    Accounts.createUser({
-      email: email,
-      password: password,
-      profile: {
-        firstName: firstName,
-        lastName: lastName
+
+    Meteor.call("registerUser", email, password, firstName, lastName, function(err) {
+      if (err) {
+        console.log(err);
       }
-    }, function(err) {
-      if (err)
-        console.log(password + " " + email + " " + err);
-      else
-        Router.go('/');
-    })
+
+      Router.go('/');
+
+    });
+
   },
 });
 
