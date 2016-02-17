@@ -1,18 +1,17 @@
 var debug = function(event, text) {
   event.preventDefault();
   console.log(text);
-
 }
+
 Template.register.events({
   "submit form": function(event) {
-    debug(event, "submit2");
     var firstName = event.target.firstname.value;
     var lastName = event.target.lastname.value;
     var email = event.target.email.value;
     var password = event.target.pass.value;
 
     Meteor.call("registerUser", email, password, firstName, lastName, function() {
-      
+
       Router.go('/');
 
     });

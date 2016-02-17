@@ -1,6 +1,5 @@
 Template.profile.events({
   'change.myFileInput': function(event, template) {
-    console.log("something happened");
     FS.Utility.eachFile(event, function(file) {
       Images.insert(file, function(err, fileObj) {
         if (err) {
@@ -12,7 +11,6 @@ Template.profile.events({
           var imagesURL = {
             "profile.image": "" + fileObj._id
           };
-          console.log(imagesURL);
           Meteor.users.update(userId, {
             $set: imagesURL
           });
@@ -25,7 +23,6 @@ Template.profile.events({
 
 Template.imageShow.helpers({
   image: function() {
-    //console.log(Images.findOne({"_id" : Meteor.user().profile.image}));
     return Images.findOne({
       "_id": Meteor.user().profile.image
     }); // Where Images is an FS.Collection instance
