@@ -8,6 +8,8 @@ Template.manageUsers.helpers({
 Template.userEntry.rendered = function() {
   $('.ui.dropdown')
     .dropdown();
+
+  Meteor.subscribe("users", Meteor.userId());
 };
 
 Template.userEntry.helpers({
