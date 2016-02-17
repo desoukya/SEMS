@@ -1,3 +1,9 @@
+Template.profile.helpers({
+  email: function() {
+    return Meteor.user().emails[0].address;
+  }
+});
+
 Template.profile.events({
   'change.myFileInput': function(event, template) {
     FS.Utility.eachFile(event, function(file) {
@@ -14,7 +20,6 @@ Template.profile.events({
           var imagesURL = {
             "profile.image": "" + fileObj._id
           };
-          console.log(imagesURL);
           Meteor.users.update(userId, {
             $set: imagesURL
           });
@@ -27,9 +32,8 @@ Template.profile.events({
 
 Template.imageShow.helpers({
   image: function() {
-    //console.log(Images.findOne({"_id" : Meteor.user().profile.image}));
     return Images.findOne({
       "_id": Meteor.user().profile.image
     }); // Where Images is an FS.Collection instance
-  }
+  },
 });

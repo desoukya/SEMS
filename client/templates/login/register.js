@@ -1,28 +1,24 @@
 var debug = function(event, text) {
   event.preventDefault();
   console.log(text);
-
 }
+
 Template.register.events({
   "submit form": function(event) {
-    debug(event, "submit2");
+
+    event.preventDefault();
+
     var firstName = event.target.firstname.value;
     var lastName = event.target.lastname.value;
     var email = event.target.email.value;
     var password = event.target.pass.value;
-    Accounts.createUser({
-      email: email,
-      password: password,
-      profile: {
-        firstName: firstName,
-        lastName: lastName
-      }
-    }, function(err) {
-      if (err)
-        console.log(password + " " + email + " " + err);
-      else
-        Router.go('/');
-    })
+
+    Meteor.call("registerUser", email, password, firstName, lastName, function() {
+
+      Router.go('/');
+
+    });
+
   },
 });
 

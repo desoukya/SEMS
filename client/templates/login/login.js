@@ -1,25 +1,26 @@
-var debug = function(ev, text) {
-  ev.preventDefault();
+var debug = function(event, text) {
+  event.preventDefault();
   console.log(text);
 }
 
 Template.login.events({
-  "submit .form": function(ev) {
-    debug(ev, "submit2");
-    var email = ev.target.email.value;
-    var password = ev.target.password.value;
+  "submit .form": function(event) {
+    event.preventDefault();
+
+    var email = event.target.email.value;
+    var password = event.target.password.value;
+
     Meteor.loginWithPassword({
       email: email
     }, password, function(err) {
       if (err)
-        console.log(email + " " + password + " " + err);
+        console.log(err);
       else {
-        console.log("welcome " + email);
-        console.log(Meteor.userId() && Meteor.user() && Meteor.user().profile.image);
         Router.go('/');
       }
-    })
-  }
+    });
+  },
+
 });
 
 Template.login.rendered = function() {

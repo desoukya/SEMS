@@ -1,0 +1,58 @@
+<template name="manageUsers">
+
+  <div class="ui container grid">
+    <div class="row">
+      <div class="ui column">
+        <h1 class="ui header text centered">Manage Users</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="ui sixteen wide column">
+        <table class="ui celled padded table">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {{#each users}}
+              {{> userEntry}}
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+</template>
+
+<template name="userEntry">
+  <tr>
+
+    <td>
+      <h4 class="ui header">
+        <div class="content">
+          {{username}}
+        </div>
+      </h4>
+    </td>
+
+    <td>
+      <div class="ui selection dropdown">
+        <input type="hidden" name="role">
+        <i class="dropdown icon"></i>
+        <div class="default text">{{role}}</div>
+        <div class="menu">
+          <div class="item" data-value="admin">Admin</div>
+          <div class="item" data-value="lecturer">Lecturer</div>
+          <div class="item" data-value="teaching-assistant">TA</div>
+          <div class="item" data-value="user">User</div>
+        </div>
+      </div>
+    </td>
+  </tr>
+</template>
