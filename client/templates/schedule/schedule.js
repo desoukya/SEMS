@@ -1,8 +1,7 @@
 Template.schedule.events({
   'change .myFileInput': function(event, template) {
-    console.log("something happened");
-    /*FS.Utility.eachFile(event, function(file) {
-      Images.insert(file, function(err, fileObj) {
+    FS.Utility.eachFile(event, function(file) {
+      Materials.insert(file, function(err, fileObj) {
         if (err) {
           console.log(err);
           // handle error
@@ -18,7 +17,7 @@ Template.schedule.events({
           });
         }
       });
-    });*/
+    });
   },
 
 });

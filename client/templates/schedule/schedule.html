@@ -1,7 +1,45 @@
 <template name="schedule">
-	<div>
-		<label for="file" class="ui icon button">
-		<i class="file icon"></i>Upload Material</label>
-		<input type="file" id="file" class="ui centered myFileInput" style="display:none">
+	<div class="ui stackable container grid">
+		<div class="eight wide centered column">
+			<div class="ui form segment">
+				<div class="required field">
+					<label>name</label>
+					<input placeholder="lecture 1" name="name" type="text">
+				</div>
+				
+				<div class="two fields">
+					<div class="required field">
+						<label>type</label>
+						<select class="ui fluid search dropdown" name="type">
+							<option value="1">Lecture</option>
+							<option value="2">Tutorial</option>
+							<option value="3">practice Assignment</option>
+						</select>
+					</div>
+					<div class="required field">
+						<label>week</label>
+						<select class="ui fluid search dropdown" name="week">
+							<option value="1">Week 1</option>
+							<option value="2">week 2</option>
+							<option value="3">week 3</option>
+							<option value="3">week 4</option>
+						</select>
+					</div>
+				</div>
+				<div class="required field">
+					<label>Email Address</label>
+					<input placeholder="email@example.com" name="email" type="text">
+				</div>
+				<div class="field">
+					<label>description</label>
+					<textarea name = "description"></textarea>
+				</div>
+				<div>
+					<label for="file" class="ui icon button">
+					<i class="file icon"></i>Upload Material</label>
+					<input type="file" id="file" class="ui centered myFileInput" style="display:none">
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
