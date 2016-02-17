@@ -5,6 +5,9 @@ var debug = function(event, text) {
 
 Template.register.events({
   "submit form": function(event) {
+
+    event.preventDefault();
+
     var firstName = event.target.firstname.value;
     var lastName = event.target.lastname.value;
     var email = event.target.email.value;

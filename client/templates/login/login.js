@@ -1,12 +1,15 @@
-var debug = function(ev, text) {
-  ev.preventDefault();
+var debug = function(event, text) {
+  event.preventDefault();
   console.log(text);
 }
 
 Template.login.events({
-  "submit .form": function(ev) {
-    var email = ev.target.email.value;
-    var password = ev.target.password.value;
+  "submit .form": function(event) {
+    event.preventDefault();
+
+    var email = event.target.email.value;
+    var password = event.target.password.value;
+
     Meteor.loginWithPassword({
       email: email
     }, password, function(err) {
@@ -15,8 +18,9 @@ Template.login.events({
       else {
         Router.go('/');
       }
-    })
-  }
+    });
+  },
+
 });
 
 Template.login.rendered = function() {
