@@ -1,40 +1,119 @@
-<template name="schedule">
+<template name = "schedule">
 	<div class="ui stackable container grid">
-		<div class="eight wide centered column">
-			<div class="ui form segment">
-				<div class="required field">
-					<label>title</label>
-					<input placeholder="lecture 1" name="title" type="text">
-				</div>
+		<div class="ten wide centered column">
+			<h1 class="centered text header">Schedule</h1>
+			<div class="ui row">
 				
-				<div class="two fields">
-					<div class="required field">
-						<label>type</label>
-						<select class="ui fluid search dropdown" name="type">
-							<option value="lecture">Lecture</option>
-							<option value="tutorial">Tutorial</option>
-							<option value="practiceAssignment">Practice Assignment</option>
-						</select>
-					</div>
-					<div class="required field">
-						<label>week</label>
-						<select class="ui fluid search dropdown" name="week">
-							<option value="Week1">Week 1</option>
-							<option value="week2">week 2</option>
-							<option value="week3">week 3</option>
-							<option value="week4">week 4</option>
-						</select>
-					</div>
-				</div>
-				<div class="field">
-					<label>description</label>
-					<textarea name = "description"></textarea>
-				</div>
-				<div>
-					<label for="file" class="ui icon button">
-					<i class="file icon"></i>Upload Material</label>
-					<input type="file" id="file" class="ui centered myFileInput" style="display:none">
-				</div>
+				<table class="ui very basic table">
+					<h2>Week 1</h2>
+					<div class="ui divider"></div>
+					<tbody>
+						<tr>
+							<td>
+								<h4 class="ui image header">
+								<i class="pdf file outline red icon"></i>
+								<div class="content">
+									Working Files - Download These First
+									<div class="sub header">
+										<i class= "grey calendar outline icon"></i>
+										21-Feb-2016
+									</div>
+								</div>
+							</h4></td>
+							<td>
+								Lecture
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h4 class="ui image header">
+								<i class="powerpoint file outline red icon"></i>
+								<div class="content">
+									Matthew
+									<div class="sub header">
+										<i class= "grey calendar outline icon"></i>
+										21-Feb-2016
+									</div>
+								</div>
+							</h4></td>
+							<td>
+								Slides
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h4 class="ui image header">
+								<i class="powerpoint file outline red icon"></i>
+								<div class="content">
+									Lindsay
+									<div class="sub header">
+										<i class= "grey calendar outline icon"></i>
+										21-Feb-2016
+									</div>
+								</div>
+							</h4></td>
+							<td>
+								Slides
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h4 class="ui image header">
+								<i class="pdf file outline red icon"></i>
+								<div class="content">
+									Mark
+									<div class="sub header">
+										<i class= "grey calendar outline icon"></i>
+										21-Feb-2016
+									</div>
+								</div>
+							</h4></td>
+							<td>
+								Lecture
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="ui row">
+				<table class="ui very basic  table">
+					<h2>Week 2</h2>
+					<div class="ui divider"></div>
+					<tbody>
+						<tr>
+							<td>
+								<h4 class="ui image header">
+								<i class="pdf file outline red icon"></i>
+								<div class="content">
+									Working Files - Download These First
+									<div class="sub header">
+										<i class= "grey calendar outline icon"></i>
+										21-Feb-2016
+									</div>
+								</div>
+							</h4></td>
+							<td>
+								Lecture
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h4 class="ui image header">
+								<i class="pdf file outline red icon"></i>
+								<div class="content">
+									Matthew
+									<div class="sub header">
+										<i class= "grey calendar outline icon"></i>
+										21-Feb-2016
+									</div>
+								</div>
+							</h4></td>
+							<td>
+								Lecture
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
