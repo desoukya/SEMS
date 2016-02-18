@@ -51,6 +51,14 @@ footer {
   color: grey;
   font-size: 12px;
   padding-left: 15px;
+  display: inline;
+}
+
+.type.meta {
+  color: grey;
+  font-size: 12px;
+  padding-left: 20px;
+  display: inline;
 }
 
 .schedule {
