@@ -1,19 +1,19 @@
 var allMaterials = [{
-  title: "lecture 1",
+  title: "Lecture 1",
   link: "https://docs.google.com/presentation/d/1eAEpBXXCG2iOu53wt23iWMqQIGYpGxrThRJiesskTdk/edit?usp=sharing",
   type: "Lecture",
   week: 1,
   date: "18-Feb-2016",
   description: "no description"
 }, {
-  title: "lecture 2",
+  title: "Lecture 2",
   link: "https://docs.google.com/presentation/d/1esCOJhl5xFaV_IaQ4PHNjUa2e8oI0551DRP-_RUGe6Q/edit?usp=sharing",
   type: "Lecture",
   week: 2,
   date: "18-Feb-2016",
   description: "no description"
 }, {
-  title: "lecture 3",
+  title: "Lecture 3",
   link: "https://docs.google.com/presentation/d/1PB05Hfx27uoJaw5jmnazSqz0ms6LSv0TbdHOP8bR6oY/edit?usp=sharing",
   type: "Lecture",
   week: 3,
@@ -27,7 +27,7 @@ var allMaterials = [{
   date: "18-Feb-2016",
   description: "no description"
 }, {
-  title: "lecture 4",
+  title: "Lecture 4",
   link: "https://docs.google.com/presentation/d/1EuQzSHFkOyLIAxvddQNfNcFYW50ZQhnDZlk_gtfWi3E/edit?usp=sharing",
   type: "Lecture",
   week: 4,
