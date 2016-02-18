@@ -20,12 +20,15 @@ Template.manageUsers.events({
 });
 
 
-Template.userEntry.rendered = function() {
-  $('.ui.dropdown')
-    .dropdown();
+// -----------User Entry Template-----------
 
-  Meteor.subscribe("users", Meteor.userId());
-};
+Template.userEntry.onRendered(function() {
+  Meteor.subscribe("users", Meteor.userId(), function() {
+    $('.ui.dropdown')
+      .dropdown();
+  });
+
+});
 
 Template.userEntry.events({
   "change .ui.selection.dropdown": function(event, template) {
@@ -56,8 +59,7 @@ Template.userEntry.helpers({
 
   role: function() {
     // Enforcing one role for user for current setup
-    var user = Meteor.users.findOne(this._id);
-    return Roles.getRolesForUser(user)[0];
+    return getRole(this._id);
   },
 
 });
