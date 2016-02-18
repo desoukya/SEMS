@@ -7,7 +7,7 @@ Template.scheduleEditor.events({
           // handle error
         } else {
           // handle success depending what you need to do
-          
+
           //TODO : should we add user data id
           var material = {
             fileId: fileObj._id,
@@ -20,16 +20,13 @@ Template.scheduleEditor.events({
           console.log(material);
           //TODO : should be replaced with meteor method
           Materials.insert(material, function(error, result) {
-            if(error)
-            {
+            if (error) {
               console.log(error.invalidKeys)
-            }
-            else
+            } else
               console.log(result);
           });
         }
       });
     });
   },
-
 });

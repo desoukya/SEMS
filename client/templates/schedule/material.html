@@ -1,20 +1,23 @@
 <template name="material">
-  <tr>
-    <td>
-      <h4 class="ui image header">
-        <i class="pdf file outline red icon"></i>
-        <div class="content">
-          <a target="_blank" href={{link}}>{{title}}</a>
-
-          <div class="sub header">
-            <i class="grey calendar outline icon"></i>
-            {{date}}
-          </div>
-        </div>
-      </h4>
-    </td>
-    <td>
-      {{type}}
-    </td>
-  </tr>
+	<tr>
+		<td>
+			<h4 class="ui image header">
+			{{#if equals type 'Lecture'}}
+			<i class="pdf file outline red icon"></i>
+			{{else}}
+			<i class="text file outline red icon"></i>
+			{{/if}}
+			<div class="content">
+				<a target="_blank" href={{link}}>{{title}}</a>
+				<div class="sub header">
+					<i class="grey calendar outline icon"></i>
+					{{date}}
+				</div>
+			</div>
+			</h4>
+		</td>
+		<td>
+			{{type}}
+		</td>
+	</tr>
 </template>
