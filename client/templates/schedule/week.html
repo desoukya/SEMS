@@ -1,0 +1,13 @@
+<template name = "week">
+	<div class="ui row">
+		<table class="ui very basic table">
+			<h2>Week {{number}}</h2>
+			<div class="ui divider"></div>
+			<tbody>
+				{{#each materialsOfWeek number}}
+				{{> material}}
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+</template>
