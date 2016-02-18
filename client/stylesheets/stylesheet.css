@@ -42,3 +42,7 @@ footer {
   color: inherit;
   text-decoration: none;
 }
+
+.week.wrapper {
+  margin-bottom: 80px;
+}
