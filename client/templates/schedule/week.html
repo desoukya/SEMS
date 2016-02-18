@@ -2,23 +2,20 @@
   <!-- Week -->
   <div class="week wrapper">
     <div class="ui row">
-
       <!-- Week Header -->
       <h2 class="header">Week
-        {{number}}</h2>
+      {{number}}</h2>
       <div class="ui divider"></div>
       <!-- /Week Header -->
-
       <!-- Week Content Table -->
       <table class="ui very basic unstackable table">
         <tbody>
           {{#each materialsOfWeek number}}
-            {{> material}}
+          {{> material}}
           {{/each}}
         </tbody>
       </table>
       <!-- /Week Content Table -->
-
     </div>
   </div>
   <!-- /Week -->
