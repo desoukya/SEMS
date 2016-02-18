@@ -46,3 +46,9 @@ footer {
 .week.wrapper {
   margin-bottom: 80px;
 }
+
+.date.meta {
+  color: grey;
+  font-size: 12px;
+  padding-left: 15px;
+}
