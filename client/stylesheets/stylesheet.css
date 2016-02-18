@@ -42,3 +42,12 @@ footer {
   color: inherit;
   text-decoration: none;
 }
+
+.full.screen {
+  width: 100vw;
+  height: 88vh;
+}
+
+.huge.text {
+  font-size: 4em;
+}
