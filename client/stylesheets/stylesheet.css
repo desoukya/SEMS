@@ -71,6 +71,14 @@ footer {
   height: 88vh;
 }
 
+.big.text {
+  font-size: 3em;
+}
+
 .huge.text {
+  font-size: 3.5em;
+}
+
+.massive.text {
   font-size: 4em;
 }

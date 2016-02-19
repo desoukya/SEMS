@@ -8,7 +8,7 @@
               {{#if equals type 'Lecture'}}
                 <i class="pdf file outline red icon"></i>
               {{else}}
-                <i class="text file outline red icon"></i>
+                <i class="text file outline green icon"></i>
               {{/if}}
 
               <a target="_blank" href={{link}}>{{title}}</a>
@@ -16,13 +16,11 @@
           </div>
           <div class="meta">
             <div class="date meta">
-              <i class="grey calendar outline icon"></i>
-              {{date}}
+              <i class="grey calendar outline icon"></i> {{date}}
             </div>
 
             <div class="type meta">
-              <i class="grey file icon"></i>
-              {{type}}
+              <i class="grey file icon"></i> {{type}}
             </div>
 
           </div>
