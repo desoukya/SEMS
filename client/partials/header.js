@@ -4,8 +4,13 @@ Template.header.events({
     Router.go('home');
   },
 
-  "click .item": function(event, template) {
-    $(".item").removeClass("active");
-    $(event.target).addClass("active");
-  }
+});
+
+Template.header.helpers({
+  isActive: function(route) {
+    if (checkCurrentRoute(route)) {
+      return "active";
+    }
+    return "";
+  },
 });
