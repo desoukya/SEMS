@@ -26,3 +26,4 @@ cfs:standard-packages
 cfs:filesystem
 alanning:roles
 aldeed:collection2
+reactive-var
