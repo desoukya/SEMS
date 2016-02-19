@@ -1,7 +1,7 @@
 <template name="scheduleEditor">
 	<div class="ui stackable container grid">
 		<div class="eight wide centered column">
-			<div class="ui form segment">
+			<form id= "uploadMaterial" class="ui form segment">
 				<div class="fields">
 					<div class="four wide field">
 						<div class="ui toggle checkbox">
@@ -10,19 +10,21 @@
 						</div>
 					</div>
 					<div class="twelve wide required inline required field myFileInput">
-						{{#if equals materialType 'link'}}
+						{{#if equals materialType 'file'}}
+						<script type="text/javascript">console.log("file");</script>
 						<input type="file" id="upload" class="ui centered " style="display:none">
 						<div class="ui fluid icon input">
 							<div class="ui disabled input">
-								<input placeholder="fileName" id="fileName" type="text">
+								<input placeholder="fileName" name = "identifier" id="fileName" type="text">
 							</div>
 							<div id = "divUpload" class="ui teal right labeled icon button">
 								<i class="file icon"></i>Upload
 							</div>
 						</div>
 						{{else}}
+						<script type="text/javascript">console.log("link");</script>
 						<div class="ui fluid input">
-							<input placeholder="http://google.com" name="link" id ="link"  type="text">
+							<input placeholder="http://google.com" name = "identifier" type="text">
 						</div>
 						{{/if}}
 					</div>
@@ -35,6 +37,7 @@
 					<div class="required field">
 						<label>content</label>
 						<select class="ui fluid search dropdown" name="content" id ="content" >
+							<option value="">Content</option>
 							<option value="lecture">Lecture</option>
 							<option value="tutorial">Tutorial</option>
 							<option value="practiceAssignment">Practice Assignment</option>
@@ -43,6 +46,7 @@
 					<div class="required field">
 						<label>week</label>
 						<select class="ui fluid search dropdown" name="week" id ="week" >
+							<option value="">Week</option>
 							<option value="Week1">Week 1</option>
 							<option value="week2">week 2</option>
 							<option value="week3">week 3</option>
@@ -54,10 +58,9 @@
 					<label>description</label>
 					<textarea name= "description" id = "description" ></textarea>
 				</div>
-				<div class="ui center aligned">
-					<input id="submit" class= "ui large teal submit  button" value="Login" type="submit">
-				</div>
-			</div>
+				<input id="login" class= "ui large teal submit button" value="Login" type="submit">
+				<div class="ui error message"></div>
+			</form>
 		</div>
 	</div>
 </template>

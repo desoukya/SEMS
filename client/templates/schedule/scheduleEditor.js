@@ -4,16 +4,15 @@ Template.scheduleEditor.created = function() {
   //TODO .. change material type from string to enum .
   this.materialType = new ReactiveVar("link");
   this.materialType.set("link");
-  
+
   this.materialID = new ReactiveVar("2");
   this.materialID.set("2");
 
 };
 Template.scheduleEditor.rendered = function() {
+  console.log("rendered");
   Meteor.subscribe("files");
-  $("#divUpload").on("click", function() {
-    $('#upload').trigger('click');
-  });
+  addBehaviours();
 };
 Template.scheduleEditor.helpers({
   materialType: function() {
@@ -31,7 +30,7 @@ Template.scheduleEditor.events({
           console.log(err);
           // handle error
         } else {
-         
+
           // handle success depending what you need to do
           //TODO : should we add user data id
           /*console.log(fileObj._id);
@@ -42,7 +41,6 @@ Template.scheduleEditor.events({
           $('#fileName').val(fileObj.original.name);
           template.materialID.set(fileObj._id);
           console.log(template.materialID.get());
-
           //TODO : should be replaced with meteor method
           /*Materials.insert(material, function(error, result) {
           if (error) {
@@ -59,8 +57,12 @@ Template.scheduleEditor.events({
       Template.instance().materialType.set("file");
     else
       Template.instance().materialType.set("link");
+    Meteor.defer(function(){
+      addBehaviours();
+    });
   },
-  "click #submit": function(event) {
+  "submit #uploadMaterial": function(event) {
+    event.preventDefault();
     var material = {
       fileId: Template.instance().materialID.get(),
       title: $('#title').val(),
@@ -72,3 +74,46 @@ Template.scheduleEditor.events({
     console.log(material);
   }
 });
+
+function addBehaviours() {
+  //TODO : refactor this 
+  console.log("reload behaviour");
+  $("#divUpload").on("click", function() {
+    $('#upload').trigger('click');
+  });
+  $('.ui.dropdown')
+    .dropdown();
+  $('.ui.form').form('destroy');
+  $('.ui.form').form({
+    fields: {
+      title: {
+        identifier: 'title',
+        rules: [{
+          type: 'empty',
+          prompt: 'Please enter the file title'
+        }]
+      },
+      week: {
+        identifier: 'week',
+        rules: [{
+          type: 'empty',
+          prompt: 'Please select a week'
+        }]
+      },
+      content: {
+        identifier: 'content',
+        rules: [{
+          type: 'empty',
+          prompt: 'Please select the file content'
+        }]
+      },
+      fileIdentifier: {
+        identifier: 'identifier',
+        rules: [{
+          type: 'empty',
+          prompt: 'Please upload either a file or a link'
+        }]
+      },
+    }
+  });
+}
