@@ -1,15 +1,17 @@
 <template name="manageUsers">
-
+  <!-- Header -->
   <div class="ui container grid">
     <div class="row">
       <div class="ui column">
         <h1 class="ui header text centered">Manage Users</h1>
       </div>
     </div>
+    <!-- /Header -->
 
+    <!-- Users Table -->
     <div class="row">
       <div class="ui sixteen wide column">
-        <table class="ui celled padded table">
+        <table class="ui celled padded unstackable table">
           <thead>
             <tr>
               <th>User</th>
@@ -22,9 +24,22 @@
               {{> userEntry}}
             {{/each}}
           </tbody>
+
+          <!-- Update Button -->
+          <tfoot>
+            <tr>
+              <th colspan="2">
+                <div class="ui right floated small primary labeled icon button" id="update-users-button">
+                  <i class="save icon"></i>Update</div>
+              </th>
+            </tr>
+          </tfoot>
+          <!-- /Update Button -->
+
         </table>
       </div>
     </div>
+    <!-- /Users Table -->
 
   </div>
 
@@ -42,7 +57,7 @@
     </td>
 
     <td>
-      <div class="ui selection dropdown">
+      <div class="ui selection dropdown" id={{_id}}>
         <input type="hidden" name="role">
         <i class="dropdown icon"></i>
         <div class="default text">{{role}}</div>
@@ -54,5 +69,6 @@
         </div>
       </div>
     </td>
+
   </tr>
 </template>

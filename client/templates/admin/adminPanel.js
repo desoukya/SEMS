@@ -1,5 +1,5 @@
 Template.adminPanel.rendered = function() {
-  $(".ui.selectable.segment").hover(function() {
+  $(".ui.selectable.card").hover(function() {
     // Hover in then activate color
     $(this).addClass("green");
   }, function() {
@@ -10,7 +10,7 @@ Template.adminPanel.rendered = function() {
 
 Template.adminPanel.events({
   "click .ui.segment.selectable": function(event, template) {
-    
+
   },
 
 });
