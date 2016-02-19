@@ -1,17 +1,20 @@
 <template name="scheduleEditor">
 	<div class="ui stackable container grid">
 		<div class="eight wide centered column">
-			<form id= "uploadMaterial" class="ui form segment">
+			<form id= "uploadMaterialForm" class="ui form segment">
+				<div class="ui success message">
+					<div class="header">Thank you </div>
+					<p>you are file is now uploaded</p>
+				</div>
 				<div class="fields">
 					<div class="four wide field">
 						<div class="ui toggle checkbox">
-							<input id = materialType name="public" class="materialType" type="checkbox">
+							<input id = "materialType" name="public" type="checkbox">
 							<label>{{materialType}}</label>
 						</div>
 					</div>
 					<div class="twelve wide required inline required field myFileInput">
 						{{#if equals materialType 'file'}}
-						<script type="text/javascript">console.log("file");</script>
 						<input type="file" id="upload" class="ui centered " style="display:none">
 						<div class="ui fluid icon input">
 							<div class="ui disabled input">
@@ -22,9 +25,8 @@
 							</div>
 						</div>
 						{{else}}
-						<script type="text/javascript">console.log("link");</script>
 						<div class="ui fluid input">
-							<input placeholder="http://google.com" name = "identifier" type="text">
+							<input placeholder="http://google.com" name = "identifier" id ="link" t ype="text">
 						</div>
 						{{/if}}
 					</div>
@@ -47,7 +49,7 @@
 						<label>week</label>
 						<select class="ui fluid search dropdown" name="week" id ="week" >
 							<option value="">Week</option>
-							<option value="Week1">Week 1</option>
+							<option value="week1">Week 1</option>
 							<option value="week2">week 2</option>
 							<option value="week3">week 3</option>
 							<option value="week4">week 4</option>
@@ -58,7 +60,7 @@
 					<label>description</label>
 					<textarea name= "description" id = "description" ></textarea>
 				</div>
-				<input id="login" class= "ui large teal submit button" value="Login" type="submit">
+				<div class="ui large teal submit button">Submit</div>
 				<div class="ui error message"></div>
 			</form>
 		</div>
