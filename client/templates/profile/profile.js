@@ -1,3 +1,8 @@
+Template.profile.rendered = function() {
+  Meteor.subscribe("images");
+  Meteor.subscribe("files");
+};
+
 Template.profile.helpers({
   email: function() {
     return Meteor.user().emails[0].address;
@@ -5,10 +10,8 @@ Template.profile.helpers({
 });
 
 Template.profile.events({
-  'change.myFileInput': function(event, template) {
+  'change .myFileInput': function(event, template) {
     FS.Utility.eachFile(event, function(file) {
-      console.log("file = "+ file);
-      file.likes = 3;
       Images.insert(file, function(err, fileObj) {
         if (err) {
           console.log(err);

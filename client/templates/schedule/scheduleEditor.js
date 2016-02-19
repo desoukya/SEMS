@@ -1,17 +1,28 @@
 Template.scheduleEditor.created = function() {
   //used reactive var instead of session to not overcroud the session
   //used string type instead of boolean for it to be more readable
-  //TODO .. change material type from string to enum . 
-
+  //TODO .. change material type from string to enum .
   this.materialType = new ReactiveVar("link");
   this.materialType.set("link");
+  
+  this.materialID = new ReactiveVar("2");
+  this.materialID.set("2");
+
+};
+Template.scheduleEditor.rendered = function() {
+  Meteor.subscribe("files");
+  $("#divUpload").on("click", function() {
+    $('#upload').trigger('click');
+  });
 };
 Template.scheduleEditor.helpers({
   materialType: function() {
     return Template.instance().materialType.get();
+  },
+  materialID: function() {
+    return Template.instance().materialID.get();
   }
 });
-
 Template.scheduleEditor.events({
   'change .myFileInput': function(event, template) {
     FS.Utility.eachFile(event, function(file) {
@@ -20,24 +31,25 @@ Template.scheduleEditor.events({
           console.log(err);
           // handle error
         } else {
+         
           // handle success depending what you need to do
           //TODO : should we add user data id
-          var material = {
-            fileId: fileObj._id,
-            title: event.target.title.value,
-            type: event.target.type.value,
-            week: event.target.week.value,
-            description: event.target.description.value,
-            createdAt: new Date() // current time
-          };
-          console.log(material);
+          /*console.log(fileObj._id);
+          console.log(fileObj.original);
+          console.log(fileObj.original.name);
+          console.log(event.target);
+          console.log($('#fileName'));*/
+          $('#fileName').val(fileObj.original.name);
+          template.materialID.set(fileObj._id);
+          console.log(template.materialID.get());
+
           //TODO : should be replaced with meteor method
-          Materials.insert(material, function(error, result) {
-            if (error) {
-              console.log(error.invalidKeys)
-            } else
-              console.log(result);
-          });
+          /*Materials.insert(material, function(error, result) {
+          if (error) {
+          console.log(error.invalidKeys)
+          } else
+          console.log(result);
+          });*/
         }
       });
     });
@@ -47,5 +59,16 @@ Template.scheduleEditor.events({
       Template.instance().materialType.set("file");
     else
       Template.instance().materialType.set("link");
+  },
+  "click #submit": function(event) {
+    var material = {
+      fileId: Template.instance().materialID.get(),
+      title: $('#title').val(),
+      type: $('#type').val(),
+      week: $('#week').val(),
+      description: $('#description').val(),
+      createdAt: new Date() // current time
+    };
+    console.log(material);
   }
 });
