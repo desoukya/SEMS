@@ -2,11 +2,32 @@
 	<div class="ui stackable container grid">
 		<div class="eight wide centered column">
 			<div class="ui form segment">
+				<div class="fields">
+					<div class="four wide field">
+						<div class="ui toggle checkbox">
+							<input name="public" class="materialType" type="checkbox">
+							<label>{{materialType}}</label>
+						</div>
+					</div>
+					<div class="twelve wide required inline field">
+						{{#if equals materialType 'link'}}
+						<div class="ui left action button">
+							<label for="file" class="ui icon button">
+							<i class="file icon"></i>Upload Material</label>
+							<input type="file" id="file" class="ui centered myFileInput" style="display:none">
+							<div class="ui disabled input">
+								<input placeholder="file name" type="text">
+							</div>
+						</div>
+						{{else}}
+						<input placeholder="http://google.com" name="link" type="text">
+						{{/if}}
+					</div>
+				</div>
 				<div class="required field">
 					<label>title</label>
 					<input placeholder="lecture 1" name="title" type="text">
 				</div>
-				
 				<div class="two fields">
 					<div class="required field">
 						<label>type</label>
@@ -30,11 +51,7 @@
 					<label>description</label>
 					<textarea name = "description"></textarea>
 				</div>
-				<div>
-					<label for="file" class="ui icon button">
-					<i class="file icon"></i>Upload Material</label>
-					<input type="file" id="file" class="ui centered myFileInput" style="display:none">
-				</div>
+				
 			</div>
 		</div>
 	</div>

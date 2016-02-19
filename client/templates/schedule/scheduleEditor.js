@@ -1,3 +1,17 @@
+Template.scheduleEditor.created = function() {
+  //used reactive var instead of session to not overcroud the session
+  //used string type instead of boolean for it to be more readable
+  //TODO .. change material type from string to enum . 
+
+  this.materialType = new ReactiveVar("link");
+  this.materialType.set("link");
+};
+Template.scheduleEditor.helpers({
+  materialType: function() {
+    return Template.instance().materialType.get();
+  }
+});
+
 Template.scheduleEditor.events({
   'change .myFileInput': function(event, template) {
     FS.Utility.eachFile(event, function(file) {
@@ -7,7 +21,6 @@ Template.scheduleEditor.events({
           // handle error
         } else {
           // handle success depending what you need to do
-
           //TODO : should we add user data id
           var material = {
             fileId: fileObj._id,
@@ -29,4 +42,10 @@ Template.scheduleEditor.events({
       });
     });
   },
+  "change .materialType": function(event) {
+    if (Template.instance().materialType.get() === "link")
+      Template.instance().materialType.set("file");
+    else
+      Template.instance().materialType.set("link");
+  }
 });
