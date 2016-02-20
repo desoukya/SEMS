@@ -1,6 +1,5 @@
 Template.profile.rendered = function() {
   Meteor.subscribe("images");
-  Meteor.subscribe("files");
 };
 
 Template.profile.helpers({

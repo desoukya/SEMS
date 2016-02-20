@@ -7,10 +7,15 @@ Meteor.publish("users", function(id) {
     }
   }
 });
+
 Meteor.publish("images", function() {
-    return Images.find({});
+  return Images.find({});
 });
 
 Meteor.publish("files", function() {
-    return Files.find({});
+  return Files.find({});
+});
+
+Meteor.publish("materials", function() {
+  return Materials.find({});
 });

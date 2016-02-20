@@ -9,10 +9,12 @@ Template.scheduleEditor.created = function() {
   this.materialID.set("");
 
 };
+
 Template.scheduleEditor.rendered = function() {
   Meteor.subscribe("files");
   addBehaviours();
 };
+
 Template.scheduleEditor.helpers({
   materialType: function() {
     return Template.instance().materialType.get();
@@ -21,6 +23,7 @@ Template.scheduleEditor.helpers({
     return Template.instance().materialID.get();
   }
 });
+
 Template.scheduleEditor.events({
   'change .myFileInput': function(event, template) {
     FS.Utility.eachFile(event, function(file) {
@@ -49,16 +52,14 @@ Template.scheduleEditor.events({
     var type = $('#materialType').prop("checked");
     var identifier = undefined;
     //true is for upload
-    if(type === true)
-    {
+    if (type === true) {
       identifier = Template.instance().materialID.get()
-    }
-    else if(type === false)
+    } else if (type === false)
       identifier = $('#link').val();
 
     var material = {
       identifier: identifier,
-      type: type?'file':'link',
+      type: type ? 'file' : 'link',
       title: $('#title').val(),
       content: $('#content').val(),
       week: $('#week').val(),
@@ -69,10 +70,9 @@ Template.scheduleEditor.events({
     Materials.insert(material, function(err, data) {
       if (err)
         console.log('error: ' + err);
-      else
-      {
+      else {
         $('.ui.form').form('clear');
-        $('uploadMaterialForm').addClass( "selected" );
+        $('uploadMaterialForm').addClass("selected");
         console.log("the material has been uploaded");
       }
     });
