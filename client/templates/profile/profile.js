@@ -16,7 +16,7 @@ Template.profile.events({
           console.log(err);
           // handle error
         } else {
-          console.log("fileObj = "+ fileObj[0]);
+          console.log("fileObj = " + fileObj[0]);
           // handle success depending what you need to do
           var userId = Meteor.userId();
           var imagesURL = {
