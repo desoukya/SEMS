@@ -9,8 +9,15 @@ Meteor.methods({
       },
     });
 
-    // Default Role, should be added after a successful creation
-    Roles.addUsersToRoles(userId, USER);
+    if (userId) {
+      // Default Role, should be added after a successful creation
+      Roles.addUsersToRoles(userId, USER);
+
+      Accounts.sendVerificationEmail(userId);
+
+
+    }
+
   },
 
 });
