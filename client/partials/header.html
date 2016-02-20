@@ -1,15 +1,15 @@
 <template name="header">
   <div class="ui large top hidden menu">
     <div class="ui container">
-      <a class="active item " href="{{pathFor 'home'}}">Home</a>
+      <a class="item {{isActive 'home'}}" href="{{pathFor 'home'}}">Home</a>
       {{#if currentUser}}
-        <a class="item" href="{{pathFor 'profile'}}">Profile</a>
+        <a class="item {{isActive 'user.profile'}}" href="{{pathFor 'user.profile'}}">Profile</a>
       {{/if}}
 
       {{#if isInRole "admin"}}
-        <a href="{{pathFor 'admin.panel'}}" class="item">Admin</a>
+        <a href="{{pathFor 'admin.panel'}}" class="item {{isActive 'admin.panel'}}">Admin</a>
       {{/if}}
-      <a class="item" href="{{pathFor 'schedule'}}">Schedule</a>
+      <a class="item {{isActive 'schedule'}}" href="{{pathFor 'schedule'}}">Schedule</a>
 
       <div class="right menu">
         {{#if currentUser}}

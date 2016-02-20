@@ -4,13 +4,56 @@ Template.manageUsers.helpers({
   }
 });
 
+Template.manageUsers.events({
+  "click #update-users-button": function(event, template) {
+    var pairs = Session.get("toBeUpdatedRoles");
 
-Template.userEntry.rendered = function() {
-  $('.ui.dropdown')
-    .dropdown();
+    for (var id in pairs) {
+      if (pairs.hasOwnProperty(id)) {
+        Meteor.call("updateRole", id, pairs[id]);
+      }
+    }
 
-  Meteor.subscribe("users", Meteor.userId());
-};
+    Session.set("toBeUpdatedRoles", undefined);
+  },
+
+});
+
+
+// -----------User Entry Template-----------
+
+Template.userEntry.onRendered(function() {
+  var self = this;
+  Meteor.subscribe("users", Meteor.userId(), function() {
+    // dropdowns are having user ids as ids !
+    var selector = "#" + self.data._id;
+
+    // Initialize dropdowns with current role as selected
+    $(selector)
+      .dropdown('set selected', self.data.roles[0]);
+  });
+
+});
+
+Template.userEntry.events({
+  "change .ui.selection.dropdown": function(event, template) {
+    var id = template.find(".ui.selection.dropdown").id;
+    var role = template.find("input[name=role]").value;
+
+    var roles = Session.get("toBeUpdatedRoles");
+    if (!roles) {
+      roles = {};
+    }
+
+    roles[id] = role;
+
+    Session.set("toBeUpdatedRoles", roles);
+
+  },
+
+
+
+});
 
 Template.userEntry.helpers({
   username: function() {
@@ -21,8 +64,7 @@ Template.userEntry.helpers({
 
   role: function() {
     // Enforcing one role for user for current setup
-    var user = Meteor.users.findOne(this._id);
-    return Roles.getRolesForUser(user)[0];
+    return getRole(this._id);
   },
 
 });
