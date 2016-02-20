@@ -43,11 +43,42 @@ footer {
   text-decoration: none;
 }
 
+.week.wrapper {
+  margin-bottom: 80px;
+}
+
+.date.meta {
+  color: grey;
+  font-size: 12px;
+  padding-left: 15px;
+  display: inline;
+}
+
+.type.meta {
+  color: grey;
+  font-size: 12px;
+  padding-left: 20px;
+  display: inline;
+}
+
+.schedule {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
 .full.screen {
   width: 100vw;
   height: 88vh;
 }
 
+.big.text {
+  font-size: 3em;
+}
+
 .huge.text {
+  font-size: 3.5em;
+}
+
+.massive.text {
   font-size: 4em;
 }
