@@ -1,7 +1,5 @@
 Meteor.startup(function() {
 
-  console.log(process.env.MAIL_URL);
-
   // From (ME !)
   Accounts.emailTemplates.from = 'SE Adminstration';
 
