@@ -3,7 +3,7 @@
     <div class="ui container">
       <a class="item {{isActive 'home'}}" href="{{pathFor 'home'}}">Home</a>
       {{#if currentUser}}
-        <a class="item {{isActive 'user.profile'}}" href="{{pathFor 'profile'}}">Profile</a>
+        <a class="item {{isActive 'user.profile'}}" href="{{pathFor 'user.profile'}}">Profile</a>
       {{/if}}
 
       {{#if isInRole "admin"}}
