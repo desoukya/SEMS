@@ -23,9 +23,14 @@ Template.manageUsers.events({
 // -----------User Entry Template-----------
 
 Template.userEntry.onRendered(function() {
+  var self = this;
   Meteor.subscribe("users", Meteor.userId(), function() {
-    $('.ui.dropdown')
-      .dropdown();
+    // dropdowns are having user ids as ids !
+    var selector = "#" + self.data._id;
+
+    // Initialize dropdowns with current role as selected
+    $(selector)
+      .dropdown('set selected', self.data.roles[0]);
   });
 
 });
