@@ -1,5 +1,5 @@
 Meteor.methods({
-  registerUser: function(email, password, firstName, lastName) {
+  registerUser(email, password, firstName, lastName) {
     var userId = Accounts.createUser({
       email: email,
       password: password,
@@ -19,5 +19,9 @@ Meteor.methods({
     }
 
   },
+
+  resendVerification(userId) {
+    Accounts.sendVerificationEmail(userId);
+  }
 
 });
