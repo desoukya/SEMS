@@ -1,0 +1,44 @@
+.main-container {
+  min-height: 100vh;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  /* footer height*/
+  padding-bottom: 47px;
+}
+
+.centered.text {
+  text-align: center;
+}
+
+.not.styled.link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.full.screen {
+  width: 100vw;
+  height: 88vh;
+}
+
+.big.text {
+  font-size: 3em;
+}
+
+.huge.text {
+  font-size: 3.5em;
+}
+
+.massive.text {
+  font-size: 4em;
+}
+
+.main.header {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.page.content {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
