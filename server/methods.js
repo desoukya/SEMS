@@ -1,11 +1,12 @@
 Meteor.methods({
-  registerUser(email, password, firstName, lastName) {
+  registerUser(userData) {
+
     var userId = Accounts.createUser({
-      email: email,
-      password: password,
+      email: userData.email,
+      password: userData.password,
       profile: {
-        firstName: firstName,
-        lastName: lastName
+        firstName: userData.firstName,
+        lastName: userData.lastName
       },
     });
 
