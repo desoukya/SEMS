@@ -20,7 +20,7 @@ Template.schedule.helpers({
     else if(Template.instance().filterField.get() === "content")
       return [{value:"lecture"}, {value:"tutorial"}, {value:"practiceAssignment"}] ;
     else if(Template.instance().filterField.get() === "uploadDate")
-      return [{value:""}] ;
+      return [{value:"Posting Date"}] ;
     else 
     {
       console.log("error");
