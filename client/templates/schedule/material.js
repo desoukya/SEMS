@@ -7,3 +7,9 @@ Template.material.helpers({
     });
   },
 });
+
+Template.material.events({
+  "click #close-icon": function() {
+    Materials.remove(this._id);
+  }
+});
