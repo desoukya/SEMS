@@ -10,15 +10,15 @@ Template.login.events({
     var email = event.target.email.value;
     var password = event.target.password.value;
 
-    Meteor.loginWithPassword({
-      email: email
-    }, password, function(err) {
-      if (err)
-        console.log(err);
-      else {
-        Router.go('/');
-      }
-    });
+    Meteor.loginWithPassword(
+      email, password,
+      function(err) {
+        if (err)
+          console.log(err);
+        else {
+          Router.go('/');
+        }
+      });
   },
 
 });
