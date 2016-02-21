@@ -3,15 +3,23 @@
   <div class="schedule">
     <div class="ui stackable container grid">
       <div class="ten wide centered column">
-
         <div class="main header">
           <h1 class="ui text centered header">Schedule</h1>
+          <div class="ui right rail">
+            <div class="ui segment">
+              <label>filter by :</label>
+              <select id = "filterBy" class="ui dropdown">
+                <option value="">filter</option>
+                <option value="week">Calendar</option>
+                <option value="content">File Type</option>
+                <option value="uploadDate">Posting Date</option>
+              </select>
+            </div>
+          </div>
+          {{#each filterGroups }}
+          {{> materialGroup type = currentFilter value = value}}
+          {{/each}}
         </div>
-
-        {{> week number="1"}}
-        {{> week number="2"}}
-        {{> week number="3"}}
-        {{> week number="4"}}
       </div>
     </div>
   </div>
