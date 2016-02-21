@@ -3,7 +3,8 @@ Template.registerHelper('equals', function(a, b) {
 });
 
 Template.registerHelper('formatDate', function(date) {
-  return moment(date).format('MM-DD-YYYY');
+  //need to confirm date format
+  return moment(date, 'ddd, MMM DD YYYY HH:mm:ss ZZ').format('MM-DD-YYYY');
 });
 
 Template.registerHelper('increment', function(number) {
