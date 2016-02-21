@@ -13,7 +13,14 @@ Template.register.events({
     var email = event.target.email.value;
     var password = event.target.pass.value;
 
-    Meteor.call("registerUser", email, password, firstName, lastName, function() {
+    var userData = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
+    };
+
+    Meteor.call("registerUser", userData, function() {
 
       Router.go('/');
 

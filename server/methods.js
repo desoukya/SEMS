@@ -1,16 +1,28 @@
 Meteor.methods({
-  registerUser: function(email, password, firstName, lastName) {
+  registerUser(userData) {
+
     var userId = Accounts.createUser({
-      email: email,
-      password: password,
+      email: userData.email,
+      password: userData.password,
       profile: {
-        firstName: firstName,
-        lastName: lastName
+        firstName: userData.firstName,
+        lastName: userData.lastName
       },
     });
 
-    // Default Role, should be added after a successful creation
-    Roles.addUsersToRoles(userId, USER);
+    if (userId) {
+      // Default Role, should be added after a successful creation
+      Roles.addUsersToRoles(userId, USER);
+
+      Accounts.sendVerificationEmail(userId);
+
+
+    }
+
   },
+
+  resendVerification(userId) {
+    Accounts.sendVerificationEmail(userId);
+  }
 
 });
