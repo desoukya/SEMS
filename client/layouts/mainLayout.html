@@ -1,3 +1,16 @@
-<template name = "mainLayout">
-	{{>yield}}
+<template name="mainLayout">
+	<div class="main-container">
+
+		<!-- Header -->
+		{{>header}}
+		<!-- /Header -->
+
+		<!-- Main content -->
+		{{>yield}}
+		<!-- /Main content -->
+
+		<!-- Footer -->
+		{{>footer}}
+		<!-- /Footer -->
+	</div>
 </template>

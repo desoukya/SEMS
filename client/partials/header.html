@@ -1,0 +1,30 @@
+<template name="header">
+  <div class="ui large top hidden menu">
+    <div class="ui container">
+      <a class="item {{isActive 'home'}}" href="{{pathFor 'home'}}">Home</a>
+      {{#if currentUser}}
+        <a class="item {{isActive 'user.profile'}}" href="{{pathFor 'profile'}}">Profile</a>
+      {{/if}}
+
+      {{#if isInRole "admin"}}
+        <a href="{{pathFor 'admin.panel'}}" class="item {{isActive 'admin.panel'}}">Admin</a>
+      {{/if}}
+      <a class="item {{isActive 'schedule'}}" href="{{pathFor 'schedule'}}">Schedule</a>
+
+      <div class="right menu">
+        {{#if currentUser}}
+          <div class="item">
+            <a class="ui button logout">Logout</a>
+          </div>
+        {{else}}
+          <div class="item">
+            <a class="ui button" href="{{pathFor 'user.login'}}">Login</a>
+          </div>
+          <div class="item">
+            <a class="ui primary button" href="{{pathFor 'user.register'}}">Sign Up</a>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>

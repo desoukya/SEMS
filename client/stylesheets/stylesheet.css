@@ -1,0 +1,84 @@
+* {
+  box-sizing: border-box;
+}
+
+*:before, *:after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  position: relative;
+}
+
+body {
+  background-color: #dadada;
+}
+
+.main-container {
+  min-height: 100vh;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  /* footer height*/
+  padding-bottom: 47px;
+}
+
+footer {
+  position: absolute !important;
+  bottom: 0;
+  width: 100%;
+}
+
+#login-wrapper {
+  height: 88vh;
+}
+
+.centered.text {
+  text-align: center;
+}
+
+.not.styled.link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.week.wrapper {
+  margin-bottom: 80px;
+}
+
+.date.meta {
+  color: grey;
+  font-size: 12px;
+  padding-left: 15px;
+  display: inline;
+}
+
+.type.meta {
+  color: grey;
+  font-size: 12px;
+  padding-left: 20px;
+  display: inline;
+}
+
+.schedule {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.full.screen {
+  width: 100vw;
+  height: 88vh;
+}
+
+.big.text {
+  font-size: 3em;
+}
+
+.huge.text {
+  font-size: 3.5em;
+}
+
+.massive.text {
+  font-size: 4em;
+}

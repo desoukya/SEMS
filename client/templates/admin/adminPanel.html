@@ -1,0 +1,28 @@
+<template name="adminPanel">
+
+  <div class="ui container grid">
+
+    <div class="ui row">
+      <div class="ui center aligned column">
+        <h1 class="header">Adminstrator Panel</h1>
+      </div>
+    </div>
+
+    <!-- OPTIONS -->
+    <div class="ui three cards row">
+      <div class="ui selectable card">
+        <div class="content">
+          <a href="{{pathFor 'admin.users'}}" class="not styled link">
+            <div class="header text centered">
+              <i class="huge users icon"></i>
+              <h2>Manage Users</h2>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- /OPTIONS -->
+
+  </div>
+
+</template>

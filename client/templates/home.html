@@ -1,10 +1,18 @@
 <template name="home">
-	<div class="ui inverted vertical masthead center aligned segment">
-		<div class="ui text container">
-			<h1 class="ui inverted header">
-				The website is under construction
-			</h1>
-			<h2>Please come back later</h2>
-		</div>
-	</div>
+  <div class="ui page full screen grid">
+    <div class="row">
+      <div class="ui center aligned bottom aligned column">
+        <h1 class="huge text">Welcome to Software Engineering 2016</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="ui center aligned top aligned column">
+        <a href="{{pathFor 'schedule'}}" class="ui big green button">
+          <i class="folder open outline icon"></i> Course Materials
+        </a>
+      </div>
+    </div>
+
+  </div>
 </template>
