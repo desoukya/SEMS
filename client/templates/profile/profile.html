@@ -3,8 +3,7 @@
     <div class="twelve wide centered column">
 
       <!-- profile -->
-      <div class="ui segment">
-
+      <div class="ui segment" id="profile-view">
         <!-- Profile picture -->
         {{#if Template.subscriptionsReady}}
           <img class="ui small centered circular image" src="{{image.url}}"/>
@@ -13,8 +12,19 @@
         {{/if}}
         <!-- /Profile picture -->
 
+        <!-- Full Name -->
         <h1 class="ui centered header">{{profile.firstName}}
           {{profile.lastName}}</h1>
+        <!-- /Full Name -->
+
+        {{#if isCurrentUser}}
+          <h3>
+            <i class="green large mail square icon"></i>
+            {{email}}
+          </h3>
+
+          <a href="{{pathFor 'user.profile.edit'}}" class="ui yellow fluid button"><stron>Edit your info</stron></a>
+        {{/if}}
 
       </div>
       <!-- profile -->

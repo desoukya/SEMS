@@ -13,4 +13,13 @@ Template.profile.helpers({
     });
   },
 
+  isCurrentUser: function() {
+    return Meteor.userId() === this._id;
+  },
+
+  email: function() {
+    return this.emails[0].address;
+  }
+
+
 });
