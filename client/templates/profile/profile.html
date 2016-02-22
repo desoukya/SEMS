@@ -2,56 +2,22 @@
   <div class="ui stackable container grid">
     <div class="twelve wide centered column">
 
-      <!-- Edit profile -->
-      <div class="ui form segment">
+      <!-- profile -->
+      <div class="ui segment">
 
         <!-- Profile picture -->
-        <div class="ui small centered circular image" id="profile-picture-wrapper">
-          <div class="ui dimmer">
-            <div class="content">
-              <div class="center" id="upload-dimmer">
-                <i class="big cloud upload icon"></i>
-              </div>
-            </div>
-          </div>
+        {{#if Template.subscriptionsReady}}
           <img class="ui small centered circular image" src="{{image.url}}"/>
-        </div>
-        <input type="file" id="upload-profile-picture" class="ui centered" style="display:none">
+        {{else}}
+          <div class="ui active huge inline centered loader"></div>
+        {{/if}}
         <!-- /Profile picture -->
 
-        <!-- Name -->
-        <div class="two fields">
-          <div class="field">
-            <label>First Name</label>
-            <input placeholder="First Name" value="{{firstName}}" name="fname" type="text">
-          </div>
-          <div class="field">
-            <label>Last Name</label>
-            <input placeholder="Last Name" value="{{lastName}}" name="lname" type="text">
-          </div>
-        </div>
-        <!-- /Name -->
-
-        <!-- Email -->
-        <div class="field">
-          <label>Email Address</label>
-          <input placeholder="email@example.com" name="email" type="text" value="{{email}}">
-        </div>
-        <!-- /Email -->
-
-        <!-- Password -->
-        <div class="field">
-          <label>Password</label>
-          <input type="password" name="pass">
-        </div>
-        <div class="field">
-          <label>Repeat Password</label>
-          <input type="password" name="repass">
-        </div>
-        <!-- /Password -->
+        <h1 class="ui centered header">{{profile.firstName}}
+          {{profile.lastName}}</h1>
 
       </div>
-      <!-- Edit profile -->
+      <!-- profile -->
 
     </div>
   </div>
