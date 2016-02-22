@@ -1,3 +1,9 @@
 #login-wrapper {
   height: 88vh;
 }
+
+#upload-dimmer {
+  &:hover {
+    cursor: pointer;
+  }
+}

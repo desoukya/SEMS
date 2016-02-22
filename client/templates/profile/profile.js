@@ -1,11 +1,21 @@
-Template.profile.rendered = function() {
+Template.profile.onRendered(function() {
   Meteor.subscribe("images");
-};
+
+  $('#profile-picture-wrapper').dimmer({
+    on: 'hover'
+  });
+
+});
 
 Template.profile.helpers({
   email: function() {
     return Meteor.user().emails[0].address;
-  }
+  },
+  image: function() {
+    return Images.findOne({
+      "_id": Meteor.user().profile.image
+    }); // Where Images is an FS.Collection instance
+  },
 });
 
 Template.profile.events({
@@ -30,12 +40,8 @@ Template.profile.events({
     });
   },
 
-});
+  "click #upload-dimmer": function(event, template) {
+    $("#upload-profile-picture").click();
+  }
 
-Template.imageShow.helpers({
-  image: function() {
-    return Images.findOne({
-      "_id": Meteor.user().profile.image
-    }); // Where Images is an FS.Collection instance
-  },
 });
