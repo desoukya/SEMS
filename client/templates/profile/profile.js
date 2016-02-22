@@ -2,7 +2,8 @@ Template.profile.onRendered(function() {
   Meteor.subscribe("images");
 
   $('#profile-picture-wrapper').dimmer({
-    on: 'hover'
+    on: 'hover',
+    opacity: 0.7,
   });
 
 });
