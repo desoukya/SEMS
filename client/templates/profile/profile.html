@@ -3,7 +3,7 @@
     <div class="twelve wide centered column">
 
       <!-- profile -->
-      <div class="ui segment" id="profile-view">
+      <div class="ui segment" id="profile-wrapper">
         <!-- Profile picture -->
         {{#if Template.subscriptionsReady}}
           <img class="ui small centered circular image" src="{{image.url}}"/>
@@ -23,7 +23,7 @@
             {{email}}
           </h3>
 
-          <a href="{{pathFor 'user.profile.edit'}}" class="ui yellow fluid button"><stron>Edit your info</stron></a>
+          <a href="{{pathFor 'user.profile.edit'}}" class="ui yellow bottom floated fluid button">Edit your info</a>
         {{/if}}
 
       </div>
