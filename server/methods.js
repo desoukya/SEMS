@@ -1,3 +1,5 @@
+// ES6
+
 Meteor.methods({
   registerUser(userData) {
 
@@ -21,8 +23,47 @@ Meteor.methods({
 
   },
 
+  updateProfile(userData) {
+    if (UserUtils.isLoggedIn()) {
+      var user = Meteor.user();
+      var profile = user.profile;
+
+      var digest = Package.sha.SHA256(userData.currentPass);
+      check(digest, String);
+
+      var password = {
+        digest: digest,
+        algorithm: 'sha-256'
+      };
+
+      var result = Accounts._checkPassword(user, password);
+
+      if (result.error == null) {
+        // Password update is handled on client
+
+        profile.firstName = userData.firstName;
+        profile.lastName = userData.lastName;
+
+        Meteor.users.update(user._id, {
+          $set: {
+            profile: profile
+          }
+        });
+
+
+      } else {
+        throw result.error;
+      }
+
+
+    }
+  },
+
+
   resendVerification(userId) {
     Accounts.sendVerificationEmail(userId);
-  }
+  },
+
+
 
 });

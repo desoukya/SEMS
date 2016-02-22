@@ -22,7 +22,7 @@
         <!-- /Profile picture -->
 
         <!-- Form -->
-        <div class="ui form">
+        <form class="ui form">
           <!-- Name -->
           <div class="two fields">
             <div class="field">
@@ -36,30 +36,32 @@
           </div>
           <!-- /Name -->
 
-          <!-- Email -->
-          <div class="field">
-            <label>Email Address</label>
-            <input placeholder="email@example.com" name="email" type="text" value="{{email}}">
-          </div>
-          <!-- /Email -->
-
           <!-- Password -->
+
           <div class="field">
-            <label>Password</label>
-            <input type="password" name="pass">
+            <label>Current Password</label>
+            <input type="password" name="current_pass">
           </div>
+
+          <div class="field">
+            <label>New Password</label>
+            <input type="password" name="new_pass">
+          </div>
+
           <div class="field">
             <label>Repeat Password</label>
             <input type="password" name="repass">
           </div>
           <!-- /Password -->
-        </div>
-        <!-- /Form -->
 
-        <button class="ui positive right floated button" id="update-profile-button">
-          <i class="save icon"></i>
-          Save
-        </button>
+          <!-- Save button -->
+          <input class="ui green submit fluid button" type="submit" value="Save" id="update-profile-button">
+          <!-- /Save button -->
+
+          <div class="ui error message"></div>
+
+        </form>
+        <!-- /Form -->
 
       </div>
       <!-- Edit profile -->

@@ -6,6 +6,47 @@ Template.profileEdit.onRendered(function() {
     opacity: 0.7,
   });
 
+  $(".ui.form").form({
+    fields: {
+      firstname: {
+        identifier: 'fname',
+        rules: [{
+          type: 'empty',
+          prompt: 'First Name shouldn\'t be empty'
+        }]
+      },
+
+      lastname: {
+        identifier: 'lname',
+        rules: [{
+          type: 'empty',
+          prompt: 'Last Name shouldn\'t be empty'
+        }]
+      },
+
+      currentpassword: {
+        identifier: 'current_pass',
+        rules: [{
+          type: 'empty',
+          prompt: 'Please the current password'
+        }]
+      },
+
+      repass: {
+        identifier: 'repass',
+        optional: true,
+        rules: [{
+          type: 'match[new_pass]',
+          prompt: 'Passwords doesn\'t match'
+        }, {
+          type: 'length[6]',
+          prompt: 'Please enter a password of length greater than 6 characters'
+        }]
+      },
+
+    }
+  });
+
 });
 
 Template.profileEdit.helpers({
@@ -43,6 +84,47 @@ Template.profileEdit.events({
 
   "click #upload-dimmer": function(event, template) {
     $("#upload-profile-picture").click();
+  },
+
+  "submit .ui.form": function(event, template) {
+    event.preventDefault();
+
+    var firstName = event.target.fname.value;
+    var lastName = event.target.lname.value;
+
+    var currentPass = event.target.current_pass.value;
+    var newPass = event.target.new_pass.value;
+    var repeatPass = event.target.repass.value;
+
+
+    var userData = {
+      firstName: firstName,
+      lastName: lastName,
+      currentPass: currentPass,
+    };
+
+    Meteor.call("updateProfile", userData, function(err, result) {
+      if (err) {
+        // TODO: Display readable error
+        console.log(err);
+      } else {
+        Router.go("/profile" + "/" + Meteor.userId());
+      }
+    });
+
+
+    if (newPass.length >= 6) {
+      // We need to change the old password
+      Accounts.changePassword(currentPass, newPass, function(err) {
+        if (err) {
+          // TODO: Display readable error
+          throw err;
+        }
+      });
+    }
+
+
+
   }
 
 });
