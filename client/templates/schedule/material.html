@@ -4,8 +4,11 @@
       <div class="item">
         <div class="content">
           <div class="header">
-
             <h3>
+            <div class="action-icons">
+              <i id = "delete-icon" class="action-icon large trash link icon"></i>
+              <i id = "edit-icon" class="action-icon large edit link icon"></i>
+            </div>
             {{#if equals content 'lecture'}}
             <i class="pdf file outline red icon"></i>
             {{else}}
@@ -19,7 +22,6 @@
               {{/if}}>
               {{title}}
             </a>
-            <i id = "close-icon" class="big trash link icon"></i>
             </h3>
           </div>
           <div class="meta">

@@ -9,7 +9,10 @@ Template.material.helpers({
 });
 
 Template.material.events({
-  "click #close-icon": function() {
+  "click #delete-icon": function() {
     Materials.remove(this._id);
+  },
+  "click #edit-icon": function() {
+    $('.ui.tiny.modal').modal('show');
   }
 });
