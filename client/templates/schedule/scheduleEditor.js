@@ -1,30 +1,57 @@
-Template.scheduleEditor.created = function() {
+Template.scheduleEditorForm.created = function() {
   //used reactive var instead of session to not overcroud the session
   //used string type instead of boolean for it to be more readable
   //TODO .. change material type from string to enum .
   this.materialType = new ReactiveVar("link");
-  this.materialType.set("link");
-
   this.materialID = new ReactiveVar("");
-  this.materialID.set("");
-
 };
 
-Template.scheduleEditor.rendered = function() {
+Template.scheduleEditorForm.rendered = function() {
   Meteor.subscribe("files");
   addBehaviours();
+  var self = this
+    //identifier: identifier,
+    //type: type ? 'file' : 'link',
+    //this.materialType.set(material.type);
+    /*if(type === "link")
+  {
+    $('#identifier').val(material.identifier);
+  }*/
+  Tracker.autorun(function() {
+    var material = Materials.findOne({
+      _id: Session.get('selectedMaterialID')
+    });
+    console.log("material changed");
+    console.log(material);
+    if (material) {
+      self.materialType.set(material.type);
+
+      if (material.type === "file") {
+        $('.checkbox').checkbox('check');
+      } else {
+        self.materialID.set(material.identifier)
+        $('.checkbox').checkbox('uncheck');
+      }
+      Meteor.defer(function() {
+        populateForm(self, material);
+      });
+    }
+  });
 };
 
-Template.scheduleEditor.helpers({
+Template.scheduleEditorForm.helpers({
   materialType: function() {
     return Template.instance().materialType.get();
   },
   materialID: function() {
     return Template.instance().materialID.get();
+  },
+  new: function() {
+    return Session.get('scheduleEditorFormType') === "new";
   }
 });
 
-Template.scheduleEditor.events({
+Template.scheduleEditorForm.events({
   'change .myFileInput': function(event, template) {
     FS.Utility.eachFile(event, function(file) {
       Files.insert(file, function(err, fileObj) {
@@ -67,17 +94,49 @@ Template.scheduleEditor.events({
       createdAt: new Date() // current time
     };
 
-    Materials.insert(material, function(err, data) {
-      if (err)
-        console.log('error: ' + err);
-      else {
-        $('.ui.form').form('clear');
-        $('uploadMaterialForm').addClass("selected");
-        console.log("the material has been uploaded");
-      }
-    });
-  }
+    if (Session.get('scheduleEditorFormType') === "edit") {
+      Materials.update(Session.get('selectedMaterialID'), {
+        $set: material
+      }, function(err, data) {
+        if (err)
+          console.log('error: ' + err);
+        else {
+          $('.ui.form').form('clear');
+          $('uploadMaterialForm').addClass("selected");
+          console.log("the material has been edited ");
+        }
+      })
+    } else if (Session.get('scheduleEditorFormType') === "new") {
+      Materials.insert(material,
+        function(err, data) {
+          if (err)
+            console.log('error: ' + err);
+          else {
+            $('.ui.form').form('clear');
+            $('uploadMaterialForm').addClass("selected");
+            console.log("the material has been uploaded");
+          }
+        }
+      );
+    }
+  },
 });
+
+
+function populateForm(self, material) {
+  if (material.type === "link") {
+    $('#link').val(material.identifier);
+  } else {
+    self.materialID.set(material.identifier)
+    $('#fileName').val(Files.findOne({
+      _id: material.identifier
+    }).original.name);
+  }
+  $('#title').val(material.title);
+  $('#content').dropdown('set selected', material.content);
+  $('#week').dropdown('set selected', material.week);
+  $('#description').val(material.description);
+}
 
 function addBehaviours() {
   //TODO : refactor this 

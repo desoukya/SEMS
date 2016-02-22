@@ -13,6 +13,9 @@ Template.material.events({
     Materials.remove(this._id);
   },
   "click #edit-icon": function() {
+    Session.set('scheduleEditorFormType', "edit");
+    Session.set('selectedMaterialID', this._id);
+    $('uploadMaterialForm').removeClass("selected");
     $('.ui.tiny.modal').modal('show');
   }
 });
