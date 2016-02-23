@@ -12,35 +12,116 @@
 
       <div class="page content">
         <!-- Register form -->
-        <form class="ui form segment">
+        <form class="ui form segment" id="register-form">
+
+          <!-- USER INFO -->
+          <h4 class="ui dividing header">User Information</h4>
+
+          <!-- Username -->
           <div class="two fields">
-            <div class="field">
+            <div class="required field">
               <label>First Name</label>
               <input placeholder="First Name" name="firstname" type="text">
             </div>
-            <div class="field">
+            <div class="required field">
               <label>Last Name</label>
               <input placeholder="Last Name" name="lastname" type="text">
             </div>
           </div>
-          <div class="field">
+          <!-- /Username -->
+
+          <!-- Email -->
+          <div class="required field">
             <label>Email Address</label>
             <input placeholder="email@example.com" name="email" type="text">
           </div>
+          <!-- /Email -->
 
           <!-- Password -->
-          <div class="field">
+          <div class="required field">
             <label>Password</label>
             <input type="password" name="pass" placeholder="••••••">
           </div>
-          <div class="field">
+          <div class="required field">
             <label>Repeat Password</label>
             <input type="password" name="repass" placeholder="••••••">
           </div>
           <!-- /Password -->
 
-          <!-- Honor code -->
+          <!-- GUC ID & Tutorial -->
+          <div class="two fields">
+            <div class="required field">
+              <label>GUC ID</label>
+              <input placeholder="xy-abcdef" name="gucid" type="text">
+            </div>
+
+            <div class="required field">
+              <label>Tutorial group</label>
+              <select class="ui search dropdown">
+                <option value="">Tutorial</option>
+                <option value="CS10">CSEN 10</option>
+                <option value="CS11">CSEN 11</option>
+                <option value="CS12">CSEN 12</option>
+                <option value="CS13">CSEN 13</option>
+                <option value="CS14">CSEN 14</option>
+                <option value="CS15">CSEN 15</option>
+                <option value="DMET">DMET</option>
+                <option value="BI15">BI 15</option>
+                <option value="BI16">BI 16</option>
+                <option value="BI17">BI 17</option>
+              </select>
+            </div>
+
+          </div>
+          <!-- /GUC ID & Tutorial -->
+
+          <!-- USER INFO -->
+
+
+          <!-- OPTIONAL INFO -->
+          <h4 class="ui dividing header">Additional information</h4>
+
+          <div class="two fields">
+            <!-- Phone number -->
+            <div class="field">
+              <label>Phone number</label>
+              <input placeholder="0123456789" name="mobile" type="tel">
+            </div>
+            <!-- /Phone number -->
+
+            <!-- Social Network -->
+            <div class="field">
+              <label>Social Network Account</label>
+              <input type="text" name="social_network" placeholder="Facebook,Twitter,...">
+            </div>
+            <!-- /Social Network -->
+          </div>
+
+
+          <!-- Github account -->
           <div class="field">
+            <label><i class="large github icon"></i>Github username</label>
+            <input type="text" name="github_user" placeholder="geeky-developer">
+          </div>
+          <!-- /Github account -->
+
+          <div class="ui hidden divider"></div>
+
+          <!-- Email Toggle -->
+          <div class="field">
+            <div class="ui toggle checkbox">
+              <input type="checkbox" name="public_mail" tabindex="0" class="hidden">
+              <label>Display my Email address on profile</label>
+            </div>
+          </div>
+          <!-- /Email Toggle -->
+          <div class="ui divider"></div>
+
+
+          <!-- /OPTIONAL INFO -->
+
+          <!-- Honor code -->
+          <div class="required field">
             <div class="ui checkbox">
               <input type="checkbox" name="terms" tabindex="0">
               <label>I agree to the
