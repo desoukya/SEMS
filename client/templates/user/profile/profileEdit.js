@@ -54,9 +54,12 @@ Template.profileEdit.helpers({
     return Meteor.user().emails[0].address;
   },
   image: function() {
+    var randIndex = Math.floor((Math.random() * 5) + 1);
     return Images.findOne({
       "_id": Meteor.user().profile.image
-    }); // Where Images is an FS.Collection instance
+    }) || {
+      url: `/images/default_${randIndex}.png`
+    }; // Where Images is an FS.Collection instance
   },
 });
 
@@ -81,7 +84,7 @@ Template.profileEdit.events({
             $set: imagesURL
           });
 
-          if(oldImage){
+          if (oldImage) {
             // Now delete the old picture
             Images.remove({
               _id: oldImage._id
