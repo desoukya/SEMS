@@ -12,14 +12,16 @@
         <div class="ui left dividing rail"></div>
         <div class="ui right dividing attached rail">
           <div class="ui segment">
-            <select id = "filterBy" class="ui dropdown">
+            <h3> Filter By: </h3>
+            <select id = "filterBy" class="ui dropdown fluid">
               <option value="">Filter By</option>
               <option value="week">Calendar</option>
               <option value="content">File Type</option>
               <option value="uploadDate">Posting Date</option>
             </select>
             {{#if isInRole 'admin'}}
-            <button id = "add-material" class="ui primary button">
+            <h3> Add Materials:</h3>
+            <button id = "add-material" class="ui fluid button">
             Add New Material
             </button>
             {{/if}}
@@ -32,7 +34,7 @@
   <div class="ui small modal">
     <div class="ui stackable container padded grid">
       <div class="sixteen wide centered column">
-        {{>scheduleEditorForm }}
+        {{>scheduleEditForm }}
       </div>
     </div>
   </div>

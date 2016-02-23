@@ -1,4 +1,4 @@
-Template.scheduleEditorForm.created = function() {
+Template.scheduleEditForm.created = function() {
   //used reactive var instead of session to not overcroud the session
   //used string type instead of boolean for it to be more readable
   //TODO .. change material type from string to enum .
@@ -6,7 +6,7 @@ Template.scheduleEditorForm.created = function() {
   this.materialID = new ReactiveVar("");
 };
 
-Template.scheduleEditorForm.rendered = function() {
+Template.scheduleEditForm.rendered = function() {
   Meteor.subscribe("files");
   addBehaviours();
   var self = this;
@@ -32,7 +32,7 @@ Template.scheduleEditorForm.rendered = function() {
   });
 };
 
-Template.scheduleEditorForm.helpers({
+Template.scheduleEditForm.helpers({
   materialType: function() {
     return Template.instance().materialType.get();
   },
@@ -40,12 +40,15 @@ Template.scheduleEditorForm.helpers({
     return Template.instance().materialID.get();
   },
   new: function() {
-    return Session.get('scheduleEditorFormType') === "new";
+    if(Session.get('scheduleEditFormType') === "edit")
+      return false;
+    else
+      return true;
   }
 });
 
 
-Template.scheduleEditorForm.events({
+Template.scheduleEditForm.events({
   'change .myFileInput': function(event, template) {
     FS.Utility.eachFile(event, function(file) {
       Files.insert(file, function(err, fileObj) {
@@ -88,7 +91,7 @@ Template.scheduleEditorForm.events({
       createdAt: new Date() // current time
     };
 
-    if (Session.get('scheduleEditorFormType') === "edit") {
+    if (Session.get('scheduleEditFormType') === "edit") {
       Materials.update(Session.get('selectedMaterialID'), {
         $set: material
       }, function(err, data) {
@@ -100,7 +103,7 @@ Template.scheduleEditorForm.events({
           console.log("the material has been edited ");
         }
       })
-    } else if (Session.get('scheduleEditorFormType') === "new") {
+    } else if (Session.get('scheduleEditFormType') === "new") {
       Materials.insert(material,
         function(err, data) {
           if (err)

@@ -13,7 +13,8 @@ Template.material.events({
     Materials.remove(this._id);
   },
   "click #edit-icon": function() {
-    Session.set('scheduleEditorFormType', "edit");
+    Session.set('scheduleEditFormType', "edit");
+    Session.set('selectedMaterialID', "");
     Session.set('selectedMaterialID', this._id);
     $('#uploadMaterialForm').removeClass("success");
     $('.ui.small.modal').modal('show');

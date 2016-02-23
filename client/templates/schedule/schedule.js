@@ -13,7 +13,8 @@ Template.schedule.events({
   },
   'click #add-material': function(event, template) {
     console.log("clicked");
-    Session.set('scheduleEditorFormType', "new");
+    $('.ui.form').form('clear');
+    Session.set('scheduleEditFormType', "new");
     Session.set('selectedMaterialID', "");
     $('#uploadMaterialForm').removeClass("success");
     $('.ui.small.modal').modal('show');
