@@ -18,9 +18,11 @@
               <option value="content">File Type</option>
               <option value="uploadDate">Posting Date</option>
             </select>
+            {{#if isInRole 'admin'}}
             <button id = "add-material" class="ui primary button">
             Add New Material
             </button>
+            {{/if}}
           </div>
         </div>
       </div>
