@@ -1,43 +1,78 @@
+var formFieldsVerification = {
+  title: {
+    identifier: 'title',
+    rules: [{
+      type: 'empty',
+      prompt: 'Please enter the file title'
+    }]
+  },
+  week: {
+    identifier: 'week',
+    rules: [{
+      type: 'empty',
+      prompt: 'Please select a week'
+    }]
+  },
+  content: {
+    identifier: 'content',
+    rules: [{
+      type: 'empty',
+      prompt: 'Please select the file content'
+    }]
+  },
+  fileIdentifier: {
+    identifier: 'identifier',
+    rules: [{
+      type: 'empty',
+      prompt: 'Please upload either a file or a link'
+    }]
+  },
+};
 Template.scheduleEditForm.created = function() {
   //used reactive var instead of session to not overcroud the session
   //used string type instead of boolean for it to be more readable
   //TODO .. change material type from string to enum .
   this.materialType = new ReactiveVar("link");
-  this.materialID = new ReactiveVar("");
+  this.materialFileID = new ReactiveVar("");
 };
 
 Template.scheduleEditForm.rendered = function() {
   Meteor.subscribe("files");
   addBehaviours();
   var self = this;
+
   Tracker.autorun(function() {
+    var newMaterial = (Session.get('scheduleEditFormType') === "new");
+
     var material = Materials.findOne({
       _id: Session.get('selectedMaterialID')
     });
-    console.log("material changed");
-    console.log(material);
-    if (material) {
-      self.materialType.set(material.type);
+    if (!newMaterial) {
+      if (material) {
+        self.materialType.set(material.type);
 
-      if (material.type === "file") {
-        $('.checkbox').checkbox('check');
-      } else {
-        self.materialID.set(material.identifier)
-        $('.checkbox').checkbox('uncheck');
+        if (material.type === "file") {
+          $('.checkbox').checkbox('check');
+        } else {
+          self.materialFileID.set(material.identifier)
+          $('.checkbox').checkbox('uncheck');
+        }
+        Meteor.defer(function() {
+          populateForm(self, material);
+        });
       }
-      Meteor.defer(function() {
-        populateForm(self, material);
-      });
+    }
+    else {
+      resetForm()
     }
   });
 };
-
 Template.scheduleEditForm.helpers({
   materialType: function() {
     return Template.instance().materialType.get();
   },
   materialID: function() {
-    return Template.instance().materialID.get();
+    return Template.instance().materialFileID.get();
   },
   new: function() {
     if (Session.get('scheduleEditFormType') === "edit")
@@ -57,7 +92,7 @@ Template.scheduleEditForm.events({
           // handle error
         } else {
           $('#fileName').val(fileObj.original.name);
-          template.materialID.set(fileObj._id);
+          template.materialFileID.set(fileObj._id);
         }
       });
     });
@@ -71,13 +106,14 @@ Template.scheduleEditForm.events({
       addBehaviours();
     });
   },
-  "submit #uploadMaterialForm": function(event) {
+  "submit .ui.form": function(event) {
     event.preventDefault();
+    console.log("submit detected-----------------------------------");
     var type = $('#materialType').prop("checked");
     var identifier = undefined;
     //true is for upload
     if (type === true) {
-      identifier = Template.instance().materialID.get()
+      identifier = Template.instance().materialFileID.get()
     } else if (type === false)
       identifier = $('#link').val();
 
@@ -90,16 +126,16 @@ Template.scheduleEditForm.events({
       description: $('#description').val(),
       createdAt: new Date() // current time
     };
-
+    console.log("sending Material :" + material);
     if (Session.get('scheduleEditFormType') === "edit") {
       Materials.update(Session.get('selectedMaterialID'), {
         $set: material
       }, function(err, data) {
-        if (err) {
-          $('.ui.form').form('add errors', {
-            error: err
-          });
-        } else {
+        if (err)
+          console.log('error: ' + err);
+        else {
+
+          resetForm();
           $('.ui.form').form('clear');
           $('.ui.form').addClass("success");
           $('.ui.form>.success>p').text("your action has been confirmed (can be replaced with anything)");
@@ -111,6 +147,8 @@ Template.scheduleEditForm.events({
           if (err)
             console.log('error: ' + err);
           else {
+            console.log('adding is successful');
+            resetForm();
             $('.ui.form').form('clear');
             $('.ui.form').addClass("success");
             $('.ui.form>.success>p').text("btngan");
@@ -126,7 +164,7 @@ function populateForm(self, material) {
   if (material.type === "link") {
     $('#link').val(material.identifier);
   } else {
-    self.materialID.set(material.identifier)
+    self.materialFileID.set(material.identifier)
     $('#fileName').val(Files.findOne({
       _id: material.identifier
     }).original.name);
@@ -138,6 +176,20 @@ function populateForm(self, material) {
   $('#description').val(material.description);
 }
 
+function resetForm() {
+  $('.ui.form').form('destroy');
+  $('.ui.form').form({
+    fields: formFieldsVerification,
+    inline: true,
+    onSuccess: function(event, fields) {
+      console.log(fields);
+      console.log("from on success function");
+      //$('.ui.form').removeClass("success");
+      //return true;
+    }
+  });
+}
+
 function addBehaviours() {
   //TODO : refactor this 
   $("#divUpload").on("click", function() {
@@ -145,47 +197,5 @@ function addBehaviours() {
   });
   $('.ui.dropdown')
     .dropdown();
-  /*$('.ui.form').form({
-      fields: validationRules,
-      inline: true,
-      on: 'blur'
-    });*/
-  $('.ui.form').form({
-    fields: {
-      title: {
-        identifier: 'title',
-        rules: [{
-          type: 'empty',
-          prompt: 'Please enter the file title'
-        }]
-      },
-      week: {
-        identifier: 'week',
-        rules: [{
-          type: 'empty',
-          prompt: 'Please select a week'
-        }]
-      },
-      content: {
-        identifier: 'content',
-        rules: [{
-          type: 'empty',
-          prompt: 'Please select the file content'
-        }]
-      },
-      fileIdentifier: {
-        identifier: 'identifier',
-        rules: [{
-          type: 'empty',
-          prompt: 'Please upload either a file or a link'
-        }]
-      },
-    },
-    inline: true,
-    onSuccess: function(event) {
-      console.log("from on success function");
-      $('.ui.form').removeClass("success");
-      return true;
-    }
-  });
+  resetForm();
 }

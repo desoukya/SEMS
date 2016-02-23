@@ -13,10 +13,12 @@ Template.schedule.events({
   },
   'click #add-material': function(event, template) {
     console.log("clicked");
-    $('.ui.form').form('clear');
+    $('.ui.form').form('destroy');
+    //$('.ui.form').form('clear');
     Session.set('scheduleEditFormType', "new");
     Session.set('selectedMaterialID', "");
     $('#uploadMaterialForm').removeClass("success");
+    $('#uploadMaterialForm').form('clear');
     $('.ui.small.modal').modal('show');
   },
 });
