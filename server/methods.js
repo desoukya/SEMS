@@ -3,13 +3,21 @@
 Meteor.methods({
   registerUser(userData) {
 
+    var profile = {
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      GUCId: userData.GUCId,
+      tutorialGroup: userData.tutorialGroup,
+      mobile: userData.mobile,
+      githubUser: userData.githubUser,
+      publicEmail: userData.publicEmail,
+    };
+
+
     var userId = Accounts.createUser({
       email: userData.email,
       password: userData.password,
-      profile: {
-        firstName: userData.firstName,
-        lastName: userData.lastName
-      },
+      profile: profile,
     });
 
     if (userId) {
@@ -17,8 +25,8 @@ Meteor.methods({
       Roles.addUsersToRoles(userId, STUDENT);
 
       Accounts.sendVerificationEmail(userId);
-
-
+    } else {
+      throw new Meteor.Error(400, "Can't create new user");
     }
 
   },

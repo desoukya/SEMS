@@ -9,17 +9,40 @@ Template.register.events({
     var lastName = event.target.lastname.value;
     var email = event.target.email.value;
     var password = event.target.pass.value;
+    var GUCId = event.target.gucid.value;
+    var tutorialGroup = event.target.tutorial_group.value;
+
+    // Optionals
+    var mobile = event.target.mobile.value;
+    var githubUser = event.target.github_user.value;
+    var publicEmail = event.target.public_mail.value;
+
+    if (publicEmail === "on") {
+      publicEmail = true;
+    } else {
+      publicEmail = false;
+    }
+
 
     var userData = {
       firstName: firstName,
       lastName: lastName,
       email: email,
       password: password,
+      GUCId: GUCId,
+      tutorialGroup: tutorialGroup,
+      mobile: mobile,
+      githubUser: githubUser,
+      publicEmail: publicEmail,
     };
 
-    Meteor.call("registerUser", userData, function() {
-
-      Router.go('/');
+    Meteor.call("registerUser", userData, function(err) {
+      if (err) {
+        // TODO: Display readable error
+        console.log(err);
+      } else {
+        Router.go('/');
+      }
 
     });
 
