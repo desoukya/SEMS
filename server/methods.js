@@ -14,7 +14,7 @@ Meteor.methods({
 
     if (userId) {
       // Default Role, should be added after a successful creation
-      Roles.addUsersToRoles(userId, USER);
+      Roles.addUsersToRoles(userId, STUDENT);
 
       Accounts.sendVerificationEmail(userId);
 
