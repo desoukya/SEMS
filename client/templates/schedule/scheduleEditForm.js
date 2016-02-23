@@ -40,7 +40,7 @@ Template.scheduleEditForm.helpers({
     return Template.instance().materialID.get();
   },
   new: function() {
-    if(Session.get('scheduleEditFormType') === "edit")
+    if (Session.get('scheduleEditFormType') === "edit")
       return false;
     else
       return true;
@@ -99,7 +99,7 @@ Template.scheduleEditForm.events({
           console.log('error: ' + err);
         else {
           $('.ui.form').form('clear');
-          $('uploadMaterialForm').addClass("selected");
+          //$('uploadMaterialForm').addClass("selected");
           console.log("the material has been edited ");
         }
       })
@@ -142,6 +142,9 @@ function addBehaviours() {
   $('.ui.dropdown')
     .dropdown();
   $('.ui.form').form('destroy');
+  $('.ui.form').form({
+    keyboardShortcuts: false
+  });
   $('.ui.form').form({
     fields: {
       title: {
