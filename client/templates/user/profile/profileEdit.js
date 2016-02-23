@@ -62,13 +62,16 @@ Template.profileEdit.helpers({
 
 Template.profileEdit.events({
   'change #upload-profile-picture': function(event, template) {
+    // Get the current image id
+    var oldImage = Images.findOne(Meteor.user().profile.image);
+
+
     FS.Utility.eachFile(event, function(file) {
       Images.insert(file, function(err, fileObj) {
         if (err) {
+          // TODO: handle error
           console.log(err);
-          // handle error
         } else {
-          console.log("fileObj = " + fileObj[0]);
           // handle success depending what you need to do
           var userId = Meteor.userId();
           var imagesURL = {
@@ -77,6 +80,13 @@ Template.profileEdit.events({
           Meteor.users.update(userId, {
             $set: imagesURL
           });
+
+          if(oldImage){
+            // Now delete the old picture
+            Images.remove({
+              _id: oldImage._id
+            });
+          }
         }
       });
     });
