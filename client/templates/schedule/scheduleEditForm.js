@@ -95,12 +95,14 @@ Template.scheduleEditForm.events({
       Materials.update(Session.get('selectedMaterialID'), {
         $set: material
       }, function(err, data) {
-        if (err)
-          console.log('error: ' + err);
-        else {
+        if (err) {
+          $('.ui.form').form('add errors', {
+            error: err
+          });
+        } else {
           $('.ui.form').form('clear');
-          //$('uploadMaterialForm').addClass("selected");
-          console.log("the material has been edited ");
+          $('.ui.form').addClass("success");
+          $('.ui.form>.success>p').text("your action has been confirmed (can be replaced with anything)");
         }
       })
     } else if (Session.get('scheduleEditFormType') === "new") {
@@ -110,7 +112,8 @@ Template.scheduleEditForm.events({
             console.log('error: ' + err);
           else {
             $('.ui.form').form('clear');
-            $('uploadMaterialForm').addClass("selected");
+            $('.ui.form').addClass("success");
+            $('.ui.form>.success>p').text("btngan");
             console.log("the material has been uploaded");
           }
         }
@@ -128,6 +131,7 @@ function populateForm(self, material) {
       _id: material.identifier
     }).original.name);
   }
+
   $('#title').val(material.title);
   $('#content').dropdown('set selected', material.content);
   $('#week').dropdown('set selected', material.week);
@@ -141,10 +145,11 @@ function addBehaviours() {
   });
   $('.ui.dropdown')
     .dropdown();
-  $('.ui.form').form('destroy');
-  $('.ui.form').form({
-    keyboardShortcuts: false
-  });
+  /*$('.ui.form').form({
+      fields: validationRules,
+      inline: true,
+      on: 'blur'
+    });*/
   $('.ui.form').form({
     fields: {
       title: {
@@ -175,6 +180,12 @@ function addBehaviours() {
           prompt: 'Please upload either a file or a link'
         }]
       },
+    },
+    inline: true,
+    onSuccess: function(event) {
+      console.log("from on success function");
+      $('.ui.form').removeClass("success");
+      return true;
     }
   });
 }
