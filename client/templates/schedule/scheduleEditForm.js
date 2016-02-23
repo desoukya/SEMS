@@ -44,29 +44,58 @@ Template.scheduleEditForm.onRendered(function() {
   Tracker.autorun(function() {
     var newMaterial = (Session.get('scheduleEditFormType') === "new");
 
-    var material = Materials.findOne({
-      _id: Session.get('selectedMaterialID')
-    });
-    if (!newMaterial) {
-      if (material) {
-        self.materialType.set(material.type);
+    //edit form
+    if (Session.get('scheduleEditFormType') === "edit") {
+      temp(self);
 
-        if (material.type === "file") {
-          $('.checkbox').checkbox('check');
-        } else {
-          self.materialFileID.set(material.identifier)
-          $('.checkbox').checkbox('uncheck');
-        }
-        Meteor.defer(function() {
-          populateForm(self, material);
-        });
-      }
-    }
-    else {
-      resetForm()
+    } else if (Session.get('scheduleEditFormType') === "new") {
+      resetForm();
+      console.log("22222222222222222");
+      $('.ui.small.modal').modal('show');
     }
   });
 });
+
+function temp(self) {
+  var material = Materials.findOne({
+    _id: Session.get('selectedMaterialID')
+  });
+
+  if (material) {
+    console.log("#####" + material);
+    self.materialType.set(material.type);
+
+    if (material.type === "file") {
+      $('.checkbox').checkbox('check');
+    } else {
+      self.materialFileID.set(material.identifier)
+      $('.checkbox').checkbox('uncheck');
+    }
+
+    Meteor.defer(function() {
+      resetForm();
+      populateForm(self, material);
+      console.log("11111111111111111");
+      $('.ui.small.modal').modal('show');
+    });
+  }
+}
+
+function populateForm(self, material) {
+  if (material.type === "link") {
+    $('#link').val(material.identifier);
+  } else {
+    self.materialFileID.set(material.identifier)
+    $('#fileName').val(Files.findOne({
+      _id: material.identifier
+    }).original.name);
+  }
+
+  $('#title').val(material.title);
+  $('#content').dropdown('set selected', material.content);
+  $('#week').dropdown('set selected', material.week);
+  $('#description').val(material.description);
+}
 Template.scheduleEditForm.helpers({
   materialType: function() {
     return Template.instance().materialType.get();
@@ -132,27 +161,24 @@ Template.scheduleEditForm.events({
         $set: material
       }, function(err, data) {
         if (err)
-          console.log('error: ' + err);
+          $('.ui.form').form('add errors', {
+            error: err
+          });
         else {
-
-          resetForm();
-          $('.ui.form').form('clear');
+          $('.ui.small.modal').modal('hide');
           $('.ui.form').addClass("success");
-          $('.ui.form>.success>p').text("your action has been confirmed (can be replaced with anything)");
         }
       })
     } else if (Session.get('scheduleEditFormType') === "new") {
       Materials.insert(material,
         function(err, data) {
           if (err)
-            console.log('error: ' + err);
+            $('.ui.form').form('add errors', {
+              error: err
+            });
           else {
-            console.log('adding is successful');
-            resetForm();
-            $('.ui.form').form('clear');
+            $('.ui.small.modal').modal('hide');
             $('.ui.form').addClass("success");
-            $('.ui.form>.success>p').text("btngan");
-            console.log("the material has been uploaded");
           }
         }
       );
@@ -160,21 +186,7 @@ Template.scheduleEditForm.events({
   },
 });
 
-function populateForm(self, material) {
-  if (material.type === "link") {
-    $('#link').val(material.identifier);
-  } else {
-    self.materialFileID.set(material.identifier)
-    $('#fileName').val(Files.findOne({
-      _id: material.identifier
-    }).original.name);
-  }
 
-  $('#title').val(material.title);
-  $('#content').dropdown('set selected', material.content);
-  $('#week').dropdown('set selected', material.week);
-  $('#description').val(material.description);
-}
 
 function resetForm() {
   $('.ui.form').form('destroy');
@@ -184,8 +196,7 @@ function resetForm() {
     onSuccess: function(event, fields) {
       console.log(fields);
       console.log("from on success function");
-      //$('.ui.form').removeClass("success");
-      //return true;
+      $('.ui.form').removeClass("success");
     }
   });
 }
@@ -195,7 +206,17 @@ function addBehaviours() {
   $("#divUpload").on("click", function() {
     $('#upload').trigger('click');
   });
+  $('.ui.small.modal').modal({
+    onHidden: function() {
+      console.log("------------------ Dismissed --------------------------");
+      $('#uploadMaterialForm').removeClass("success");
+      $('#uploadMaterialForm').form('clear');
+      Session.set('scheduleEditFormType', "");
+      Session.set('selectedMaterialID', "");
+      resetForm();
+
+    },
+  });
   $('.ui.dropdown')
     .dropdown();
-  resetForm();
 }
