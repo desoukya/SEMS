@@ -9,14 +9,11 @@ Template.profile.helpers({
   image() {
 
     var self = this;
-
-    var randIndex = Math.floor((Math.random() * 5) + 1);
-
-    // FIXME: Seed the images into fs collections or assign the url to the user
+    var defaultPictureIndex = UserUtils.getDefaultPictureIndex(Meteor.userId());
     return Images.findOne({
       _id: self.profile.image
     }) || {
-      url: `/images/default_${randIndex}.png`
+      url: `/images/default_${defaultPictureIndex}.png`
     };
   },
 
