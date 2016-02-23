@@ -17,6 +17,31 @@
           {{profile.lastName}}</h1>
         <!-- /Full Name -->
 
+        <!-- Tutorial Group -->
+        <h3>
+          <i class="large green users icon"></i>
+          {{tutorialGroup}}
+        </h3>
+        <!-- /Tutorial Group -->
+
+        <!-- Mobile -->
+        {{#if mobile}}
+          <h3>
+            <i class="large green mobile icon"></i>
+            {{mobile}}
+          </h3>
+        {{/if}}
+        <!-- /Mobile -->
+
+        <!-- Github -->
+        {{#if githubUser}}
+          <h3>
+            <i class="large green github square icon"></i>
+            {{githubUser}}
+          </h3>
+        {{/if}}
+        <!-- /Github -->
+
         {{#if isCurrentUser}}
           <h3>
             <i class="green large mail square icon"></i>

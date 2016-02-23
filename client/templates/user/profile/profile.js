@@ -22,6 +22,18 @@ Template.profile.helpers({
 
   email() {
     return this.emails[0].address;
+  },
+
+  tutorialGroup() {
+    return this.profile.tutorialGroup;
+  },
+
+  mobile() {
+    return this.profile.mobile;
+  },
+
+  githubUser() {
+    return this.profile.githubUser;
   }
 
 });
