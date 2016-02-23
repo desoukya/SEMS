@@ -14,7 +14,7 @@
         <!-- Register form -->
         <form class="ui form segment" id="register-form">
 
-          <!-- USER INFO -->
+          <!-- #############USER INFO############# -->
           <h4 class="ui dividing header">User Information</h4>
 
           <!-- Username -->
@@ -48,37 +48,46 @@
           </div>
           <!-- /Password -->
 
-          <!-- GUC ID & Tutorial -->
+
           <div class="two fields">
+            <!-- GUC ID -->
             <div class="required field">
               <label>GUC ID</label>
               <input placeholder="xy-abcdef" name="gucid" type="text">
             </div>
+            <!-- /GUC ID -->
 
+            <!-- Tutorial Group -->
             <div class="required field">
               <label>Tutorial group</label>
-              <select class="ui search dropdown">
-                <option value="">Tutorial</option>
-                <option value="CS10">CSEN 10</option>
-                <option value="CS11">CSEN 11</option>
-                <option value="CS12">CSEN 12</option>
-                <option value="CS13">CSEN 13</option>
-                <option value="CS14">CSEN 14</option>
-                <option value="CS15">CSEN 15</option>
-                <option value="DMET">DMET</option>
-                <option value="BI15">BI 15</option>
-                <option value="BI16">BI 16</option>
-                <option value="BI17">BI 17</option>
-              </select>
+              <div class="ui search selection dropdown">
+                <input type="hidden" name="tutorial_group">
+                <div class="default text">Tutorial</div>
+                <i class="dropdown icon"></i>
+
+                <div class="menu">
+                  <div class="item" data-value="CS10">CSEN 10</div>
+                  <div class="item" data-value="CS11">CSEN 11</div>
+                  <div class="item" data-value="CS12">CSEN 12</div>
+                  <div class="item" data-value="CS13">CSEN 13</div>
+                  <div class="item" data-value="CS14">CSEN 14</div>
+                  <div class="item" data-value="CS15">CSEN 15</div>
+                  <div class="item" data-value="DMET">DMET</div>
+                  <div class="item" data-value="BI15">BI 15</div>
+                  <div class="item" data-value="BI16">BI 16</div>
+                  <div class="item" data-value="BI17">BI 17</div>
+                </div>
+              </div>
             </div>
+            <!-- /Tutorial Group -->
 
           </div>
-          <!-- /GUC ID & Tutorial -->
-
-          <!-- USER INFO -->
 
 
-          <!-- OPTIONAL INFO -->
+          <!-- #############USER INFO############# -->
+
+
+          <!-- #############OPTIONAL INFO############# -->
           <h4 class="ui dividing header">Additional information</h4>
 
           <div class="two fields">
@@ -89,23 +98,13 @@
             </div>
             <!-- /Phone number -->
 
-            <!-- Social Network -->
+            <!-- Github account -->
             <div class="field">
-              <label>Social Network Account</label>
-              <input type="text" name="social_network" placeholder="Facebook,Twitter,...">
+              <label><i class="large github icon"></i>Github username</label>
+              <input type="text" name="github_user" placeholder="geeky-developer">
             </div>
-            <!-- /Social Network -->
+            <!-- /Github account -->
           </div>
-
-
-          <!-- Github account -->
-          <div class="field">
-            <label><i class="large github icon"></i>Github username</label>
-            <input type="text" name="github_user" placeholder="geeky-developer">
-          </div>
-          <!-- /Github account -->
-
-          <div class="ui hidden divider"></div>
 
           <!-- Email Toggle -->
           <div class="field">
@@ -115,10 +114,13 @@
             </div>
           </div>
           <!-- /Email Toggle -->
+
+
+          <div class="ui hidden divider"></div>
           <div class="ui divider"></div>
 
 
-          <!-- /OPTIONAL INFO -->
+          <!-- #############/OPTIONAL INFO############# -->
 
           <!-- Honor code -->
           <div class="required field">
