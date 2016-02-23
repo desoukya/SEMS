@@ -7,9 +7,8 @@ Template.profile.onCreated(function() {
 
 Template.profile.helpers({
   image() {
-
     var self = this;
-    var defaultPictureIndex = UserUtils.getDefaultPictureIndex(Meteor.userId());
+    var defaultPictureIndex = UserUtils.getDefaultPictureIndex(self._id);
     return Images.findOne({
       _id: self.profile.image
     }) || {
