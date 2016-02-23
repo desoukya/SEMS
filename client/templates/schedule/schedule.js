@@ -16,7 +16,7 @@ Template.schedule.events({
     Session.set('scheduleEditorFormType', "new");
     Session.set('selectedMaterialID', "");
     $('#uploadMaterialForm').removeClass("success");
-    $('.ui.tiny.modal').modal('show');
+    $('.ui.small.modal').modal('show');
   },
 });
 
@@ -32,10 +32,20 @@ Template.schedule.helpers({
         value: "3"
       }, {
         value: "4"
+      }, {
+        value: "5"
+      }, {
+        value: "6"
+      }, {
+        value: "7"
+      }, {
+        value: "8"
       }];
     else if (Template.instance().filterField.get() === "content")
       return [{
         value: "lecture"
+      }, {
+        value: "assignment"
       }, {
         value: "tutorial"
       }, {

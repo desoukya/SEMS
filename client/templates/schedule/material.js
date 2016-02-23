@@ -16,6 +16,6 @@ Template.material.events({
     Session.set('scheduleEditorFormType', "edit");
     Session.set('selectedMaterialID', this._id);
     $('#uploadMaterialForm').removeClass("success");
-    $('.ui.tiny.modal').modal('show');
+    $('.ui.small.modal').modal('show');
   }
 });
