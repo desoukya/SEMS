@@ -15,7 +15,7 @@ Template.material.events({
   "click #edit-icon": function() {
     Session.set('scheduleEditorFormType', "edit");
     Session.set('selectedMaterialID', this._id);
-    $('uploadMaterialForm').removeClass("selected");
+    $('#uploadMaterialForm').removeClass("success");
     $('.ui.tiny.modal').modal('show');
   }
 });

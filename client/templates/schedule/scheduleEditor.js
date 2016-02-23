@@ -9,14 +9,7 @@ Template.scheduleEditorForm.created = function() {
 Template.scheduleEditorForm.rendered = function() {
   Meteor.subscribe("files");
   addBehaviours();
-  var self = this
-    //identifier: identifier,
-    //type: type ? 'file' : 'link',
-    //this.materialType.set(material.type);
-    /*if(type === "link")
-  {
-    $('#identifier').val(material.identifier);
-  }*/
+  var self = this;
   Tracker.autorun(function() {
     var material = Materials.findOne({
       _id: Session.get('selectedMaterialID')
@@ -50,6 +43,7 @@ Template.scheduleEditorForm.helpers({
     return Session.get('scheduleEditorFormType') === "new";
   }
 });
+
 
 Template.scheduleEditorForm.events({
   'change .myFileInput': function(event, template) {
@@ -121,7 +115,6 @@ Template.scheduleEditorForm.events({
     }
   },
 });
-
 
 function populateForm(self, material) {
   if (material.type === "link") {

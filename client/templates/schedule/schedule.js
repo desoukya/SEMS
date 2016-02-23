@@ -10,7 +10,14 @@ Template.schedule.events({
   "change #filterBy": function(event, template) {
     var selectValue = template.$("#filterBy").val();
     Template.instance().filterField.set(selectValue);
-  }
+  },
+  'click #add-material': function(event, template) {
+    console.log("clicked");
+    Session.set('scheduleEditorFormType', "new");
+    Session.set('selectedMaterialID', "");
+    $('#uploadMaterialForm').removeClass("success");
+    $('.ui.tiny.modal').modal('show');
+  },
 });
 
 Template.schedule.helpers({
