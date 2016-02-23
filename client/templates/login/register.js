@@ -30,7 +30,7 @@ Template.register.events({
 });
 
 
-Template.register.rendered = function() {
+Template.register.onRendered(function() {
   $('.ui.form').form({
     fields: {
       firstname: {
@@ -90,4 +90,4 @@ Template.register.rendered = function() {
     }
   });
   $('.ui.checkbox').checkbox();
-};
+});

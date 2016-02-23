@@ -36,7 +36,7 @@ Template.scheduleEditForm.created = function() {
   this.materialFileID = new ReactiveVar("");
 };
 
-Template.scheduleEditForm.rendered = function() {
+Template.scheduleEditForm.onRendered(function() {
   Meteor.subscribe("files");
   addBehaviours();
   var self = this;
@@ -66,7 +66,7 @@ Template.scheduleEditForm.rendered = function() {
       resetForm()
     }
   });
-};
+});
 Template.scheduleEditForm.helpers({
   materialType: function() {
     return Template.instance().materialType.get();

@@ -1,6 +1,6 @@
-Template.profile.rendered = function() {
+Template.profile.onRendered(function() {
   Meteor.subscribe("images");
-};
+});
 
 Template.profile.helpers({
   email: function() {

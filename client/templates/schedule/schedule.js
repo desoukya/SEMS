@@ -1,10 +1,10 @@
 Template.schedule.created = function() {
   this.filterField = new ReactiveVar("week");
 };
-Template.schedule.rendered = function() {
+Template.schedule.onRendered(function() {
   $('.ui.dropdown')
     .dropdown();
-};
+});
 
 Template.schedule.events({
   "change #filterBy": function(event, template) {
