@@ -2,20 +2,28 @@
   <div class="ui large top hidden menu">
     <div class="ui container">
       <a class="item {{isActive 'home'}}" href="{{pathFor 'home'}}">Home</a>
-      {{#if currentUser}}
-        <a class="item {{isActive 'user.profile'}}" href="{{pathFor 'user.profile' _id=userId}}">Profile</a>
-        <a class="item {{isActive 'team'}}" href="{{pathFor 'team'}}">Team</a>
-      {{/if}}
 
       {{#if isInRole "admin"}}
         <a href="{{pathFor 'admin.panel'}}" class="item {{isActive 'admin.panel'}}">Admin</a>
       {{/if}}
+
       <a class="item {{isActive 'schedule'}}" href="{{pathFor 'schedule'}}">Schedule</a>
+
+      {{#if currentUser}}
+        <a class="item {{isActive 'team'}}" href="{{pathFor 'team'}}">Teams</a>
+      {{/if}}
 
       <div class="right menu">
         {{#if currentUser}}
-          <div class="item">
-            <a class="ui button logout">Logout</a>
+          <div class="ui simple dropdown item">
+            <i class="setting icon"></i>{{userName}}
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <a class="item {{isActive 'user.profile'}}" href="{{pathFor 'user.profile' _id=userId}}">
+                <i class="user icon"></i>Profile</a>
+              <a class="item" id="logout_button">
+                <i class="red power icon"></i>Logout</a>
+            </div>
           </div>
         {{else}}
           <div class="item">

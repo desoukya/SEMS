@@ -1,5 +1,9 @@
+Template.header.onRendered(function() {
+  $('.ui.dropdown').dropdown();
+})
+
 Template.header.events({
-  "click .logout": function(event) {
+  "click #logout_button": function(event) {
     Accounts.logout();
     Router.go('home');
   },
@@ -7,14 +11,18 @@ Template.header.events({
 });
 
 Template.header.helpers({
-  isActive: function(route) {
+  isActive(route) {
     if (checkCurrentRoute(route)) {
       return "active";
     }
     return "";
   },
 
-  userId: function() {
+  userId() {
     return Meteor.userId();
-  }
+  },
+
+  userName() {
+    return Meteor.user().profile.firstName;
+  },
 });
