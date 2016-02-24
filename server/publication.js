@@ -12,6 +12,8 @@ Meteor.publish("users", function(id) {
       });
     }
   }
+  // If user is not logged in return nothing to fire up ready()
+  return [];
 });
 
 Meteor.publish("images", function() {
