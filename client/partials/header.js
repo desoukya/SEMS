@@ -13,4 +13,8 @@ Template.header.helpers({
     }
     return "";
   },
+
+  userId: function() {
+    return Meteor.userId();
+  }
 });

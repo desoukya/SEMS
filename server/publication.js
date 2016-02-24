@@ -4,8 +4,16 @@ Meteor.publish("users", function(id) {
     // Admins can have full access to users
     if (Roles.userIsInRole(user, ADMIN)) {
       return Meteor.users.find({});
+    } else {
+      return Meteor.users.find({}, {
+        fields: {
+          profile: 1
+        }
+      });
     }
   }
+  // If user is not logged in return nothing to fire up ready()
+  return [];
 });
 
 Meteor.publish("images", function() {
