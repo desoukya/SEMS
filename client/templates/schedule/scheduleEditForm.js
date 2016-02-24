@@ -1,4 +1,7 @@
+//holds reference to the currunt template
 var self = {};
+
+//verification object passed to the semantic ui form for validation  
 var formFieldsVerification = {
   title: {
     identifier: 'title',
@@ -29,6 +32,7 @@ var formFieldsVerification = {
     }]
   },
 };
+
 Template.scheduleEditForm.created = function() {
   //used reactive var instead of session to not overcroud the session
   //used string type instead of boolean for it to be more readable
@@ -39,38 +43,36 @@ Template.scheduleEditForm.created = function() {
 
 Template.scheduleEditForm.onRendered(function() {
   Meteor.subscribe("files");
+
   addBehaviours();
+  //store the current template in the local varible "self"
   self = this;
+  //reset selected Material to clear any past data
   Session.set('selectedMaterialID', undefined);
 
+  //monitor when the selected material is changed 
   Tracker.autorun(function() {
     var materialID = Session.get('selectedMaterialID');
     if (materialID === "") {
-      console.log("newMaterial triggered");
+      //show new Material form 
       $('.ui.small.modal').modal('show');
     } else if (materialID !== undefined) {
-      console.log("editMaterial triggered.. materialID is : " + materialID);
+      //show edit Material form 
       var material = Materials.findOne({
         _id: materialID
       })
       if (material) {
-        console.log("title : " + material.title);
         Tracker.nonreactive(function() {
-          populateForm(self, material);
+          populateForm(material);
         });
         $('.ui.small.modal').modal('show');
-
-      } else
-        console.log("couldn't find file");
+      }
     }
   });
 });
 
-function temp(self) {
-
-}
-
-function populateForm(self, material) {
+//populate the form with the material data
+function populateForm(material) {
 
   if (material.type === "link") {
     $('.checkbox').checkbox('uncheck');
@@ -86,6 +88,7 @@ function populateForm(self, material) {
   $('#week').dropdown('set selected', material.week);
   $('#description').val(material.description);
 
+  //moved this to defer so that it have enough time for the Ui to change
   Meteor.defer(function() {
     if (material.type === "link") {
       $('#link').val(material.identifier);
@@ -96,13 +99,18 @@ function populateForm(self, material) {
     }
   })
 }
+
 Template.scheduleEditForm.helpers({
+  // material type ["file","link"]
   materialType: function() {
     return Template.instance().materialType.get();
   },
+  //current materialFileID  if the material type is file 
+  //TODO : rename later to material fileID
   materialID: function() {
     return Template.instance().materialFileID.get();
   },
+  //whether this form is used for format or update
   new: function() {
     if (Session.get('selectedMaterialID') === "" || Session.get('selectedMaterialID') === undefined)
       return true;
@@ -111,8 +119,8 @@ Template.scheduleEditForm.helpers({
   }
 });
 
-
 Template.scheduleEditForm.events({
+  //uploading files event
   'change .myFileInput': function(event, template) {
     FS.Utility.eachFile(event, function(file) {
       Files.insert(file, function(err, fileObj) {
@@ -126,6 +134,7 @@ Template.scheduleEditForm.events({
       });
     });
   },
+  //change material type event
   "change #materialType": function(event) {
     if (event.currentTarget.checked)
       Template.instance().materialType.set("file");
@@ -135,6 +144,7 @@ Template.scheduleEditForm.events({
       addBehaviours();
     });
   },
+  //submit form
   "submit .ui.form": function(event) {
     event.preventDefault();
     var type = $('#materialType').prop("checked");
@@ -152,21 +162,17 @@ Template.scheduleEditForm.events({
       content: $('#content').val(),
       week: $('#week').val(),
       description: $('#description').val(),
-      createdAt: new Date() // current time
+      createdAt: new Date() //TODO : could be changed later .. to use MomentJs instead
     };
-    console.log("sending Material :");
-    console.log(material);
 
     if (Session.get('selectedMaterialID') === "" || Session.get('selectedMaterialID') === undefined) {
       Materials.insert(material,
         function(err, data) {
-          console.log("action submitted");
           if (err)
             $('.ui.form').form('add errors', {
               error: err
             });
           else {
-            console.log("newMaterial submitted");
             setTimeout(function() {
               $('.ui.small.modal').modal('hide');
             }, 1000);
@@ -177,13 +183,11 @@ Template.scheduleEditForm.events({
       Materials.update(Session.get('selectedMaterialID'), {
         $set: material
       }, function(err, data) {
-        console.log("action submitted");
         if (err)
           $('.ui.form').form('add errors', {
             error: err
           });
         else {
-          console.log("editMaterial submitted");
           setTimeout(function() {
             $('.ui.small.modal').modal('hide');
           }, 1000);
@@ -195,6 +199,7 @@ Template.scheduleEditForm.events({
 });
 
 
+//reset form after UI changes
 function initForm() {
   Meteor.defer(function() {
     // a dirty hack to clear error messages
@@ -208,16 +213,16 @@ function initForm() {
     $('.ui.form').form({
       fields: formFieldsVerification,
       inline: true,
-      keyboardShortcuts:false,
+      keyboardShortcuts: false,
       revalidate: false,
       onSuccess: function(event, fields) {
-        console.log("--> on success");
         $('.ui.form').removeClass("success");
       }
     });
   })
 }
 
+//clear form data 
 function clearForm() {
   $('#uploadMaterialForm').form('clear');
   self.materialType.set("link");
@@ -233,13 +238,9 @@ function addBehaviours() {
   initForm();
   $('.ui.small.modal').modal({
     onHidden: function() {
-      console.log("------- clear form --------");
       Session.set('selectedMaterialID', undefined);
       clearForm();
       initForm();
-      //$('#uploadMaterialForm').removeClass("success");
-      //Session.set('scheduleEditFormType', "");
-      //resetForm();
     },
   });
   $('.ui.dropdown')
