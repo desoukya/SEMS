@@ -1,0 +1,71 @@
+<template name="profileEdit">
+  <div class="ui stackable container grid">
+    <div class="twelve wide centered column">
+
+      <!-- Edit profile -->
+      <div class="ui segment" id="profile-wrapper">
+
+        <!-- Profile picture -->
+        <div class="centered column">
+          <div class="ui small centered circular image" id="profile-picture-wrapper">
+            <div class="ui dimmer">
+              <div class="content">
+                <div class="center" id="upload-dimmer">
+                  <i class="big cloud upload icon"></i>
+                </div>
+              </div>
+            </div>
+            <img class="ui small centered circular image" src="{{image.url}}"/>
+          </div>
+          <input type="file" id="upload-profile-picture" class="ui centered" style="display:none">
+        </div>
+        <!-- /Profile picture -->
+
+        <!-- Form -->
+        <form class="ui form">
+          <!-- Name -->
+          <div class="two fields">
+            <div class="field">
+              <label>First Name</label>
+              <input placeholder="First Name" value="{{firstName}}" name="fname" type="text">
+            </div>
+            <div class="field">
+              <label>Last Name</label>
+              <input placeholder="Last Name" value="{{lastName}}" name="lname" type="text">
+            </div>
+          </div>
+          <!-- /Name -->
+
+          <!-- Password -->
+
+          <div class="field">
+            <label>Current Password</label>
+            <input type="password" name="current_pass">
+          </div>
+
+          <div class="field">
+            <label>New Password</label>
+            <input type="password" name="new_pass">
+          </div>
+
+          <div class="field">
+            <label>Repeat Password</label>
+            <input type="password" name="repass">
+          </div>
+          <!-- /Password -->
+
+          <!-- Save button -->
+          <input class="ui green submit fluid button" type="submit" value="Save" id="update-profile-button">
+          <!-- /Save button -->
+
+          <div class="ui error message"></div>
+
+        </form>
+        <!-- /Form -->
+
+      </div>
+      <!-- Edit profile -->
+
+    </div>
+  </div>
+</template>

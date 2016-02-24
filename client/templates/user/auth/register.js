@@ -1,7 +1,4 @@
-var debug = function(event, text) {
-  event.preventDefault();
-  console.log(text);
-}
+// ES6
 
 Template.register.events({
   "submit form": function(event) {
@@ -12,17 +9,40 @@ Template.register.events({
     var lastName = event.target.lastname.value;
     var email = event.target.email.value;
     var password = event.target.pass.value;
+    var GUCId = event.target.gucid.value;
+    var tutorialGroup = event.target.tutorial_group.value;
+
+    // Optionals
+    var mobile = event.target.mobile.value;
+    var githubUser = event.target.github_user.value;
+    var publicEmail = event.target.public_mail.value;
+
+    if (publicEmail === "on") {
+      publicEmail = true;
+    } else {
+      publicEmail = false;
+    }
+
 
     var userData = {
       firstName: firstName,
       lastName: lastName,
       email: email,
       password: password,
+      GUCId: GUCId,
+      tutorialGroup: tutorialGroup,
+      mobile: mobile,
+      githubUser: githubUser,
+      publicEmail: publicEmail,
     };
 
-    Meteor.call("registerUser", userData, function() {
-
-      Router.go('/');
+    Meteor.call("registerUser", userData, function(err) {
+      if (err) {
+        // TODO: Display readable error
+        console.log(err);
+      } else {
+        Router.go('/');
+      }
 
     });
 
@@ -33,6 +53,7 @@ Template.register.events({
 Template.register.onRendered(function() {
   $('.ui.form').form({
     fields: {
+
       firstname: {
         identifier: 'firstname',
         rules: [{
@@ -40,6 +61,7 @@ Template.register.onRendered(function() {
           prompt: 'Please enter your full name'
         }]
       },
+
       lastname: {
         identifier: 'lastname',
         rules: [{
@@ -47,7 +69,8 @@ Template.register.onRendered(function() {
           prompt: 'Please enter your full name'
         }]
       },
-      haltuser: {
+
+      user: {
         identifier: 'email',
         rules: [{
           type: 'empty',
@@ -57,7 +80,8 @@ Template.register.onRendered(function() {
           prompt: 'Please enter your email address'
         }]
       },
-      haltpass: {
+
+      pass: {
         identifier: 'pass',
         rules: [{
           type: 'empty',
@@ -67,7 +91,8 @@ Template.register.onRendered(function() {
           prompt: 'Please enter  a password of length greater than 6 characters'
         }]
       },
-      haltpassa: {
+
+      repass: {
         identifier: 'repass',
         rules: [{
           type: 'empty',
@@ -80,14 +105,51 @@ Template.register.onRendered(function() {
           prompt: 'The passwords should match'
         }]
       },
-      terms: {
+
+      gucId: {
+        identifier: 'gucid',
+        rules: [{
+          type: `regExp[${Regex.GUCId}]`,
+          prompt: 'Please use a proper GUC ID format'
+        }]
+      },
+
+      tutorialGroup: {
+        identifier: 'tutorial_group',
+        rules: [{
+          type: 'empty',
+          prompt: 'Please select your tutorial group'
+        }]
+      },
+
+      mobile: {
+        identifier: 'mobile',
+        optional: true,
+        rules: [{
+          type: `regExp[${Regex.mobileNumber}]`,
+          prompt: 'Mobile number format supported is dddddddddd'
+        }]
+      },
+
+      github: {
+        identifier: 'github_user',
+        optional: true,
+        rules: [{
+          type: `regExp[${Regex.githubUser}]`,
+          prompt: 'Please use github username, not a URL nor your fullname'
+        }]
+      },
+
+
+      honorCode: {
         identifier: 'terms',
         rules: [{
           type: 'checked',
-          prompt: 'You need to agree to our terms'
+          prompt: 'You need to agree to the honor code'
         }]
       },
     }
   });
   $('.ui.checkbox').checkbox();
+  $('.ui.dropdown').dropdown();
 });

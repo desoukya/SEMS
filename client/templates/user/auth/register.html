@@ -1,0 +1,167 @@
+<template name="register">
+
+  <div class="ui stackable container grid">
+
+    <div class="twelve wide centered column">
+
+      <!-- Header -->
+      <div class="main header">
+        <h1 class="ui text centered header">Register</h1>
+      </div>
+      <!-- /Header -->
+
+      <div class="page content">
+        <!-- Register form -->
+        <form class="ui form segment" id="register-form">
+
+          <!-- #############USER INFO############# -->
+          <h4 class="ui dividing header">User Information</h4>
+
+          <!-- Username -->
+          <div class="two fields">
+            <div class="required field">
+              <label>First Name</label>
+              <input placeholder="First Name" name="firstname" type="text">
+            </div>
+            <div class="required field">
+              <label>Last Name</label>
+              <input placeholder="Last Name" name="lastname" type="text">
+            </div>
+          </div>
+          <!-- /Username -->
+
+          <!-- Email -->
+          <div class="required field">
+            <label>Email Address</label>
+            <input placeholder="email@example.com" name="email" type="text">
+          </div>
+          <!-- /Email -->
+
+          <!-- Password -->
+          <div class="required field">
+            <label>Password</label>
+            <input type="password" name="pass" placeholder="••••••">
+          </div>
+          <div class="required field">
+            <label>Repeat Password</label>
+            <input type="password" name="repass" placeholder="••••••">
+          </div>
+          <!-- /Password -->
+
+
+          <div class="two fields">
+            <!-- GUC ID -->
+            <div class="required field">
+              <label>GUC ID</label>
+              <input placeholder="xy-abcdef" name="gucid" type="text">
+            </div>
+            <!-- /GUC ID -->
+
+            <!-- Tutorial Group -->
+            <div class="required field">
+              <label>Tutorial group</label>
+              <div class="ui search selection dropdown">
+                <input type="hidden" name="tutorial_group">
+                <div class="default text">Tutorial</div>
+                <i class="dropdown icon"></i>
+
+                <div class="menu">
+                  <div class="item" data-value="CSEN 10">CSEN 10</div>
+                  <div class="item" data-value="CSEN 11">CSEN 11</div>
+                  <div class="item" data-value="CSEN 12">CSEN 12</div>
+                  <div class="item" data-value="CSEN 13">CSEN 13</div>
+                  <div class="item" data-value="CSEN 14">CSEN 14</div>
+                  <div class="item" data-value="CSEN 15">CSEN 15</div>
+                  <div class="item" data-value="DMET">DMET</div>
+                  <div class="item" data-value="BI 15">BI 15</div>
+                  <div class="item" data-value="BI 16">BI 16</div>
+                  <div class="item" data-value="BI 17">BI 17</div>
+                </div>
+              </div>
+            </div>
+            <!-- /Tutorial Group -->
+
+          </div>
+
+
+          <!-- #############USER INFO############# -->
+
+
+          <!-- #############OPTIONAL INFO############# -->
+          <h4 class="ui dividing header">Additional information</h4>
+
+          <div class="two fields">
+            <!-- Phone number -->
+            <div class="field">
+              <label>Phone number</label>
+              <input placeholder="0123456789" name="mobile" type="tel">
+            </div>
+            <!-- /Phone number -->
+
+            <!-- Github account -->
+            <div class="field">
+              <label><i class="large github icon"></i>Github username</label>
+              <input type="text" name="github_user" placeholder="geeky-developer">
+            </div>
+            <!-- /Github account -->
+          </div>
+
+          <!-- Email Toggle -->
+          <div class="field">
+            <div class="ui toggle checkbox">
+              <input type="checkbox" name="public_mail" tabindex="0" class="hidden">
+              <label>Display my Email address on profile</label>
+            </div>
+          </div>
+          <!-- /Email Toggle -->
+
+
+          <div class="ui hidden divider"></div>
+          <div class="ui divider"></div>
+
+
+          <!-- #############/OPTIONAL INFO############# -->
+
+          <!-- Honor code -->
+          <div class="required field">
+            <div class="ui checkbox">
+              <input type="checkbox" name="terms" tabindex="0">
+              <label>I agree to the
+                <a href="#">Honor code</a>
+              </label>
+            </div>
+          </div>
+          <!-- /Honor code -->
+
+          <!-- Submit buttons -->
+          <div class="ui two big buttons">
+            <input class="big ui green submit button" type="submit" value="Register now">
+            <div class="or"></div>
+            <a class="big ui left animated fade blue button" tabindex="0" href="{{pathFor 'user.login'}}">
+              <div class="visible content">I have an account</div>
+              <div class="hidden content">
+                Login now
+                <i class="right arrow icon"></i>
+              </div>
+            </a>
+          </div>
+          <!-- /Submit buttons -->
+
+          <div class="ui error message"></div>
+          <div class="ui info message">
+            <div class="header">
+              Awesome,
+            </div>
+            <ul class="list">
+              <li>Just Fill up this brief form to get started.</li>
+            </ul>
+          </div>
+        </form>
+        <!-- /Register form -->
+      </div>
+
+    </div>
+
+  </div>
+
+</template>
