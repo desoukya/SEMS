@@ -1,3 +1,4 @@
+var self = {};
 var formFieldsVerification = {
   title: {
     identifier: 'title',
@@ -39,62 +40,92 @@ Template.scheduleEditForm.created = function() {
 Template.scheduleEditForm.onRendered(function() {
   Meteor.subscribe("files");
   addBehaviours();
-  var self = this;
+  self = this;
+  Session.set('selectedMaterialID', undefined);
 
   Tracker.autorun(function() {
-    var newMaterial = (Session.get('scheduleEditFormType') === "new");
+    var materialID = Session.get('selectedMaterialID');
+    if (materialID === "") {
+      console.log("newMaterial triggered");
+      $('.ui.small.modal').modal('show');
+    } else if (materialID !== undefined) {
+      console.log("editMaterial triggered.. materialID is : " + materialID);
+      var material = Materials.findOne({
+        _id: materialID
+      })
+      if (material) {
+        console.log("title : " + material.title);
+        Tracker.nonreactive(function() {
+          populateForm(self, material);
+        });
+        $('.ui.small.modal').modal('show');
+
+      } else
+        console.log("couldn't find file");
+    }
 
     //edit form
-    if (Session.get('scheduleEditFormType') === "edit") {
-      temp(self);
+    /*var id = Session.get('selectedMaterialID');
+        if (id !== "") {
+          var material = Materials.findOne({
+            _id: id
+          });
 
-    } else if (Session.get('scheduleEditFormType') === "new") {
-      resetForm();
-      console.log("22222222222222222");
-      $('.ui.small.modal').modal('show');
-    }
+          if (material) {
+            console.log("#####" + material);
+            self.materialType.set(material.type);
+
+            if (material.type === "file") {
+              $('.checkbox').checkbox('check');
+            } else {
+              self.materialFileID.set(material.identifier)
+              $('.checkbox').checkbox('uncheck');
+            }
+
+            Meteor.defer(function() {
+              resetForm();
+              populateForm(self, material);
+              console.log("11111111111111111");
+              $('.ui.small.modal').modal('show');
+            });
+          }
+        } else {// new file
+          resetForm();
+          console.log("22222222222222222");
+          $('.ui.small.modal').modal('show');
+        }*/
   });
 });
 
 function temp(self) {
-  var material = Materials.findOne({
-    _id: Session.get('selectedMaterialID')
-  });
 
-  if (material) {
-    console.log("#####" + material);
-    self.materialType.set(material.type);
-
-    if (material.type === "file") {
-      $('.checkbox').checkbox('check');
-    } else {
-      self.materialFileID.set(material.identifier)
-      $('.checkbox').checkbox('uncheck');
-    }
-
-    Meteor.defer(function() {
-      resetForm();
-      populateForm(self, material);
-      console.log("11111111111111111");
-      $('.ui.small.modal').modal('show');
-    });
-  }
 }
 
 function populateForm(self, material) {
+
   if (material.type === "link") {
-    $('#link').val(material.identifier);
+    $('.checkbox').checkbox('uncheck');
+    self.materialType.set("link");
   } else {
+    $('.checkbox').checkbox('check');
+    self.materialType.set("file");
     self.materialFileID.set(material.identifier)
-    $('#fileName').val(Files.findOne({
-      _id: material.identifier
-    }).original.name);
   }
 
   $('#title').val(material.title);
   $('#content').dropdown('set selected', material.content);
   $('#week').dropdown('set selected', material.week);
   $('#description').val(material.description);
+
+  Meteor.defer(function() {
+    if (material.type === "link") {
+      $('#link').val(material.identifier);
+    } else {
+      $('#fileName').val(Files.findOne({
+        _id: material.identifier
+      }).original.name);
+    }
+  })
 }
 Template.scheduleEditForm.helpers({
   materialType: function() {
@@ -104,10 +135,10 @@ Template.scheduleEditForm.helpers({
     return Template.instance().materialFileID.get();
   },
   new: function() {
-    if (Session.get('scheduleEditFormType') === "edit")
-      return false;
-    else
+    if (Session.get('selectedMaterialID') === "" || Session.get('selectedMaterialID') === undefined)
       return true;
+    else
+      return false;
   }
 });
 
@@ -127,7 +158,7 @@ Template.scheduleEditForm.events({
     });
   },
   "change #materialType": function(event) {
-    if (Template.instance().materialType.get() === "link")
+    if (event.currentTarget.checked)
       Template.instance().materialType.set("file");
     else
       Template.instance().materialType.set("link");
@@ -137,7 +168,6 @@ Template.scheduleEditForm.events({
   },
   "submit .ui.form": function(event) {
     event.preventDefault();
-    console.log("submit detected-----------------------------------");
     var type = $('#materialType').prop("checked");
     var identifier = undefined;
     //true is for upload
@@ -155,50 +185,70 @@ Template.scheduleEditForm.events({
       description: $('#description').val(),
       createdAt: new Date() // current time
     };
-    console.log("sending Material :" + material);
-    if (Session.get('scheduleEditFormType') === "edit") {
-      Materials.update(Session.get('selectedMaterialID'), {
-        $set: material
-      }, function(err, data) {
-        if (err)
-          $('.ui.form').form('add errors', {
-            error: err
-          });
-        else {
-          $('.ui.small.modal').modal('hide');
-          $('.ui.form').addClass("success");
-        }
-      })
-    } else if (Session.get('scheduleEditFormType') === "new") {
+    console.log("sending Material :");
+    console.log(material);
+
+    if (Session.get('selectedMaterialID') === "" || Session.get('selectedMaterialID') === undefined) {
       Materials.insert(material,
         function(err, data) {
+          console.log("action submitted");
           if (err)
             $('.ui.form').form('add errors', {
               error: err
             });
           else {
-            $('.ui.small.modal').modal('hide');
-            $('.ui.form').addClass("success");
+            console.log("newMaterial submitted");
+            //$('.ui.small.modal').modal('hide');
+            //$('.ui.form').addClass("success");
           }
+        });
+    } else {
+      Materials.update(Session.get('selectedMaterialID'), {
+        $set: material
+      }, function(err, data) {
+        console.log("action submitted");
+        if (err)
+          $('.ui.form').form('add errors', {
+            error: err
+          });
+        else {
+          console.log("editMaterial submitted");
+          //$('.ui.small.modal').modal('hide');
+          //$('.ui.form').addClass("success");
         }
-      );
+      });
     }
   },
 });
 
 
+function initForm() {
+  Meteor.defer(function() {
+    // a dirty hack to clear error messages
+    $('.ui.form').form({
+      fields: {}
+    });
+    $('.ui.form').form('validate form');
+    $('.ui.form').removeClass('success');
+    // end of hack
+    $('.ui.form').form('destroy');
+    $('.ui.form').form({
+      fields: formFieldsVerification,
+      inline: true,
+      revalidate: false,
+      onSuccess: function(event, fields) {
+        console.log("--> on success");
+        $('.ui.form').removeClass("success");
+      }
+    });
+  })
+}
 
-function resetForm() {
-  $('.ui.form').form('destroy');
-  $('.ui.form').form({
-    fields: formFieldsVerification,
-    inline: true,
-    onSuccess: function(event, fields) {
-      console.log(fields);
-      console.log("from on success function");
-      $('.ui.form').removeClass("success");
-    }
-  });
+function clearForm() {
+  $('#uploadMaterialForm').form('clear');
+  self.materialType.set("link");
+  $('#fileName').val("");
+  $('#link').val("");
 }
 
 function addBehaviours() {
@@ -206,15 +256,16 @@ function addBehaviours() {
   $("#divUpload").on("click", function() {
     $('#upload').trigger('click');
   });
+  initForm();
   $('.ui.small.modal').modal({
     onHidden: function() {
-      console.log("------------------ Dismissed --------------------------");
-      $('#uploadMaterialForm').removeClass("success");
-      $('#uploadMaterialForm').form('clear');
-      Session.set('scheduleEditFormType', "");
-      Session.set('selectedMaterialID', "");
-      resetForm();
-
+      console.log("------- clear form --------");
+      Session.set('selectedMaterialID', undefined);
+      clearForm();
+      initForm();
+      //$('#uploadMaterialForm').removeClass("success");
+      //Session.set('scheduleEditFormType', "");
+      //resetForm();
     },
   });
   $('.ui.dropdown')

@@ -12,9 +12,7 @@ Template.schedule.events({
     Template.instance().filterField.set(selectValue);
   },
   'click #add-material': function(event, template) {
-    console.log("clicked");
-
-    Session.set('scheduleEditFormType', "new");
+    
     Session.set('selectedMaterialID', "");
     //$('.ui.small.modal').modal('show');
   },

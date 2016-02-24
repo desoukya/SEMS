@@ -24,7 +24,6 @@ Template.material.events({
       .modal('show');
   },
   "click #edit-icon": function() {
-    Session.set('scheduleEditFormType', "edit");
     Session.set('selectedMaterialID', this._id);
     //$('.ui.small.modal').modal('show');
   }
