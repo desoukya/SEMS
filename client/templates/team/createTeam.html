@@ -1,6 +1,6 @@
 <template name="createTeam">
   <div class="ui middle aligned center aligned container grid" id="login-wrapper">
-    <div class="six wide column login-form">
+    <div class="six wide column">
       <h2 class="ui image header">
         <div class="content">
           Create a team
@@ -12,7 +12,14 @@
             <label>Team Name</label>
             <div class="ui left icon input">
               <i class="user icon"></i>
-              <input type="text" name="name" placeholder="The Expendables">
+              <input type="text" name="teamName" placeholder="The Expendables">
+            </div>
+          </div>
+          <div class="field">
+            <label>Github Repo Link</label>
+            <div class="ui left icon input">
+              <i class="github icon"></i>
+              <input type="text" name="repoLink" placeholder="The Expendables">
             </div>
           </div>
           <input type="submit" id="loginBtn" class="ui fluid large green submit button" value="Create team">
