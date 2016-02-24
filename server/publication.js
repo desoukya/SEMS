@@ -27,3 +27,7 @@ Meteor.publish("files", function() {
 Meteor.publish("materials", function() {
   return Materials.find({});
 });
+
+Meteor.publish("teams", function() {
+  return Teams.find({});
+});
