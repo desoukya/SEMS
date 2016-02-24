@@ -23,7 +23,7 @@ Template.login.events({
 
 });
 
-Template.login.rendered = function() {
+Template.login.onRendered(function() {
   $(document)
     .ready(function() {
       $('.ui.form')
@@ -52,4 +52,4 @@ Template.login.rendered = function() {
           }
         });
     });
-};
+});
