@@ -1,6 +1,6 @@
 {
-  "adminMail": "email",
-
+  "adminEmail": "email",
+  "systemEmail": "email",
   "public": {
 
   }
