@@ -63,37 +63,6 @@ Template.scheduleEditForm.onRendered(function() {
       } else
         console.log("couldn't find file");
     }
-
-    //edit form
-    /*var id = Session.get('selectedMaterialID');
-        if (id !== "") {
-          var material = Materials.findOne({
-            _id: id
-          });
-
-          if (material) {
-            console.log("#####" + material);
-            self.materialType.set(material.type);
-
-            if (material.type === "file") {
-              $('.checkbox').checkbox('check');
-            } else {
-              self.materialFileID.set(material.identifier)
-              $('.checkbox').checkbox('uncheck');
-            }
-
-            Meteor.defer(function() {
-              resetForm();
-              populateForm(self, material);
-              console.log("11111111111111111");
-              $('.ui.small.modal').modal('show');
-            });
-          }
-        } else {// new file
-          resetForm();
-          console.log("22222222222222222");
-          $('.ui.small.modal').modal('show');
-        }*/
   });
 });
 
@@ -198,8 +167,10 @@ Template.scheduleEditForm.events({
             });
           else {
             console.log("newMaterial submitted");
-            //$('.ui.small.modal').modal('hide');
-            //$('.ui.form').addClass("success");
+            setTimeout(function() {
+              $('.ui.small.modal').modal('hide');
+            }, 1000);
+            $('.ui.form').addClass("success");
           }
         });
     } else {
@@ -213,8 +184,10 @@ Template.scheduleEditForm.events({
           });
         else {
           console.log("editMaterial submitted");
-          //$('.ui.small.modal').modal('hide');
-          //$('.ui.form').addClass("success");
+          setTimeout(function() {
+            $('.ui.small.modal').modal('hide');
+          }, 1000);
+          $('.ui.form').addClass("success");
         }
       });
     }
@@ -235,6 +208,7 @@ function initForm() {
     $('.ui.form').form({
       fields: formFieldsVerification,
       inline: true,
+      keyboardShortcuts:false,
       revalidate: false,
       onSuccess: function(event, fields) {
         console.log("--> on success");
