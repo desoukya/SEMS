@@ -1,10 +1,5 @@
 // ES6
 
-Template.profile.onCreated(function() {
-  this.subscribe("users", Meteor.userId());
-  this.subscribe("images");
-});
-
 Template.profile.helpers({
   image() {
     var self = this;
