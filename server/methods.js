@@ -25,6 +25,8 @@ Meteor.methods({
       Roles.addUsersToRoles(userId, STUDENT);
 
       Accounts.sendVerificationEmail(userId);
+
+      return userId;
     } else {
       throw new Meteor.Error(400, "Can't create new user");
     }
