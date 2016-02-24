@@ -1,6 +1,10 @@
 Template.manageUsers.helpers({
   users: function() {
-    return Meteor.users.find();
+    return Meteor.users.find({
+      _id: {
+        $ne: Meteor.userId()
+      }
+    });
   }
 });
 
@@ -24,14 +28,14 @@ Template.manageUsers.events({
 
 Template.userEntry.onRendered(function() {
   var self = this;
-  Meteor.subscribe("users", Meteor.userId(), function() {
-    // dropdowns are having user ids as ids !
-    var selector = "#" + self.data._id;
 
-    // Initialize dropdowns with current role as selected
-    $(selector)
-      .dropdown('set selected', self.data.roles[0]);
-  });
+  // dropdowns are having user ids as ids !
+  var selector = "#" + self.data._id;
+
+  // Initialize dropdowns with current role as selected
+  $(selector)
+    .dropdown('set selected', self.data.roles[0]);
+
 
 });
 
