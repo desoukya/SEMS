@@ -1,5 +1,9 @@
-.week.wrapper {
+.material-group.wrapper {
   margin-bottom: 80px;
+}
+
+#dash-board {
+  margin-top: 90px;
 }
 
 .date.meta {
@@ -19,4 +23,59 @@
 .schedule {
   margin-top: 40px;
   margin-bottom: 40px;
+}
+
+.action-icons {
+  right: 0rem;
+  position: absolute;
+
+}
+
+.action-icon {
+  cursor: pointer;
+  margin: 0;
+  
+  -webkit-transition: opacity 0.3s ease-out;
+  -moz-transition: opacity 0.3s ease-out;
+  -o-transition: opacity 0.3s ease-out;
+  -ms-transition: opacity 0.3s ease-out;
+  transition: opacity 0.3s ease-out;
+}
+
+/* add another class beside small , large because they are too big*/
+/* Tiny Modal Width */
+
+@media only screen and (max-width: 767px) {
+  .ui.tiny.modal {
+    width: 95%;
+    margin: 0em 0em 0em -47.5%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .ui.tiny.modal {
+    width: 50%;
+    margin: 0em 0em 0em -25%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .ui.tiny.modal {
+    width: 200px;
+    margin: 0em 0em 0em -100px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .ui.tiny.modal {
+    width: 300px;
+    margin: 0em 0em 0em -150px;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .ui.tiny.modal {
+    width: 400px;
+    margin: 0em 0em 0em -200px;
+  }
 }

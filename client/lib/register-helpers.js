@@ -11,3 +11,7 @@ Template.registerHelper('increment', function(number) {
   var res = parseInt(number);
   return res+1;
 });
+
+Template.registerHelper('lowerCamelCase', function(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+});

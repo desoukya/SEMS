@@ -1,0 +1,117 @@
+<template name="scheduleEditForm">
+  <!--Edit Form-->
+
+  <!--Form Header-->
+  {{#if new}}
+    <h3 class="ui center aligned header">
+  upload Material
+  </h3>
+  {{else}}
+    <h3 class="ui center aligned header">
+  Edit Material
+  </h3>
+  {{/if}}
+  <!-- /Form Header -->
+
+  <!-- form -->
+  <form id="uploadMaterialForm" class="ui form segment">
+    <!-- Success Message -->
+    <div class="ui success message">
+      <div class="header">Thank you </div>
+      <p>you are file is now uploaded</p>
+    </div>
+    <!-- /Success Message -->
+
+    <!-- MaterialFileType -->
+    <div class="two fields">
+      <div class="four wide field">
+        <div class="ui toggle checkbox">
+          <input id="materialType" name="public" type="checkbox">
+          <label>{{materialType}}</label>
+        </div>
+      </div>
+      <!-- Material Input Field -->
+      <div class="twelve wide required inline required field myFileInput">
+        {{#if equals materialType 'file'}}
+          <input type="file" id="upload" class="ui centered " style="display:none">
+          <div class="ui fluid icon input">
+            <div class="ui disabled input">
+              <input placeholder="fileName" name="identifier" id="fileName" type="text">
+            </div>
+            <div id="divUpload" class="ui teal right labeled icon button">
+              <i class="file icon"></i>Upload
+            </div>
+          </div>
+        {{else}}
+          <div class="ui fluid input">
+            <input placeholder="http://google.com" name="identifier" id="link" type="text">
+          </div>
+        {{/if}}
+      </div>
+      <!-- /Material Input Field -->
+    </div>
+    <!-- /MaterialFileType -->
+
+    <!-- Material Title -->
+    <div class="required field">
+      <label>title</label>
+      <input placeholder="lecture 1" name="title" id="title" type="text">
+    </div>
+    <!-- /Material Title -->
+
+    <!-- Content & week -->
+    <div class="two fields">
+
+      <!-- Content drop-down -->
+      <div class="required field">
+        <label>content</label>
+        <select class="ui fluid search dropdown" name="content" id="content">
+          <option value="">Content</option>
+          <option value="lecture">Lecture</option>
+          <option value="assignment">Assignment</option>
+          <option value="tutorial">Tutorial</option>
+          <option value="practiceAssignment">Practice Assignment</option>
+        </select>
+      </div>
+      <!-- /Content drop-down -->
+
+      <!-- weeks drop-down -->
+      <div class="required field">
+        <label>week</label>
+        <select class="ui fluid search dropdown" name="week" id="week">
+          <option value="">Week</option>
+          <option value="1">Week 1</option>
+          <option value="2">week 2</option>
+          <option value="3">week 3</option>
+          <option value="4">week 4</option>
+          <option value="5">Week 5</option>
+          <option value="6">week 6</option>
+          <option value="7">week 7</option>
+          <option value="8">week 8</option>
+        </select>
+      </div>
+      <!-- /weeks drop-down -->
+    </div>
+    <!-- /Content & week -->
+
+    <!-- Description -->
+    <div class="field">
+      <label>description</label>
+      <textarea name="description" id="description"></textarea>
+    </div>
+    <!-- /Description -->
+
+    <!-- Submit Button -->
+    {{#if new}}
+      <div class="ui large teal submit button">Submit</div>
+    {{else}}
+      <div class="ui large teal submit button">Edit</div>
+    {{/if}}
+    <div class="ui error message"></div>
+  </form>
+  <!-- /Submit Button -->
+
+  <!-- form -->
+
+  <!--/Edit Form-->
+</template>

@@ -1,7 +1,7 @@
-Template.materialGroup.rendered = function() {
+Template.materialGroup.onRendered(function() {
   $('.ui.dropdown')
     .dropdown();
-};
+});
 
 Template.materialGroup.helpers({
   materialsOfWeek: function(type, value) {
