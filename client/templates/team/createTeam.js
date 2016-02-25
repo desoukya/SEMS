@@ -15,7 +15,7 @@ Template.createTeam.events({
     Meteor.call("createTeam", team, function(err) {
       if (err) {
         $('.ui.form').form('add errors', {
-          error: err
+          error: err.reason
         });
       } else {
         Router.go("team");
