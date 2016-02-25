@@ -1,7 +1,7 @@
 <template name="searchBox">
-  <div class="ui left icon input">
-  <i class="user icon"></i>
-  <input type="text" name="email" id = "search-box" >
+  <div class="ui left fluid icon input">
+    <i class="search icon"></i>
+    <input type="text" name="email" id="search-box" placeholder="search for users">
   </div>
 </template>
 <template name="manageUsers">
@@ -10,9 +10,6 @@
     <div class="row">
       <div class="ui column">
         <h1 class="ui header text centered">Manage Users</h1>
-      </div>
-      <div class="ui column">
-        {{>searchBox}}
       </div>
     </div>
     <!-- /Header -->
@@ -29,6 +26,19 @@
           </thead>
 
           <tbody>
+            <tr>
+              <td>
+                <div class="ui column">
+                  {{>searchBox}}
+                </div>
+              </td>
+              <td class="collapsing">
+                <div class="ui icon fluid button" id="update-users-button">
+                  <i class="save icon"></i>Update
+                </div>
+              </td>
+            </tr>
+
             {{#each users}}
               {{> userEntry}}
             {{/each}}
@@ -36,12 +46,7 @@
 
           <!-- Update Button -->
           <tfoot>
-            <tr>
-              <th colspan="2">
-                <div class="ui right floated small primary labeled icon button" id="update-users-button">
-                  <i class="save icon"></i>Update</div>
-              </th>
-            </tr>
+
           </tfoot>
           <!-- /Update Button -->
 

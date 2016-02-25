@@ -1,12 +1,12 @@
 SearchSource.defineSource('users', function(searchText, options) {
   var results = [];
-  console.log("server reached")
+  //the object doesn't containts any of these properties they are add automatically
   options = _.extend({
     skip: 0,
     limit: 50,
     sort: {created: -1}
   }, options);
-
+  //Make sure the name is good enough
   if(searchText) {
     var parts = searchText.trim().split(' '),
         regExp = new RegExp("(" + parts.join('|') + ")", "ig"),
@@ -18,9 +18,6 @@ SearchSource.defineSource('users', function(searchText, options) {
   } else {
     results = Meteor.users.find({}, options).fetch();
   }
-  console.log(selector);
-  console.log(Meteor.users.find().count());
-  console.log(results);
   return results;
 });
 
