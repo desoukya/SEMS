@@ -1,9 +1,18 @@
+<template name="searchBox">
+  <div class="ui left icon input">
+  <i class="user icon"></i>
+  <input type="text" name="email" id = "search-box" >
+  </div>
+</template>
 <template name="manageUsers">
   <!-- Header -->
   <div class="ui container grid">
     <div class="row">
       <div class="ui column">
         <h1 class="ui header text centered">Manage Users</h1>
+      </div>
+      <div class="ui column">
+        {{>searchBox}}
       </div>
     </div>
     <!-- /Header -->
@@ -57,7 +66,7 @@
     </td>
 
     <td>
-      <div class="ui selection dropdown" id={{_id}}>
+      <div class="ui selection dropdown" id= {{_id}}>
         <input type="hidden" name="role">
         <i class="dropdown icon"></i>
         <div class="default text"></div>

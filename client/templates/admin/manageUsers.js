@@ -1,4 +1,4 @@
-Template.manageUsers.helpers({
+/*Template.manageUsers.helpers({
   users: function() {
     return Meteor.users.find({
       _id: {
@@ -7,7 +7,7 @@ Template.manageUsers.helpers({
     });
   }
 });
-
+*/
 Template.manageUsers.events({
   "click #update-users-button": function(event, template) {
     var pairs = Session.get("toBeUpdatedRoles");
