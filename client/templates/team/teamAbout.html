@@ -1,15 +1,43 @@
 <template name="teamAbout">
-  <div class="ui page full screen grid">
+  <div class="ui container grid">
     <div class="row">
       <div class="ui center aligned column">
 
         <!-- Header -->
         <div class="main header">
-          <h1 class="ui text centered header">{{teamName}}</h1>
+          <h1 class="ui huge text centered">{{teamName}}</h1>
         </div>
         <!-- /Header -->
 
+        <div class="ui divider container"></div>
+        <div class="ui hidden divider container"></div>
+
+        <div class="ui stackable container grid">
+          <div class="column">
+            <div class="ui three column very relaxed grid">
+              {{#each members}}
+                <div class="column">
+                  {{>memberDetails}}
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+
       </div>
+    </div>
+  </div>
+</template>
+
+<template name="memberDetails">
+  <div class="member item">
+    <div class="ui small circular image">
+      <img src="{{image}}">
+    </div>
+
+    <div class="header bottom aligned">
+      <h3 class="name">{{name}}</h3>
+      <h5 class="tutorial">{{tutorialGroup}}</h5>
     </div>
   </div>
 </template>
