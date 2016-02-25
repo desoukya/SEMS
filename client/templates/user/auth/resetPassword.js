@@ -9,10 +9,9 @@ Template.resetPassword.events({
       },
       function(err) {
         if (err) {
-          console.log(err);
+          sAlert.error(err.reason);
         } else {
-          //TODO: Display a flash message here
-          console.log("Email sent, please check your inbox");
+          sAlert.info('Email sent, Please check your inbox');
         }
       });
   }
