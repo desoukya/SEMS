@@ -13,5 +13,19 @@ Meteor.methods({
     }
   },
 
+  getTeamMembers(teamId) {
+
+    var usersIds = Teams.findOne({
+      _id: teamId
+    }).members;
+
+    return Meteor.users.find({
+      _id: {
+        $in: usersIds
+      }
+    });
+
+  },
+
 
 });

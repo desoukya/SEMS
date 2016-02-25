@@ -4,4 +4,8 @@ Template.team.helpers({
     return this.name;
   },
 
+  teamImage() {
+    return TeamUtils.getDefaultPhoto(this._id);
+  }
+
 });
