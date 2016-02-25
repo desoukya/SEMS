@@ -12,17 +12,16 @@ Template.createTeam.events({
       createdAt: new Date()
     };
 
+    Meteor.call("createTeam", team, function(err) {
+      if (err) {
+        $('.ui.form').form('add errors', {
+          error: err
+        });
+      } else {
+        Router.go("team");
+      }
+    });
 
-    Teams.insert(team,
-      function(err, data) {
-        if (err)
-          $('.ui.form').form('add errors', {
-            error: err
-          });
-        else {
-          Router.go('/team');
-        }
-      });
   },
 });
 
@@ -46,9 +45,9 @@ Template.createTeam.onRendered(function() {
             repoLink: {
               identifier: 'repoLink',
               rules: [{
-                type: 'empty',
-                prompt: 'Please enter your repo Link'
-              }]//TODO : Add github regexp
+                  type: 'empty',
+                  prompt: 'Please enter your repo Link'
+                }] //TODO : Add github regexp
             },
 
           }
