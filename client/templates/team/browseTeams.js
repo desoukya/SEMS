@@ -22,17 +22,22 @@ var imagesArray = ["apple.png",
 
 
 Template.browseTeam.helpers({
-  teams: function() {
+  teams() {
     return Teams.find();
   },
 
 });
 Template.teamCard.helpers({
-  image: function() {
+  image() {
     var hexValue = toHex(this._id.substring(0, 4));
     return imagesArray[parseInt(hexValue) % 20]; // we have 5 default photo
   },
-  membersCount: function() {
+
+  membersCount() {
     return this.members.length;
   },
+
+  teamId() {
+    return this._id;
+  }
 });

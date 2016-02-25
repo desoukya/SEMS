@@ -19,13 +19,14 @@
 
 <template name="teamCard">
   <div class="ui card">
-    <a class="image" href="{{repo}}">
+    <a class="image" href="{{pathFor 'team' _id=teamId}}">
       <img src="/images/teams/{{image}}">
     </a>
     <div class="content">
-      <a class="header" href="#">{{name}}</a>
+      <a class="header" href="{{pathFor 'team' _id=teamId}}">{{name}}</a>
       <div class="meta">
-        <a>Members Count : {{membersCount}}</a>
+        <a href="#">Members Count :
+          {{membersCount}}</a>
       </div>
     </div>
   </div>

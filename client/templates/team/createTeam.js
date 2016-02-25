@@ -12,13 +12,16 @@ Template.createTeam.events({
       createdAt: new Date()
     };
 
-    Meteor.call("createTeam", team, function(err) {
+    Meteor.call("createTeam", team, function(err, teamId) {
       if (err) {
         $('.ui.form').form('add errors', {
           error: err.reason
         });
       } else {
-        Router.go("team");
+        sAlert.success("Your team is created successfully !")
+        Router.go("team", {
+          _id: teamId
+        });
       }
     });
 
@@ -35,9 +38,6 @@ Template.createTeam.onRendered(function() {
             name: {
               identifier: 'teamName',
               rules: [{
-                type: 'empty',
-                prompt: 'Please enter your e-mail'
-              }, {
                 type: 'minLength[6]',
                 prompt: 'Team name must be at least 6 characters '
               }]
