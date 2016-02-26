@@ -1,3 +1,9 @@
+<template name="searchBox">
+  <div class="ui left fluid icon input">
+    <i class="search icon"></i>
+    <input type="text" name="email" id="search-box" placeholder="search for users">
+  </div>
+</template>
 <template name="manageUsers">
   <!-- Header -->
   <div class="ui container grid">
@@ -20,6 +26,19 @@
           </thead>
 
           <tbody>
+            <tr>
+              <td>
+                <div class="ui column">
+                  {{>searchBox}}
+                </div>
+              </td>
+              <td class="collapsing">
+                <div class="ui icon fluid button" id="update-users-button">
+                  <i class="save icon"></i>Update
+                </div>
+              </td>
+            </tr>
+
             {{#each users}}
               {{> userEntry}}
             {{/each}}
@@ -27,12 +46,7 @@
 
           <!-- Update Button -->
           <tfoot>
-            <tr>
-              <th colspan="2">
-                <div class="ui right floated small primary labeled icon button" id="update-users-button">
-                  <i class="save icon"></i>Update</div>
-              </th>
-            </tr>
+
           </tfoot>
           <!-- /Update Button -->
 
@@ -46,18 +60,18 @@
 </template>
 
 <template name="userEntry">
-  <tr>
-
+  <tr class="{{#if modified}}modified{{/if}}">
     <td>
       <h4 class="ui header">
         <div class="content">
+        <div class="ui {{roleColor}} horizontal label">{{role}}</div>
           {{username}}
         </div>
       </h4>
     </td>
 
     <td>
-      <div class="ui selection dropdown" id={{_id}}>
+      <div class="ui selection dropdown" id= {{_id}}>
         <input type="hidden" name="role">
         <i class="dropdown icon"></i>
         <div class="default text"></div>
