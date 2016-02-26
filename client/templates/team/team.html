@@ -1,14 +1,30 @@
+<template name="userChoice">
+  <div class="item" data-value="{{_id}}">{{username}}</div>
+</template>
 <template name="team">
-  <div class="ui container grid">
-    <div class="row">
-      <div class="ui center aligned column">
+  <div class="ui center aligned container grid">
+    <div class="ui six wide center aligned column">
 
+      <div class="row">
         <!-- Header -->
         <div class="main header">
           <h1 class="ui text centered header">{{teamName}}</h1>
         </div>
         <!-- /Header -->
+      </div>
 
+      <button class="ui button"> submit </button>
+
+      <div class="ui sub header"> select team members</div>
+      <div class="ui fluid multiple search normal selection dropdown">
+        <input name="country" type="hidden">
+        <i class="dropdown icon"></i>
+        <div class="default text">Select Country</div>
+        <div class="menu">
+          {{#each users}}
+            {{> userChoice}}
+          {{/each}}
+        </div>
       </div>
     </div>
   </div>
