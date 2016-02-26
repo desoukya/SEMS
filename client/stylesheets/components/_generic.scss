@@ -35,3 +35,8 @@
   @include size($image-small);
   object-fit: cover;
 }
+
+#home-team-button-extra-pad {
+  padding-left: 42px;
+  padding-right: 42px;
+}
