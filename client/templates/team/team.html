@@ -3,7 +3,10 @@
 </template>
 <template name="editableTeamMember">
   <div class="item">
-    <img class="ui avatar image" src={{image.url}}>
+    <div class="right floated content">
+      <i id="delete-icon" class="action-icon large trash link icon"></i>
+    </div>
+    <img class="ui avatar image" src= {{image.url}}>
     <div class="content">
       <a class="header">{{fullName}}</a>
       <div class="description">{{tutorialGroup}}</div>
@@ -37,7 +40,8 @@
       <button id="addMembers" class="ui green button"> submit </button>
 
       <div class="ui segment">
-        <div class="ui list">
+        <div class="ui animated list">
+
           {{#each teamMembers}}
             {{> editableTeamMember}}
           {{/each}}

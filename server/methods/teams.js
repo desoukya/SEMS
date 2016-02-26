@@ -27,5 +27,25 @@ Meteor.methods({
 
   },
 
+  removeFromAllTeams(id) {
+
+    Teams.update({
+      '_id': {
+        $in: (Teams.find({
+          members: id
+        }).fetch().map(function(item) {
+          return item._id;
+        }))
+      }
+    }, {
+      $pull: {
+        members: id
+      }
+    }, {
+      multi: true
+    });
+
+  },
+
 
 });

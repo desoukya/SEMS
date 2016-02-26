@@ -87,3 +87,9 @@ Template.editableTeamMember.helpers({
     return this.profile.tutorialGroup;
   }
 });
+
+Template.editableTeamMember.events({
+  "click #delete-icon": function() {
+    Meteor.call('removeFromAllTeams',this._id)
+  },
+});
