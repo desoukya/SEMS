@@ -1,9 +1,18 @@
 <template name="userChoice">
   <div class="item" data-value="{{_id}}">{{username}}</div>
 </template>
+<template name="editableTeamMember">
+  <div class="item">
+    <img class="ui avatar image" src={{image.url}}>
+    <div class="content">
+      <a class="header">{{fullName}}</a>
+      <div class="description">{{tutorialGroup}}</div>
+    </div>
+  </div>
+</template>
 <template name="team">
-  <div class="ui center aligned container grid">
-    <div class="ui six wide center aligned column">
+  <div class="ui container grid">
+    <div class="ui ten wide centered column">
 
       <div class="row">
         <!-- Header -->
@@ -13,16 +22,24 @@
         <!-- /Header -->
       </div>
 
-      <button id="addMembersc" class="ui button"> submit </button>
-
       <div class="ui sub header"> select team members</div>
       <div class="ui fluid multiple search normal selection dropdown">
-        <input id = "members" type="hidden">
+        <input id="members" type="hidden">
         <i class="dropdown icon"></i>
         <div class="default text">Select Country</div>
         <div class="menu">
-          {{#each users}}
+          {{#each members}}
             {{> userChoice}}
+          {{/each}}
+        </div>
+      </div>
+
+      <button id="addMembers" class="ui green button"> submit </button>
+
+      <div class="ui segment">
+        <div class="ui list">
+          {{#each teamMembers}}
+            {{> editableTeamMember}}
           {{/each}}
         </div>
       </div>
