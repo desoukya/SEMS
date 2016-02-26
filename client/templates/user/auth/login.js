@@ -8,9 +8,9 @@ Template.login.events({
     Meteor.loginWithPassword(
       email, password,
       function(err) {
-        if (err)
-          console.log(err);
-        else {
+        if (err) {
+          sAlert.error(err.reason);
+        } else {
           Router.go('/');
         }
       });

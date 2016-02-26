@@ -36,8 +36,7 @@ Template.register.events({
 
     Meteor.call("registerUser", userData, function(err) {
       if (err) {
-        // TODO: Display readable error
-        console.log(err);
+        sAlert.error(err.reason);
       } else {
         Router.go('/');
       }
