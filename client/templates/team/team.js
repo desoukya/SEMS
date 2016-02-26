@@ -12,12 +12,12 @@ Template.team.helpers({
     return Meteor.users.find({roles:'student'});
   }
 });
-
-Template.userChoice.helpers({
-  username() {
-    return this.profile.firstName + " " + this.profile.lastName;
+Template.team.events({
+  "click #addMembers": function(event) {
+    console.log($('.ui.search.dropdown').val());
   },
 });
+
 Template.team.onRendered(function() {
   $('.ui.search.dropdown')
     .dropdown({
@@ -26,4 +26,10 @@ Template.team.onRendered(function() {
 
   /*$('.ui.dropdown')
     .dropdown();*/
+});
+//--------------------------------------------------------------
+Template.userChoice.helpers({
+  username() {
+    return this.profile.firstName + " " + this.profile.lastName;
+  },
 });

@@ -7,17 +7,19 @@ Meteor.publish("users", function(id) {
     }
     else if (Roles.userIsInRole(user, SCRUM)){
       //TODO: test that .. 
-      return Meteor.users.find({roles:SCRUM}, {
+      return Meteor.users.find({roles:STUDENT}, {
         fields: {
           profile: 1,
-          emails: 1
+          emails: 1,
+          roles: 1
         }
       });
     } else {
       return Meteor.users.find({}, {
         fields: {
           profile: 1,
-          emails: 1
+          emails: 1,
+          roles: 1
         }
       });
     }
