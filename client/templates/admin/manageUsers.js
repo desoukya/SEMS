@@ -69,12 +69,13 @@ Template.manageUsers.events({
         Meteor.call("updateRole", id, pairs[id]);
       }
     }
-    //-------------------------
+    //-------------recall search ------------
     UserSearch.cleanHistory();
+    UserSearch.store.remove({});
     var size = Session.get('pageSize'),
       page = Session.get('page');
     UserSearch.search(lastQuery, {
-      skip: page * size,
+      skip: 0,
       limit: size
     });
     //-------------------------
@@ -123,7 +124,31 @@ Template.userEntry.helpers({
 
   role: function() {
     // Enforcing one role for user for current setup
-    return getRole(this._id);
+    return Meteor.users.findOne(this._id).roles[0];
+  },
+  roleColor: function() {
+    var roleColor ;
+    switch (Meteor.users.findOne(this._id).roles[0]) {
+      case "admin":
+        roleColor = "red";
+        break;
+      case "lecturer":
+        roleColor = "orange";
+        break;
+      case "teaching-assistant":
+        roleColor = "olive";
+        break;
+      case "junior-teaching-assistant":
+        roleColor = "purple";
+        break;
+      case "scrum-master":
+        roleColor = "teal";
+        break;
+      case "student":
+        roleColor = "green";
+        break;
+    }
+    return roleColor;
   },
   modified: function() {
     return Template.instance().modified.get();
