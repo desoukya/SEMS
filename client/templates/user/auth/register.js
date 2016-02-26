@@ -18,9 +18,7 @@ Template.register.events({
     var publicEmail = event.target.public_mail.value;
 
     if (publicEmail === "on") {
-      publicEmail = true;
-    } else {
-      publicEmail = false;
+      publicEmail = email;
     }
 
 
