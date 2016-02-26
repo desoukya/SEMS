@@ -28,7 +28,6 @@ Meteor.methods({
   },
 
   removeFromAllTeams(id) {
-
     Teams.update({
       '_id': {
         $in: (Teams.find({

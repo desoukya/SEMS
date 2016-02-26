@@ -50,6 +50,20 @@ Template.team.events({
     // clear selected values
     $('.ui.search.dropdown').dropdown("clear");
   },
+  "click #changeTeamName": function(event) {
+    $('#teamName').parent().removeClass('disabled')
+    $('#changeTeamName').addClass('green')
+    Teams.update({
+      _id: this._id
+    }, {$set:{name:$('#teamName').val()}});
+  },
+  "click #changeRepoLink": function(event) {
+    $('#repoLink').parent().removeClass('disabled')
+    $('#changeRepoLink').addClass('green')
+    Teams.update({
+      _id: this._id
+    }, {$set:{repo:$('#repoLink').val()}});
+  },
 });
 
 Template.team.onRendered(function() {
@@ -90,6 +104,6 @@ Template.editableTeamMember.helpers({
 
 Template.editableTeamMember.events({
   "click #delete-icon": function() {
-    Meteor.call('removeFromAllTeams',this._id)
+    Meteor.call('removeFromAllTeams', this._id)
   },
 });
