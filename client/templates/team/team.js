@@ -8,9 +8,19 @@ Template.team.helpers({
     return TeamUtils.getDefaultPhoto(this._id);
   },
   members() {
-    return Meteor.users.find({
-      roles: 'student'
+    var membersInTeams = []
+
+    Teams.find().fetch().forEach(function(elem) {
+      membersInTeams.push(elem.members);
     });
+    membersInTeams = [].concat.apply([], membersInTeams)
+
+    return Meteor.users.find({
+      roles: 'student',
+      _id: {
+        $nin: membersInTeams
+      }
+    })
   },
   teamMembers() {
     // TODO: Refactor to a methods ! 
@@ -28,10 +38,17 @@ Template.team.helpers({
 Template.team.events({
   "click #addMembers": function(event) {
     var arr = $('#members').val().split(",");
-    for (var i =0; i < arr.length; i++) {
-      Teams.update({_id: this._id}, {$push : {members: arr[i]}}); 
+    for (var i = 0; i < arr.length; i++) {
+      Teams.update({
+        _id: this._id
+      }, {
+        $push: {
+          members: arr[i]
+        }
+      });
     };
-    
+    // clear selected values
+    $('.ui.search.dropdown').dropdown("clear");
   },
 });
 
