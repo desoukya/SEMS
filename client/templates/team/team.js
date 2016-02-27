@@ -37,7 +37,9 @@ Template.team.helpers({
 });
 Template.team.events({
   "click #addMembers": function(event) {
-    var arr = $('#members').val().split(",");
+    var arr = $('#members').val().split(",").filter(function(idString){
+      return idString.length > 0;
+    });
     var err = false;
     for (var i = 0; i < arr.length; i++) {
       var member = Meteor.users.findOne({
@@ -55,7 +57,7 @@ Template.team.events({
       } else
         err = true;
       if (err)
-        console.log("err");
+        sAlert.error("you can't add those members ..");
     };
     // clear selected values
     $('.ui.search.dropdown').dropdown("clear");
