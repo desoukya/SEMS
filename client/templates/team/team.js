@@ -38,6 +38,7 @@ Template.team.helpers({
 Template.team.events({
   "click #addMembers": function(event) {
     var arr = $('#members').val().split(",");
+    
     for (var i = 0; i < arr.length; i++) {
       Teams.update({
         _id: this._id
@@ -51,18 +52,38 @@ Template.team.events({
     $('.ui.search.dropdown').dropdown("clear");
   },
   "click #changeTeamName": function(event) {
-    $('#teamName').parent().removeClass('disabled')
-    $('#changeTeamName').addClass('green')
-    Teams.update({
-      _id: this._id
-    }, {$set:{name:$('#teamName').val()}});
+    if ($('#teamName').parent().hasClass('disabled')) {
+      $('#teamName').parent().removeClass('disabled')
+      $('#changeTeamName').addClass('green')
+    } else {
+      $('#teamName').parent().addClass('disabled')
+      $('#changeTeamName').removeClass('green')
+      Teams.update({
+        _id: this._id
+      }, {
+        $set: {
+          name: $('#teamName').val()
+        }
+      });
+    }
+
   },
   "click #changeRepoLink": function(event) {
-    $('#repoLink').parent().removeClass('disabled')
-    $('#changeRepoLink').addClass('green')
-    Teams.update({
-      _id: this._id
-    }, {$set:{repo:$('#repoLink').val()}});
+    if ($('#repoLink').parent().hasClass('disabled')) {
+      $('#repoLink').parent().removeClass('disabled');
+      $('#changeRepoLink').addClass('green');
+    } else {
+      $('#repoLink').parent().addClass('disabled');
+      $('#changeRepoLink').removeClass('green');
+      Teams.update({
+        _id: this._id
+      }, {
+        $set: {
+          repo: $('#repoLink').val()
+        }
+      });
+    }
+
   },
 });
 
