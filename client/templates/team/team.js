@@ -23,7 +23,7 @@ Template.team.helpers({
     })
   },
   teamMembers() {
-    // TODO: Refactor to a methods ! 
+    // TODO: Refactor to a methods !
     var usersIds = Teams.findOne({
       _id: this._id
     }).members;
@@ -52,11 +52,10 @@ Template.team.events({
             members: arr[i]
           }
         });
-      }
-      else 
+      } else
         err = true;
-    if (err)
-      console.log("err");
+      if (err)
+        console.log("err");
     };
     // clear selected values
     $('.ui.search.dropdown').dropdown("clear");
@@ -134,7 +133,10 @@ Template.editableTeamMember.helpers({
 });
 
 Template.editableTeamMember.events({
-  "click #delete-icon": function() {
-    Meteor.call('removeFromAllTeams', this._id)
+  "click #delete-icon": function(event, template) {
+    var self = this;
+    $(event.target).closest(".item").fadeOut(350, function() {
+      Meteor.call('removeFromAllTeams', self._id);
+    });
   },
 });
