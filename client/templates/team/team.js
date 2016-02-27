@@ -48,9 +48,11 @@ Template.team.events({
         roles: "student",
       });
       var inTeam = false;
-      if (Teams.findOne({members: arr[i]})) {
+      if (Teams.findOne({
+        members: arr[i]
+      })) {
         inTeam = true;
-      } 
+      }
       if (!!member && !inTeam) {
         Teams.update({
           _id: this._id
@@ -69,16 +71,21 @@ Template.team.events({
   },
   "click #changeTeamName": function(event) {
     if ($('#teamName').parent().hasClass('disabled')) {
-      $('#teamName').parent().removeClass('disabled')
-      $('#changeTeamName').addClass('green')
+      $('#teamName').parent().removeClass('disabled');
+      $('#changeTeamName').addClass('green');
     } else {
-      $('#teamName').parent().addClass('disabled')
-      $('#changeTeamName').removeClass('green')
       Teams.update({
         _id: this._id
       }, {
         $set: {
           name: $('#teamName').val()
+        }
+      }, function(err) {
+        if (err)
+          sAlert.error("can't update this name");
+        else {
+          $('#teamName').parent().addClass('disabled');
+          $('#changeTeamName').removeClass('green');
         }
       });
     }
@@ -89,13 +96,19 @@ Template.team.events({
       $('#repoLink').parent().removeClass('disabled');
       $('#changeRepoLink').addClass('green');
     } else {
-      $('#repoLink').parent().addClass('disabled');
-      $('#changeRepoLink').removeClass('green');
+
       Teams.update({
         _id: this._id
       }, {
         $set: {
           repo: $('#repoLink').val()
+        }
+      }, function(err) {
+        if (err)
+          sAlert.error("can't update this repo Name , please provide a valid URL");
+        else {
+          $('#repoLink').parent().addClass('disabled');
+          $('#changeRepoLink').removeClass('green');
         }
       });
     }
@@ -139,7 +152,7 @@ Template.editableTeamMember.helpers({
   },
 
   isScrum() {
-    return Roles.userIsInRole(this,'scrum-master');
+    return Roles.userIsInRole(this, 'scrum-master');
   },
 });
 
