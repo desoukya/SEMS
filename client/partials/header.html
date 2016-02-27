@@ -6,7 +6,12 @@
       {{#if isInRole "admin"}}
         <a href="{{pathFor 'admin.panel'}}" class="item {{isActive 'admin.panel'}}">Admin</a>
       {{/if}}
+
       <a class="item {{isActive 'schedule'}}" href="{{pathFor 'schedule'}}">Schedule</a>
+
+      {{#if currentUser}}
+        <a class="item {{isActive 'team'}}" href="{{pathFor 'team.browse'}}">Teams</a>
+      {{/if}}
 
       <div class="right menu">
         {{#if currentUser}}
@@ -14,7 +19,8 @@
             <i class="setting icon"></i>{{userName}}
             <i class="dropdown icon"></i>
             <div class="menu">
-              <a class="item {{isActive 'user.profile'}}" href="{{pathFor 'user.profile' _id=userId}}"><i class="user icon"></i>Profile</a>
+              <a class="item {{isActive 'user.profile'}}" href="{{pathFor 'user.profile' _id=userId}}">
+                <i class="user icon"></i>Profile</a>
               <a class="item" id="logout_button">
                 <i class="red power icon"></i>Logout</a>
             </div>

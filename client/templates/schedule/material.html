@@ -3,7 +3,7 @@
   <tr>
 
     <td>
-    <!-- item -->
+      <!-- item -->
       <div class="item">
 
         <div class="content">
@@ -12,33 +12,28 @@
           <div class="header">
 
             <h3>
-            <!-- Material Admin only Actions -->
-            {{#if isInRole 'admin'}}
-            <div class="action-icons">
-              <i id = "edit-icon" class="action-icon large edit link icon"></i>
-              <i id = "delete-icon" class="action-icon large trash link icon"></i>
-            </div>
-            {{/if}}
-            <!-- /Material Admin only Actions -->
-            
-            <!-- Material Icon -->
-            {{#if equals content 'lecture'}}
-            <i class="pdf file outline red icon"></i>
-            {{else}}
-            <i class="text file outline red icon"></i>
-            {{/if}}
-            <!-- /Material Icon -->
+              <!-- Material Admin only Actions -->
+              {{#if isInRole 'admin'}}
+                <div class="action-icons">
+                  <i id="edit-icon" class="action-icon large edit link icon"></i>
+                  <i id="delete-icon" class="action-icon large trash link icon"></i>
+                </div>
+              {{/if}}
+              <!-- /Material Admin only Actions -->
 
-            <!-- Material Link -->
-            <a target="_blank" href=
-              {{#if equals type 'link'}}
-              {{identifier}}
+              <!-- Material Icon -->
+              {{#if equals content 'lecture'}}
+                <i class="pdf file outline red icon"></i>
               {{else}}
-              {{fileUrl identifier}}
-              {{/if}}>
-              {{title}}
-            </a>
-            <!-- Material Link -->
+                <i class="text file outline red icon"></i>
+              {{/if}}
+              <!-- /Material Icon -->
+
+              <!-- Material Link -->
+              <a target="_blank" href="{{#if equals type 'link'}} {{identifier}} {{else}} {{fileUrl identifier}} {{/if}}">
+                {{title}}
+              </a>
+              <!-- Material Link -->
 
             </h3>
           </div>
@@ -49,30 +44,33 @@
 
             <!-- data -->
             <div class="date meta">
-              <i class="grey calendar outline icon"></i> {{formatDate createdAt}}
+              <i class="grey calendar outline icon"></i>
+              {{formatDate createdAt}}
             </div>
             <!-- /data -->
 
             <!-- /content -->
             <div class="type meta">
-              <i class="grey file icon"></i> {{content}}
+              <i class="grey file icon"></i>
+              {{content}}
             </div>
             <!-- /content -->
 
             <!-- type -->
             <div class="type meta">
-              <i class="linkify file icon"></i> {{type}}
+              <i class="linkify file icon"></i>
+              {{type}}
             </div>
             <!-- /type -->
           </div>
           <!-- Material MetaData -->
 
         </div>
-      <!-- /item -->
+        <!-- /item -->
       </div>
 
     </td>
-    
+
   </tr>
   <!-- /Material -->
 </template>

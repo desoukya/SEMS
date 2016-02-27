@@ -1,3 +1,4 @@
+// ES6
 Template.header.onRendered(function() {
   $('.ui.dropdown').dropdown();
 })
@@ -20,6 +21,19 @@ Template.header.helpers({
 
   userId() {
     return Meteor.userId();
+  },
+
+  teamId() {
+    var team = Teams.findOne({
+      members: Meteor.userId()
+    });
+
+    if (team) {
+      return team._id;
+    } else {
+      return "";
+    }
+
   },
 
   userName() {

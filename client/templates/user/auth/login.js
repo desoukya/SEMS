@@ -1,8 +1,3 @@
-var debug = function(event, text) {
-  event.preventDefault();
-  console.log(text);
-}
-
 Template.login.events({
   "submit .form": function(event) {
     event.preventDefault();
@@ -20,7 +15,6 @@ Template.login.events({
         }
       });
   },
-
 });
 
 Template.login.onRendered(function() {
