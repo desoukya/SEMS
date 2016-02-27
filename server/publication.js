@@ -18,11 +18,18 @@ Meteor.publish("users", function(roles = ROLES) {
   var selector = {};
 
   if (roles) {
+    var filteredRoles = []
     _.each(roles, function(role) {
       if (_.contains(ROLES, role)) {
-        filter.fields[role] = 1;
+        filteredRoles.push(role);
       }
     });
+
+
+    selector["roles"] = {
+      $in: filteredRoles
+    }
+
   }
 
   if (user) {
