@@ -37,16 +37,21 @@ Template.team.helpers({
 });
 Template.team.events({
   "click #addMembers": function(event) {
-    var arr = $('#members').val().split(",").filter(function(idString){
+    var arr = $('#members').val().split(",").filter(function(idString) {
       return idString.length > 0;
     });
     var err = false;
     for (var i = 0; i < arr.length; i++) {
+      //check he is not in another team 
       var member = Meteor.users.findOne({
         _id: arr[i],
-        roles: "student"
+        roles: "student",
       });
-      if (!!member) {
+      var inTeam = false;
+      if (Teams.findOne({members: arr[i]})) {
+        inTeam = true;
+      } 
+      if (!!member && !inTeam) {
         Teams.update({
           _id: this._id
         }, {
@@ -57,7 +62,7 @@ Template.team.events({
       } else
         err = true;
       if (err)
-        sAlert.error("you can't add those members ..");
+        sAlert.error("you can't add this member ..");
     };
     // clear selected values
     $('.ui.search.dropdown').dropdown("clear");
