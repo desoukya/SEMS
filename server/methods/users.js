@@ -10,8 +10,11 @@ Meteor.methods({
       tutorialGroup: userData.tutorialGroup,
       mobile: userData.mobile,
       githubUser: userData.githubUser,
-      publicEmail: userData.publicEmail,
     };
+
+    if (userData.publicEmail) {
+      profile.publicEmail = userData.publicEmail;
+    }
 
 
     var userId = Accounts.createUser({
