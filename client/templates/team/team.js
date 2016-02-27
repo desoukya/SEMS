@@ -38,15 +38,25 @@ Template.team.helpers({
 Template.team.events({
   "click #addMembers": function(event) {
     var arr = $('#members').val().split(",");
-    
+    var err = false;
     for (var i = 0; i < arr.length; i++) {
-      Teams.update({
-        _id: this._id
-      }, {
-        $push: {
-          members: arr[i]
-        }
+      var member = Meteor.users.findOne({
+        _id: arr[i],
+        roles: "student"
       });
+      if (!!member) {
+        Teams.update({
+          _id: this._id
+        }, {
+          $push: {
+            members: arr[i]
+          }
+        });
+      }
+      else 
+        err = true;
+    if (err)
+      console.log("err");
     };
     // clear selected values
     $('.ui.search.dropdown').dropdown("clear");
