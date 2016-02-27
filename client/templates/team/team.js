@@ -136,7 +136,11 @@ Template.editableTeamMember.helpers({
 
   tutorialGroup() {
     return this.profile.tutorialGroup;
-  }
+  },
+
+  isScrum() {
+    return Roles.userIsInRole(this,'scrum-master');
+  },
 });
 
 Template.editableTeamMember.events({
