@@ -14,7 +14,6 @@ Meteor.startup(function() {
         lastName: 'Admin',
         GUCId: '00-00000',
         tutorialGroup: 'Adminstration',
-        publicEmail: false
       }
     });
 

@@ -1,20 +1,22 @@
 <template name="teamUnavailable">
-  <div class="ui page full screen grid">
-    <div class="row">
-      <div data-class="ui center aligned middle aligned column">
-        <h1 class="big text">Hello
-          {{name}}, It seems you are not in a team yet ..</h1>
-        {{#if isInRole 'scrum-master'}}
-          <a href="{{pathFor 'team.create'}}" class="ui big green button">
-            <i class="sitemap icon"></i>
-            Create Team
+  {{#if currentUser}}
+    <div class="ui page full screen grid">
+      <div class="row">
+        <div data-class="ui center aligned middle aligned column">
+          <h1 class="big text">Hello
+            {{name}}, It seems you are not in a team yet ..</h1>
+          {{#if isInRole 'scrum-master'}}
+            <a href="{{pathFor 'team.create'}}" class="ui big green button">
+              <i class="sitemap icon"></i>
+              Create Team
+            </a>
+          {{/if}}
+          <a href="{{pathFor 'team.browse'}}" class="ui big green button">
+            <i class="browser icon"></i>
+            Browse Current Teams
           </a>
-        {{/if}}
-        <a href="{{pathFor 'team.browse'}}" class="ui big green button">
-          <i class="browser icon"></i>
-          Browse Current Teams
-        </a>
+        </div>
       </div>
     </div>
-  </div>
+  {{/if}}
 </template>

@@ -15,12 +15,12 @@ Template.register.events({
     // Optionals
     var mobile = event.target.mobile.value;
     var githubUser = event.target.github_user.value;
-    var publicEmail = event.target.public_mail.value;
+    var publicEmail = $(event.target.public_mail).prop('checked');
 
-    if (publicEmail === "on") {
-      publicEmail = true;
+    if (publicEmail) {
+      publicEmail = email;
     } else {
-      publicEmail = false;
+      publicEmail = "";
     }
 
 
@@ -38,8 +38,7 @@ Template.register.events({
 
     Meteor.call("registerUser", userData, function(err) {
       if (err) {
-        // TODO: Display readable error
-        console.log(err);
+        sAlert.error(err.reason);
       } else {
         Router.go('/');
       }

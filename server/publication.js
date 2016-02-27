@@ -1,28 +1,38 @@
-Meteor.publish("users", function(id) {
-  var user = Meteor.users.findOne(id);
+Meteor.publish("users", function(roles = ROLES) {
+
+  // Checking that roles is an array of strings
+  check(roles, [String]);
+
+  var userId = this.userId;
+  var user = Meteor.users.findOne(userId);
+
+
+  var filter = {
+    fields: {
+      profile: 1,
+      emails: 1,
+      roles: 1
+    }
+  };
+
+  var selector = {};
+
+  if (roles) {
+    _.each(roles, function(role) {
+      if (_.contains(ROLES, role)) {
+        filter.fields[role] = 1;
+      }
+    });
+  }
+
   if (user) {
     // Admins can have full access to users
     if (Roles.userIsInRole(user, ADMIN)) {
-      return Meteor.users.find({});
+      filter = {};
     }
-    else if (Roles.userIsInRole(user, SCRUM)){
-      //TODO: test that .. 
-      return Meteor.users.find({roles:STUDENT}, {
-        fields: {
-          profile: 1,
-          emails: 1,
-          roles: 1
-        }
-      });
-    } else {
-      return Meteor.users.find({}, {
-        fields: {
-          profile: 1,
-          emails: 1,
-          roles: 1
-        }
-      });
-    }
+
+    return Meteor.users.find(selector, filter);
+
   }
   // If user is not logged in return nothing to fire up ready()
   return [];

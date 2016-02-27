@@ -1,7 +1,7 @@
 //holds reference to the currunt template
 var self = {};
 
-//verification object passed to the semantic ui form for validation  
+//verification object passed to the semantic ui form for validation
 var formFieldsVerification = {
   title: {
     identifier: 'title',
@@ -50,14 +50,14 @@ Template.scheduleEditForm.onRendered(function() {
   //reset selected Material to clear any past data
   Session.set('selectedMaterialID', undefined);
 
-  //monitor when the selected material is changed 
+  //monitor when the selected material is changed
   Tracker.autorun(function() {
     var materialID = Session.get('selectedMaterialID');
     if (materialID === "") {
-      //show new Material form 
+      //show new Material form
       $('.ui.small.modal').modal('show');
     } else if (materialID !== undefined) {
-      //show edit Material form 
+      //show edit Material form
       var material = Materials.findOne({
         _id: materialID
       })
@@ -105,7 +105,7 @@ Template.scheduleEditForm.helpers({
   materialType: function() {
     return Template.instance().materialType.get();
   },
-  //current materialFileID  if the material type is file 
+  //current materialFileID  if the material type is file
   //TODO : rename later to material fileID
   materialID: function() {
     return Template.instance().materialFileID.get();
@@ -170,7 +170,7 @@ Template.scheduleEditForm.events({
         function(err, data) {
           if (err)
             $('.ui.form').form('add errors', {
-              error: err
+              error: err.reason
             });
           else {
             setTimeout(function() {
@@ -222,7 +222,7 @@ function initForm() {
   })
 }
 
-//clear form data 
+//clear form data
 function clearForm() {
   $('#uploadMaterialForm').form('clear');
   self.materialType.set("link");
@@ -231,7 +231,7 @@ function clearForm() {
 }
 
 function addBehaviours() {
-  //TODO : refactor this 
+  //TODO : refactor this
   $("#divUpload").on("click", function() {
     $('#upload').trigger('click');
   });

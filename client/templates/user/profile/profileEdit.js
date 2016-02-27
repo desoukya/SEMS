@@ -120,8 +120,7 @@ Template.profileEdit.events({
 
     Meteor.call("updateProfile", userData, function(err, result) {
       if (err) {
-        // TODO: Display readable error
-        console.log(err);
+        sAlert.error(err.reason);
       } else {
         Router.go("/profile" + "/" + Meteor.userId());
       }
