@@ -15,10 +15,12 @@ Template.register.events({
     // Optionals
     var mobile = event.target.mobile.value;
     var githubUser = event.target.github_user.value;
-    var publicEmail = event.target.public_mail.value;
+    var publicEmail = $(event.target.public_mail).prop('checked');
 
-    if (publicEmail === "on") {
+    if (publicEmail) {
       publicEmail = email;
+    } else {
+      publicEmail = "";
     }
 
 
