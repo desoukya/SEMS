@@ -16,7 +16,11 @@ Template.profile.helpers({
   },
 
   email() {
-    return this.emails[0].address;
+    if (this.emails) {
+      return this.emails[0].address;
+    } else {
+      return this.profile.publicEmail;
+    }
   },
 
   tutorialGroup() {
@@ -29,6 +33,10 @@ Template.profile.helpers({
 
   githubUser() {
     return this.profile.githubUser;
+  },
+
+  displayEmail() {
+    return this._id === Meteor.userId() || this.profile.publicEmail;
   }
 
 });

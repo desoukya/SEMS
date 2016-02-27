@@ -19,8 +19,6 @@ Template.register.events({
 
     if (publicEmail) {
       publicEmail = email;
-    } else {
-      publicEmail = "";
     }
 
 

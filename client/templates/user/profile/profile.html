@@ -44,12 +44,14 @@
         {{/if}}
         <!-- /Github -->
 
-        {{#if isCurrentUser}}
+        {{#if displayEmail}}
           <h3>
             <i class="green large mail square icon"></i>
             {{email}}
           </h3>
+        {{/if}}
 
+        {{#if isCurrentUser}}
           <a href="{{pathFor 'user.profile.edit'}}" class="ui yellow bottom floated fluid button">Edit your info</a>
         {{/if}}
 

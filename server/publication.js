@@ -10,7 +10,6 @@ Meteor.publish("users", function(roles = ROLES) {
   var filter = {
     fields: {
       profile: 1,
-      emails: 1,
       roles: 1
     }
   };
