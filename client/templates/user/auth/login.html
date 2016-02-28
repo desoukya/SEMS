@@ -1,5 +1,5 @@
 <template name="login">
-  <div class="ui middle aligned center aligned container grid" id="login-wrapper">
+  <div data-class="ui middle aligned center aligned container grid" id="login-wrapper">
     <div class="six wide column">
       <h2 class="ui image header">
         <div class="content">
@@ -22,9 +22,8 @@
           </div>
           <input type="submit" id="loginBtn" class="ui fluid large green submit button" value="Login">
 
-          <!-- FIXME: pathFor is breaking the centering here ! -->
           <br>
-          <a href="/password/reset">lost your password, again ?</a>
+          <a href="{{pathFor 'account.reset'}}">lost your password, again ?</a>
 
         </div>
         <div class="ui error message"></div>
