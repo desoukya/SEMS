@@ -55,6 +55,22 @@ Template.register.events({
     });
 
   },
+
+  'click #honor-code-open': function(event, template) {
+    event.preventDefault();
+
+
+    $('#honor-code-modal').modal({
+      onDeny: function() {
+        $("#honor-code-checkbox").checkbox('uncheck');
+      },
+      onApprove: function() {
+        $("#honor-code-checkbox").checkbox('check');
+      }
+    }).modal("show");
+  },
+
+
 });
 
 
@@ -160,4 +176,5 @@ Template.register.onRendered(function() {
   });
   $('.ui.checkbox').checkbox();
   $('.ui.dropdown').dropdown();
+
 });
