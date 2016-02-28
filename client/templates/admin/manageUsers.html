@@ -20,14 +20,14 @@
         <table class="ui celled padded unstackable table">
           <thead>
             <tr>
-              <th>User</th>
+              <th colspan="2">User</th>
               <th>Role</th>
             </tr>
           </thead>
 
           <tbody>
             <tr>
-              <td>
+              <td colspan="2">
                 <div class="ui column">
                   {{>searchBox}}
                 </div>
@@ -66,6 +66,15 @@
         <div class="content">
         <div class="ui {{roleColor}} horizontal label">{{role}}</div>
           {{username}}
+        </div>
+      </h4>
+    </td>
+
+
+    <td class="collapsing">
+      <h4 class="ui header">
+        <div class="content">
+          {{curruntEmail}}
         </div>
       </h4>
     </td>
