@@ -29,6 +29,20 @@ Meteor.methods({
 
       Accounts.sendVerificationEmail(userId);
 
+      var user = Meteor.users.findOne({
+        _id: userId
+      });
+
+      /////////////// Analytics ///////////////
+      analytics.identify(userId, {
+        email: user.emails[0].address,
+        name: user.profile.firstName + " " + user.profile.firstName,
+        GUCId: user.profile.GUCId,
+        tutorialGroup: user.profile.tutorialGroup,
+        roles: user.roles
+      });
+      /////////////// Analytics ///////////////
+
       return userId;
     } else {
       throw new Meteor.Error(400, "Can't create new user");
