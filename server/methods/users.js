@@ -29,10 +29,6 @@ Meteor.methods({
 
       Accounts.sendVerificationEmail(userId);
 
-      var user = Meteor.users.findOne({
-        _id: userId
-      });
-
       return userId;
     } else {
       throw new Meteor.Error(400, "Can't create new user");

@@ -38,17 +38,6 @@ Template.register.events({
       if (err) {
         sAlert.error(err.reason);
       } else {
-
-        /////////////// Analytics ///////////////
-        analytics.identify(Meteor.userId(), {
-          email: Meteor.user().emails[0].address,
-          name: Meteor.user().profile.firstName + " " + Meteor.user().profile.firstName,
-          GUCId: Meteor.user().profile.GUCId,
-          tutorialGroup: Meteor.user().profile.tutorialGroup,
-          roles: Meteor.user().roles
-        });
-        /////////////// Analytics ///////////////
-
         Router.go('/');
       }
 

@@ -15,7 +15,7 @@ Template.login.events({
           /////////////// Analytics ///////////////
           analytics.identify(Meteor.userId(), {
             email: Meteor.user().emails[0].address,
-            name: Meteor.user().profile.firstName + " " + Meteor.user().profile.firstName,
+            name: Meteor.user().profile.firstName + " " + Meteor.user().profile.lastName,
             GUCId: Meteor.user().profile.GUCId,
             tutorialGroup: Meteor.user().profile.tutorialGroup,
             roles: Meteor.user().roles
