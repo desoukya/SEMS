@@ -12,6 +12,17 @@ Template.material.helpers({
       return " ";
     }
   },
+  iconType : function() {
+      if(this.content === "lecture")
+        return "pdf file outline red ";
+      else if(this.content === "assignment")
+        return "text file outline green ";
+      else if(this.content === "code")
+        return "code purple";
+      else 
+        return "file";
+
+  }
 });
 
 Template.material.events({
