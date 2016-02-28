@@ -129,7 +129,14 @@ Template.scheduleEditForm.events({
           // handle error
         } else {
           $('#fileName').val(fileObj.original.name);
-          template.materialFileID.set(fileObj._id);
+          if (template.materialFileID.get() != "") {
+            var oldId = template.materialFileID.get();
+            template.materialFileID.set(fileObj._id);
+            Files.remove({
+              _id: oldId
+            });
+          } else
+            template.materialFileID.set(fileObj._id);
         }
       });
     });
@@ -173,6 +180,7 @@ Template.scheduleEditForm.events({
               error: err.reason
             });
           else {
+            $('.ui.form').form('clear');
             setTimeout(function() {
               $('.ui.small.modal').modal('hide');
             }, 1000);
@@ -188,6 +196,7 @@ Template.scheduleEditForm.events({
             error: err
           });
         else {
+          $('.ui.form').form('clear');
           setTimeout(function() {
             $('.ui.small.modal').modal('hide');
           }, 1000);

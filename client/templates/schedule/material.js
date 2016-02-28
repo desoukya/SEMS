@@ -1,16 +1,22 @@
 Template.material.helpers({
   fileUrl: function(id) {
-    return Files.findOne({
-      "_id": id
-    }).url({
-      download: true
-    });
+    try {
+      var file = Files.findOne({
+        "_id": id
+      }).url({
+        download: true
+      });
+      return file;
+    } catch (err) {
+      //TODO alert can add files
+      return " ";
+    }
   },
 });
 
 Template.material.events({
   "click #delete-icon": function() {
-    var id  = this._id;
+    var self = this;
     $('.ui.material-delete.modal')
       .modal({
         closable: false,
@@ -18,7 +24,13 @@ Template.material.events({
           //do nothing 
         },
         onApprove: function() {
-          Materials.remove(id);
+          if (self.type === "file") {
+            // Now delete the old picture
+            Files.remove({
+              _id: self.identifier
+            });
+          }
+          Materials.remove(self._id);
         }
       })
       .modal('show');
