@@ -1,0 +1,12 @@
+{
+  "adminEmail": "email",
+  "systemEmail": "email",
+  "public": {
+    "analyticsSettings": {
+      "Mixpanel": {
+        "token": "Your token here",
+        "people": true
+      }
+    }
+  }
+}

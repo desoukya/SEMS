@@ -25,3 +25,14 @@ cfs:standard-packages
 cfs:filesystem
 alanning:roles
 aldeed:collection2
+reactive-var
+momentjs:moment
+fourseven:scss
+email
+underscore
+check
+random
+juliancwirko:s-alert
+juliancwirko:s-alert-stackslide
+sewdn:search-source
+okgrow:analytics

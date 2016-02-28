@@ -1,3 +1,9 @@
+<template name="searchBox">
+  <div class="ui left fluid icon input">
+    <i class="search icon"></i>
+    <input type="text" name="email" id="search-box" placeholder="Search by username or email">
+  </div>
+</template>
 <template name="manageUsers">
   <!-- Header -->
   <div class="ui container grid">
@@ -14,12 +20,25 @@
         <table class="ui celled padded unstackable table">
           <thead>
             <tr>
-              <th>User</th>
+              <th colspan="2">User</th>
               <th>Role</th>
             </tr>
           </thead>
 
           <tbody>
+            <tr>
+              <td colspan="2">
+                <div class="ui column">
+                  {{>searchBox}}
+                </div>
+              </td>
+              <td class="collapsing">
+                <div class="ui icon fluid button" id="update-users-button">
+                  <i class="save icon"></i>Update
+                </div>
+              </td>
+            </tr>
+
             {{#each users}}
               {{> userEntry}}
             {{/each}}
@@ -27,12 +46,7 @@
 
           <!-- Update Button -->
           <tfoot>
-            <tr>
-              <th colspan="2">
-                <div class="ui right floated small primary labeled icon button" id="update-users-button">
-                  <i class="save icon"></i>Update</div>
-              </th>
-            </tr>
+
           </tfoot>
           <!-- /Update Button -->
 
@@ -46,26 +60,37 @@
 </template>
 
 <template name="userEntry">
-  <tr>
-
+  <tr class="{{#if modified}}modified{{/if}}">
     <td>
       <h4 class="ui header">
         <div class="content">
+        <div class="ui {{roleColor}} horizontal label">{{role}}</div>
           {{username}}
         </div>
       </h4>
     </td>
 
+
+    <td class="collapsing">
+      <h4 class="ui header">
+        <div class="content">
+          {{curruntEmail}}
+        </div>
+      </h4>
+    </td>
+
     <td>
-      <div class="ui selection dropdown" id={{_id}}>
+      <div class="ui selection dropdown" id= {{_id}}>
         <input type="hidden" name="role">
         <i class="dropdown icon"></i>
-        <div class="default text">{{role}}</div>
+        <div class="default text"></div>
         <div class="menu">
           <div class="item" data-value="admin">Admin</div>
           <div class="item" data-value="lecturer">Lecturer</div>
           <div class="item" data-value="teaching-assistant">TA</div>
-          <div class="item" data-value="user">User</div>
+          <div class="item" data-value="junior-teaching-assistant">JTA</div>
+          <div class="item" data-value="scrum-master">Scrum master</div>
+          <div class="item" data-value="student">Student</div>
         </div>
       </div>
     </td>

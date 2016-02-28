@@ -1,31 +1,73 @@
 <template name="material">
+  <!-- Material -->
   <tr>
-    <td>
-      <div class="item">
-        <div class="content">
-          <div class="header">
-            <h3>
-              {{#if equals type 'Lecture'}}
-                <i class="pdf file outline red icon"></i>
-              {{else}}
-                <i class="text file outline green icon"></i>
-              {{/if}}
 
-              <a target="_blank" href={{link}}>{{title}}</a>
+    <td>
+      <!-- item -->
+      <div class="item">
+
+        <div class="content">
+
+          <!-- Material Header -->
+          <div class="header">
+
+            <h3>
+              <!-- Material Admin only Actions -->
+              {{#if isInRole 'admin'}}
+                <div class="action-icons">
+                  <i id="edit-icon" class="action-icon large edit link icon"></i>
+                  <i id="delete-icon" class="action-icon large trash link icon"></i>
+                </div>
+              {{/if}}
+              <!-- /Material Admin only Actions -->
+
+              <!-- Material Icon -->
+                <i class="{{iconType}} icon"></i>
+              
+              <!-- /Material Icon -->
+
+              <!-- Material Link -->
+              <a target="_blank" href="{{#if equals type 'link'}} {{identifier}} {{else}} {{fileUrl identifier}} {{/if}}">
+                {{title}}
+              </a>
+              <!-- Material Link -->
+
             </h3>
           </div>
+          <!-- /Material Header -->
+
+          <!-- Material MetaData -->
           <div class="meta">
+
+            <!-- data -->
             <div class="date meta">
-              <i class="grey calendar outline icon"></i> {{date}}
+              <i class="grey calendar outline icon"></i>
+              {{formatDate createdAt}}
             </div>
+            <!-- /data -->
 
+            <!-- /content -->
             <div class="type meta">
-              <i class="grey file icon"></i> {{type}}
+              <i class="grey file icon"></i>
+              {{content}}
             </div>
+            <!-- /content -->
 
+            <!-- type -->
+            <div class="type meta">
+              <i class="linkify file icon"></i>
+              {{type}}
+            </div>
+            <!-- /type -->
           </div>
+          <!-- Material MetaData -->
+
         </div>
+        <!-- /item -->
       </div>
+
     </td>
+
   </tr>
+  <!-- /Material -->
 </template>

@@ -1,0 +1,29 @@
+<template name="materialGroup">
+
+  <!-- materialGroup -->
+  <div class="material-group wrapper">
+    <div class="ui row">
+
+      <!-- materialGroup Header -->
+      <h2 class="header" >{{#if equals type 'week'}}{{lowerCamelCase type}}{{/if}}
+      {{lowerCamelCase value}}
+      </h2>
+      <!-- /materialGroup Header -->
+      
+      <div class="ui divider"></div>
+
+      <!-- materialGroup Content Table -->
+      <table class="ui very basic unstackable table">
+        <tbody>
+          {{#each materialsOfWeek type value}}
+          {{> material}}
+          {{/each}}
+        </tbody>
+      </table>
+      <!-- /materialGroup Content Table -->
+
+    </div>
+  </div>
+
+  <!-- /materialGroup -->
+</template>

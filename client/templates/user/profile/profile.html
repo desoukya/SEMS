@@ -1,0 +1,71 @@
+<template name="profile">
+  <div class="ui stackable container grid">
+    <div class="twelve wide centered column">
+
+      <!-- profile -->
+      <div class="ui segment" id="profile-wrapper">
+
+        <!-- Team Ribbon -->
+        {{#if teamId }}
+          <a class="ui red big right ribbon label" href="{{ pathFor 'team' _id=teamId }}">{{teamName}}</a>
+        {{/if}}
+        <!-- /Team Ribbon -->
+
+        <!-- Profile picture -->
+        {{#if Template.subscriptionsReady}}
+          <img class="ui small centered circular image" src="{{image.url}}"/>
+        {{else}}
+          <div class="ui active huge inline centered loader"></div>
+        {{/if}}
+        <!-- /Profile picture -->
+
+        <!-- Full Name -->
+        <h1 class="ui centered header">{{profile.firstName}}
+          {{profile.lastName}}
+        </h1>
+        <!-- /Full Name -->
+
+        <!-- Tutorial Group -->
+        {{#if tutorialGroup}}
+          <h3>
+            <i class="large green users icon"></i>
+            {{tutorialGroup}}
+          </h3>
+        {{/if}}
+        <!-- /Tutorial Group -->
+
+        <!-- Mobile -->
+        {{#if mobile}}
+          <h3>
+            <i class="large green phone square icon"></i>
+            {{mobile}}
+          </h3>
+        {{/if}}
+        <!-- /Mobile -->
+
+        <!-- Github -->
+        {{#if githubUser}}
+          <h3>
+            <i class="large green github square icon"></i>
+            {{githubUser}}
+          </h3>
+        {{/if}}
+        <!-- /Github -->
+
+        {{#if displayEmail}}
+          <h3>
+            <i class="green large mail square icon"></i>
+            {{email}}
+          </h3>
+        {{/if}}
+
+        {{#if isCurrentUser}}
+          <a href="{{pathFor 'user.profile.edit'}}" class="ui yellow bottom floated fluid button">Edit your info</a>
+        {{/if}}
+
+      </div>
+      <!-- profile -->
+
+    </div>
+  </div>
+</template>

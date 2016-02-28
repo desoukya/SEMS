@@ -1,15 +1,94 @@
 <template name="schedule">
+
   <!-- Schedule -->
   <div class="schedule">
+
+    <!-- Grid -->
     <div class="ui stackable container grid">
+
+      <!-- Centerd Column -->
       <div class="ten wide centered column">
-        <h1 class="centered text header">Schedule</h1>
-        {{> week number="1"}}
-        {{> week number="2"}}
-        {{> week number="3"}}
-        {{> week number="4"}}
+
+        <!-- Header -->
+        <div class="main header">
+          <h1 class="ui text centered header">Schedule</h1>
+        </div>
+        <!-- /Header -->
+
+        <!-- Schedule Materials -->
+        {{#each filterGroups }}
+          {{> materialGroup type=currentFilter value=value}}
+        {{/each}}
+        <!-- /Schedule Materials -->
+
+        <!-- Left Rail -->
+        <div class="ui left dividing rail"></div>
+        <!-- /Left Rail -->
+
+        <!-- Right Rail -->
+        <div class="ui right dividing attached rail">
+
+          <!-- Dash Board -->
+          <div id="dash-board" class="ui segment">
+
+            <!-- Filter Materials -->
+            <h3>
+              Filter By:
+            </h3>
+            <select id="filterBy" class="ui dropdown fluid">
+              <option value="">Filter By</option>
+              <option value="week">Calendar</option>
+              <option value="content">File Type</option>
+              <option value="uploadDate">Posting Date</option>
+            </select>
+            <!-- /Filter Materials -->
+
+            {{#if isInRole 'admin,lecturer,teaching-assistant'}}
+              <!-- Add new Materials -->
+              <h3>
+                Add Materials:</h3>
+              <button id="add-material" class="ui fluid button">
+                Add New Material
+              </button>
+              <!-- /Add new Materials -->
+            {{/if}}
+
+          </div>
+          <!-- /Dash Board -->
+
+        </div>
+        <!-- /Right Rail -->
+
       </div>
     </div>
   </div>
   <!-- /Schedule -->
+
+  <!-- Form Modal -->
+  <div class="ui small modal">
+    <div class="ui stackable container padded grid">
+      <div class="sixteen wide centered column">
+        {{>scheduleEditForm }}
+      </div>
+    </div>
+  </div>
+  <!-- /Form Modal -->
+
+  <!-- Comfirm Deletion Modal -->
+  <div class="ui material-delete tiny modal">
+    <i class="close icon"></i>
+    <div class="header">
+      Are you sure you want to delete this Material ?
+    </div>
+    <div class="actions">
+      <div class="ui black deny button">
+        No
+      </div>
+      <div class="ui positive right labeled icon button">
+        Yes, Delete It .
+        <i class="checkmark icon"></i>
+      </div>
+    </div>
+  </div>
+  <!-- /Comfirm Deletion Modal -->
 </template>

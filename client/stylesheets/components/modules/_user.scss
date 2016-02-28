@@ -1,0 +1,23 @@
+#login-wrapper {
+  height: 88vh;
+}
+
+#upload-dimmer {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+#profile-wrapper {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  min-height: 510px;
+}
+
+#update-profile-button {
+  margin-top: 10px;
+}
+
+#register-form {
+  padding-top: 40px;
+}
