@@ -1,13 +1,31 @@
 <template name="footer">
   <footer class="ui inverted vertical footer segment">
+
     <div class="ui container">
-      <div class="ui center aligned column">
-        <p class="centered text">SE Management system &copy; 2016 |
-          <a target="_blank" href="https://github.com/desoukya/SEMS/issues">Report issues on
-            <i class="github icon"></i>
-          </a>
-        </p>
+      <div class="ui stackable inverted equal height divided stackable grid">
+
+        <div class="three wide column">
+          <h4 class="ui inverted header">About</h4>
+          <div class="ui inverted link list">
+            <a href="{{pathFor 'faq'}}" class="item">FAQ</a>
+          </div>
+        </div>
+
+        <div class="three wide column">
+          <h4 class="ui inverted header">Get in touch</h4>
+          <div class="ui inverted link list">
+            <a href="#" class="item">Contact Us</a>
+            <a href="#" class="item">Report an issue</a>
+          </div>
+        </div>
+
+        <div class="seven wide column">
+          <h4 class="ui inverted header">SE Management System &copy; 2016</h4>
+          <p>Software development</p>
+        </div>
+
       </div>
     </div>
+
   </footer>
 </template>
