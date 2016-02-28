@@ -4,6 +4,13 @@
 
       <!-- profile -->
       <div class="ui segment" id="profile-wrapper">
+
+        <!-- Team Ribbon -->
+        {{#if teamId }}
+          <a class="ui red big right ribbon label" href="{{ pathFor 'team' _id=teamId }}">{{teamName}}</a>
+        {{/if}}
+        <!-- /Team Ribbon -->
+
         <!-- Profile picture -->
         {{#if Template.subscriptionsReady}}
           <img class="ui small centered circular image" src="{{image.url}}"/>
@@ -14,7 +21,8 @@
 
         <!-- Full Name -->
         <h1 class="ui centered header">{{profile.firstName}}
-          {{profile.lastName}}</h1>
+          {{profile.lastName}}
+        </h1>
         <!-- /Full Name -->
 
         <!-- Tutorial Group -->

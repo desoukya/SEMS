@@ -4,6 +4,8 @@
 
     <div class="twelve wide centered column">
 
+      {{> honorCodeModal}}
+
       <!-- Header -->
       <div class="main header">
         <h1 class="ui text centered header">Register</h1>
@@ -48,7 +50,6 @@
           </div>
           <!-- /Password -->
 
-
           <div class="two fields">
             <!-- GUC ID -->
             <div class="required field">
@@ -84,9 +85,7 @@
 
           </div>
 
-
           <!-- #############USER INFO############# -->
-
 
           <!-- #############OPTIONAL INFO############# -->
           <h4 class="ui dividing header">Additional information</h4>
@@ -101,7 +100,8 @@
 
             <!-- Github account -->
             <div class="field">
-              <label><i class="large github icon"></i>Github username</label>
+              <label>
+                <i class="large github icon"></i>Github username</label>
               <input type="text" name="github_user" placeholder="geeky-developer">
             </div>
             <!-- /Github account -->
@@ -116,19 +116,17 @@
           </div>
           <!-- /Email Toggle -->
 
-
           <div class="ui hidden divider"></div>
           <div class="ui divider"></div>
-
 
           <!-- #############/OPTIONAL INFO############# -->
 
           <!-- Honor code -->
           <div class="required field">
-            <div class="ui checkbox">
+            <div class="ui checkbox" id="honor-code-checkbox">
               <input type="checkbox" name="terms" tabindex="0">
               <label>I agree to the
-                <a href="#">Honor code</a>
+                <a href="#" id="honor-code-open">Honor code</a>
               </label>
             </div>
           </div>
@@ -165,4 +163,52 @@
 
   </div>
 
+</template>
+
+<template name="honorCodeModal">
+  <div class="ui basic modal" id="honor-code-modal">
+    <i class="close icon"></i>
+    <div class="header">
+      Software development honor code
+    </div>
+    <div class="image content">
+      <div class="image">
+        <i class="green code icon"></i>
+      </div>
+      <div class="description">
+        <p>As a great software developer and engineer, I will :
+
+          <ol>
+            <li>Register providing my real data</li>
+            <li>Not use and submit offensive or inapropriate content</li>
+            <li>Not use my super powers to bully or haress other users</li>
+            <li>Help other people when possible</li>
+            <li>Believe that NaN is a number if JS says so</li>
+            <li>Help others to be able to read my code</li>
+            <li>Try to reduce swear words on bug attakcs</li>
+            <li><a target="_blank" href="http://lmgtfy.com/?q=Google">Google</a> things up before telling people 'I don't know'</li>
+            <li>Believe that JS callbacks are easy and we should use nested callbacks more often</li>
+            <li>Not copy paste any code ... oops, this
+              <a target="_blank" href="http://semantic-ui.com/modules/modal.html">modal</a>
+              is copy pasted</li>
+            <li>Accept that C programming is clean and always free of bugs</li>
+          </ol>
+        </p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <div class="two fluid ui inverted buttons">
+        <div class="ui red basic inverted negative button">
+          <i class="remove icon"></i>
+          No
+        </div>
+        <div class="ui green basic inverted positive button">
+          <i class="checkmark icon"></i>
+          Yes
+        </div>
+      </div>
+    </div>
+
+  </div>
 </template>

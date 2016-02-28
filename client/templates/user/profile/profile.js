@@ -37,6 +37,22 @@ Template.profile.helpers({
 
   displayEmail() {
     return this._id === Meteor.userId() || this.profile.publicEmail;
+  },
+
+  teamId() {
+    var team = TeamUtils.getTeam(this._id);
+
+    if (team) {
+      return team._id;
+    }
+  },
+
+  teamName() {
+    var team = TeamUtils.getTeam(this._id);
+
+    if (team) {
+      return team.name;
+    }
   }
 
 });

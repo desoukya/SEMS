@@ -9,10 +9,19 @@ Template.schedule.onRendered(function() {
 Template.schedule.events({
   "change #filterBy": function(event, template) {
     var selectValue = template.$("#filterBy").val();
+
+    /////////////// Analytics ///////////////
+    analytics.track("Filtering materials", {
+      filter: selectValue
+    });
+    /////////////// Analytics ///////////////
+
+
     Template.instance().filterField.set(selectValue);
   },
+
   'click #add-material': function(event, template) {
-    
+
     Session.set('selectedMaterialID', "");
     //$('.ui.small.modal').modal('show');
   },

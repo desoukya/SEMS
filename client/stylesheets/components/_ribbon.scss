@@ -1,0 +1,19 @@
+body:after {
+  content: "alpha";
+  position: fixed;
+  width: 130px;
+  height: 25px;
+  background: $purple;
+  top: 25px;
+  left: -27px;
+  text-align: center;
+  font-size: 13px;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: white;
+  line-height: 27px;
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}

@@ -12,7 +12,8 @@ SearchSource.defineSource('users', function(searchText, options) {
         regExp = new RegExp("(" + parts.join('|') + ")", "ig"),
     selector = {$or: [
       {'profile.firstName': regExp},
-      {'profile.lastName' : regExp}
+      {'profile.lastName' : regExp},
+      {'emails.0.address' : regExp}
     ]};
     results = Meteor.users.find(selector, options).fetch();
   } else {

@@ -1,8 +1,8 @@
-//store last search query 
+//store last search query
 var lastQuery = "";
 
 //TODO : change them from session to active vars/dict
-//TODO : enable loading 
+//TODO : enable loading
 //page size -> is the count of elements that should be added by page
 //page -> how many page should be loaded
 Session.setDefault('pageSize', 6);
@@ -14,7 +14,7 @@ var options = {
   localSearch: true
 };
 //number of fields to search on the client (used for client side search and text transformation)
-var fields = ['profile.firstName', 'profile.lastName'];
+var fields = ['profile.firstName', 'profile.lastName', 'emails.0.address'];
 
 //the Search Source Object
 UserSearch = new SearchSource('users', fields, options);
@@ -127,7 +127,7 @@ Template.userEntry.helpers({
     return Meteor.users.findOne(this._id).roles[0];
   },
   roleColor: function() {
-    var roleColor ;
+    var roleColor;
     switch (Meteor.users.findOne(this._id).roles[0]) {
       case "admin":
         roleColor = "red";

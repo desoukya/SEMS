@@ -38,12 +38,39 @@ Template.register.events({
       if (err) {
         sAlert.error(err.reason);
       } else {
+
+        /////////////// Analytics ///////////////
+        analytics.identify(Meteor.userId(), {
+          email: Meteor.user().emails[0].address,
+          name: Meteor.user().profile.firstName + " " + Meteor.user().profile.firstName,
+          GUCId: Meteor.user().profile.GUCId,
+          tutorialGroup: Meteor.user().profile.tutorialGroup,
+          roles: Meteor.user().roles
+        });
+        /////////////// Analytics ///////////////
+
         Router.go('/');
       }
 
     });
 
   },
+
+  'click #honor-code-open': function(event, template) {
+    event.preventDefault();
+
+
+    $('#honor-code-modal').modal({
+      onDeny: function() {
+        $("#honor-code-checkbox").checkbox('uncheck');
+      },
+      onApprove: function() {
+        $("#honor-code-checkbox").checkbox('check');
+      }
+    }).modal("show");
+  },
+
+
 });
 
 
@@ -149,4 +176,5 @@ Template.register.onRendered(function() {
   });
   $('.ui.checkbox').checkbox();
   $('.ui.dropdown').dropdown();
+
 });
