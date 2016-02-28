@@ -1,7 +1,7 @@
 Meteor.startup(function() {
 
   // From (ME !)
-  Accounts.emailTemplates.from = 'SE Adminstration';
+  Accounts.emailTemplates.from = Meteor.settings.systemEmail;
 
   Accounts.emailTemplates.siteName = 'SEMS';
 
