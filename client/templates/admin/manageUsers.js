@@ -121,6 +121,10 @@ Template.userEntry.helpers({
     var user = Meteor.users.findOne(this._id);
     return user.profile.firstName + " " + user.profile.lastName;
   },
+  curruntEmail: function() {
+    var user = Meteor.users.findOne(this._id);
+    return user.emails[0].address;
+  },
 
   role: function() {
     // Enforcing one role for user for current setup
