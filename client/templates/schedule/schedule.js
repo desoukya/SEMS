@@ -54,9 +54,11 @@ Template.schedule.helpers({
       }, {
         value: "assignment"
       }, {
-        value: "tutorial"
+        value: "code"
       }, {
         value: "practiceAssignment"
+      }, {
+        value: "tutorial"
       }];
     else if (Template.instance().filterField.get() === "uploadDate")
       return [{
