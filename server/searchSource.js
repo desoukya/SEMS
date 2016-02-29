@@ -4,7 +4,7 @@ SearchSource.defineSource('users', function(searchText, options) {
   options = _.extend({
     skip: 0,
     limit: 50,
-    sort: {created: -1}
+    sort: {'roles':1}
   }, options);
   //Make sure the name is good enough
   if(searchText) {
