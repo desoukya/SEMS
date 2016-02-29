@@ -3,8 +3,8 @@
   overflow: hidden;
   display: block;
   position: relative;
-  /* footer height*/
-  padding-bottom: 118px;
+  /* footer height + breathing space !*/
+  padding-bottom: 118px + 50px;
 }
 
 .not.styled.link {
@@ -35,4 +35,8 @@
 #home-team-button-extra-pad {
   padding-left: 42px;
   padding-right: 42px;
+}
+
+.contact.info {
+  margin-bottom: 60px;
 }
