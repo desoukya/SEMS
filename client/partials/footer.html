@@ -1,6 +1,8 @@
 <template name="footer">
   <footer class="ui inverted vertical footer segment">
 
+    {{> legalModal}}
+
     <div class="ui container">
       <div class="ui unstackable inverted equal height divided grid">
 
@@ -8,7 +10,7 @@
           <h4 class="ui inverted header">About</h4>
           <div class="ui inverted link list">
             <a href="{{pathFor 'faq'}}" class="item">FAQ</a>
-            <a href="{{pathFor 'legal'}}" class="item">Legal</a>
+            <a href="#" class="item" id="legal">Legal</a>
           </div>
         </div>
 
