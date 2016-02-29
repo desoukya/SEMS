@@ -65,8 +65,8 @@ Template.register.events({
 
 Template.register.onRendered(function() {
   $('.ui.form').form({
+    inline: true,
     fields: {
-
       firstname: {
         identifier: 'firstname',
         rules: [{
@@ -87,10 +87,10 @@ Template.register.onRendered(function() {
         identifier: 'email',
         rules: [{
           type: 'empty',
-          prompt: 'Please enter an email address'
+          prompt: 'Please enter your GUC email address'
         }, {
-          type: 'email',
-          prompt: 'Please enter your email address'
+          type: 'regExp[/^([a-zA-Z0-9_\.-]+)@(student\.)?guc\.edu\.eg$/]',
+          prompt: 'Please enter a Valid GUC Gmail'
         }]
       },
 
