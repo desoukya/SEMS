@@ -28,7 +28,7 @@ Template.manageUsers.onCreated(function() {
       page = Session.get('page');
 
 
-    if (!!lastQuery) {
+    if (lastQuery !== undefined) {
       UserSearch.search(lastQuery, {
         skip: page * size,
         limit: size
@@ -163,7 +163,8 @@ Template.userEntry.helpers({
 Template.searchBox.events({
   "keyup #search-box": _.throttle(function(e) {
     var query = $(e.target).val().trim();
-    if (query && query.length > 0) {
+    console.log(query);
+    if (query !== undefined) {
       if (query !== lastQuery) {
         Session.set('page', 0);
         var size = Session.get('pageSize');
@@ -200,3 +201,5 @@ Template.searchBox.onCreated(function() {
 Template.searchBox.onDestroyed(function() {
   window.removeEventListener('scroll', scrollListener);
 });
+
+
