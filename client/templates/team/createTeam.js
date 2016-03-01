@@ -28,6 +28,18 @@ Template.createTeam.events({
     });
 
   },
+
+  'change .ui.search.selection.dropdown': function(event, template) {
+    var companyId = template.find("input[name=company]").value;
+
+    var imageName = Companies.findOne({
+      _id: companyId
+    }).image;
+
+    $("#team-main-image").attr("src", `/images/teams/${imageName}`);
+  },
+
+
 });
 
 Template.createTeam.helpers({
