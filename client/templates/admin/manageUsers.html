@@ -27,8 +27,7 @@
         <table class="ui celled padded unstackable table">
           <thead>
             <tr>
-              <th colspan="2">User
-                {{>filterLabel role= 'all' }}
+              <th colspan="2">User {{>filterLabel role= 'all' }}
                 {{#each role in roles}}
                   {{> filterLabel role= role}}
                 {{/each}}
@@ -77,7 +76,8 @@
       <h4 class="ui header">
         <div class="content">
         <div class="ui {{colorOfRole role}} horizontal label">{{role}}</div>
-          {{username}}
+          
+          <a href="{{pathFor 'user.profile' _id= _id}}">{{username}}</a>
         </div>
       </h4>
     </td>
