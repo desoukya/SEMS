@@ -4,16 +4,12 @@
   </div>
 
   <div class="ui divider container"></div>
-  <div class="ui stackable container grid">
-    <div class="column">
-      <div class="ui four column very relaxed grid">
-        {{#each teams}}
-          <div class="column">
-            {{>teamCard}}
-          </div>
-        {{/each}}
+  <div class="ui stackable container four column very relaxed grid">
+    {{#each teams}}
+      <div class="column">
+        {{>teamCard}}
       </div>
-    </div>
+    {{/each}}
   </div>
 </template>
 
