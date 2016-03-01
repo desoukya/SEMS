@@ -4,6 +4,13 @@
     <input type="text" name="email" id="search-box" placeholder="Search by username or email">
   </div>
 </template>
+
+<template name="filterLabel">
+  <a class="ui {{colorOfRole role}} horizontal label">
+    {{role}}<div class="detail">{{countOf role}}</div>
+  </a>
+</template>
+
 <template name="manageUsers">
   <!-- Header -->
   <div class="ui container grid">
@@ -21,31 +28,10 @@
           <thead>
             <tr>
               <th colspan="2">User
-                <div class="ui red horizontal label">
-                  admins
-                  <div class="detail">{{countOf "admin"}}</div>
-                </div>
-                <div class="ui orange horizontal label">
-                  lecturer
-                  <div class="detail">{{countOf "lecturer"}}</div>
-                </div>
-                <div class="ui olive horizontal label">
-                  TA's
-                  <div class="detail">{{countOf "teaching-assistant" }}</div>
-                </div>
-                <div class="ui purple horizontal label">
-                  junior TA's
-                  <div class="detail">{{countOf "junior-teaching-assistant" }}</div>
-                </div>
-                <div class="ui teal horizontal label">
-                  SCRUMS
-                  <div class="detail">{{countOf "scrum-master" }}</div>
-                </div>
-                <div class="ui green horizontal label">
-                  students
-                  <div class="detail">{{countOf "student" }}</div>
-                </div>
-
+                {{>filterLabel role= 'all' }}
+                {{#each role in roles}}
+                  {{> filterLabel role= role}}
+                {{/each}}
               </th>
               <th>Role</th>
             </tr>
@@ -90,7 +76,7 @@
     <td>
       <h4 class="ui header">
         <div class="content">
-        <div class="ui {{roleColor}} horizontal label">{{role}}</div>
+        <div class="ui {{colorOfRole role}} horizontal label">{{role}}</div>
           {{username}}
         </div>
       </h4>

@@ -1,6 +1,5 @@
 //store last search query
 var lastQuery = "";
-
 //TODO : change them from session to active vars/dict
 //TODO : enable loading
 //page size -> is the count of elements that should be added by page
@@ -8,6 +7,7 @@ var lastQuery = "";
 Session.setDefault('pageSize', 6);
 Session.setDefault('page', 0);
 Session.setDefault('loading', true);
+Session.setDefault('role', "all");
 
 var options = {
   keepHistory: 1000 * 60 * 5,
@@ -23,25 +23,53 @@ UserSearch = new SearchSource('users', fields, options);
 Template.manageUsers.onCreated(function() {
   //every time the page count changes get more data (infinte Scrolling)
   var self = this;
+  Session.set('role', "all");
+  //track when page is changed
   self.autorun(function() {
-    var size = Session.get('pageSize'),
-      page = Session.get('page');
-
+    var size = Session.get('pageSize');
+    var page = Session.get('page');
+    var role = "";
+    Tracker.nonreactive(function() {
+      role = Session.get('role');
+    });
 
     if (lastQuery !== undefined) {
-      UserSearch.search(lastQuery, {
+      var options = {
         skip: page * size,
-        limit: size
-      });
+        limit: size,
+      };
+      if (role != "all")
+        options.role = role;
+      UserSearch.search(lastQuery, options)
     }
   });
-  Tracker.autorun(function() {})
+  //track when role is changed 
+  self.autorun(function() {
+    var size = Session.get('pageSize');
+    var role = Session.get('role');
+    var page = "";
+    Tracker.nonreactive(function() {
+      page = Session.get('page');
+    });
+    UserSearch.store.remove({});
+    UserSearch.cleanHistory();
+    if (lastQuery !== undefined) {
+      var options = {
+        skip: page * size,
+        limit: size,
+      };
+      if (role != "all")
+        options.role = role;
+      UserSearch.search(lastQuery, options)
+    }
+  });
 });
 
 Template.manageUsers.onDestroyed(function() {
   lastQuery = "";
+  $('#search-box').val("")
   UserSearch.store.remove({});
-  UserSearch.cleanHistory();;
+  UserSearch.cleanHistory();
 });
 Template.manageUsers.helpers({
   //returns the currunt users from the search Source object
@@ -58,8 +86,9 @@ Template.manageUsers.helpers({
       limit: (page + 1) * size
     }, true);
   },
-  countOf: function (role){
-    return Meteor.users.find({roles:role}).count()
+
+  roles: function() {
+    return ROLES;
   }
 });
 
@@ -112,7 +141,6 @@ Template.userEntry.events({
 
     roles[id] = role;
     template.modified.set(true);
-    //console.log(template.modified.get());
     Session.set("toBeUpdatedRoles", roles);
   },
 
@@ -133,40 +161,34 @@ Template.userEntry.helpers({
     // Enforcing one role for user for current setup
     return Meteor.users.findOne(this._id).roles[0];
   },
-  roleColor: function() {
-    var roleColor;
-    switch (Meteor.users.findOne(this._id).roles[0]) {
-      case ADMIN:
-        roleColor = "red";
-        break;
-      case LECTURER:
-        roleColor = "orange";
-        break;
-      case TA:
-        roleColor = "olive";
-        break;
-      case JTA:
-        roleColor = "purple";
-        break;
-      case SCRUM:
-        roleColor = "teal";
-        break;
-      case STUDENT:
-        roleColor = "green";
-        break;
-    }
-    return roleColor;
-  },
   modified: function() {
     return Template.instance().modified.get();
   }
 });
 
+//------------------------- filterLabel Template --------------------------------------------
+Template.filterLabel.helpers({
+  countOf: function(role) {
+    if (role === "all") {
+      return Meteor.users.find().count()
+    } else {
+      return Meteor.users.find({
+        roles: role
+      }).count()
+    }
+  },
+})
+Template.filterLabel.events({
+  "click .ui.label": function(event, template) {
+    var size = Session.get('pageSize');
+    Session.set('role', this.role);
+    Session.set('page', 0);
+  },
+});
 //------------------------- searchBox Template --------------------------------------------
 Template.searchBox.events({
   "keyup #search-box": _.throttle(function(e) {
     var query = $(e.target).val().trim();
-    console.log(query);
     if (query !== undefined) {
       if (query !== lastQuery) {
         Session.set('page', 0);
@@ -204,5 +226,3 @@ Template.searchBox.onCreated(function() {
 Template.searchBox.onDestroyed(function() {
   window.removeEventListener('scroll', scrollListener);
 });
-
-

@@ -7,7 +7,7 @@ SearchSource.defineSource('users', function(searchText, options) {
     sort: {'roles':1}
   }, options);
   //Make sure the name is good enough
-  if(searchText) {
+  if(searchText !== undefined) {
     var parts = searchText.trim().split(' '),
         regExp = new RegExp("(" + parts.join('|') + ")", "ig"),
     selector = {$or: [
@@ -15,9 +15,14 @@ SearchSource.defineSource('users', function(searchText, options) {
       {'profile.lastName' : regExp},
       {'emails.0.address' : regExp}
     ]};
+    if(options.role){
+      selector = {roles : options.role};
+    }
     results = Meteor.users.find(selector, options).fetch();
   } else {
-    results = Meteor.users.find({}, options).fetch();
+    selector = {}
+    
+    results = Meteor.users.find(selector, options).fetch();
   }
   return results;
 });
