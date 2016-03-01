@@ -4,6 +4,7 @@
   </div>
 
   <div class="ui divider container"></div>
+
   <div class="ui stackable container four column very relaxed grid">
     {{#each teams}}
       <div class="column">
@@ -15,8 +16,8 @@
 
 <template name="teamCard">
   <div class="ui card">
-    <a class="image" href="{{pathFor 'team' _id=teamId}}">
-      <img src="{{image}}">
+    <a class="image" id="logo-link" href="{{pathFor 'team' _id=teamId}}">
+      <img class="team logo" src="{{image}}">
     </a>
     <div class="content">
       <a class="header" href="{{pathFor 'team' _id=teamId}}">{{name}}</a>
