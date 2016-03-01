@@ -4,25 +4,20 @@
   </div>
 
   <div class="ui divider container"></div>
-  <div class="ui stackable container grid">
-    <div class="column">
-      <div class="ui four column very relaxed grid">
-        <div class="ui stackable cards">
-          {{#each teams}}
-            <div class="column">
-              {{>teamCard}}
-            </div>
-          {{/each}}
-        </div>
+
+  <div class="ui stackable container four column very relaxed grid">
+    {{#each teams}}
+      <div class="column">
+        {{>teamCard}}
       </div>
-    </div>
+    {{/each}}
   </div>
 </template>
 
 <template name="teamCard">
   <div class="ui card">
-    <a style="background-color: white;" class="image" href="{{pathFor 'team' _id=teamId}}">
-      <img style="width: 220px; height: 200px; object-fit: contain; margin: auto;" src="{{image}}">
+    <a class="image" id="logo-link" href="{{pathFor 'team' _id=teamId}}">
+      <img class="team logo" src="{{image}}">
     </a>
     <div class="content">
       <a class="header" href="{{pathFor 'team' _id=teamId}}">{{name}}</a>
