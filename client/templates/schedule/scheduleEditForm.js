@@ -55,7 +55,7 @@ Template.scheduleEditForm.onRendered(function() {
     var materialID = Session.get('selectedMaterialID');
     if (materialID === "") {
       //show new Material form
-      $('.ui.small.modal').modal('show');
+      $('#schedule-edit-modal').modal('show');
     } else if (materialID !== undefined) {
       //show edit Material form
       var material = Materials.findOne({
@@ -65,7 +65,7 @@ Template.scheduleEditForm.onRendered(function() {
         Tracker.nonreactive(function() {
           populateForm(material);
         });
-        $('.ui.small.modal').modal('show');
+        $('#schedule-edit-modal').modal('show');
       }
     }
   });
@@ -182,7 +182,7 @@ Template.scheduleEditForm.events({
           else {
             $('.ui.form').form('clear');
             setTimeout(function() {
-              $('.ui.small.modal').modal('hide');
+              $('#schedule-edit-modal').modal('hide');
             }, 1000);
             $('.ui.form').addClass("success");
           }
@@ -198,7 +198,7 @@ Template.scheduleEditForm.events({
         else {
           $('.ui.form').form('clear');
           setTimeout(function() {
-            $('.ui.small.modal').modal('hide');
+            $('#schedule-edit-modal').modal('hide');
           }, 1000);
           $('.ui.form').addClass("success");
         }
@@ -245,7 +245,7 @@ function addBehaviours() {
     $('#upload').trigger('click');
   });
   initForm();
-  $('.ui.small.modal').modal({
+  $('#schedule-edit-modal').modal({
     onHidden: function() {
       Session.set('selectedMaterialID', undefined);
       clearForm();
