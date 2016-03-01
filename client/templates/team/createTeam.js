@@ -87,8 +87,13 @@ Template.createTeam.onRendered(function() {
               identifier: 'repoLink',
               rules: [{
                   type: 'empty',
-                  prompt: 'Please enter your repo Link'
-                }] //TODO : Add github regexp
+                  prompt: 'Please enter your repo URL'
+                },
+                {
+                  type: 'url',
+                  prompt: 'Please enter a valid repo URL'
+                },
+                ] //TODO : Add github regexp
             },
 
           }
