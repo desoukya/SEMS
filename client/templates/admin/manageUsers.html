@@ -20,7 +20,33 @@
         <table class="ui celled padded unstackable table">
           <thead>
             <tr>
-              <th colspan="2">User</th>
+              <th colspan="2">User
+                <div class="ui red horizontal label">
+                  admins
+                  <div class="detail">{{countOf "admin"}}</div>
+                </div>
+                <div class="ui orange horizontal label">
+                  lecturer
+                  <div class="detail">{{countOf "lecturer"}}</div>
+                </div>
+                <div class="ui olive horizontal label">
+                  TA's
+                  <div class="detail">{{countOf "teaching-assistant" }}</div>
+                </div>
+                <div class="ui purple horizontal label">
+                  junior TA's
+                  <div class="detail">{{countOf "junior-teaching-assistant" }}</div>
+                </div>
+                <div class="ui teal horizontal label">
+                  SCRUMS
+                  <div class="detail">{{countOf "scrum-master" }}</div>
+                </div>
+                <div class="ui green horizontal label">
+                  students
+                  <div class="detail">{{countOf "student" }}</div>
+                </div>
+
+              </th>
               <th>Role</th>
             </tr>
           </thead>
@@ -69,7 +95,6 @@
         </div>
       </h4>
     </td>
-
 
     <td class="collapsing">
       <h4 class="ui header">

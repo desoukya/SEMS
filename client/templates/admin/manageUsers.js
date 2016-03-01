@@ -58,6 +58,9 @@ Template.manageUsers.helpers({
       limit: (page + 1) * size
     }, true);
   },
+  countOf: function (role){
+    return Meteor.users.find({roles:role}).count()
+  }
 });
 
 Template.manageUsers.events({
@@ -133,22 +136,22 @@ Template.userEntry.helpers({
   roleColor: function() {
     var roleColor;
     switch (Meteor.users.findOne(this._id).roles[0]) {
-      case "admin":
+      case ADMIN:
         roleColor = "red";
         break;
-      case "lecturer":
+      case LECTURER:
         roleColor = "orange";
         break;
-      case "teaching-assistant":
+      case TA:
         roleColor = "olive";
         break;
-      case "junior-teaching-assistant":
+      case JTA:
         roleColor = "purple";
         break;
-      case "scrum-master":
+      case SCRUM:
         roleColor = "teal";
         break;
-      case "student":
+      case STUDENT:
         roleColor = "green";
         break;
     }
