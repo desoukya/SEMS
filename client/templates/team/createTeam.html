@@ -29,8 +29,6 @@
               <i class="dropdown icon"></i>
 
               <div class="menu">
-                <!-- NOTE: We are getting the _id._str here as it's imported from mongo so the id
-                      is an ObjectId instance -->
                 {{#each companies}}
                   <div class="item" data-value="{{_id}}">{{name}}</div>
                 {{/each}}

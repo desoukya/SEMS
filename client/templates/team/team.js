@@ -7,6 +7,7 @@ Template.team.helpers({
   teamImage() {
     return TeamUtils.getDefaultPhoto(this._id);
   },
+
   members() {
     var membersInTeams = []
 
@@ -22,6 +23,7 @@ Template.team.helpers({
       }
     })
   },
+
   teamMembers() {
     // TODO: Refactor to a methods !
     var usersIds = Teams.findOne({
@@ -33,7 +35,17 @@ Template.team.helpers({
         $in: usersIds
       }
     });
-  }
+  },
+
+  companyName() {
+    var self = this;
+    console.log(self.company);
+
+    return Companies.findOne({
+      _id: self.company
+    }).name;
+  },
+
 });
 Template.team.events({
   "click #addMembers": function(event) {

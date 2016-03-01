@@ -19,6 +19,13 @@ Template.teamAbout.helpers({
 
   teamImage() {
     return TeamUtils.getDefaultPhoto(this._id);
+  },
+
+  companyName() {
+    var self = this;
+    return Companies.findOne({
+      _id: self.company
+    }).name;
   }
 
 });
