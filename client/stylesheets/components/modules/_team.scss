@@ -25,9 +25,16 @@
   height: 200px;
   object-fit: contain;
   margin: auto;
-  padding:10px;
+  padding: 10px;
 }
 
-#logo-link{
+#logo-link {
+  background-color: white;
+}
+
+#about-team-image {
+  height: 200px;
+  object-fit: contain;
+  width: 200px;
   background-color: white;
 }

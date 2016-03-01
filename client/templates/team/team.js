@@ -43,7 +43,6 @@ Template.team.helpers({
 
   companyName() {
     var self = this;
-    console.log(self.company);
 
     return Companies.findOne({
       _id: self.company
