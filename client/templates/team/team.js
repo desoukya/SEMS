@@ -5,7 +5,11 @@ Template.team.helpers({
   },
 
   teamImage() {
-    return TeamUtils.getDefaultPhoto(this._id);
+    var self = this;
+    var imageName = Companies.findOne({
+      _id: self.company
+    }).image;
+    return `/images/teams/${imageName}`;
   },
 
   members() {
@@ -39,7 +43,6 @@ Template.team.helpers({
 
   companyName() {
     var self = this;
-    console.log(self.company);
 
     return Companies.findOne({
       _id: self.company
