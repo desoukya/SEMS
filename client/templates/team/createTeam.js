@@ -4,9 +4,11 @@ Template.createTeam.events({
 
     var name = event.target.teamName.value;
     var githubRepo = event.target.repoLink.value;
+    var company = event.target.company.value;
 
     var team = {
       name: name,
+      company: company,
       repo: githubRepo,
       members: [Meteor.userId()],
       createdAt: new Date()
@@ -28,6 +30,26 @@ Template.createTeam.events({
   },
 });
 
+Template.createTeam.helpers({
+  companies() {
+
+    var takenCompanies = [];
+
+    Teams.find().fetch().forEach(function(team) {
+      takenCompanies.push(team.company);
+    });
+    takenCompanies = [].concat.apply([], takenCompanies);
+
+    return Companies.find({
+      _id: {
+        $nin: takenCompanies
+      }
+    });
+
+  },
+
+});
+
 
 Template.createTeam.onRendered(function() {
   $(document)
@@ -42,6 +64,13 @@ Template.createTeam.onRendered(function() {
                 prompt: 'Team name must be at least 6 characters '
               }]
             },
+            company: {
+              identifier: 'company',
+              rules: [{
+                type: 'empty',
+                prompt: 'Please select the company you will work for'
+              }]
+            },
             repoLink: {
               identifier: 'repoLink',
               rules: [{
@@ -53,4 +82,6 @@ Template.createTeam.onRendered(function() {
           }
         });
     });
+
+  $('.ui.dropdown').dropdown();
 });

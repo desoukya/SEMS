@@ -59,3 +59,7 @@ Meteor.publish("materials", function() {
 Meteor.publish("teams", function() {
   return Teams.find({});
 });
+
+Meteor.publish("companies", function() {
+  return Companies.find();
+})

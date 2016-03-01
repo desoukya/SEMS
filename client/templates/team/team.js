@@ -42,15 +42,15 @@ Template.team.events({
     });
     var err = false;
     for (var i = 0; i < arr.length; i++) {
-      //check he is not in another team 
+      //check he is not in another team
       var member = Meteor.users.findOne({
         _id: arr[i],
         roles: "student",
       });
       var inTeam = false;
       if (Teams.findOne({
-        members: arr[i]
-      })) {
+          members: arr[i]
+        })) {
         inTeam = true;
       }
       if (!!member && !inTeam) {

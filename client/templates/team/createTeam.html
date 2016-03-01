@@ -1,13 +1,16 @@
 <template name="createTeam">
-  <div class="ui middle aligned center aligned container grid" id="login-wrapper">
+  <div data-class="ui middle aligned center aligned container grid" id="login-wrapper">
     <div class="six wide column">
       <h2 class="ui image header">
         <div class="content">
           Create a team
         </div>
       </h2>
+
       <form class="ui large login form ">
         <div class="ui stacked segment">
+
+          <!-- Team Name -->
           <div class="field">
             <label>Team Name</label>
             <div class="ui left icon input">
@@ -15,6 +18,28 @@
               <input type="text" name="teamName" placeholder="The Expendables">
             </div>
           </div>
+          <!-- /Team Name -->
+
+          <!-- Company Selection -->
+          <div class="field">
+            <label>Company</label>
+            <div class="ui search selection dropdown">
+              <input type="hidden" name="company">
+              <div class="default text">Select a company</div>
+              <i class="dropdown icon"></i>
+
+              <div class="menu">
+                <!-- NOTE: We are getting the _id._str here as it's imported from mongo so the id
+                      is an ObjectId instance -->
+                {{#each companies}}
+                  <div class="item" data-value="{{_id}}">{{name}}</div>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+          <!-- /Company Selection -->
+
+          <!-- Github repo link -->
           <div class="field">
             <label>Github Repo Link</label>
             <div class="ui left icon input">
@@ -22,11 +47,14 @@
               <input type="text" name="repoLink" placeholder="The Expendables">
             </div>
           </div>
+          <!-- /Github repo link -->
+
           <input type="submit" id="loginBtn" class="ui fluid large green submit button" value="Create team">
+
         </div>
 
         <div class="ui error message">
-          The name is already taken .. please choose another name
+          The name is already taken, please choose another name
         </div>
       </form>
 
