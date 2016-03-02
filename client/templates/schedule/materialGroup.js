@@ -16,7 +16,7 @@ Template.materialGroup.helpers({
     else if (type == "uploadDate")
       return Materials.find({}, {
         sort: {
-          date_created: -1
+          createdAt: -1
         }
       });
     else
