@@ -3,12 +3,8 @@
   overflow: hidden;
   display: block;
   position: relative;
-  /* footer height*/
-  padding-bottom: 47px;
-}
-
-.centered.text {
-  text-align: center;
+  /* footer height + breathing space !*/
+  padding-bottom: 118px + 50px;
 }
 
 .not.styled.link {
@@ -18,7 +14,7 @@
 
 .full.screen {
   width: 100vw;
-  height: 88vh;
+  height: 80vh;
 }
 
 .main.header {
@@ -39,4 +35,8 @@
 #home-team-button-extra-pad {
   padding-left: 42px;
   padding-right: 42px;
+}
+
+.contact.info {
+  margin-bottom: 60px;
 }

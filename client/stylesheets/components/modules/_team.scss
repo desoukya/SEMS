@@ -20,3 +20,23 @@
   }
 
 }
+
+.ui.card > .image > .team.logo {
+  height: 200px;
+  object-fit: contain;
+  margin: auto;
+  padding: 10px;
+}
+
+#logo-link {
+  background-color: white;
+}
+
+#team-main-image {
+  height: 200px;
+  object-fit: contain;
+  width: 200px;
+  background-color: white;
+  padding: 10px;
+  box-shadow: 2px 2px 5px #888;
+}

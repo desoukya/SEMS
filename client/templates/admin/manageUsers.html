@@ -4,6 +4,13 @@
     <input type="text" name="email" id="search-box" placeholder="Search by username or email">
   </div>
 </template>
+
+<template name="filterLabel">
+  <a class="ui {{colorOfRole role}} horizontal label">
+    {{role}}<div class="detail">{{countOf role}}</div>
+  </a>
+</template>
+
 <template name="manageUsers">
   <!-- Header -->
   <div class="ui container grid">
@@ -20,7 +27,11 @@
         <table class="ui celled padded unstackable table">
           <thead>
             <tr>
-              <th colspan="2">User</th>
+              <th colspan="2">User {{>filterLabel role= 'all' }}
+                {{#each role in roles}}
+                  {{> filterLabel role= role}}
+                {{/each}}
+              </th>
               <th>Role</th>
             </tr>
           </thead>
@@ -64,12 +75,12 @@
     <td>
       <h4 class="ui header">
         <div class="content">
-        <div class="ui {{roleColor}} horizontal label">{{role}}</div>
-          {{username}}
+        <div class="ui {{colorOfRole role}} horizontal label">{{role}}</div>
+          
+          <a href="{{pathFor 'user.profile' _id= _id}}">{{username}}</a>
         </div>
       </h4>
     </td>
-
 
     <td class="collapsing">
       <h4 class="ui header">

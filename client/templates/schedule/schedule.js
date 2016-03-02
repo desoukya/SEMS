@@ -23,7 +23,6 @@ Template.schedule.events({
   'click #add-material': function(event, template) {
 
     Session.set('selectedMaterialID', "");
-    //$('.ui.small.modal').modal('show');
   },
 });
 
@@ -54,9 +53,11 @@ Template.schedule.helpers({
       }, {
         value: "assignment"
       }, {
-        value: "tutorial"
+        value: "code"
       }, {
         value: "practiceAssignment"
+      }, {
+        value: "tutorial"
       }];
     else if (Template.instance().filterField.get() === "uploadDate")
       return [{

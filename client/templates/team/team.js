@@ -5,8 +5,13 @@ Template.team.helpers({
   },
 
   teamImage() {
-    return TeamUtils.getDefaultPhoto(this._id);
+    var self = this;
+    var imageName = Companies.findOne({
+      _id: self.company
+    }).image;
+    return `/images/teams/${imageName}`;
   },
+
   members() {
     var membersInTeams = []
 
@@ -22,6 +27,7 @@ Template.team.helpers({
       }
     })
   },
+
   teamMembers() {
     // TODO: Refactor to a methods !
     var usersIds = Teams.findOne({
@@ -33,7 +39,16 @@ Template.team.helpers({
         $in: usersIds
       }
     });
-  }
+  },
+
+  companyName() {
+    var self = this;
+
+    return Companies.findOne({
+      _id: self.company
+    }).name;
+  },
+
 });
 Template.team.events({
   "click #addMembers": function(event) {
@@ -42,15 +57,15 @@ Template.team.events({
     });
     var err = false;
     for (var i = 0; i < arr.length; i++) {
-      //check he is not in another team 
+      //check he is not in another team
       var member = Meteor.users.findOne({
         _id: arr[i],
         roles: "student",
       });
       var inTeam = false;
       if (Teams.findOne({
-        members: arr[i]
-      })) {
+          members: arr[i]
+        })) {
         inTeam = true;
       }
       if (!!member && !inTeam) {
