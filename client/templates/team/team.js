@@ -50,6 +50,7 @@ Template.team.helpers({
   },
 
 });
+
 Template.team.events({
   "click #addMembers": function(event) {
     var arr = $('#members').val().split(",").filter(function(idString) {
@@ -134,11 +135,8 @@ Template.team.events({
 Template.team.onRendered(function() {
   $('.ui.search.dropdown')
     .dropdown({
-      maxSelections: 3
+      maxSelections: 8
     });
-
-  /*$('.ui.dropdown')
-    .dropdown();*/
 });
 //--------------------------------------------------------------
 Template.userChoice.helpers({
