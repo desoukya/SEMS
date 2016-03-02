@@ -23,7 +23,6 @@ Template.schedule.events({
   'click #add-material': function(event, template) {
 
     Session.set('selectedMaterialID', "");
-    //$('.ui.small.modal').modal('show');
   },
 });
 
