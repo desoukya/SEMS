@@ -46,5 +46,27 @@ Meteor.methods({
 
   },
 
+  addMemberToTeam(userId, teamId) {
+
+    if (Teams.findOne({ _id: teamId }).members.length >= 8) {
+      // FIXME: Which http code here -_-
+      throw new Meteor.Error(403, "Team size can't exceed 8 members");
+    }
+
+    // Getting the member
+    var member = Meteor.users.findOne({
+      _id: userId,
+      roles: "student",
+    });
+
+    if (!!member && !TeamUtils.isInTeam(userId)) {
+      return Teams.update({ _id: teamId }, { $push: { members: userId } });
+    } else {
+      throw new Meteor.Error(409, "Can't add this member");
+    }
+
+
+  },
+
 
 });
