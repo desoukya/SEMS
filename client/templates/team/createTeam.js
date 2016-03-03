@@ -43,7 +43,7 @@ Template.createTeam.events({
 });
 
 Template.createTeam.helpers({
-  companies() {
+  companies: function() {
 
     var takenCompanies = [];
 
@@ -88,12 +88,10 @@ Template.createTeam.onRendered(function() {
               rules: [{
                   type: 'empty',
                   prompt: 'Please enter your repo URL'
-                },
-                {
+                }, {
                   type: 'url',
                   prompt: 'Please enter a valid repo URL'
-                },
-                ] //TODO : Add github regexp
+                }, ] //TODO : Add github regexp
             },
 
           }

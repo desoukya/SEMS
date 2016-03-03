@@ -1,5 +1,3 @@
-// ES6
-
 Template.register.events({
   "submit form": function(event) {
 
@@ -47,7 +45,6 @@ Template.register.events({
 
   'click #honor-code-open': function(event, template) {
     event.preventDefault();
-
 
     $('#honor-code-modal').modal({
       onDeny: function() {
@@ -163,7 +160,7 @@ Template.register.onRendered(function() {
       },
     }
   });
+
   $('.ui.checkbox').checkbox();
   $('.ui.dropdown').dropdown();
-
 });

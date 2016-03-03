@@ -1,11 +1,11 @@
 Template.browseTeam.helpers({
-  teams() {
+  teams: function() {
     return Teams.find();
   },
 
 });
 Template.teamCard.helpers({
-  image() {
+  image: function() {
     var self = this;
     var imageName = Companies.findOne({
       _id: self.company
@@ -13,11 +13,11 @@ Template.teamCard.helpers({
     return `/images/teams/${imageName}`;
   },
 
-  membersCount() {
+  membersCount: function() {
     return this.members.length;
   },
 
-  teamId() {
+  teamId: function() {
     return this._id;
   }
 });

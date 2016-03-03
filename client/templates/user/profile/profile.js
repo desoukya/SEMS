@@ -1,7 +1,7 @@
 // ES6
 
 Template.profile.helpers({
-  image() {
+  image: function() {
     var self = this;
     var defaultPictureIndex = UserUtils.getDefaultPictureIndex(self._id);
     return Images.findOne({
@@ -11,11 +11,11 @@ Template.profile.helpers({
     };
   },
 
-  isCurrentUser() {
+  isCurrentUser: function() {
     return Meteor.userId() === this._id;
   },
 
-  email() {
+  email: function() {
     if (this.emails) {
       return this.emails[0].address;
     } else {
@@ -23,23 +23,23 @@ Template.profile.helpers({
     }
   },
 
-  tutorialGroup() {
+  tutorialGroup: function() {
     return this.profile.tutorialGroup;
   },
 
-  mobile() {
+  mobile: function() {
     return this.profile.mobile;
   },
 
-  githubUser() {
+  githubUser: function() {
     return this.profile.githubUser;
   },
 
-  displayEmail() {
+  displayEmail: function() {
     return this._id === Meteor.userId() || this.profile.publicEmail;
   },
 
-  teamId() {
+  teamId: function() {
     var team = TeamUtils.getTeam(this._id);
 
     if (team) {
@@ -47,7 +47,7 @@ Template.profile.helpers({
     }
   },
 
-  teamName() {
+  teamName: function() {
     var team = TeamUtils.getTeam(this._id);
 
     if (team) {

@@ -1,10 +1,10 @@
 // ES6
 Template.teamAbout.helpers({
-  teamName() {
+  teamName: function() {
     return this.name;
   },
 
-  members() {
+  members: function() {
     // TODO: Refactor to a methods !
     var usersIds = Teams.findOne({
       _id: this._id
@@ -17,7 +17,7 @@ Template.teamAbout.helpers({
     });
   },
 
-  teamImage() {
+  teamImage: function() {
     var self = this;
     var imageName = Companies.findOne({
       _id: self.company
@@ -25,7 +25,7 @@ Template.teamAbout.helpers({
     return `/images/teams/${imageName}`;
   },
 
-  companyName() {
+  companyName: function() {
     var self = this;
     return Companies.findOne({
       _id: self.company
@@ -35,7 +35,7 @@ Template.teamAbout.helpers({
 });
 
 Template.memberDetails.helpers({
-  image() {
+  image: function() {
     var self = this;
     var defaultPictureIndex = UserUtils.getDefaultPictureIndex(self._id);
     return Images.findOne({
@@ -45,11 +45,11 @@ Template.memberDetails.helpers({
     };
   },
 
-  fullName() {
+  fullName: function() {
     return this.profile.firstName + " " + this.profile.lastName;
   },
 
-  tutorialGroup() {
+  tutorialGroup: function() {
     return this.profile.tutorialGroup;
   }
 
