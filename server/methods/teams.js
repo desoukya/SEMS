@@ -1,6 +1,6 @@
 // ES6
 Meteor.methods({
-  createTeam(team) {
+  createTeam: function(team) {
 
     var alreadyCreated = Teams.findOne({
       members: Meteor.userId()
@@ -13,7 +13,7 @@ Meteor.methods({
     }
   },
 
-  getTeamMembers(teamId) {
+  getTeamMembers: function(teamId) {
 
     var usersIds = Teams.findOne({
       _id: teamId
@@ -27,7 +27,7 @@ Meteor.methods({
 
   },
 
-  removeFromAllTeams(id) {
+  removeFromAllTeams: function(id) {
     Teams.update({
       '_id': {
         $in: (Teams.find({
@@ -46,7 +46,7 @@ Meteor.methods({
 
   },
 
-  addMemberToTeam(userId, teamId) {
+  addMemberToTeam: function(userId, teamId) {
     var team = Teams.findOne({ _id: teamId });
 
     if (team.members.length >= 8) {

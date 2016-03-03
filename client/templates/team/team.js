@@ -1,10 +1,9 @@
-// ES6
 Template.team.helpers({
-  teamName() {
+  teamName: function() {
     return this.name;
   },
 
-  teamImage() {
+  teamImage: function() {
     var self = this;
     var imageName = Companies.findOne({
       _id: self.company
@@ -12,7 +11,7 @@ Template.team.helpers({
     return `/images/teams/${imageName}`;
   },
 
-  members() {
+  members: function() {
     var membersInTeams = []
 
     Teams.find().fetch().forEach(function(elem) {
@@ -28,7 +27,7 @@ Template.team.helpers({
     })
   },
 
-  teamMembers() {
+  teamMembers: function() {
     // TODO: Refactor to a methods !
     var usersIds = Teams.findOne({
       _id: this._id
@@ -41,7 +40,7 @@ Template.team.helpers({
     });
   },
 
-  companyName() {
+  companyName: function() {
     var self = this;
 
     return Companies.findOne({
@@ -131,13 +130,13 @@ Template.team.onRendered(function() {
 });
 //--------------------------------------------------------------
 Template.userChoice.helpers({
-  username() {
+  username: function() {
     return this.profile.firstName + " " + this.profile.lastName;
   },
 });
 
 Template.editableTeamMember.helpers({
-  image() {
+  image: function() {
     var self = this;
     var defaultPictureIndex = UserUtils.getDefaultPictureIndex(self._id);
     return Images.findOne({
@@ -147,15 +146,15 @@ Template.editableTeamMember.helpers({
     };
   },
 
-  fullName() {
+  fullName: function() {
     return this.profile.firstName + " " + this.profile.lastName;
   },
 
-  tutorialGroup() {
+  tutorialGroup: function() {
     return this.profile.tutorialGroup;
   },
 
-  isScrum() {
+  isScrum: function() {
     return Roles.userIsInRole(this, 'scrum-master');
   },
 });

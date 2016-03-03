@@ -1,7 +1,7 @@
 // ES6
 
 Meteor.methods({
-  registerUser(userData) {
+  registerUser: function(userData) {
 
     var profile = {
       firstName: userData.firstName,
@@ -36,7 +36,7 @@ Meteor.methods({
 
   },
 
-  updateProfile(userData) {
+  updateProfile: function(userData) {
     if (UserUtils.isLoggedIn()) {
       var user = Meteor.user();
       var profile = user.profile;
@@ -73,7 +73,7 @@ Meteor.methods({
   },
 
 
-  resendVerification(userId) {
+  resendVerification: function(userId) {
     Accounts.sendVerificationEmail(userId);
   },
 
