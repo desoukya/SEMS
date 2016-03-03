@@ -4,7 +4,7 @@ Template.header.onRendered(function() {
 })
 
 Template.header.events({
-  "click #logout_button": function(event) {
+  'click #logout_button': function(event) {
     Accounts.logout();
     Router.go('home');
   },
@@ -12,31 +12,19 @@ Template.header.events({
 });
 
 Template.header.helpers({
-  isActive(route) {
+  isActive: function(route) {
     if (checkCurrentRoute(route)) {
-      return "active";
+      return 'active';
     }
-    return "";
+    return '';
   },
 
-  userId() {
+  userId: function() {
     return Meteor.userId();
   },
 
-  teamId() {
-    var team = Teams.findOne({
-      members: Meteor.userId()
-    });
-
-    if (team) {
-      return team._id;
-    } else {
-      return "";
-    }
-
-  },
-
-  userName() {
+  userName: function() {
     return Meteor.user().profile.firstName;
   },
+
 });
