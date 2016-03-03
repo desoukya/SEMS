@@ -67,7 +67,7 @@ Meteor.methods({
           to: member.emails[0].address,
           from: Meteor.settings.systemEmail,
           subject: "[SEMS] You have joined a team !",
-          text: `Hello ${member.profile.firstName}, Your scrum master just added you to your team <strong>${team.name}</strong>`
+          text: `Hello ${member.profile.firstName}, Your scrum master just added you to your team "${team.name}"`
         });
 
         return team;
