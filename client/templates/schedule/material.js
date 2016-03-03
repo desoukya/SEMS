@@ -1,4 +1,5 @@
 Template.material.helpers({
+
   fileUrl: function(id) {
     try {
       var file = Files.findOne({
@@ -12,7 +13,9 @@ Template.material.helpers({
       return " ";
     }
   },
+
   iconType: function() {
+    
     if (this.content === "lecture")
       return "pdf file outline red ";
     else if (this.content === "assignment")
@@ -21,11 +24,12 @@ Template.material.helpers({
       return "code purple";
     else
       return "file";
-
   }
+
 });
 
 Template.material.events({
+
   "click #delete-icon": function() {
     var self = this;
     $('#delete-item-modal')
@@ -46,7 +50,9 @@ Template.material.events({
       })
       .modal('show');
   },
+
   "click #edit-icon": function() {
     Session.set('selectedMaterialID', this._id);
   }
+
 });
