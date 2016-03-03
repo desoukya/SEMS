@@ -50,40 +50,32 @@ Template.team.helpers({
   },
 
 });
+
 Template.team.events({
   "click #addMembers": function(event) {
+
+    var self = this;
+
     var arr = $('#members').val().split(",").filter(function(idString) {
       return idString.length > 0;
     });
+
     var err = false;
+
     for (var i = 0; i < arr.length; i++) {
-      //check he is not in another team
-      var member = Meteor.users.findOne({
-        _id: arr[i],
-        roles: "student",
+
+      Meteor.call("addMemberToTeam", arr[i], self._id, function(err, res) {
+        if (err) {
+          sAlert.error(err.reason);
+        }
       });
-      var inTeam = false;
-      if (Teams.findOne({
-          members: arr[i]
-        })) {
-        inTeam = true;
-      }
-      if (!!member && !inTeam) {
-        Teams.update({
-          _id: this._id
-        }, {
-          $push: {
-            members: arr[i]
-          }
-        });
-      } else
-        err = true;
-      if (err)
-        sAlert.error("you can't add this member ..");
+
     };
+
     // clear selected values
     $('.ui.search.dropdown').dropdown("clear");
   },
+
   "click #changeTeamName": function(event) {
     if ($('#teamName').parent().hasClass('disabled')) {
       $('#teamName').parent().removeClass('disabled');
@@ -134,11 +126,8 @@ Template.team.events({
 Template.team.onRendered(function() {
   $('.ui.search.dropdown')
     .dropdown({
-      maxSelections: 3
+      maxSelections: 8
     });
-
-  /*$('.ui.dropdown')
-    .dropdown();*/
 });
 //--------------------------------------------------------------
 Template.userChoice.helpers({

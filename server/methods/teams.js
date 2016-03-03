@@ -46,5 +46,38 @@ Meteor.methods({
 
   },
 
+  addMemberToTeam(userId, teamId) {
+    var team = Teams.findOne({ _id: teamId });
+
+    if (team.members.length >= 8) {
+      // FIXME: Which http code here -_-
+      throw new Meteor.Error(403, "Team size can't exceed 8 members");
+    }
+
+    // Getting the member
+    var member = Meteor.users.findOne({
+      _id: userId,
+      roles: "student",
+    });
+
+    if (!!member && !TeamUtils.isInTeam(userId)) {
+      Teams.update({ _id: teamId }, { $push: { members: userId } }, function(err, res) {
+
+        Email.send({
+          to: member.emails[0].address,
+          from: Meteor.settings.systemEmail,
+          subject: "[SEMS] You have joined a team !",
+          text: `Hello ${member.profile.firstName}, Your scrum master just added you to your team "${team.name}"`
+        });
+
+        return team;
+      });
+    } else {
+      throw new Meteor.Error(409, "Can't add this member");
+    }
+
+
+  },
+
 
 });
