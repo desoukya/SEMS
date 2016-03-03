@@ -1,19 +1,7 @@
-<template name="searchBox">
-  <div class="ui left fluid icon input">
-    <i class="search icon"></i>
-    <input type="text" name="email" id="search-box" placeholder="Search by username or email">
-  </div>
-</template>
-
-<template name="filterLabel">
-  <a class="ui {{colorOfRole role}} horizontal label">
-    {{role}}<div class="detail">{{countOf role}}</div>
-  </a>
-</template>
-
 <template name="manageUsers">
-  <!-- Header -->
+  <!-- Container -->
   <div class="ui container grid">
+    <!-- Header -->
     <div class="row">
       <div class="ui column">
         <h1 class="ui header text centered">Manage Users</h1>
@@ -25,63 +13,80 @@
     <div class="row">
       <div class="ui sixteen wide column">
         <table class="ui celled padded unstackable table">
+          <!-- Table Header -->
           <thead>
             <tr>
               <th colspan="2">User {{>filterLabel role= 'all' }}
+                <!-- Filter Labels -->
                 {{#each role in roles}}
                   {{> filterLabel role= role}}
                 {{/each}}
+                <!-- /Filter Labels -->
               </th>
               <th>Role</th>
             </tr>
           </thead>
+          <!-- /Table Header -->
 
+          <!-- Table Body -->
           <tbody>
+
             <tr>
+
               <td colspan="2">
                 <div class="ui column">
                   {{>searchBox}}
                 </div>
               </td>
+
               <td class="collapsing">
                 <div class="ui icon fluid button" id="update-users-button">
                   <i class="save icon"></i>Update
                 </div>
               </td>
+
             </tr>
 
+            <!-- Users -->
             {{#each users}}
               {{> userEntry}}
             {{/each}}
+            <!-- /Users -->
+
           </tbody>
-
-          <!-- Update Button -->
-          <tfoot>
-
-          </tfoot>
-          <!-- /Update Button -->
+          <!-- /Table Body -->
 
         </table>
       </div>
     </div>
     <!-- /Users Table -->
-
   </div>
-
+  <!-- Container -->
 </template>
 
 <template name="userEntry">
+  <!-- User -->
   <tr class="{{#if modified}}modified{{/if}}">
+
+    <!-- User Info -->
     <td>
       <h4 class="ui header">
         <div class="content">
+        
+        <!-- User Role -->
         <div class="ui {{colorOfRole role}} horizontal label">{{role}}</div>
+        <!-- /User Role -->
+
+        <!-- User Full Name -->
+        <a href="{{pathFor 'user.profile' _id= _id}}">{{username}}</a>
+        <!-- /User Full Name -->
           
-          <a href="{{pathFor 'user.profile' _id= _id}}">{{username}}</a>
         </div>
       </h4>
     </td>
+    <!-- /User Info -->
 
+    <!-- User Email -->
     <td class="collapsing">
       <h4 class="ui header">
         <div class="content">
@@ -89,7 +94,9 @@
         </div>
       </h4>
     </td>
+    <!-- /User Email -->
 
+    <!-- New Role DropDownList -->
     <td>
       <div class="ui selection dropdown" id= {{_id}}>
         <input type="hidden" name="role">
@@ -105,6 +112,27 @@
         </div>
       </div>
     </td>
+    <!-- /New Role DropDownList -->
 
   </tr>
+  <!-- /User -->
+</template>
+
+<!-- #### Template for the Search Box used for searching on users ####-->
+<template name="searchBox">
+  <!-- Search Box -->
+  <div class="ui left fluid icon input">
+    <i class="search icon"></i>
+    <input type="text" name="email" id="search-box" placeholder="Search by username or email">
+  </div>
+  <!-- /Search Box -->
+</template>
+
+<!-- #### Template for the filter labels used for filtering users ####-->
+<template name="filterLabel">
+  <!-- Filter Label -->
+  <a class="ui {{colorOfRole role}} horizontal label">
+    {{role}}<div class="detail">{{countOf role}}</div>
+  </a>
+  <!-- /Filter Label -->
 </template>
