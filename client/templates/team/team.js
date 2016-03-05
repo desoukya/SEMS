@@ -170,9 +170,6 @@ Template.editableTeamMember.helpers({
 Template.editableTeamMember.events({
   'click #delete-icon': function(event, template) {
     var self = this;
-    $(event.target).closest('.item').fadeOut(350, function() {
-      Meteor.call('removeFromAllTeams', self._id);
-    });
+    Meteor.call('removeFromAllTeams', self._id);
   },
-
 });
