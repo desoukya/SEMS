@@ -12,18 +12,18 @@ Template.header.events({
 });
 
 Template.header.helpers({
-  isActive: function(route) {
+  isActive(route) {
     if (checkCurrentRoute(route)) {
       return 'active';
     }
     return '';
   },
 
-  userId: function() {
+  userId() {
     return Meteor.userId();
   },
 
-  userName: function() {
+  userName() {
     return Meteor.user().profile.firstName;
   },
 

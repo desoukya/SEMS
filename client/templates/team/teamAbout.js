@@ -1,11 +1,11 @@
 // ES6
 Template.teamAbout.helpers({
-  teamName: function() {
+  teamName() {
     return this.name;
   },
 
-  members: function() {
-    // TODO: Refactor to a methods !
+  members() {
+    // TODO: Refactor to methods !
     var usersIds = Teams.findOne({
       _id: this._id
     }).members;
@@ -17,27 +17,25 @@ Template.teamAbout.helpers({
     });
   },
 
-  teamImage: function() {
+  teamImage() {
     var self = this;
-    var imageName = Companies.findOne({
-      _id: self.company
-    }).image;
+    var imageName = Companies.findOne({ _id: self.company }).image;
+
     return `/images/teams/${imageName}`;
   },
 
-  companyName: function() {
+  companyName() {
     var self = this;
-    return Companies.findOne({
-      _id: self.company
-    }).name;
-  }
+    return Companies.findOne({ _id: self.company }).name;
+  },
 
 });
 
 Template.memberDetails.helpers({
-  image: function() {
+  image() {
     var self = this;
     var defaultPictureIndex = UserUtils.getDefaultPictureIndex(self._id);
+
     return Images.findOne({
       _id: self.profile.image
     }) || {
@@ -45,14 +43,12 @@ Template.memberDetails.helpers({
     };
   },
 
-  fullName: function() {
-    return this.profile.firstName + " " + this.profile.lastName;
+  fullName() {
+    return this.profile.firstName + ' ' + this.profile.lastName;
   },
 
-  tutorialGroup: function() {
+  tutorialGroup() {
     return this.profile.tutorialGroup;
-  }
-
-
+  },
 
 });

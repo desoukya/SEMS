@@ -1,7 +1,7 @@
 // ES6
 
 Meteor.methods({
-  registerUser: function(userData) {
+  registerUser(userData) {
 
     var profile = {
       firstName: userData.firstName,
@@ -30,13 +30,13 @@ Meteor.methods({
       Accounts.sendVerificationEmail(userId);
 
       return userId;
-    } else {
-      throw new Meteor.Error(400, "Can't create new user");
-    }
+    } else
+      throw new Meteor.Error(400, 'Can\'t create new user');
+
 
   },
 
-  updateProfile: function(userData) {
+  updateProfile(userData) {
     if (UserUtils.isLoggedIn()) {
       var user = Meteor.user();
       var profile = user.profile;
@@ -63,20 +63,14 @@ Meteor.methods({
           }
         });
 
-
-      } else {
+      } else
         throw result.error;
-      }
-
 
     }
   },
 
-
-  resendVerification: function(userId) {
+  resendVerification(userId) {
     Accounts.sendVerificationEmail(userId);
   },
-
-
 
 });

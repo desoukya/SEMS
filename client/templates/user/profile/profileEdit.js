@@ -1,14 +1,12 @@
 // ES6
 
 Template.profileEdit.onRendered(function() {
-  Meteor.subscribe("images");
-
   // $('#profile-picture-wrapper').dimmer({
   //   on: 'hover',
   //   opacity: 0.7,
   // });
 
-  $(".ui.form").form({
+  $('.ui.form').form({
     fields: {
       firstname: {
         identifier: 'fname',
@@ -52,17 +50,20 @@ Template.profileEdit.onRendered(function() {
 });
 
 Template.profileEdit.helpers({
-  email: function() {
+  email() {
     return Meteor.user().emails[0].address;
   },
-  image: function() {
+
+  image() {
     var defaultPictureIndex = UserUtils.getDefaultPictureIndex(Meteor.userId());
+
     return Images.findOne({
-      "_id": Meteor.user().profile.image
+      '_id': Meteor.user().profile.image
     }) || {
       url: `/images/default_${defaultPictureIndex}.png`
     }; // Where Images is an FS.Collection instance
   },
+
 });
 
 Template.profileEdit.events({
@@ -97,11 +98,11 @@ Template.profileEdit.events({
     // });
   },
 
-  "click #upload-dimmer": function(event, template) {
-    $("#upload-profile-picture").click();
+  'click #upload-dimmer': function(event, template) {
+    $('#upload-profile-picture').click();
   },
 
-  "submit .ui.form": function(event, template) {
+  'submit .ui.form': function(event, template) {
     event.preventDefault();
 
     var firstName = event.target.fname.value;
@@ -112,18 +113,14 @@ Template.profileEdit.events({
     var repeatPass = event.target.repass.value;
 
 
-    var userData = {
-      firstName: firstName,
-      lastName: lastName,
-      currentPass: currentPass,
-    };
+    var userData = { firstName, lastName, currentPass };
 
-    Meteor.call("updateProfile", userData, function(err, result) {
-      if (err) {
+    Meteor.call('updateProfile', userData, function(err, result) {
+      if (err)
         sAlert.error(err.reason);
-      } else {
-        Router.go("/profile" + "/" + Meteor.userId());
-      }
+      else
+        Router.go('/profile' + '/' + Meteor.userId());
+
     });
 
 
@@ -135,9 +132,8 @@ Template.profileEdit.events({
           throw err;
         }
       });
+
     }
-
-
 
   }
 

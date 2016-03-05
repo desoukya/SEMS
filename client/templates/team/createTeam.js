@@ -1,5 +1,5 @@
 Template.createTeam.events({
-  "submit .form": function(event) {
+  'submit .form': function(event) {
     event.preventDefault();
 
     var name = event.target.teamName.value;
@@ -14,14 +14,14 @@ Template.createTeam.events({
       createdAt: new Date()
     };
 
-    Meteor.call("createTeam", team, function(err, teamId) {
+    Meteor.call('createTeam', team, function(err, teamId) {
       if (err) {
         $('.ui.form').form('add errors', {
           error: err.reason
         });
       } else {
-        sAlert.success("Your team is created successfully !")
-        Router.go("team", {
+        sAlert.success('Your team is created successfully !')
+        Router.go('team', {
           _id: teamId
         });
       }
@@ -30,26 +30,25 @@ Template.createTeam.events({
   },
 
   'change .ui.search.selection.dropdown': function(event, template) {
-    var companyId = template.find("input[name=company]").value;
+    var companyId = template.find('input[name=company]').value;
 
-    var imageName = Companies.findOne({
-      _id: companyId
-    }).image;
+    var imageName = Companies.findOne({ _id: companyId }).image;
 
-    $("#team-main-image").attr("src", `/images/teams/${imageName}`);
+    $('#team-main-image').attr('src', `/images/teams/${imageName}`);
   },
 
 
 });
 
 Template.createTeam.helpers({
-  companies: function() {
+  companies() {
 
     var takenCompanies = [];
 
     Teams.find().fetch().forEach(function(team) {
       takenCompanies.push(team.company);
     });
+
     takenCompanies = [].concat.apply([], takenCompanies);
 
     return Companies.find({
@@ -76,6 +75,7 @@ Template.createTeam.onRendered(function() {
                 prompt: 'Team name must be at least 6 characters '
               }]
             },
+
             company: {
               identifier: 'company',
               rules: [{
@@ -83,6 +83,7 @@ Template.createTeam.onRendered(function() {
                 prompt: 'Please select the company you will work for'
               }]
             },
+
             repoLink: {
               identifier: 'repoLink',
               rules: [{
@@ -91,7 +92,7 @@ Template.createTeam.onRendered(function() {
                 }, {
                   type: 'url',
                   prompt: 'Please enter a valid repo URL'
-                }, ] //TODO : Add github regexp
+                }, ] //TODO : Add github regex
             },
 
           }
@@ -99,4 +100,5 @@ Template.createTeam.onRendered(function() {
     });
 
   $('.ui.dropdown').dropdown();
+
 });

@@ -1,9 +1,9 @@
 Template.home.helpers({
-  isInTeam: function() {
+  isInTeam() {
     return TeamUtils.isInTeam(Meteor.userId());
   },
 
-  getTeamId: function() {
+  getTeamId() {
     return TeamUtils.getTeam(Meteor.userId())._id;
   }
 });

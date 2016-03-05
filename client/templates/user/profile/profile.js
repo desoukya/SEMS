@@ -1,7 +1,5 @@
-// ES6
-
 Template.profile.helpers({
-  image: function() {
+  image() {
     var self = this;
     var defaultPictureIndex = UserUtils.getDefaultPictureIndex(self._id);
     return Images.findOne({
@@ -9,37 +7,38 @@ Template.profile.helpers({
     }) || {
       url: `/images/default_${defaultPictureIndex}.png`
     };
+
   },
 
-  isCurrentUser: function() {
+  isCurrentUser() {
     return Meteor.userId() === this._id;
   },
 
-  email: function() {
-    if (this.emails) {
+  email() {
+    if (this.emails)
       return this.emails[0].address;
-    } else {
+    else
       return this.profile.publicEmail;
-    }
+
   },
 
-  tutorialGroup: function() {
+  tutorialGroup() {
     return this.profile.tutorialGroup;
   },
 
-  mobile: function() {
+  mobile() {
     return this.profile.mobile;
   },
 
-  githubUser: function() {
+  githubUser() {
     return this.profile.githubUser;
   },
 
-  displayEmail: function() {
+  displayEmail() {
     return this._id === Meteor.userId() || this.profile.publicEmail;
   },
 
-  teamId: function() {
+  teamId() {
     var team = TeamUtils.getTeam(this._id);
 
     if (team) {
@@ -47,7 +46,7 @@ Template.profile.helpers({
     }
   },
 
-  teamName: function() {
+  teamName() {
     var team = TeamUtils.getTeam(this._id);
 
     if (team) {

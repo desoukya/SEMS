@@ -1,23 +1,20 @@
 Template.browseTeam.helpers({
-  teams: function() {
+  teams() {
     return Teams.find();
   },
 
 });
+
 Template.teamCard.helpers({
-  image: function() {
+  image() {
     var self = this;
-    var imageName = Companies.findOne({
-      _id: self.company
-    }).image;
+    var imageName = Companies.findOne({ _id: self.company }).image;
+
     return `/images/teams/${imageName}`;
   },
 
-  membersCount: function() {
+  membersCount() {
     return this.members.length;
   },
 
-  teamId: function() {
-    return this._id;
-  }
 });

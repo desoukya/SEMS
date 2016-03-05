@@ -1,5 +1,5 @@
 Template.register.events({
-  "submit form": function(event) {
+  'submit form': function(event) {
 
     event.preventDefault();
 
@@ -21,23 +21,22 @@ Template.register.events({
 
 
     var userData = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password,
-      GUCId: GUCId,
-      tutorialGroup: tutorialGroup,
-      mobile: mobile,
-      githubUser: githubUser,
-      publicEmail: publicEmail,
+      firstName,
+      lastName,
+      email,
+      password,
+      GUCId,
+      tutorialGroup,
+      mobile,
+      githubUser,
+      publicEmail,
     };
 
-    Meteor.call("registerUser", userData, function(err) {
-      if (err) {
+    Meteor.call('registerUser', userData, function(err) {
+      if (err)
         sAlert.error(err.reason);
-      } else {
+      else
         Router.go('/');
-      }
 
     });
 
@@ -47,18 +46,16 @@ Template.register.events({
     event.preventDefault();
 
     $('#honor-code-modal').modal({
-      onDeny: function() {
-        $("#honor-code-checkbox").checkbox('uncheck');
+      onDeny() {
+        $('#honor-code-checkbox').checkbox('uncheck');
       },
-      onApprove: function() {
-        $("#honor-code-checkbox").checkbox('check');
+      onApprove() {
+        $('#honor-code-checkbox').checkbox('check');
       }
-    }).modal("show");
+    }).modal('show');
   },
 
-
 });
-
 
 Template.register.onRendered(function() {
   $('.ui.form').form({

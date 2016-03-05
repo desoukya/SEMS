@@ -1,4 +1,4 @@
-Meteor.publish("users", function(roles = ROLES) {
+Meteor.publish('users', function(roles = ROLES) {
 
   // Checking that roles is an array of strings
   check(roles, [String]);
@@ -25,7 +25,7 @@ Meteor.publish("users", function(roles = ROLES) {
     });
 
 
-    selector["roles"] = {
+    selector['roles'] = {
       $in: filteredRoles
     }
 
@@ -38,28 +38,27 @@ Meteor.publish("users", function(roles = ROLES) {
     }
 
     return Meteor.users.find(selector, filter);
-
   }
   // If user is not logged in return nothing to fire up ready()
   return [];
 });
 
-Meteor.publish("images", function() {
+Meteor.publish('images', function() {
   return Images.find({});
 });
 
-Meteor.publish("files", function() {
+Meteor.publish('files', function() {
   return Files.find({});
 });
 
-Meteor.publish("materials", function() {
+Meteor.publish('materials', function() {
   return Materials.find({});
 });
 
-Meteor.publish("teams", function() {
+Meteor.publish('teams', function() {
   return Teams.find({});
 });
 
-Meteor.publish("companies", function() {
-  return Companies.find();
-})
+Meteor.publish('companies', function() {
+  return Companies.find({});
+});

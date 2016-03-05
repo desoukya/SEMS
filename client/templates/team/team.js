@@ -1,9 +1,9 @@
 Template.team.helpers({
-  teamName: function() {
+  teamName() {
     return this.name;
   },
 
-  teamImage: function() {
+  teamImage() {
     var self = this;
     var imageName = Companies.findOne({
       _id: self.company
@@ -11,24 +11,26 @@ Template.team.helpers({
     return `/images/teams/${imageName}`;
   },
 
-  members: function() {
+  members() {
     var membersInTeams = []
 
     Teams.find().fetch().forEach(function(elem) {
       membersInTeams.push(elem.members);
     });
-    membersInTeams = [].concat.apply([], membersInTeams)
+
+    membersInTeams = [].concat.apply([], membersInTeams);
 
     return Meteor.users.find({
       roles: 'student',
       _id: {
         $nin: membersInTeams
       }
-    })
+    });
+
   },
 
-  teamMembers: function() {
-    // TODO: Refactor to a methods !
+  teamMembers() {
+    // TODO: Refactor to methods !
     var usersIds = Teams.findOne({
       _id: this._id
     }).members;
@@ -38,9 +40,10 @@ Template.team.helpers({
         $in: usersIds
       }
     });
+
   },
 
-  companyName: function() {
+  companyName() {
     var self = this;
 
     return Companies.findOne({
@@ -51,19 +54,17 @@ Template.team.helpers({
 });
 
 Template.team.events({
-  "click #addMembers": function(event) {
+  'click #addMembers': function(event) {
 
     var self = this;
 
-    var arr = $('#members').val().split(",").filter(function(idString) {
+    var arr = $('#members').val().split(',').filter(function(idString) {
       return idString.length > 0;
     });
 
-    var err = false;
-
     for (var i = 0; i < arr.length; i++) {
 
-      Meteor.call("addMemberToTeam", arr[i], self._id, function(err, res) {
+      Meteor.call('addMemberToTeam', arr[i], self._id, function(err, res) {
         if (err) {
           sAlert.error(err.reason);
         }
@@ -72,13 +73,14 @@ Template.team.events({
     };
 
     // clear selected values
-    $('.ui.search.dropdown').dropdown("clear");
+    $('.ui.search.dropdown').dropdown('clear');
   },
 
-  "click #changeTeamName": function(event) {
+  'click #changeTeamName': function(event) {
     if ($('#teamName').parent().hasClass('disabled')) {
       $('#teamName').parent().removeClass('disabled');
       $('#changeTeamName').addClass('green');
+
     } else {
       Teams.update({
         _id: this._id
@@ -88,21 +90,23 @@ Template.team.events({
         }
       }, function(err) {
         if (err)
-          sAlert.error("can't update this name");
+          sAlert.error('Can\'t update this name');
         else {
           $('#teamName').parent().addClass('disabled');
           $('#changeTeamName').removeClass('green');
         }
       });
+
     }
 
   },
-  "click #changeRepoLink": function(event) {
+
+  'click #changeRepoLink': function(event) {
     if ($('#repoLink').parent().hasClass('disabled')) {
       $('#repoLink').parent().removeClass('disabled');
       $('#changeRepoLink').addClass('green');
-    } else {
 
+    } else {
       Teams.update({
         _id: this._id
       }, {
@@ -111,15 +115,17 @@ Template.team.events({
         }
       }, function(err) {
         if (err)
-          sAlert.error("can't update this repo Name , please provide a valid URL");
+          sAlert.error('Can\'t update this repo Name , please provide a valid URL');
         else {
           $('#repoLink').parent().addClass('disabled');
           $('#changeRepoLink').removeClass('green');
         }
       });
+
     }
 
   },
+
 });
 
 Template.team.onRendered(function() {
@@ -128,15 +134,16 @@ Template.team.onRendered(function() {
       maxSelections: 8
     });
 });
+
 //--------------------------------------------------------------
 Template.userChoice.helpers({
-  username: function() {
-    return this.profile.firstName + " " + this.profile.lastName;
+  username() {
+    return this.profile.firstName + ' ' + this.profile.lastName;
   },
 });
 
 Template.editableTeamMember.helpers({
-  image: function() {
+  image() {
     var self = this;
     var defaultPictureIndex = UserUtils.getDefaultPictureIndex(self._id);
     return Images.findOne({
@@ -146,24 +153,26 @@ Template.editableTeamMember.helpers({
     };
   },
 
-  fullName: function() {
-    return this.profile.firstName + " " + this.profile.lastName;
+  fullName() {
+    return this.profile.firstName + ' ' + this.profile.lastName;
   },
 
-  tutorialGroup: function() {
+  tutorialGroup() {
     return this.profile.tutorialGroup;
   },
 
-  isScrum: function() {
+  isScrum() {
     return Roles.userIsInRole(this, 'scrum-master');
   },
+
 });
 
 Template.editableTeamMember.events({
-  "click #delete-icon": function(event, template) {
+  'click #delete-icon': function(event, template) {
     var self = this;
-    $(event.target).closest(".item").fadeOut(350, function() {
+    $(event.target).closest('.item').fadeOut(350, function() {
       Meteor.call('removeFromAllTeams', self._id);
     });
   },
+
 });

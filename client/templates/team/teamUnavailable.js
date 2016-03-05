@@ -1,5 +1,5 @@
 Template.teamUnavailable.helpers({
-  name: function() {
+  name() {
     return Meteor.user().profile.firstName;
   }
 });

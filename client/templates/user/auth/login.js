@@ -1,5 +1,5 @@
 Template.login.events({
-  "submit .form": function(event) {
+  'submit .form': function(event) {
     event.preventDefault();
 
     var email = event.target.email.value;
@@ -13,7 +13,7 @@ Template.login.events({
         /////////////// Analytics ///////////////
         analytics.identify(Meteor.userId(), {
           email: Meteor.user().emails[0].address,
-          name: Meteor.user().profile.firstName + " " + Meteor.user().profile.lastName,
+          name: Meteor.user().profile.firstName + ' ' + Meteor.user().profile.lastName,
           GUCId: Meteor.user().profile.GUCId,
           tutorialGroup: Meteor.user().profile.tutorialGroup,
           roles: Meteor.user().roles
@@ -25,6 +25,7 @@ Template.login.events({
     });
 
   },
+
 });
 
 Template.login.onRendered(function() {
@@ -56,6 +57,6 @@ Template.login.onRendered(function() {
 
       }
     });
-
   });
+
 });
