@@ -1,6 +1,14 @@
 // ES6
 Template.header.onRendered(function() {
   $('.ui.dropdown').dropdown();
+
+  Meteor.call('getNodeEnv', function(err, env) {
+    if (env === 'development') {
+      $('.ui.large.top.hidden.menu').addClass('teal inverted');
+    }
+
+  });
+
 })
 
 Template.header.events({
