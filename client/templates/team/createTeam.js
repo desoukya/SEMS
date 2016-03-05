@@ -51,11 +51,7 @@ Template.createTeam.helpers({
 
     takenCompanies = [].concat.apply([], takenCompanies);
 
-    return Companies.find({
-      _id: {
-        $nin: takenCompanies
-      }
-    });
+    return Companies.find({ _id: { $nin: takenCompanies } });
 
   },
 

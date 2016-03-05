@@ -5,9 +5,9 @@
 
         <!-- Header -->
         <div class="main header">
-          <h1 class="ui text centered">{{teamName}}</h1>
+          <h1 class="ui text centered">{{name}}</h1>
           <h3 class="ui text centered red header">{{companyName}}</h3>
-          <img class="ui small rounded centered image" id="team-main-image" src="{{teamImage}}" alt="team_image"/>
+          <img class="ui small rounded centered image" id="team-main-image" src="{{image}}" alt="team_image"/>
         </div>
         <!-- /Header -->
 
@@ -17,7 +17,7 @@
         <div class="ui stackable container grid">
           <div class="column">
             <div class="ui three column very relaxed grid">
-              {{#each members}}
+              {{#each teamMembers}}
                 <div class="column">
                   {{> memberDetails}}
                 </div>
@@ -25,6 +25,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
