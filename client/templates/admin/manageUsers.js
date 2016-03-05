@@ -4,7 +4,7 @@ var lastQuery = '';
 //TODO : enable loading
 //page size -> is the count of elements that should be added by page
 //page -> how many page should be loaded
-Session.setDefault('pageSize', 6);
+Session.setDefault('pageSize', 15);
 Session.setDefault('page', 0);
 Session.setDefault('loading', true);
 Session.setDefault('role', 'all');
