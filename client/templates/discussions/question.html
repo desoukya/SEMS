@@ -1,23 +1,11 @@
 <template name="question">
-<div class="ui clearing segment">
-	<h1 class="ui left floated header text"> {{text}} </h1>
-	<div class="ui right floated button show-more">show More</div>
-</div>
-{{#if hide}}
-	<div class="ui secondary segment">
-		<div class="ui segments">
-			{{#each answers}}
-				{{> answer}}
-			{{/each}}
-		</div>
-		<form class="ui form answer">
-			<!--label for="postalCode05">Postcode</label-->
-			<div class="ui action input">
-				<input type="text" name="text" placeholder=" tunis"/>
-				<button class="ui button answerbtn" > answer!</button>
-			</div>
-		</form>
-	</div>
-{{/if}}
+  <div class="ui clearing segment">
+    <h1 class="ui left floated header text"> 
+	<a href="{{pathFor 'user.profile' _id= askerId}}">
+        {{asker.firstName}} : 
+    </a>
+    {{title}} 
 
+    </h1>
+  </div>
 </template>
