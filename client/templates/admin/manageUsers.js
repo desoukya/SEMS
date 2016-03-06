@@ -150,7 +150,19 @@ Template.userEntry.events({
     template.modified.set(true);
     Session.set('toBeUpdatedRoles', roles);
   },
-
+  'click #delete-icon': function(event, template) {
+    var self = this;
+    $('#delete-item-modal')
+      .modal({
+        closable: false,
+        onDeny() {
+          //do nothing
+        },
+        onApprove() {
+          Meteor.users.remove({_id:self._id});
+        }
+      }).modal('show');
+  },
 });
 
 Template.userEntry.helpers({
