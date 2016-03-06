@@ -155,19 +155,18 @@ Template.userEntry.events({
 
 Template.userEntry.helpers({
   username() {
-    // FIXME: this should be extracted into a method or extended in user object
-    var user = Meteor.users.findOne(this._id);
+    var user = Meteor.users.findOne({ _id: this._id });
     return user.profile.firstName + ' ' + user.profile.lastName;
   },
 
   currentEmail() {
-    var user = Meteor.users.findOne(this._id);
+    var user = Meteor.users.findOne({ _id: this._id });
     return user.emails[0].address;
   },
 
   role() {
     // Enforcing one role for user for current setup
-    return Meteor.users.findOne(this._id).roles[0];
+    return Meteor.users.findOne({ _id: this._id }).roles[0];
   },
 
   modified() {

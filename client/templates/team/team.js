@@ -103,27 +103,6 @@ Template.team.onRendered(function() {
 
 //--------------------------------------------------------------
 
-Template.editableTeamMember.helpers({
-  image() {
-    var self = this;
-    var defaultPictureIndex = UserUtils.getDefaultPictureIndex(self._id);
-    return Images.findOne({
-      _id: self.profile.image
-    }) || {
-      url: `/images/default_${defaultPictureIndex}.png`
-    };
-  },
-
-  tutorialGroup() {
-    return this.profile.tutorialGroup;
-  },
-
-  isScrum() {
-    return Roles.userIsInRole(this, 'scrum-master');
-  },
-
-});
-
 Template.editableTeamMember.events({
   'click #delete-icon': function(event, template) {
     var self = this;
