@@ -15,7 +15,7 @@
                 </div>
               </div>
             </div>
-            <img class="ui small centered circular image" src="{{image.url}}" />
+            <img class="ui small centered circular image" src="{{profilePicture}}"/>
           </div>
           <input type="file" id="upload-profile-picture" class="ui centered" style="display:none">
         </div>
@@ -27,11 +27,11 @@
           <div class="two fields">
             <div class="field">
               <label>First Name</label>
-              <input placeholder="First Name" value="{{firstName}}" name="fname" type="text">
+              <input placeholder="First Name" value="{{profile.firstName}}" name="fname" type="text">
             </div>
             <div class="field">
               <label>Last Name</label>
-              <input placeholder="Last Name" value="{{lastName}}" name="lname" type="text">
+              <input placeholder="Last Name" value="{{profile.lastName}}" name="lname" type="text">
             </div>
           </div>
           <!-- /Name -->
@@ -58,7 +58,7 @@
             <!-- GUC ID -->
             <div class="required field">
               <label>GUC ID</label>
-              <input placeholder="xy-abcdef" value= {{GUCId}} name="gucid" type="text">
+              <input placeholder="xy-abcdef" value={{GUCId}} name="gucid" type="text">
             </div>
             <!-- /GUC ID -->
 
@@ -94,7 +94,7 @@
             <!-- Phone number -->
             <div class="field">
               <label>Phone number</label>
-              <input placeholder="0123456789" name="mobile" value = {{mobile}} type="tel">
+              <input placeholder="0123456789" name="mobile" value={{mobile}} type="tel">
             </div>
             <!-- /Phone number -->
 
@@ -102,7 +102,7 @@
             <div class="field">
               <label>
                 <i class="large github icon"></i>Github username</label>
-              <input type="text" name="github_user" value = {{githubUser}} placeholder="geeky-developer">
+              <input type="text" name="github_user" value={{githubUser}} placeholder="geeky-developer">
             </div>
             <!-- /Github account -->
           </div>

@@ -47,26 +47,17 @@ Template.profileEdit.onRendered(function() {
     }
   });
 
-  $('.ui.dropdown').dropdown();    
+  $('.ui.dropdown').dropdown();
   $('.ui.checkbox').checkbox();
 });
 
 Template.profileEdit.helpers({
-  email() {
-    return Meteor.user().emails[0].address;
-  },
   isPublic() {
-      return !!Meteor.user().profile.publicEmail;
+    return !!Meteor.user().profile.publicEmail;
   },
 
-  image() {
-    var defaultPictureIndex = UserUtils.getDefaultPictureIndex(Meteor.userId());
-
-    return Images.findOne({
-      '_id': Meteor.user().profile.image
-    }) || {
-      url: `/images/default_${defaultPictureIndex}.png`
-    }; // Where Images is an FS.Collection instance
+  email() {
+    return Meteor.user().email();
   },
 
 });
@@ -125,15 +116,15 @@ Template.profileEdit.events({
     var githubUser = event.target.github_user.value;
     var publicEmail = $(event.target.public_mail).prop('checked');
 
-     var userData = {
+    var userData = {
       firstName: firstName,
       lastName: lastName,
       currentPass: currentPass,
-      GUCId: GUCId, 
-      tutorialGroup: tutorialGroup, 
-      mobile: mobile, 
-      githubUser: githubUser, 
-      publicEmail: publicEmail, 
+      GUCId: GUCId,
+      tutorialGroup: tutorialGroup,
+      mobile: mobile,
+      githubUser: githubUser,
+      publicEmail: publicEmail,
     };
     Meteor.call('updateProfile', userData, function(err, result) {
       if (err)

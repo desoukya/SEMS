@@ -21,7 +21,7 @@ Template.header.events({
 
 Template.header.helpers({
   isActive(route) {
-    if (checkCurrentRoute(route)) {
+    if (isCurrentRoute(route)) {
       return 'active';
     }
     return '';
@@ -31,7 +31,7 @@ Template.header.helpers({
     return Meteor.userId();
   },
 
-  userName() {
+  username() {
     return Meteor.user().profile.firstName;
   },
 
