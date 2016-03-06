@@ -12,9 +12,8 @@ Meteor.methods({
       githubUser: userData.githubUser,
     };
 
-    if (userData.publicEmail) {
-      profile.publicEmail = userData.publicEmail;
-    }
+    if (userData.publicEmail)
+      profile.publicEmail = userData.email;
 
 
     var userId = Accounts.createUser({
@@ -56,12 +55,29 @@ Meteor.methods({
 
         profile.firstName = userData.firstName;
         profile.lastName = userData.lastName;
+        profile.GUCId = userData.GUCId;
+        profile.tutorialGroup = userData.tutorialGroup;
+        profile.mobile = userData.mobile;
+        profile.githubUser = userData.githubUser;
+
+        //add public email if it's public
+        if (userData.publicEmail)
+          profile.publicEmail = Meteor.user().emails[0].address;
 
         Meteor.users.update(user._id, {
           $set: {
             profile: profile
           }
         });
+
+        //delete public email if it's private
+        if (!userData.publicEmail) {
+          Meteor.users.update({_id:Meteor.userId()}, {
+            $unset: {
+              'profile.publicEmail': ''
+            }
+          });
+        }
 
       } else
         throw result.error;

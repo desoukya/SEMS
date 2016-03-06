@@ -15,11 +15,6 @@ Template.register.events({
     var githubUser = event.target.github_user.value;
     var publicEmail = $(event.target.public_mail).prop('checked');
 
-    if (publicEmail) {
-      publicEmail = email;
-    }
-
-
     var userData = {
       firstName,
       lastName,

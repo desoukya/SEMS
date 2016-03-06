@@ -47,11 +47,16 @@ Template.profileEdit.onRendered(function() {
     }
   });
 
+  $('.ui.dropdown').dropdown();    
+  $('.ui.checkbox').checkbox();
 });
 
 Template.profileEdit.helpers({
   email() {
     return Meteor.user().emails[0].address;
+  },
+  isPublic() {
+      return !!Meteor.user().profile.publicEmail;
   },
 
   image() {
@@ -112,9 +117,24 @@ Template.profileEdit.events({
     var newPass = event.target.new_pass.value;
     var repeatPass = event.target.repass.value;
 
+    var GUCId = event.target.gucid.value;
+    var tutorialGroup = event.target.tutorial_group.value;
 
-    var userData = { firstName, lastName, currentPass };
+    // Optionals
+    var mobile = event.target.mobile.value;
+    var githubUser = event.target.github_user.value;
+    var publicEmail = $(event.target.public_mail).prop('checked');
 
+     var userData = {
+      firstName: firstName,
+      lastName: lastName,
+      currentPass: currentPass,
+      GUCId: GUCId, 
+      tutorialGroup: tutorialGroup, 
+      mobile: mobile, 
+      githubUser: githubUser, 
+      publicEmail: publicEmail, 
+    };
     Meteor.call('updateProfile', userData, function(err, result) {
       if (err)
         sAlert.error(err.reason);
