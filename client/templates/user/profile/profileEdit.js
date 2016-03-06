@@ -51,17 +51,7 @@ Template.profileEdit.onRendered(function() {
 
 Template.profileEdit.helpers({
   email() {
-    return Meteor.user().emails[0].address;
-  },
-
-  image() {
-    var defaultPictureIndex = UserUtils.getDefaultPictureIndex(Meteor.userId());
-
-    return Images.findOne({
-      '_id': Meteor.user().profile.image
-    }) || {
-      url: `/images/default_${defaultPictureIndex}.png`
-    }; // Where Images is an FS.Collection instance
+    return Meteor.user().email();
   },
 
 });

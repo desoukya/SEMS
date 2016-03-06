@@ -16,7 +16,8 @@
           <!-- Table Header -->
           <thead>
             <tr>
-              <th colspan="2">User {{>filterLabel role= 'all' }}
+              <th colspan="2">User
+                {{>filterLabel role= 'all' }}
                 <!-- Filter Labels -->
                 {{#each role in roles}}
                   {{> filterLabel role= role}}
@@ -73,13 +74,13 @@
       <h4 class="ui header">
         <div class="content">
 
-        <!-- User Role -->
-        <div class="ui {{colorOfRole role}} horizontal label">{{role}}</div>
-        <!-- /User Role -->
+          <!-- User Role -->
+          <div class="ui {{colorOfRole role}} horizontal label">{{role}}</div>
+          <!-- /User Role -->
 
-        <!-- User Full Name -->
-        <a href="{{pathFor 'user.profile' _id=_id}}">{{username}}</a>
-        <!-- /User Full Name -->
+          <!-- User Full Name -->
+          <a href="{{pathFor 'user.profile' _id=_id}}">{{username}}</a>
+          <!-- /User Full Name -->
 
         </div>
       </h4>
@@ -90,7 +91,7 @@
     <td class="collapsing">
       <h4 class="ui header">
         <div class="content">
-          {{curruntEmail}}
+          {{currentEmail}}
         </div>
       </h4>
     </td>
@@ -98,7 +99,7 @@
 
     <!-- New Role DropDownList -->
     <td>
-      <div class="ui selection dropdown" id= {{_id}}>
+      <div class="ui selection dropdown" id={{_id}}>
         <input type="hidden" name="role">
         <i class="dropdown icon"></i>
         <div class="default text"></div>
@@ -132,7 +133,8 @@
 <template name="filterLabel">
   <!-- Filter Label -->
   <a class="ui {{colorOfRole role}} horizontal label">
-    {{role}}<div class="detail">{{countOf role}}</div>
+    {{role}}
+    <div class="detail">{{countOf role}}</div>
   </a>
   <!-- /Filter Label -->
 </template>

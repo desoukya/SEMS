@@ -10,10 +10,6 @@ Template.memberDetails.helpers({
     };
   },
 
-  fullName() {
-    return this.profile.firstName + ' ' + this.profile.lastName;
-  },
-
   tutorialGroup() {
     return this.profile.tutorialGroup;
   },

@@ -15,7 +15,7 @@
                 </div>
               </div>
             </div>
-            <img class="ui small centered circular image" src="{{image.url}}"/>
+            <img class="ui small centered circular image" src="{{profilePicture}}"/>
           </div>
           <input type="file" id="upload-profile-picture" class="ui centered" style="display:none">
         </div>
@@ -27,11 +27,11 @@
           <div class="two fields">
             <div class="field">
               <label>First Name</label>
-              <input placeholder="First Name" value="{{firstName}}" name="fname" type="text">
+              <input placeholder="First Name" value="{{profile.firstName}}" name="fname" type="text">
             </div>
             <div class="field">
               <label>Last Name</label>
-              <input placeholder="Last Name" value="{{lastName}}" name="lname" type="text">
+              <input placeholder="Last Name" value="{{profile.lastName}}" name="lname" type="text">
             </div>
           </div>
           <!-- /Name -->

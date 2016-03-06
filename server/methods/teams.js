@@ -60,7 +60,7 @@ Meteor.methods({
       Teams.update({ _id: teamId }, { $push: { members: userId } }, function(err, res) {
 
         Email.send({
-          to: member.emails[0].address,
+          to: member.email(),
           from: Meteor.settings.systemEmail,
           subject: '[SEMS] You have joined a team !',
           text: `Hello ${member.profile.firstName}, Your scrum master just added you to your team "${team.name}"`

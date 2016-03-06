@@ -102,11 +102,6 @@ Template.team.onRendered(function() {
 });
 
 //--------------------------------------------------------------
-Template.userChoice.helpers({
-  username() {
-    return this.profile.firstName + ' ' + this.profile.lastName;
-  },
-});
 
 Template.editableTeamMember.helpers({
   image() {
@@ -117,10 +112,6 @@ Template.editableTeamMember.helpers({
     }) || {
       url: `/images/default_${defaultPictureIndex}.png`
     };
-  },
-
-  fullName() {
-    return this.profile.firstName + ' ' + this.profile.lastName;
   },
 
   tutorialGroup() {

@@ -160,7 +160,7 @@ Template.userEntry.helpers({
     return user.profile.firstName + ' ' + user.profile.lastName;
   },
 
-  curruntEmail() {
+  currentEmail() {
     var user = Meteor.users.findOne(this._id);
     return user.emails[0].address;
   },

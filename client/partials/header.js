@@ -31,7 +31,7 @@ Template.header.helpers({
     return Meteor.userId();
   },
 
-  userName() {
+  username() {
     return Meteor.user().profile.firstName;
   },
 
