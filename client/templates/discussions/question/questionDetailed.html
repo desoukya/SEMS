@@ -1,0 +1,25 @@
+<template name="questionDetailed">
+  <div class="ui clearing olive segment">
+    <div class="item">
+
+      <!-- Title -->
+      <div class="header">
+        <h2>{{title}}</h2>
+      </div>
+      <!-- /Title -->
+
+      <div class="meta">
+        <span class="owner name">
+          Asked by :
+          <a href="{{pathFor 'user.profile' _id=owner._id}}">{{owner.fullName}}</a>
+        </span>
+
+        <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
+          <i class="wait icon"></i>
+          {{formatDateHumanized createdAt}}
+        </span>
+      </div>
+
+    </div>
+  </div>
+</template>
