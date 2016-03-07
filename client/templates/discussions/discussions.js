@@ -13,11 +13,15 @@ Template.discussions.events({
 
     // Get value from form element
     var title = event.target.title.value;
+    var tags = $('#tags').val().split(',').filter(function(tag) {
+      return tag.length > 0;
+    });
     var description = event.target.description.value;
 
     var question = {
       title: title,
       description: description,
+      tags: tags,
       ownerId: Meteor.userId(),
       answers: [],
       createdAt: new Date() // current time
