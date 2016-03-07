@@ -8,7 +8,8 @@ Template.discussions.events({
 
     var question = {
       title: text,
-      askerId: Meteor.userId(),
+      ownerId: Meteor.userId(),
+      answers: [],
       createdAt: new Date() // current time
     }
     console.log(question);

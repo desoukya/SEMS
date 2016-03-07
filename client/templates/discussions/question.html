@@ -1,12 +1,38 @@
 <template name="question">
   <div class="ui raised segment">
-    <div class="eight wide column">
-      <i class="chevron up link icon"></i>
-      <i class="chevron down link icon"></i>
-    </div>
-    <div class="eight wide column">
-      <a href="{{pathFor 'user.profile' _id= askerId}}">{{asker.firstName}} : </a>
-      <a href="{{pathFor 'question.page' _id= _id}}">{{title}} </a>
-    </div>
+    <table class="ui very basic table">
+      <tbody>
+        <tr>
+          <td class="collapsing">
+            <div >
+              <i style="display:block;line-height: 1em;margin:auto;" class="chevron up link icon"></i>
+              <div style="display:block;line-height: 1em;margin:auto;"> 210</div>
+              <i style="display:block;line-height: 1em;margin:auto;" class="chevron down link icon"></i>
+            </div>
+          </td>
+          <td>
+            <h2>
+              <img class="ui avatar image" src="{{owner.profilePicture}}">
+              <a href="{{pathFor 'user.profile' _id= askerId}}">{{owner.profile.firstName}} : </a>
+              <a href="{{pathFor 'question.page' _id= _id}}">{{title}} </a>
+            </h2>
+            <span class="date meta" >
+              <i class="wait icon"></i>
+               an hour ago
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <a class="ui tiny label">Bug</a>
+            <a class="ui tiny label">Node</a>
+            <a class="ui tiny label">Express</a>
+            <div class="ui right floated button">
+              Answers: 5
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
