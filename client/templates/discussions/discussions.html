@@ -2,11 +2,38 @@
   <div class="ui container grid">
     <div class="ten wide centered column">
 
-      <form class="ui form new-question">
-        <div class="field">
-          <input class="small" type="text" name="text" placeholder="Ask a question" />
-        </div>
-      </form>
+      <div class="ui segment">
+        <form class="ui form new-question">
+          <div class="field">
+            <label>ask a question</label>
+            <input class="small" type="text" name="title" placeholder="Ask a question" />
+          </div>
+          <div class="field">
+            <label>Tags</label>
+            <div class="ui fluid multiple search selection dropdown">
+              <input name="tags" type="hidden">
+              <i class="dropdown icon"></i>
+              <div class="default text">Skills</div>
+              <div class="menu">
+                <div class="item" data-value="angular">Angular</div>
+                <div class="item" data-value="css">CSS</div>
+                <div class="item" data-value="html">HTML</div>
+                <div class="item" data-value="javascript">Javascript</div>
+                <div class="item" data-value="meteor">Meteor</div>
+                <div class="item" data-value="node">NodeJS</div>
+                <div class="item" data-value="ui">UI Design</div>
+                <div class="item" data-value="ux">User Experience</div>
+                <div class="item" data-value="bug">bug</div>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label>Description</label>
+            <textarea name="description"></textarea>
+          </div>
+          <input type="submit" id="loginBtn" class="ui fluid large green submit button" value="Login"> 
+        </form>
+      </div>
 
       <div class="ui segment">
         <div class="ui divided items">

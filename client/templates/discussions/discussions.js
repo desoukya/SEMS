@@ -1,13 +1,23 @@
+Template.discussions.onRendered(function() {
+  $('.ui.dropdown')
+    .dropdown({
+      allowAdditions: true
+    });
+});
+
 Template.discussions.events({
   "submit .new-question": function(event) {
+    console.log('submitted');
     // Prevent default browser form submit
     event.preventDefault();
 
     // Get value from form element
-    var text = event.target.text.value;
+    var title = event.target.title.value;
+    var description = event.target.description.value;
 
     var question = {
-      title: text,
+      title: title,
+      description: description,
       ownerId: Meteor.userId(),
       answers: [],
       createdAt: new Date() // current time
@@ -18,11 +28,14 @@ Template.discussions.events({
     Questions.insert(question);
 
     // Clear form
-    event.target.text.value = "";
+    event.target.title.value = "";
+    event.target.description.value = "";
   }
 });
 Template.discussions.helpers({
   questions() {
-    return Questions.find({},{'createdAt':-1});
+    return Questions.find({}, {
+      'createdAt': -1
+    });
   },
 });
