@@ -78,6 +78,7 @@ less@2.5.1
 livedata@1.0.15
 localstorage@1.0.5
 logging@1.0.8
+markdown@1.0.5
 mdg:validation-error@0.2.0
 meteor@1.1.10
 meteor-base@1.0.1
@@ -108,6 +109,7 @@ retry@1.0.4
 routepolicy@1.0.6
 semantic:ui@2.1.8
 semantic:ui-data@2.1.8
+sems:highlight.js@1.2.0
 sems:momentum@0.7.3
 service-configuration@1.0.5
 session@1.1.1
