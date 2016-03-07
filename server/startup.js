@@ -42,5 +42,5 @@ Meteor.startup(function() {
 
     }
 
-    console.log("Grindage aho", Grindage);
+    console.log("Grindage ahooooo", Grindage.data[1]);
 });
