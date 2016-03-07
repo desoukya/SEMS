@@ -1,4 +1,18 @@
 Template.discussions.onRendered(function() {
+  $('.ui.form').form({
+    fields: {
+
+      title: {
+        identifier: 'title',
+        rules: [{
+          type: 'empty',
+          prompt: 'Please enter your question'
+        }]
+      },
+
+    }
+  });
+
   $('.ui.dropdown')
     .dropdown({
       allowAdditions: true
@@ -7,7 +21,6 @@ Template.discussions.onRendered(function() {
 
 Template.discussions.events({
   "submit .new-question": function(event) {
-    console.log('submitted');
     // Prevent default browser form submit
     event.preventDefault();
 
@@ -26,7 +39,6 @@ Template.discussions.events({
       answers: [],
       createdAt: new Date() // current time
     }
-    console.log(question);
 
     // Insert a task into the collection
     Questions.insert(question);
@@ -34,6 +46,8 @@ Template.discussions.events({
     // Clear form
     event.target.title.value = "";
     event.target.description.value = "";
+    // clear selected values
+    $('.ui.dropdown').dropdown('clear');
   }
 });
 Template.discussions.helpers({
@@ -41,5 +55,11 @@ Template.discussions.helpers({
     return Questions.find({}, {
       'createdAt': -1
     });
+  },
+  allTags() {
+    var everything = Questions.find().fetch();
+    var allQuestionsTags = _.pluck(everything, "tags");
+    var allQuestionsTagsConcatinatedArray = [].concat.apply([], allQuestionsTags);
+    return _.uniq(allQuestionsTagsConcatinatedArray);
   },
 });

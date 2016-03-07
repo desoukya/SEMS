@@ -1,16 +1,19 @@
+<template name="tag">
+  <a class="ui tiny label">{{this}}</a>
+</template>
 <template name="question">
   <div class="item">
-    <div class ="vote">
-      <i  class="chevron up link icon"></i>
+    <div class="vote">
+      <i class="chevron up link icon"></i>
       <div> 210</div>
-      <i  class="chevron down link icon"></i>
+      <i class="chevron down link icon"></i>
     </div>
     <div class="content">
       <a href="{{pathFor 'question.page' _id= _id}}" class="header">{{title}}</a>
       <div class="extra">
-        <a class="ui tiny label">Bug</a>
-        <a class="ui tiny label">Node</a>
-        <a class="ui tiny label">Express</a>
+        {{#each tags}}
+         {{> tag}}
+        {{/each}}
         <div class="ui right floated text">
           by <a href="{{pathFor 'user.profile' _id= askerId}}">{{owner.fullName}}</a> an hour ago
         </div>
