@@ -8,6 +8,7 @@
       </div>
       <!-- /Title -->
 
+      <!-- Meta | Owner and Date -->
       <div class="meta">
         <span class="owner name">
           Asked by :
@@ -19,6 +20,14 @@
           {{formatDateHumanized createdAt}}
         </span>
       </div>
+      <!-- /Meta | Owner and Date -->
+
+      <!-- Question content -->
+      <div class="content question body">
+        <!-- NOTE: This should be preserved from formatting, to allow markdown to render properly -->
+        {{#markdown}}{{description}}{{/markdown}}
+      </div>
+      <!-- /Question content -->
 
     </div>
   </div>
