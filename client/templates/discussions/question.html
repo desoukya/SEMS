@@ -1,13 +1,12 @@
 <template name="question">
-  <div class="ui clearing segment">
-    <h1 class="ui left floated header text"> 
-	<a href="{{pathFor 'user.profile' _id= askerId}}">
-        {{asker.firstName}} : 
-    </a>
-    <a href="{{pathFor 'question.page' _id= _id}}">
-    	{{title}} 
-    </a>
-
-    </h1>
+  <div class="ui raised segment">
+    <div class="eight wide column">
+      <i class="chevron up link icon"></i>
+      <i class="chevron down link icon"></i>
+    </div>
+    <div class="eight wide column">
+      <a href="{{pathFor 'user.profile' _id= askerId}}">{{asker.firstName}} : </a>
+      <a href="{{pathFor 'question.page' _id= _id}}">{{title}} </a>
+    </div>
   </div>
 </template>

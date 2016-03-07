@@ -1,14 +1,20 @@
 <template name="discussions">
-  <form class=" ui vertical stripe container form new-question">
-    <div class="field">
-      <input class="small" type="text" name="text" placeholder="Ask a question" />
-    </div>
-  </form>
-  <div class="ui vertical stripe container">
+  <div class="ui container grid">
+    <div class="ten wide centered column">
 
-    {{#each questions}}
-      {{> question}}
-      <div class="ui divider"></div>
-    {{/each}}
+      <form class="ui form new-question">
+        <div class="field">
+          <input class="small" type="text" name="text" placeholder="Ask a question" />
+        </div>
+      </form>
+
+      <div class="ui segment">
+          {{#each questions}}
+            {{> question}}
+            <div class="ui divider"></div>
+          {{/each}}
+      </div>
+
+    </div>
   </div>
 </template>
