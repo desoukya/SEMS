@@ -6,7 +6,7 @@ Meteor.methods({
 
     if (alreadyCreated)
       throw new Meteor.Error(409, 'Team was already created by this user');
-    else if (Roles.userIsInRole(Meteor.userId(), SCRUM))
+    else if (!Roles.userIsInRole(Meteor.userId(), SCRUM))
       throw new Meteor.Error(401, "Not authorized to create a new team");
     else
       return Teams.insert(team);
