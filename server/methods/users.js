@@ -94,7 +94,7 @@ Meteor.methods({
   removeUser(userId) {
     //TODO: Remove questions and answers by user
 
-    if (Roles.userIsInRole(userId, ADMIN)) {
+    if (Roles.userIsInRole(Meteor.userId(), ADMIN)) {
       // Remove user from any team
       Teams.update({ members: userId }, { $pull: { members: userId } });
 
