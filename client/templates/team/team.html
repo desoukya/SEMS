@@ -4,7 +4,7 @@
 <template name="editableTeamMember">
   <div class="item">
 
-    {{#unless isInRole 'scrum-master'}}
+    {{#unless isScrum}}
       <div class="right floated content">
         <i id="delete-icon" class="action-icon large trash link icon"></i>
       </div>

@@ -103,6 +103,13 @@ Template.team.onRendered(function() {
 
 //--------------------------------------------------------------
 
+Template.editableTeamMember.helpers({
+  isScrum() {
+    return Roles.userIsInRole(this._id, SCRUM);
+  },
+
+})
+
 Template.editableTeamMember.events({
   'click #delete-icon': function(event, template) {
     var self = this;
