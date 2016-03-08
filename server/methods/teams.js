@@ -47,7 +47,9 @@ Meteor.methods({
   },
 
   addMemberToTeam(userId, teamId) {
-    if (Roles.userIsInRole(Meteor.userId(), SCRUM) && TeamUtils.isMember(Meteor.userId(), teamId)) {
+    if (Roles.userIsInRole(Meteor.userId(), SCRUM) && TeamUtils.isMember(Meteor.userId(), teamId) ||
+      (Roles.userIsInRole(Meteor.userId(), ADMIN))) {
+      // If he is the scrum of this team or an admin he can add members
       var team = Teams.findOne({ _id: teamId });
 
       if (team.members.length >= 8) {
