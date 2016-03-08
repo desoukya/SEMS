@@ -15,7 +15,7 @@
                 </div>
               </div>
             </div>
-            <img class="ui small centered circular image" src="{{image.url}}"/>
+            <img class="ui small centered circular image" src="{{profilePicture.url}}"/>
           </div>
           <input type="file" id="upload-profile-picture" class="ui centered" style="display:none">
         </div>
@@ -27,11 +27,11 @@
           <div class="two fields">
             <div class="field">
               <label>First Name</label>
-              <input placeholder="First Name" value="{{firstName}}" name="fname" type="text">
+              <input placeholder="First Name" value="{{profile.firstName}}" name="fname" type="text">
             </div>
             <div class="field">
               <label>Last Name</label>
-              <input placeholder="Last Name" value="{{lastName}}" name="lname" type="text">
+              <input placeholder="Last Name" value="{{profile.lastName}}" name="lname" type="text">
             </div>
           </div>
           <!-- /Name -->
@@ -53,6 +53,68 @@
             <input type="password" name="repass">
           </div>
           <!-- /Password -->
+
+          <div class="two fields">
+            <!-- GUC ID -->
+            <div class="required field">
+              <label>GUC ID</label>
+              <input placeholder="xy-abcdef" value={{GUCId}} name="gucid" type="text">
+            </div>
+            <!-- /GUC ID -->
+
+            <!-- Tutorial Group -->
+            <div class="required field">
+              <label>Tutorial group</label>
+              <div class="ui search selection dropdown">
+                <input type="hidden" value="{{tutorialGroup}}" name="tutorial_group">
+                <div class="default text">Tutorial</div>
+                <i class="dropdown icon"></i>
+
+                <div class="menu">
+                  <div class="item" data-value="CSEN 10">CSEN 10</div>
+                  <div class="item" data-value="CSEN 11">CSEN 11</div>
+                  <div class="item" data-value="CSEN 12">CSEN 12</div>
+                  <div class="item" data-value="CSEN 13">CSEN 13</div>
+                  <div class="item" data-value="CSEN 14">CSEN 14</div>
+                  <div class="item" data-value="CSEN 15">CSEN 15</div>
+                  <div class="item" data-value="CSEN 16">CSEN 16</div>
+                  <div class="item" data-value="DMET">DMET</div>
+                  <div class="item" data-value="BI 15">BI 15</div>
+                  <div class="item" data-value="BI 16">BI 16</div>
+                  <div class="item" data-value="BI 17">BI 17</div>
+                </div>
+              </div>
+            </div>
+            <!-- /Tutorial Group -->
+          </div>
+
+          <h4 class="ui dividing header">Additional information</h4>
+
+          <div class="two fields">
+            <!-- Phone number -->
+            <div class="field">
+              <label>Phone number</label>
+              <input placeholder="0123456789" name="mobile" value={{mobile}} type="tel">
+            </div>
+            <!-- /Phone number -->
+
+            <!-- Github account -->
+            <div class="field">
+              <label>
+                <i class="large github icon"></i>Github username</label>
+              <input type="text" name="github_user" value={{githubUser}} placeholder="geeky-developer">
+            </div>
+            <!-- /Github account -->
+          </div>
+
+          <!-- Email Toggle -->
+          <div class="field">
+            <div class="ui toggle checkbox">
+              <input type="checkbox" checked={{isPublic}} name="public_mail" tabindex="0" class="hidden">
+              <label>Display my Email address on profile</label>
+            </div>
+          </div>
+          <!-- /Email Toggle -->
 
           <!-- Save button -->
           <input class="ui green submit fluid button" type="submit" value="Save" id="update-profile-button">

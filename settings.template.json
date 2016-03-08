@@ -1,6 +1,9 @@
 {
   "adminEmail": "email",
   "systemEmail": "email",
+
+  "MAIL_URL":"your_smtp_string",
+  
   "public": {
     "analyticsSettings": {
       "Mixpanel": {

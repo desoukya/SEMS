@@ -13,15 +13,14 @@
 
         <!-- Profile picture -->
         {{#if Template.subscriptionsReady}}
-          <img class="ui small centered circular image" src="{{image.url}}"/>
+          <img class="ui small centered circular image" src="{{profilePicture.url}}"/>
         {{else}}
           <div class="ui active huge inline centered loader"></div>
         {{/if}}
         <!-- /Profile picture -->
 
         <!-- Full Name -->
-        <h1 class="ui centered header">{{profile.firstName}}
-          {{profile.lastName}}
+        <h1 class="ui centered header">{{fullName}}
         </h1>
         <!-- /Full Name -->
 
@@ -52,7 +51,7 @@
         {{/if}}
         <!-- /Github -->
 
-        {{#if displayEmail}}
+        {{#if havePublicEmail}}
           <h3>
             <i class="green large mail square icon"></i>
             {{email}}

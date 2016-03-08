@@ -1,16 +1,17 @@
 <template name="userChoice">
-  <div class="item" data-value="{{_id}}">{{username}}</div>
+  <div class="item" data-value="{{_id}}">{{fullName}}</div>
 </template>
 <template name="editableTeamMember">
   <div class="item">
 
-    {{#unless isScrum}}
+    {{#unless isInRole 'scrum-master'}}
       <div class="right floated content">
         <i id="delete-icon" class="action-icon large trash link icon"></i>
       </div>
     {{/unless}}
 
-    <img class="ui avatar image" src={{image.url}}>
+    <img class="ui avatar image" src={{profilePicture.url}}>
+
     <div class="content">
       <a class="header" href="{{pathFor 'user.profile' _id=_id}}">{{fullName}}</a>
       <div class="description">{{tutorialGroup}}</div>
@@ -24,8 +25,9 @@
       <div class="row">
         <!-- Header -->
         <div class="main header">
-          <h1 class="ui text centered header">{{teamName}}</h1>
+          <h1 class="ui text centered header">{{name}}</h1>
           <h3 class="ui text centered red header">{{companyName}}</h3>
+          <img class="ui small rounded centered image" id="team-main-image" src="{{image}}" alt="team_image"/>
         </div>
         <!-- /Header -->
 
@@ -83,7 +85,7 @@
                     <i class="dropdown icon"></i>
                     <div class="default text">Choose Team members</div>
                     <div class="menu">
-                      {{#each members}}
+                      {{#each availableMembers}}
                         {{> userChoice}}
                       {{/each}}
                     </div>
@@ -100,11 +102,11 @@
         </div>
         <div class="ui segment">
           <h1 class="ui dividing header">Team Members:</h1>
-          <div class="ui animated list">
+          {{#momentum plugin="slide-height" class="ui animated list" }}
             {{#each teamMembers}}
               {{> editableTeamMember}}
             {{/each}}
-          </div>
+          {{/momentum}}
         </div>
       {{/if}}
     </div>

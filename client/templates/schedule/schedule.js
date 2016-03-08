@@ -1,17 +1,18 @@
 Template.schedule.created = function() {
-  this.filterField = new ReactiveVar("week");
+  this.filterField = new ReactiveVar('week');
 };
+
 Template.schedule.onRendered(function() {
   $('.ui.dropdown')
     .dropdown();
 });
 
 Template.schedule.events({
-  "change #filterBy": function(event, template) {
-    var selectValue = template.$("#filterBy").val();
+  'change #filterBy': function(event, template) {
+    var selectValue = template.$('#filterBy').val();
 
     /////////////// Analytics ///////////////
-    analytics.track("Filtering materials", {
+    analytics.track('Filtering materials', {
       filter: selectValue
     });
     /////////////// Analytics ///////////////
@@ -21,53 +22,53 @@ Template.schedule.events({
   },
 
   'click #add-material': function(event, template) {
-
-    Session.set('selectedMaterialID', "");
+    Session.set('selectedMaterialID', '');
   },
+
 });
 
 Template.schedule.helpers({
-  filterGroups: function() {
+  filterGroups() {
     //TODO : query db to get data
-    if (Template.instance().filterField.get() === "week")
+    if (Template.instance().filterField.get() === 'week') {
       return [{
-        value: "1"
+        value: '1'
       }, {
-        value: "2"
+        value: '2'
       }, {
-        value: "3"
+        value: '3'
       }, {
-        value: "4"
+        value: '4'
       }, {
-        value: "5"
+        value: '5'
       }, {
-        value: "6"
+        value: '6'
       }, {
-        value: "7"
+        value: '7'
       }, {
-        value: "8"
+        value: '8'
       }];
-    else if (Template.instance().filterField.get() === "content")
+    } else if (Template.instance().filterField.get() === 'content') {
       return [{
-        value: "lecture"
+        value: 'lecture'
       }, {
-        value: "assignment"
+        value: 'assignment'
       }, {
-        value: "code"
+        value: 'code'
       }, {
-        value: "practiceAssignment"
+        value: 'practiceAssignment'
       }, {
-        value: "tutorial"
+        value: 'tutorial'
       }];
-    else if (Template.instance().filterField.get() === "uploadDate")
-      return [{
-        value: "Posting Date"
-      }];
-    else {
-      console.log("error");
-    }
+    } else if (Template.instance().filterField.get() === 'uploadDate')
+      return [{ value: 'Posting Date' }];
+    else
+      console.log('error');
+
   },
-  currentFilter: function() {
+
+  currentFilter() {
     return Template.instance().filterField.get();
   },
+
 });

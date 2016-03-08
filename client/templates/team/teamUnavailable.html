@@ -4,7 +4,7 @@
       <div class="row">
         <div data-class="ui center aligned middle aligned column">
           <h1 class="big text">Hello
-            {{name}}, It seems you are not in a team yet ..</h1>
+            {{profile.firstName}}, It seems you are not in a team yet ..</h1>
           {{#if isInRole 'scrum-master'}}
             <a href="{{pathFor 'team.create'}}" class="ui big green button">
               <i class="sitemap icon"></i>

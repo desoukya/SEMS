@@ -1,6 +1,6 @@
 Template.footer.events({
-  "click #legal": function(event, template) {
+  'click #legal': function(event, template) {
     event.preventDefault();
-    $("#legal-modal").modal("show");
+    $('#legal-modal').modal('show');
   }
 });
