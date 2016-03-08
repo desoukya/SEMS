@@ -35,12 +35,12 @@ Meteor.methods({
       Teams.update({
         '_id': {
           $in: (Teams.find({
-            members: id
+            members: userId
           }).fetch().map(function(item) {
             return item._id;
           }))
         }
-      }, { $pull: { members: id } }, { multi: true });
+      }, { $pull: { members: userId } }, { multi: true });
 
     }
 
