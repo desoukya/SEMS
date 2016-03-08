@@ -47,7 +47,7 @@ Meteor.methods({
   },
 
   addMemberToTeam(userId, teamId) {
-    if (Roles.userIsInRole(Meteor.userId(), SCRUM) && TeamUtils.isMember(userId, teamId)) {
+    if (Roles.userIsInRole(Meteor.userId(), SCRUM) && TeamUtils.isMember(Meteor.userId(), teamId)) {
       var team = Teams.findOne({ _id: teamId });
 
       if (team.members.length >= 8) {
