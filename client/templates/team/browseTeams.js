@@ -1,6 +1,6 @@
 Template.browseTeam.helpers({
   teams() {
-    return Teams.find();
+    return Teams.find({}, {sort: {createdAt: 1}});
   },
 
 });
