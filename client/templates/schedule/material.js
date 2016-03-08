@@ -1,41 +1,42 @@
 Template.material.helpers({
-  fileUrl: function(id) {
+
+  fileUrl(id) {
     try {
-      var file = Files.findOne({
-        "_id": id
-      }).url({
-        download: true
-      });
+      var file = Files.findOne({ "_id": id }).url({ download: true });
       return file;
     } catch (err) {
       //TODO alert can add files
-      return " ";
+      return ' ';
     }
   },
-  iconType: function() {
-    if (this.content === "lecture")
-      return "pdf file outline red ";
-    else if (this.content === "assignment")
-      return "text file outline green ";
-    else if (this.content === "code")
-      return "code purple";
-    else
-      return "file";
 
-  }
+  iconType() {
+
+    if (this.content === 'lecture')
+      return 'pdf file outline red ';
+    else if (this.content === 'assignment')
+      return 'text file outline green';
+    else if (this.content === 'code')
+      return 'code purple';
+    else
+      return 'file';
+  },
+
+
 });
 
 Template.material.events({
-  "click #delete-icon": function() {
+
+  'click #delete-icon': function() {
     var self = this;
     $('#delete-item-modal')
       .modal({
         closable: false,
-        onDeny: function() {
+        onDeny() {
           //do nothing
         },
-        onApprove: function() {
-          if (self.type === "file") {
+        onApprove() {
+          if (self.type === 'file') {
             // Now delete the old picture
             Files.remove({
               _id: self.identifier
@@ -43,10 +44,11 @@ Template.material.events({
           }
           Materials.remove(self._id);
         }
-      })
-      .modal('show');
+      }).modal('show');
   },
-  "click #edit-icon": function() {
+
+  'click #edit-icon': function() {
     Session.set('selectedMaterialID', this._id);
-  }
+  },
+
 });

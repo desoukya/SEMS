@@ -1,14 +1,12 @@
 // ES6
 
 Template.profileEdit.onRendered(function() {
-  Meteor.subscribe("images");
+  // $('#profile-picture-wrapper').dimmer({
+  //   on: 'hover',
+  //   opacity: 0.7,
+  // });
 
-  $('#profile-picture-wrapper').dimmer({
-    on: 'hover',
-    opacity: 0.7,
-  });
-
-  $(".ui.form").form({
+  $('.ui.form').form({
     fields: {
       firstname: {
         identifier: 'fname',
@@ -49,59 +47,58 @@ Template.profileEdit.onRendered(function() {
     }
   });
 
+  $('.ui.dropdown').dropdown();
+  $('.ui.checkbox').checkbox();
 });
 
 Template.profileEdit.helpers({
-  email: function() {
-    return Meteor.user().emails[0].address;
+  isPublic() {
+    return !!Meteor.user().profile.publicEmail;
   },
-  image: function() {
-    var defaultPictureIndex = UserUtils.getDefaultPictureIndex(Meteor.userId());
-    return Images.findOne({
-      "_id": Meteor.user().profile.image
-    }) || {
-      url: `/images/default_${defaultPictureIndex}.png`
-    }; // Where Images is an FS.Collection instance
+
+  email() {
+    return Meteor.user().email();
   },
+
 });
 
 Template.profileEdit.events({
   'change #upload-profile-picture': function(event, template) {
     // Get the current image id
-    var oldImage = Images.findOne(Meteor.user().profile.image);
-
-
-    FS.Utility.eachFile(event, function(file) {
-      Images.insert(file, function(err, fileObj) {
-        if (err) {
-          // TODO: handle error
-          console.log(err);
-        } else {
-          // handle success depending what you need to do
-          var userId = Meteor.userId();
-          var imagesURL = {
-            "profile.image": "" + fileObj._id
-          };
-          Meteor.users.update(userId, {
-            $set: imagesURL
-          });
-
-          if (oldImage) {
-            // Now delete the old picture
-            Images.remove({
-              _id: oldImage._id
-            });
-          }
-        }
-      });
-    });
+    // var oldImage = Images.findOne(Meteor.user().profile.image);
+    //
+    //
+    // FS.Utility.eachFile(event, function(file) {
+    //   Images.insert(file, function(err, fileObj) {
+    //     if (err) {
+    //       // TODO: handle error
+    //       console.log(err);
+    //     } else {
+    //       // handle success depending what you need to do
+    //       var userId = Meteor.userId();
+    //       var imagesURL = {
+    //         "profile.image": "" + fileObj._id
+    //       };
+    //       Meteor.users.update(userId, {
+    //         $set: imagesURL
+    //       });
+    //
+    //       if (oldImage) {
+    //         // Now delete the old picture
+    //         Images.remove({
+    //           _id: oldImage._id
+    //         });
+    //       }
+    //     }
+    //   });
+    // });
   },
 
-  "click #upload-dimmer": function(event, template) {
-    $("#upload-profile-picture").click();
+  'click #upload-dimmer': function(event, template) {
+    $('#upload-profile-picture').click();
   },
 
-  "submit .ui.form": function(event, template) {
+  'submit .ui.form': function(event, template) {
     event.preventDefault();
 
     var firstName = event.target.fname.value;
@@ -111,19 +108,30 @@ Template.profileEdit.events({
     var newPass = event.target.new_pass.value;
     var repeatPass = event.target.repass.value;
 
+    var GUCId = event.target.gucid.value;
+    var tutorialGroup = event.target.tutorial_group.value;
+
+    // Optionals
+    var mobile = event.target.mobile.value;
+    var githubUser = event.target.github_user.value;
+    var publicEmail = $(event.target.public_mail).prop('checked');
 
     var userData = {
       firstName: firstName,
       lastName: lastName,
       currentPass: currentPass,
+      GUCId: GUCId,
+      tutorialGroup: tutorialGroup,
+      mobile: mobile,
+      githubUser: githubUser,
+      publicEmail: publicEmail,
     };
-
-    Meteor.call("updateProfile", userData, function(err, result) {
-      if (err) {
+    Meteor.call('updateProfile', userData, function(err, result) {
+      if (err)
         sAlert.error(err.reason);
-      } else {
-        Router.go("/profile" + "/" + Meteor.userId());
-      }
+      else
+        Router.go('/profile' + '/' + Meteor.userId());
+
     });
 
 
@@ -135,9 +143,8 @@ Template.profileEdit.events({
           throw err;
         }
       });
+
     }
-
-
 
   }
 

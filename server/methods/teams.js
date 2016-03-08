@@ -2,12 +2,10 @@
 Meteor.methods({
   createTeam(team) {
 
-    var alreadyCreated = Teams.findOne({
-      members: Meteor.userId()
-    });
+    var alreadyCreated = Teams.findOne({ members: Meteor.userId() });
 
     if (alreadyCreated) {
-      throw new Meteor.Error(409, "Team was already created by this user");
+      throw new Meteor.Error(409, 'Team was already created by this user');
     } else {
       return Teams.insert(team);
     }
@@ -15,9 +13,7 @@ Meteor.methods({
 
   getTeamMembers(teamId) {
 
-    var usersIds = Teams.findOne({
-      _id: teamId
-    }).members;
+    var usersIds = Teams.findOne({ _id: teamId }).members;
 
     return Meteor.users.find({
       _id: {
@@ -43,6 +39,38 @@ Meteor.methods({
     }, {
       multi: true
     });
+
+  },
+
+  addMemberToTeam(userId, teamId) {
+    var team = Teams.findOne({ _id: teamId });
+
+    if (team.members.length >= 8) {
+      // FIXME: Which http code here -_-
+      throw new Meteor.Error(403, 'Team size can\'t exceed 8 members');
+    }
+
+    // Getting the member
+    var member = Meteor.users.findOne({
+      _id: userId,
+      roles: 'student',
+    });
+
+    if (!!member && !TeamUtils.isInTeam(userId)) {
+      Teams.update({ _id: teamId }, { $push: { members: userId } }, function(err, res) {
+
+        Email.send({
+          to: member.email(),
+          from: Meteor.settings.systemEmail,
+          subject: '[SEMS] You have joined a team !',
+          text: `Hello ${member.profile.firstName}, Your scrum master just added you to your team "${team.name}"`
+        });
+
+        return team;
+      });
+    } else {
+      throw new Meteor.Error(409, 'Can\'t add this member');
+    }
 
   },
 

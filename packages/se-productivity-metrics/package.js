@@ -13,9 +13,9 @@ Package.describe({
 Package.onUse(function(api) {
     api.versionsFrom('1.2.1');
     api.use('ecmascript');
-    api.use(["http"],'server');
+    api.use(['http','nooitaf:colors'],'server');
     api.addFiles('se-productivity-metrics.js',['server']);
-    api.export("Grindage", 'server');
+    api.export(['Metrics'], 'server');
 
 });
 
