@@ -1,39 +1,65 @@
 <template name="header">
+  <!-- Header -->
   <div class="ui large top hidden menu">
+
+    <!--Container-->
     <div class="ui container">
       <a class="item {{isActive 'home'}}" href="{{pathFor 'home'}}">Home</a>
 
+      <!-- Admin Panel Button (only visible to admin)-->
       {{#if isInRole "admin"}}
         <a href="{{pathFor 'admin.panel'}}" class="item {{isActive 'admin.panel'}}">Admin</a>
       {{/if}}
+      <!-- /Admin Panel-->
 
+      <!-- Schdeule Button-->
       <a class="item {{isActive 'schedule'}}" href="{{pathFor 'schedule'}}">Schedule</a>
+      <!-- /Schdeule Button-->
 
+      <!-- Team Button-->
       {{#if currentUser}}
         <a class="item {{isActive 'team'}}" href="{{pathFor 'team.browse'}}">Teams</a>
       {{/if}}
+      <!-- /Team Button-->
 
       <div class="right menu">
         {{#if currentUser}}
+          <!-- right DropDownList-->
           <div class="ui simple dropdown item">
-            <i class="setting icon"></i>{{userName}}
+            <i class="setting icon"></i>{{username}}
             <i class="dropdown icon"></i>
             <div class="menu">
+
+              <!-- Profile Button-->
               <a class="item {{isActive 'user.profile'}}" href="{{pathFor 'user.profile' _id=userId}}">
                 <i class="user icon"></i>Profile</a>
+              <!-- /Profile Button-->
+
+              <!-- LogOut Button-->
               <a class="item" id="logout_button">
                 <i class="red power icon"></i>Logout</a>
+              <!-- /LogOut Button-->
+
             </div>
           </div>
+          <!-- /right DropDownList-->
         {{else}}
+
+          <!-- LogIn Button-->
           <div class="item">
             <a class="ui button" href="{{pathFor 'user.login'}}">Login</a>
           </div>
+          <!-- /LogIn Button-->
+
+          <!-- Register Button-->
           <div class="item">
             <a class="ui primary button" href="{{pathFor 'user.register'}}">Sign Up</a>
           </div>
+          <!-- /Register Button-->
         {{/if}}
       </div>
     </div>
+    <!-- Container -->
   </div>
+  <!-- /Header-->
 </template>

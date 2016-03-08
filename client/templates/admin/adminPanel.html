@@ -2,6 +2,7 @@
 
   <div class="ui container grid">
 
+    <!-- Header -->
     <div class="ui row">
       <div class="ui center aligned column">
         <div class="main header">
@@ -9,9 +10,11 @@
         </div>
       </div>
     </div>
+    <!-- /Header -->
 
     <!-- OPTIONS -->
     <div class="ui three cards row">
+      <!-- Manage Users -->
       <div class="ui selectable card">
         <div class="content">
           <a href="{{pathFor 'admin.users'}}" class="not styled link">
@@ -22,6 +25,9 @@
           </a>
         </div>
       </div>
+      <!-- /Manage Users -->
+
+      <!-- Edit Schedule -->
       <div class="ui selectable card">
         <div class="content">
           <a href="{{pathFor 'schedule.edit'}}" class="not styled link">
@@ -32,8 +38,9 @@
           </a>
         </div>
       </div>
-    </div>
+      <!-- /Edit Schedule -->
 
+    </div>
     <!-- /OPTIONS -->
 
   </div>

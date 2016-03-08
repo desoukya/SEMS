@@ -12,9 +12,8 @@ Meteor.methods({
       githubUser: userData.githubUser,
     };
 
-    if (userData.publicEmail) {
-      profile.publicEmail = userData.publicEmail;
-    }
+    if (userData.publicEmail)
+      profile.publicEmail = userData.email;
 
 
     var userId = Accounts.createUser({
@@ -30,9 +29,9 @@ Meteor.methods({
       Accounts.sendVerificationEmail(userId);
 
       return userId;
-    } else {
-      throw new Meteor.Error(400, "Can't create new user");
-    }
+    } else
+      throw new Meteor.Error(400, 'Can\'t create new user');
+
 
   },
 
@@ -56,6 +55,14 @@ Meteor.methods({
 
         profile.firstName = userData.firstName;
         profile.lastName = userData.lastName;
+        profile.GUCId = userData.GUCId;
+        profile.tutorialGroup = userData.tutorialGroup;
+        profile.mobile = userData.mobile;
+        profile.githubUser = userData.githubUser;
+
+        //add public email if it's public
+        if (userData.publicEmail)
+          profile.publicEmail = Meteor.user().emails[0].address;
 
         Meteor.users.update(user._id, {
           $set: {
@@ -63,20 +70,39 @@ Meteor.methods({
           }
         });
 
+        //delete public email if it's private
+        if (!userData.publicEmail) {
+          Meteor.users.update({ _id: Meteor.userId() }, {
+            $unset: {
+              'profile.publicEmail': ''
+            }
+          });
+        }
 
-      } else {
+      } else
         throw result.error;
-      }
-
 
     }
   },
 
-
   resendVerification(userId) {
-    Accounts.sendVerificationEmail(userId);
+    if (Meteor.userId() === userId) {
+      Accounts.sendVerificationEmail(userId);
+    }
   },
 
+  removeUser(userId) {
+    //TODO: Remove questions and answers by user
 
+    if (Roles.userIsInRole(Meteor.userId(), ADMIN)) {
+      // Remove user from any team
+      Teams.update({ members: userId }, { $pull: { members: userId } });
+
+      // Remove the user
+      Meteor.users.remove({ _id: userId });
+    } else
+      throw new Meteor.Error(401, "Can't perform this action");
+
+  }
 
 });

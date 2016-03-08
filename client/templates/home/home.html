@@ -2,26 +2,37 @@
   <div class="ui page full screen grid">
     <div class="row">
       <div data-class="ui center aligned middle aligned column">
+        <!-- Header -->
         <h1 class="big text">Welcome to Software Engineering Course 2016</h1>
+        <!-- /Header -->
+
         {{#if isInTeam}}
+          <!-- User's Team -->
           <a href="{{pathFor 'team' _id=getTeamId}}" class="ui big blue button" id="home-team-button-extra-pad">
             <i class="users icon"></i>
             Your team
           </a>
+          <!-- User's Team -->
 
+          <!-- Browse Teams -->
           <a href="{{pathFor 'team.browse'}}" class="ui big blue button">
             <i class="browser icon"></i>
             Browse Teams
           </a>
+          <!-- /Browse Teams -->
 
           <div class="ui horizontal divider">
             Or
           </div>
         {{/if}}
+
+        <!-- Explore materials button -->
         <a href="{{pathFor 'schedule'}}" class="ui big green button">
           <i class="folder open outline icon"></i>
           Explore Course Materials
         </a>
+        <!-- /Explore materials button -->
+
       </div>
     </div>
   </div>
