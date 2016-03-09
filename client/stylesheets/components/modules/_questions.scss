@@ -12,12 +12,16 @@
 }
 
 .item >.vote {
-    width:50px;
+  width: 50px;
 }
 
 .item >.vote > * {
-    display:block;
-    line-height: 1em;
-    margin:auto;
-    text-align: center;
+  display: block;
+  line-height: 1em;
+  margin: auto;
+  text-align: center;
+}
+
+#question-wrapper {
+  padding: 30px;
 }
