@@ -4,3 +4,7 @@ settings.json
 mup.json
 mup-prod.json
 mup-dev.json
+
+# everything in bash-scripts except templates
+bash-scripts/*
+!bash-scripts/*.template.*
