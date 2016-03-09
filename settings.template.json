@@ -2,6 +2,8 @@
   "adminEmail": "email",
   "systemEmail": "email",
 
+  "environment":"production|development",
+
   "MAIL_URL": "your_smtp_string",
 
   "public": {
