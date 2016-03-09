@@ -5,6 +5,7 @@
   "environment":"production|development",
 
   "MAIL_URL":"your_smtp_string",
+  "ROOT_URL": "URL",
 
   "public": {
     "analyticsSettings": {
