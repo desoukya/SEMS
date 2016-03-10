@@ -1,0 +1,55 @@
+<template name="createAnnouncement">
+  <div data-class="ui middle aligned center aligned container grid">
+    <div class="six wide column">
+
+      <h2 class="ui header">
+        <div class="content">
+          Create an Announcement 
+        </div>
+      </h2>
+
+      <form class="ui large form ">
+        <div class="ui stacked segment">
+
+          <!-- Announcement Title -->
+          <div class="field">
+            <label>Title</label>
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input type="text" name="title" placeholder="announcement">
+            </div>
+          </div>
+          <!-- /Announcement Title -->
+
+          <!-- Announcement Description -->
+          <div class="field">
+            <label>Description</label>
+            <textarea name="description" placeholder="Description"></textarea>
+          </div>
+          <!-- /Announcement Description -->
+
+          <!-- Company Selection -->
+          <div class="field">
+            <label>Companies</label>
+            <div class="ui multiple search selection dropdown">
+              <input type="hidden" name="company">
+              <div class="default text">Select Companies</div>
+              <i class="dropdown icon"></i>
+
+              <div class="menu">
+                {{#each teamCompanies}}
+                  <div class="item" data-value="{{_id}}">{{name}}</div>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+          <!-- /Company Selection -->
+
+          <input type="submit" class="ui fluid large green submit button" value="Add Announcement">
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+</template>
