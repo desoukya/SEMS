@@ -57,8 +57,16 @@ Template.createAnnouncement.events({
       teams: companies,
       createdAt: new Date()
     };
-    console.log(announcement);
-    Announcements.insert(announcement);
+    Meteor.call('createAnnouncement', announcement, function(err, teamId) {
+      if (err) {
+        $('.ui.form').form('add errors', {
+          error: err.reason
+        });
+      } else {
+        sAlert.success('Your Announcement is announced successfully !');
+        $('.ui.form').form('reset');
+      }
+    });
 
   },
 })
