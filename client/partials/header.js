@@ -20,12 +20,6 @@ Template.header.events({
 });
 
 Template.header.helpers({
-  isActive(route) {
-    if (isCurrentRoute(route)) {
-      return 'active';
-    }
-    return '';
-  },
 
   userId() {
     return Meteor.userId();

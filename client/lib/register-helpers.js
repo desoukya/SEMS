@@ -16,6 +16,14 @@ Template.registerHelper('lowerCamelCase', function(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 });
 
+
+Template.registerHelper('isActive', function(route) {
+  if (isCurrentRoute(route)) {
+    return 'active';
+  }
+  return '';
+});
+
 Template.registerHelper('colorOfRole', function(role) {
   var roleColor;
   switch (role) {
