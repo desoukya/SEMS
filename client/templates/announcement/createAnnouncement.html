@@ -32,13 +32,13 @@
           <div class="field">
             <label>Companies</label>
             <div class="ui multiple search selection dropdown">
-              <input type="hidden" name="company">
+              <input type="hidden" name="companies">
               <div class="default text">Select Companies</div>
               <i class="dropdown icon"></i>
 
               <div class="menu">
-                {{#each teamCompanies}}
-                  <div class="item" data-value="{{_id}}">{{name}}</div>
+                {{#each teams}}
+                  <div class="item" data-value="{{_id}}">{{companyName}}</div>
                 {{/each}}
               </div>
             </div>
