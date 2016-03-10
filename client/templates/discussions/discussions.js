@@ -6,17 +6,37 @@ Template.discussions.onRendered(function() {
         identifier: 'title',
         rules: [{
           type: 'empty',
-          prompt: 'Please enter your question'
+          prompt: 'Questions should have a title'
+        }, {
+          type: 'length[4]',
+          prompt: 'Title should be longer than 4 characters'
         }]
       },
+
+      description: {
+        identifier: 'description',
+        rules: [{
+          type: 'empty',
+          prompt: 'You should have some description about your question'
+        }, {
+          type: 'length[25]',
+          prompt: 'Your question length should be at least 25 '
+        }]
+      },
+
+      tags: {
+        identifier: 'tags',
+        rules: [{
+          type: 'minCount[1]',
+          prompt: 'You need at least one tag for your question'
+        }]
+      }
 
     }
   });
 
-  $('.ui.dropdown')
-    .dropdown({
-      allowAdditions: true
-    });
+  $('.ui.dropdown').dropdown('clear',{ allowAdditions: true });
+
 });
 
 Template.discussions.events({
@@ -46,20 +66,25 @@ Template.discussions.events({
     // Clear form
     event.target.title.value = "";
     event.target.description.value = "";
+
     // clear selected values
     $('.ui.dropdown').dropdown('clear');
-  }
+  },
+
 });
+
 Template.discussions.helpers({
   questions() {
     return Questions.find({}, {
       'createdAt': -1
     });
   },
+
   allTags() {
     var everything = Questions.find().fetch();
     var allQuestionsTags = _.pluck(everything, "tags");
     var allQuestionsTagsConcatinatedArray = [].concat.apply([], allQuestionsTags);
     return _.uniq(allQuestionsTagsConcatinatedArray);
   },
+
 });

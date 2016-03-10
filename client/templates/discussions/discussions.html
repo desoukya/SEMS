@@ -1,20 +1,29 @@
 <template name="discussions">
   <div class="ui container grid">
-    <div class="ten wide centered column">
+    <div class="twelve wide centered column">
 
+      <!-- Question Form -->
       <div class="ui segment">
         <form class="ui form new-question">
+
+          <!-- Title -->
           <div class="field">
-            <label>ask a question</label>
-            <input class="small" type="text" name="title" placeholder="Ask a question" />
+            <label>Ask a question</label>
+            <input class="small" type="text" name="title" placeholder="Ask a question"/>
           </div>
+          <!-- /Title -->
+
+          <!-- Description -->
           <div class="field">
             <label>Description</label>
             <textarea name="description"></textarea>
           </div>
+          <!-- /Description -->
+
+          <!-- Tags -->
           <div class="field">
             <label>Tags</label>
-            <div class="ui fluid multiple search selection dropdown">
+            <div class="ui fluid multiple selection search dropdown">
               <input id="tags" name="tags" type="hidden">
               <i class="dropdown icon"></i>
               <div class="default text">Skills</div>
@@ -25,10 +34,14 @@
               </div>
             </div>
           </div>
+          <!-- /Tags -->
+
           <input type="submit" class="ui fluid large green submit button" value="submit">
         </form>
       </div>
+      <!-- /Question Form -->
 
+      <!-- Questions -->
       <div class="ui segment">
         <div class="ui divided items">
           {{#each questions}}
@@ -36,6 +49,8 @@
           {{/each}}
         </div>
       </div>
+      <!-- /Questions -->
+
     </div>
   </div>
 </template>
