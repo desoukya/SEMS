@@ -1,4 +1,6 @@
 Meteor.startup(function() {
+  // Pulling MAIL_URL from settings
+  process.env.MAIL_URL = Meteor.settings.MAIL_URL;
 
   // From (ME !)
   Accounts.emailTemplates.from = Meteor.settings.systemEmail;

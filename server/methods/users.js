@@ -72,7 +72,7 @@ Meteor.methods({
 
         //delete public email if it's private
         if (!userData.publicEmail) {
-          Meteor.users.update({_id:Meteor.userId()}, {
+          Meteor.users.update({ _id: Meteor.userId() }, {
             $unset: {
               'profile.publicEmail': ''
             }
@@ -86,7 +86,23 @@ Meteor.methods({
   },
 
   resendVerification(userId) {
-    Accounts.sendVerificationEmail(userId);
+    if (Meteor.userId() === userId) {
+      Accounts.sendVerificationEmail(userId);
+    }
   },
+
+  removeUser(userId) {
+    //TODO: Remove questions and answers by user
+
+    if (Roles.userIsInRole(Meteor.userId(), ADMIN)) {
+      // Remove user from any team
+      Teams.update({ members: userId }, { $pull: { members: userId } });
+
+      // Remove the user
+      Meteor.users.remove({ _id: userId });
+    } else
+      throw new Meteor.Error(401, "Can't perform this action");
+
+  }
 
 });

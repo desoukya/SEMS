@@ -1,10 +1,10 @@
 // ES6
 
 Template.profileEdit.onRendered(function() {
-  // $('#profile-picture-wrapper').dimmer({
-  //   on: 'hover',
-  //   opacity: 0.7,
-  // });
+  $('#profile-picture-wrapper').dimmer({
+    on: 'hover',
+    opacity: 0.7,
+  });
 
   $('.ui.form').form({
     fields: {
@@ -65,33 +65,34 @@ Template.profileEdit.helpers({
 Template.profileEdit.events({
   'change #upload-profile-picture': function(event, template) {
     // Get the current image id
-    // var oldImage = Images.findOne(Meteor.user().profile.image);
-    //
-    //
-    // FS.Utility.eachFile(event, function(file) {
-    //   Images.insert(file, function(err, fileObj) {
-    //     if (err) {
-    //       // TODO: handle error
-    //       console.log(err);
-    //     } else {
-    //       // handle success depending what you need to do
-    //       var userId = Meteor.userId();
-    //       var imagesURL = {
-    //         "profile.image": "" + fileObj._id
-    //       };
-    //       Meteor.users.update(userId, {
-    //         $set: imagesURL
-    //       });
-    //
-    //       if (oldImage) {
-    //         // Now delete the old picture
-    //         Images.remove({
-    //           _id: oldImage._id
-    //         });
-    //       }
-    //     }
-    //   });
-    // });
+    var oldImage = Images.findOne(Meteor.user().profile.image);
+
+
+    FS.Utility.eachFile(event, function(file) {
+      Images.insert(file, function(err, fileObj) {
+        if (err) {
+          sAlert.error(err.reason);
+        } else {
+          // handle success depending what you need to do
+          var userId = Meteor.userId();
+
+          var imagesURL = {
+            "profile.image": "" + fileObj._id
+          };
+
+          Meteor.users.update(userId, {
+            $set: imagesURL
+          });
+
+          if (oldImage) {
+            // Now delete the old picture
+            Images.remove({
+              _id: oldImage._id
+            });
+          }
+        }
+      });
+    });
   },
 
   'click #upload-dimmer': function(event, template) {

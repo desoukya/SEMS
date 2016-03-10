@@ -4,17 +4,17 @@
 <template name="editableTeamMember">
   <div class="item">
 
-    {{#unless isInRole 'scrum-master'}}
+    {{#unless isScrum}}
       <div class="right floated content">
         <i id="delete-icon" class="action-icon large trash link icon"></i>
       </div>
     {{/unless}}
 
-    <img class="ui avatar image" src={{profilePicture}}>
+    <img class="ui avatar image" src={{profilePicture.url}}>
 
     <div class="content">
       <a class="header" href="{{pathFor 'user.profile' _id=_id}}">{{fullName}}</a>
-      <div class="description">{{tutorialGroup}}</div>
+      <div class="description">{{profile.tutorialGroup}}</div>
     </div>
   </div>
 </template>
@@ -35,7 +35,8 @@
 
       <div class="row">
         <a href="{{pathFor 'team.about' _id=_id}}" class="ui labeled icon blue button">
-          <i class="info icon"></i> Team info
+          <i class="info icon"></i>
+          Team info
         </a>
       </div>
 

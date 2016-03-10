@@ -103,9 +103,17 @@ Template.team.onRendered(function() {
 
 //--------------------------------------------------------------
 
+Template.editableTeamMember.helpers({
+  isScrum() {
+    return Roles.userIsInRole(this._id, SCRUM);
+  },
+
+})
+
 Template.editableTeamMember.events({
   'click #delete-icon': function(event, template) {
     var self = this;
-    Meteor.call('removeFromAllTeams', self._id);
+    var team = this.team();
+    Meteor.call('removeFromTeam', self._id, team._id);
   },
 });
