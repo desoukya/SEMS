@@ -62,3 +62,7 @@ Meteor.publish('teams', function() {
 Meteor.publish('companies', function() {
   return Companies.find({});
 });
+
+Meteor.publish('announcements', function() {
+  return Announcements.find({});
+});
