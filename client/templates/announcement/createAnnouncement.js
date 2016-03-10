@@ -5,6 +5,39 @@ Template.createAnnouncement.helpers({
 
 });
 Template.createAnnouncement.onRendered(function() {
+  $(document)
+    .ready(function() {
+      $('.ui.form')
+        .form({
+          inline: true,
+          fields: {
+            name: {
+              identifier: 'title',
+              rules: [{
+                type: 'minLength[6]',
+                prompt: 'title must be at least 6 characters '
+              }]
+            },
+
+            description: {
+              identifier: 'description',
+              rules: [{
+                type: 'empty',
+                prompt: 'Please add a description'
+              }]
+            },
+
+            companies: {
+              identifier: 'companies',
+              rules: [{
+                type: 'minCount[1]',
+                prompt: 'Please enter at leaset one team'
+              }]
+            },
+
+          }
+        });
+    });
   $('.ui.dropdown').dropdown();
 });
 
@@ -19,12 +52,12 @@ Template.createAnnouncement.events({
     });
     var announcement = {
       title: title,
-		  ownerId: Meteor.userId(),
-		  description: description,
-		  teams: companies,
-		  createdAt: new Date()
-		};
-		console.log(announcement);
+      ownerId: Meteor.userId(),
+      description: description,
+      teams: companies,
+      createdAt: new Date()
+    };
+    console.log(announcement);
     Announcements.insert(announcement);
 
   },
