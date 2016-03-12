@@ -69,4 +69,13 @@ Template.createAnnouncement.events({
     });
 
   },
+
+  'change #global': function(event) {
+    if (event.currentTarget.checked)
+      console.log('isGlobal');
+    else
+     console.log('isTeamSpecific');
+
+  },
+
 })

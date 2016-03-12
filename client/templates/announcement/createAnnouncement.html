@@ -12,7 +12,7 @@
         <div class="ui stacked segment">
 
           <!-- Announcement Title -->
-          <div class="field">
+          <div class="required field">
             <label>Title</label>
             <div class="ui left icon input">
               <i class="user icon"></i>
@@ -29,17 +29,24 @@
           <!-- /Announcement Description -->
 
           <!-- Company Selection -->
-          <div class="field">
-            <label>Companies</label>
-            <div class="ui multiple search selection dropdown">
-              <input type="hidden" name="companies">
-              <div class="default text">Select Companies</div>
-              <i class="dropdown icon"></i>
+          <div class="two fields">
+            <div class="field">
+              <div class="ui multiple search selection dropdown">
+                <input type="hidden" name="companies">
+                <div class="default text">Select Companies</div>
+                <i class="dropdown icon"></i>
 
-              <div class="menu">
-                {{#each teams}}
-                  <div class="item" data-value="{{_id}}">{{companyName}}</div>
-                {{/each}}
+                <div class="menu">
+                  {{#each teams}}
+                    <div class="item" data-value="{{_id}}">{{companyName}}</div>
+                  {{/each}}
+                </div>
+              </div>
+            </div>
+            <div class="required field">
+              <div class="ui toggle checkbox">
+                <input id ="global" name="global" type="checkbox">
+                <label>Global</label>
               </div>
             </div>
           </div>
