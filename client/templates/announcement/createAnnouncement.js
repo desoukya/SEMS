@@ -27,18 +27,19 @@ Template.createAnnouncement.onRendered(function() {
               }]
             },
 
-            companies: {
+            /*companies: {
               identifier: 'companies',
               rules: [{
                 type: 'minCount[1]',
                 prompt: 'Please enter at leaset one team'
               }]
-            },
+            },*/
 
           }
         });
     });
   $('.ui.dropdown').dropdown();
+  $('.ui.checkbox').checkbox();
 });
 
 Template.createAnnouncement.events({
@@ -50,13 +51,16 @@ Template.createAnnouncement.events({
     var companies = event.target.companies.value.split(',').filter(function(company) {
       return company.length > 0;
     });
+    var global = $('#global').prop('checked');
     var announcement = {
       title: title,
       ownerId: Meteor.userId(),
       description: description,
+      global: global,
       teams: companies,
       createdAt: new Date()
     };
+
     Meteor.call('createAnnouncement', announcement, function(err, teamId) {
       if (err) {
         $('.ui.form').form('add errors', {
@@ -65,16 +69,20 @@ Template.createAnnouncement.events({
       } else {
         sAlert.success('Your Announcement is announced successfully !');
         $('.ui.form').form('reset');
+        $('.selection.dropdown').removeClass('disabled')
       }
     });
 
   },
 
   'change #global': function(event) {
-    if (event.currentTarget.checked)
-      console.log('isGlobal');
-    else
-     console.log('isTeamSpecific');
+    if (event.currentTarget.checked){
+      $('.selection.dropdown').dropdown('clear');
+      $('.selection.dropdown').addClass('disabled');
+    }
+    else{
+    $('.selection.dropdown').removeClass('disabled');
+    }
 
   },
 
