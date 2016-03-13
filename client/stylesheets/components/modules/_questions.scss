@@ -11,6 +11,10 @@
   margin-bottom: 30px;
 }
 
+.answer.body {
+  @extend .question.body;
+}
+
 .item >.vote {
   width: 50px;
 }
@@ -22,6 +26,6 @@
   text-align: center;
 }
 
-#question-wrapper {
+.padded.segment {
   padding: 30px;
 }
