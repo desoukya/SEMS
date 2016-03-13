@@ -70,3 +70,7 @@ Meteor.publish('announcements', function() {
 Meteor.publish('milestones', function() {
   return Announcements.find({milestone:true});
 });
+  
+Meteor.publish('questions', function() {
+  return Questions.find({});
+});

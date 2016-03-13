@@ -18,9 +18,13 @@
 
       <!-- Team Button-->
       {{#if currentUser}}
-        <a class="item {{isActive 'team'}}" href="{{pathFor 'team.browse'}}">Teams</a>
+        <a class="item {{isActive 'team.browse'}}" href="{{pathFor 'team.browse'}}">Teams</a>
       {{/if}}
       <!-- /Team Button-->
+
+      <!-- Schdeule Button-->
+      <a class="item {{isActive 'discussions'}}" href="{{pathFor 'discussions'}}">QA</a>
+      <!-- /Schdeule Button-->
 
       <div class="right menu">
         {{#if currentUser}}
