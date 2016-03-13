@@ -22,14 +22,11 @@
 
       <!-- Meta | Owner and Date -->
       <div class="meta">
-        <span class="owner name">
-          Answered by :
-          <a href="{{pathFor 'user.profile' _id=owner._id}}">{{owner.fullName}}</a>
-        </span>
-
-        <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
-          <i class="wait icon"></i>
+        <span class="small meta">
+          Answered
           {{formatDateHumanized createdAt}}
+          by
+          <a href="{{pathFor 'user.profile' _id=owner._id}}">{{owner.fullName}}</a>
         </span>
       </div>
       <!-- /Meta | Owner and Date -->

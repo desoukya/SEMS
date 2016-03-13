@@ -1,5 +1,5 @@
 Template.questionDisplay.onRendered(function() {
-  $('.date.meta').popup({ inline: true });
+  $('.small.popup.meta').popup({ inline: true });
 
   $('pre code').each(function(i, block) {
     hljs.highlightBlock(block);

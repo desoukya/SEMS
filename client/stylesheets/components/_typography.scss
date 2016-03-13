@@ -51,9 +51,21 @@ blockquote {
 
 }
 
-p > code, p > strong > code {
+p > code,
+p > strong > code {
   background: darken($light-grey, 4%);
   color: $red;
   padding-left: 3px;
   padding-right: 3px;
+}
+
+.small.meta {
+  font-size: 12px;
+  color: $grey;
+  display: inline;
+}
+
+.padded.meta {
+  @extend .small.meta;
+  padding-left: 15px;
 }

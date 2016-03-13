@@ -12,6 +12,9 @@ Template.createAnswerForm.events({
     Meteor.call('createAnswer', answer, function(err) {
       if (err)
         sAlert.error(err.reason);
+      else
+        event.target.answer.value = "";
+
     });
 
   },
