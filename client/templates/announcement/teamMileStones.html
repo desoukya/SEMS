@@ -13,7 +13,10 @@
     <div class="content">
       <a href="{{pathFor 'question.page' _id= _id}}" class="header">{{title}}</a>
       <div class="meta">
-        an hour ago
+        <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
+          <i class="wait icon"></i>
+          {{formatDateHumanized createdAt}}
+        </span>
       </div>
       <div class="description">
         {{#markdown}}{{description}}{{/markdown}}

@@ -7,6 +7,11 @@ Template.registerHelper('formatDate', function(date) {
   return moment(date, 'ddd, MMM DD YYYY HH:mm:ss ZZ').format('MM-DD-YYYY');
 });
 
+Template.registerHelper('detailedDate', function(date) {
+  //need to confirm date format
+  return moment(this.createdAt, 'ddd, MMM DD YYYY HH:mm:ss ZZ').format('LLL');
+});
+
 Template.registerHelper('formatDateHumanized', function(date) {
   return moment(date, 'ddd, MMM DD YYYY HH:mm:ss ZZ').fromNow();
 });
