@@ -11,6 +11,14 @@
     <div class="content">
       <div class="header">{{title}}</div>
       <div class="meta">
+        <span>
+        {{#if global}}
+          <a class="ui green tiny label">Global</a>
+          
+        {{else}}
+          <a class="ui orange tiny label">Team-Specific</a>
+        {{/if}}
+        </span>
         <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
           <i class="wait icon"></i>
           {{formatDateHumanized createdAt}}

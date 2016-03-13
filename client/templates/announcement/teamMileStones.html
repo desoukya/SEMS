@@ -2,8 +2,8 @@
   <div class="ui segment">
     <div class="ui divided items">
       {{#each milestones}}
-      {{> milestone}}
-    {{/each}}
+        {{> milestone}}
+      {{/each}}
     </div>
   </div>
 </template>
@@ -13,6 +13,14 @@
     <div class="content">
       <a href="{{pathFor 'question.page' _id= _id}}" class="header">{{title}}</a>
       <div class="meta">
+        <span>
+        {{#if global}}
+          <a class="ui green label">Global</a>
+          
+        {{else}}
+          <a class="ui orange label">Team-Specific</a>
+        {{/if}}
+        </span>
         <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
           <i class="wait icon"></i>
           {{formatDateHumanized createdAt}}
