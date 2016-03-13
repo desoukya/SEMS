@@ -1,0 +1,23 @@
+<template name="teamMilestones">
+  <div class="ui segment">
+    <div class="ui divided items">
+      {{#each milestones}}
+      {{> milestone}}
+    {{/each}}
+    </div>
+  </div>
+</template>
+
+<template name="milestone">
+  <div class="item">
+    <div class="content">
+      <a href="{{pathFor 'question.page' _id= _id}}" class="header">{{title}}</a>
+      <div class="meta">
+        an hour ago
+      </div>
+      <div class="description">
+        {{description}}
+      </div>
+    </div>
+  </div>
+</template>

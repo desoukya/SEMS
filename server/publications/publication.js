@@ -59,10 +59,14 @@ Meteor.publish('teams', function() {
   return Teams.find({});
 });
 
-Meteor.publish('companies', function() {
+Meteor.publish('companies', function() { 
   return Companies.find({});
 });
 
 Meteor.publish('announcements', function() {
-  return Announcements.find({});
+  return Announcements.find({milestone:{$ne:true}});
+});
+
+Meteor.publish('milestones', function() {
+  return Announcements.find({milestone:true});
 });
