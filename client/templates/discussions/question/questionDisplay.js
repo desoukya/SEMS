@@ -1,4 +1,4 @@
-Template.questionDetailed.onRendered(function() {
+Template.questionDisplay.onRendered(function() {
   $('.date.meta').popup({ inline: true });
 
   $('pre code').each(function(i, block) {
@@ -7,7 +7,7 @@ Template.questionDetailed.onRendered(function() {
 
 });
 
-Template.questionDetailed.helpers({
+Template.questionDisplay.helpers({
   detailedDate() {
     return moment(this.createdAt, 'ddd, MMM DD YYYY HH:mm:ss ZZ').format('LLL');
   },
@@ -18,7 +18,7 @@ Template.questionDetailed.helpers({
 
 });
 
-Template.questionDetailed.events({
+Template.questionDisplay.events({
   'click #delete-icon': function(event, template) {
     event.preventDefault();
     let self = this;

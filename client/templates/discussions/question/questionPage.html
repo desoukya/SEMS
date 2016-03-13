@@ -1,7 +1,15 @@
 <template name="questionPage">
   <div class="ui container grid">
     <div class="twelve wide centered column">
-      {{> questionDetailed}}
+
+      {{> questionDisplay}}
+
+      {{#each answers}}
+        {{> answer}}
+      {{/each}}
+
+      {{> createAnswerForm}}
+
     </div>
   </div>
 </template>
