@@ -25,7 +25,7 @@ Template.answer.events({
     let self = this;
 
     $('#delete-answer-modal').modal({
-      closable: false,
+      closable: true,
       onDeny() {
 
       },

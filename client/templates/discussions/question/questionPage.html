@@ -1,12 +1,18 @@
 <template name="questionPage">
   <div class="ui container grid">
     <div class="twelve wide centered column">
+      <!-- Modals -->
+      {{> deleteAnswerConfirmationModal}}
+      {{> deleteQuestionConfirmationModal}}
+      <!-- /Modals -->
 
       {{> questionDisplay}}
 
-      {{#each answersObjects}}
-        {{> answer}}
-      {{/each}}
+      {{#momentum plugin="slide-height" class="ui animated list" }}
+        {{#each answersObjects}}
+          {{> answer}}
+        {{/each}}
+      {{/momentum}}
 
       {{> createAnswerForm}}
 
