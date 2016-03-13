@@ -52,11 +52,13 @@ Template.createAnnouncement.events({
       return company.length > 0;
     });
     var global = $('#global').prop('checked');
+    var milestone = $('#milestone').prop('checked');
     var announcement = {
       title: title,
       ownerId: Meteor.userId(),
       description: description,
       global: global,
+      milestone: milestone,
       teams: companies,
       createdAt: new Date()
     };

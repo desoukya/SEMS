@@ -11,15 +11,28 @@
       <form class="ui large form ">
         <div class="ui stacked segment">
 
-          <!-- Announcement Title -->
-          <div class="required field">
-            <label>Title</label>
-            <div class="ui left icon input">
-              <i class="user icon"></i>
-              <input type="text" name="title" placeholder="announcement">
+          <div class="fields">
+
+            <!-- Announcement Title -->
+            <div class="twelve wide required field">
+              <label>Title</label>
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input type="text" name="title" placeholder="announcement">
+              </div>
             </div>
+            <!-- /Announcement Title -->
+
+            <!-- MilestoneCheckBox -->
+            <div class="four wide field">
+              <label>MileStone</label>
+              <div class="ui toggle checkbox">
+                <input type="checkbox" id="milestone" name="milestone" abindex="0" class="hidden">
+              </div>
+            </div>
+            <!-- /MilestoneCheckBox -->
+
           </div>
-          <!-- /Announcement Title -->
 
           <!-- Announcement Description -->
           <div class="field">
@@ -43,7 +56,7 @@
                 </div>
               </div>
             </div>
-            <div class="required field">
+            <div class="field">
               <div class="ui toggle checkbox">
                 <input type="checkbox" id="global" name="global" abindex="0" class="hidden">
                 <label>Global</label>
