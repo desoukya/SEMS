@@ -35,7 +35,7 @@ Template.discussions.onRendered(function() {
     }
   });
 
-  $('.ui.dropdown').dropdown('clear', { allowAdditions: true });
+  $('.ui.dropdown').dropdown({ allowAdditions: true });
 
 });
 

@@ -24,7 +24,6 @@ Template.questionDisplay.events({
     let self = this;
 
     $('#delete-question-modal').modal({
-      closable: false,
       onDeny() {
 
       },
@@ -44,6 +43,20 @@ Template.questionDisplay.events({
     }).modal('show');
 
   },
+
+  'click #edit-icon': function(event, template) {
+    event.preventDefault();
+    let self = this;
+
+    $('#question-edit-modal').modal({
+      onDeny() {
+
+      },
+      onApprove() {
+
+      }
+    }).modal('show');
+  }
 
 
 });
