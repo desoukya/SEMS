@@ -38,6 +38,7 @@ cfs:tempstore@0.1.5
 cfs:upload-http@0.0.20
 cfs:worker@0.1.4
 check@1.1.0
+coffeescript@1.0.11
 dburles:collection-helpers@1.0.4
 dburles:mongo-collection-instances@0.3.4
 ddp@1.2.2
@@ -79,6 +80,7 @@ livedata@1.0.15
 localstorage@1.0.5
 logging@1.0.8
 markdown@1.0.5
+matb33:collection-hooks@0.7.15
 mdg:validation-error@0.2.0
 meteor@1.1.10
 meteor-base@1.0.1
@@ -122,6 +124,7 @@ srp@1.0.4
 standard-minifiers@1.0.2
 templating@1.1.5
 templating-tools@1.0.0
+todda00:friendly-slugs@0.3.6
 tracker@1.0.9
 ui@1.0.8
 underscore@1.0.4

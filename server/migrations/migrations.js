@@ -1,4 +1,20 @@
 Migrations.add({
+  version: 3,
+  name: 'add team slugs',
+  up: function() {
+
+  teams = Teams.find({ slug: {$exists: false}})
+  teams.forEach(function(team) {
+    Teams.update({_id:team._id},{$set:{}},{validate: false})
+  });
+    
+  },
+  down: function() {
+    Teams.update({},{$unset:{friendlySlugs:1,slug:1}},{multi:true});
+  }
+});
+
+Migrations.add({
   version: 2,
   name: 'denormalize company into team',
   up: function() {
@@ -59,5 +75,5 @@ Migrations.add({
 });
 //TODO: should be moved later
 Meteor.startup(function() {
-  Migrations.migrateTo('2');
+  Migrations.migrateTo('3');
 });
