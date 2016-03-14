@@ -4,7 +4,7 @@ Template.createTeam.events({
 
     var name = event.target.teamName.value;
     var githubRepo = event.target.repoLink.value;
-    var company = event.target.company.value;
+    var company = Companies.findOne({_id:event.target.company.value});
 
     var team = {
       name: name,
