@@ -69,14 +69,12 @@ Template.discussions.events({
 
     // clear selected values
     $('.ui.dropdown').dropdown('clear');
+
+    animateForm();
   },
 
   'click #toggle-question-form-button': function(event, template) {
-    // Animating Question form on toggle
-    $('#add-question-form').transition({
-      duration: 500,
-      animation: 'fade down'
-    });
+    animateForm();
   },
 
 
@@ -98,3 +96,14 @@ Template.discussions.helpers({
   },
 
 });
+
+
+
+
+function animateForm() {
+  // Animating Question form on toggle
+  $('#add-question-form').transition({
+    duration: 500,
+    animation: 'fade down'
+  });
+}
