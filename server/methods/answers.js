@@ -24,6 +24,7 @@ Meteor.methods({
       throw new Meteor.Error(404, "The answer you are trying to delete is not found");
 
     if (userId === answer.ownerId || Roles.userIsInRole(userId, [ADMIN, LECTURER, TA])) {
+      Questions.update({ answers: answerId }, { $pull: { answers: answerId } })
       Answers.remove({ _id: answerId });
     } else
       throw new Meteor.Error(401, "You are not authorized to delete this answer");
