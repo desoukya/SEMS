@@ -1,9 +1,33 @@
 Migrations.add({
+  version: 2,
+  name: 'denormalize company into team',
+  up: function() {
+    Teams.find().fetch().forEach(function(team) {
+    console.log('------------- Migrating team : ' + team.name+ '---------------');
+      var newCompany = Companies.findOne({_id:team.company});
+      Teams.update({_id:team._id},{$set:{company :newCompany}},{validate: false});
+      console.log(team.company + " -> " + (JSON.stringify(newCompany)) );
+    console.log('-----------------------------------------------');
+    });
+
+  },
+  down: function() {
+    Teams.find().fetch().forEach(function(team) {
+    console.log('------------- Migrating team : ' + team.name+ '---------------');
+      var newCompany = team.company._id;
+      Teams.update({_id:team._id},{$set:{company :newCompany}},{validate: false});
+      console.log((JSON.stringify(team.company)) + " -> " +  team.company._id);
+    console.log('-----------------------------------------------');
+    });
+  }
+});
+
+Migrations.add({
   version: 1,
   name: 'change createdAt field to count milli seconds',
   up: function() {
 
-    var collections = [Meteor.users, Announcements, Questions, Answers, Teams, Materials];
+    var collections = [Announcements, Questions, Answers, Teams, Materials];
     collections.forEach(function(collection) {
       console.log('Migrating collection ' + collection._name);
 
@@ -13,12 +37,12 @@ Migrations.add({
         collection.update({_id:document._id},{$set:{createdAt:newDate}},{validate: false});
         console.log(oldDate + " -> " + newDate);
       });
-      
+
       console.log('-----------------------------------------------');
     });
   },
   down: function() {
-    var collections = [Meteor.users, Announcements, Questions, Answers, Teams, Materials];
+    var collections = [Announcements, Questions, Answers, Teams, Materials];
     collections.forEach(function(collection) {
       console.log('Migrating collection ' + collection._name);
 
@@ -35,5 +59,5 @@ Migrations.add({
 });
 //TODO: should be moved later
 Meteor.startup(function() {
-  Migrations.migrateTo('0');
+  Migrations.migrateTo('2');
 });

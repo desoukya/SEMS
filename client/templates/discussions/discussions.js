@@ -57,7 +57,7 @@ Template.discussions.events({
       tags: tags,
       ownerId: Meteor.userId(),
       answers: [],
-      createdAt: new Date() // current time
+      createdAt: Date.now() // current time
     }
 
     // Insert a task into the collection

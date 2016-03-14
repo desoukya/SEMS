@@ -11,7 +11,7 @@ Template.createTeam.events({
       company: company,
       repo: githubRepo,
       members: [Meteor.userId()],
-      createdAt: new Date()
+      createdAt: Date.now()
     };
 
     Meteor.call('createTeam', team, function(err, teamId) {

@@ -60,7 +60,7 @@ Template.createAnnouncement.events({
       global: global,
       milestone: milestone,
       teams: companies,
-      createdAt: new Date()
+      createdAt: Date.now()
     };
 
     Meteor.call('createAnnouncement', announcement, function(err, teamId) {
