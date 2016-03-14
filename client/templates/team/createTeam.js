@@ -46,7 +46,7 @@ Template.createTeam.helpers({
     var takenCompanies = [];
 
     Teams.find().fetch().forEach(function(team) {
-      takenCompanies.push(team.company);
+      takenCompanies.push(team.company._id);
     });
 
     takenCompanies = [].concat.apply([], takenCompanies);
