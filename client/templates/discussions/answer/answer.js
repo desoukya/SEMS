@@ -68,6 +68,7 @@ Template.answer.events({
 
           Meteor.call('updateAnswer', answer, function(err) {
             if (err)
+
               sAlert.error(err.reason);
           });
 

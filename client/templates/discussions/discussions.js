@@ -40,7 +40,7 @@ Template.discussions.onRendered(function() {
 });
 
 Template.discussions.events({
-  "submit .new-question": function(event) {
+  'submit .new-question': function(event) {
     // Prevent default browser form submit
     event.preventDefault();
 
@@ -70,6 +70,16 @@ Template.discussions.events({
     // clear selected values
     $('.ui.dropdown').dropdown('clear');
   },
+
+  'click #toggle-question-form-button': function(event, template) {
+    // Animating Question form on toggle
+    $('#add-question-form').transition({
+      duration: 500,
+      animation: 'fade down'
+    });
+  },
+
+
 
 });
 
