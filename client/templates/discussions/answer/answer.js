@@ -44,4 +44,47 @@ Template.answer.events({
 
   },
 
+  'click #edit-icon': function(event, template) {
+    event.preventDefault();
+    let self = this;
+
+    // Setting id in session to grab data context in modal
+    Session.set('answerId', this._id);
+
+    // The worst practice ever ... :|
+    Meteor.defer(function() {
+      $('#answer-edit-modal').modal({
+        closable: true,
+        onDeny() {
+
+        },
+
+        onApprove() {
+
+          let answerId = self._id;
+          let description = $("textarea[name=answer_description]").val();
+
+          let answer = { answerId, description };
+
+          Meteor.call('updateAnswer', answer, function(err) {
+            if (err)
+              sAlert.error(err.reason);
+          });
+
+
+        },
+
+        onHide() {
+          // Clear the session on modal hide
+          Session.set('answerId', undefined);
+        }
+      }).modal('show');
+    });
+
+  },
+
+
+
+
+
 });

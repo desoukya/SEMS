@@ -1,0 +1,34 @@
+<template name="answerEditModal">
+
+  {{#with answer}}
+    <div class="ui modal" id="answer-edit-modal">
+
+      <i class="close icon"></i>
+
+      <div class="header">
+        Answer Editing
+      </div>
+
+      <div class="content">
+        <!-- Answer Edit form -->
+        <div class="ui form" id="question-edit-form">
+
+          <!-- Description Field -->
+          <div class="field">
+            <label>Description</label>
+            <textarea name="answer_description" value="{{description}}"></textarea>
+          </div>
+          <!-- /Description Field -->
+
+        </div>
+        <!-- /Answer Edit form -->
+
+      </div>
+
+      <div class="actions">
+        <div class="ui positive button">Update Answer</div>
+      </div>
+    </div>
+  {{/with}}
+
+</template>

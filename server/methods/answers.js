@@ -29,7 +29,23 @@ Meteor.methods({
     } else
       throw new Meteor.Error(401, "You are not authorized to delete this answer");
 
+  },
+
+  updateAnswer(answerData) {
+    let { answerId, description } = answerData;
+    let answer = Answers.findOne({ _id: answerId });
+    let userId = Meteor.userId();
+
+    if (!answer)
+      throw new Meteor.Error(404, "The answer you are trying to edit is not found");
+
+    if (userId === answer.ownerId || Roles.userIsInRole(userId, [ADMIN, LECTURER, TA, JTA])) {
+      Answers.update({ _id: answerId }, { $set: { description: description } });
+    } else
+      throw new Meteor.Error(401, "You are not authorized to edit this answer");
+
 
   },
+
 
 });
