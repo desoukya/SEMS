@@ -54,6 +54,22 @@ Template.questionDisplay.events({
       },
       onApprove() {
 
+        let title = $('input[name=question_title]').val();
+        let description = $('textarea[name=question_description]').val();
+        let tags = $('#tags').val().split(',').filter(function(tag) {
+          return tag.length > 0;
+        });
+        let questionId = self._id;
+
+        let question = { questionId, title, description, tags };
+
+        Meteor.call('updateQuestion', question, function(err) {
+          if (err)
+            sAlert.error(err.reason);
+        });
+
+
+
       }
     }).modal('show');
   }
