@@ -3,19 +3,33 @@ Migrations.add({
   name: 'change createdAt field to count milli seconds',
   up: function() {
 
-    Questions.find().fetch().forEach(function(question) {
-      var oldDate = question.createdAt;
-      var newDate = Date.parse(oldDate);
-      Questions.update({_id:question._id},{$set:{createdAt:newDate}},{validate: false});
-      console.log(oldDate + " -> " + newDate);
+    var collections = [Meteor.users, Announcements, Questions, Answers, Teams, Materials];
+    collections.forEach(function(collection) {
+      console.log('Migrating collection ' + collection._name);
+
+      collection.find().fetch().forEach(function(document) {
+        var oldDate = document.createdAt;
+        var newDate = Date.parse(oldDate);
+        collection.update({_id:document._id},{$set:{createdAt:newDate}},{validate: false});
+        console.log(oldDate + " -> " + newDate);
+      });
+      
+      console.log('-----------------------------------------------');
     });
   },
   down: function() {
-  	Questions.find().fetch().forEach(function(question) {
-      var oldDate = question.createdAt;
-      var newDate = moment(parseInt(oldDate)).toString();
-      Questions.update({_id:question._id},{$set:{createdAt:newDate}},{validate: false});
-      console.log(oldDate + " -> " + newDate);
+    var collections = [Meteor.users, Announcements, Questions, Answers, Teams, Materials];
+    collections.forEach(function(collection) {
+      console.log('Migrating collection ' + collection._name);
+
+      collection.find().fetch().forEach(function(document) {
+        var oldDate = document.createdAt;
+        var newDate = moment(parseInt(oldDate)).toString();
+        collection.update({_id:document._id},{$set:{createdAt:newDate}},{validate: false});
+        console.log(oldDate + " -> " + newDate);
+      });
+
+      console.log('-----------------------------------------------');
     });
   }
 });
