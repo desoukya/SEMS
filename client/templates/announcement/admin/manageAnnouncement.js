@@ -10,9 +10,8 @@ Template.manageAnnouncement.onRendered(function() {
   //monitor when the selected material is changed
   Tracker.autorun(function() {
     var announcementId = Session.get('selectedAnnouncementId');
-    if (announcementId === '') {
+    if (announcementId !== '') {
 
-    } else {
       if (!!announcementId) {
         
         $('#announcement-edit-modal').modal({
