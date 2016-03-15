@@ -14,7 +14,7 @@ Template.manageAnnouncement.onRendered(function() {
 
     } else {
       if (!!announcementId) {
-        //show new Material form
+        
         $('#announcement-edit-modal').modal({
           onHidden: function() {
             Session.set('selectedAnnouncementId', '');
