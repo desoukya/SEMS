@@ -1,6 +1,14 @@
 Template.editAnnouncement.helpers({
-  teams() {
+  availableTeams() {
+    console.log(Teams.find().count());
     return Teams.find();
+  },
+  currentAnnouncementDropdownFormatted(teams) {
+    var formattedTeams = teams.reduce(function(string, teamId) {
+      return string += teamId + ','
+    }, '').slice(0, -1);
+    console.log(formattedTeams);
+    return formattedTeams;
   },
   currentAnnouncement() {
     console.log(Announcements.findOne({
@@ -35,15 +43,6 @@ Template.editAnnouncement.onRendered(function() {
                 prompt: 'Please add a description'
               }]
             },
-
-            /*companies: {
-              identifier: 'companies',
-              rules: [{
-                type: 'minCount[1]',
-                prompt: 'Please enter at leaset one team'
-              }]
-            },*/
-
           }
         });
     });
@@ -72,7 +71,10 @@ Template.editAnnouncement.events({
       teams: companies,
       createdAt: Date.now()
     };
-    var data = {_id: Session.get('selectedAnnouncementId'),announcement:announcement};
+    var data = {
+      _id: Session.get('selectedAnnouncementId'),
+      announcement: announcement
+    };
     Meteor.call('updateAnnouncement', data, function(err, teamId) {
       if (err) {
         $('.ui.form').form('add errors', {
@@ -94,7 +96,7 @@ Template.editAnnouncement.events({
     if (event.currentTarget.checked) {
       $('.selection.dropdown').dropdown('clear');
       $('.selection.dropdown').addClass('disabled');
-    } else 
+    } else
       $('.selection.dropdown').removeClass('disabled');
 
   },

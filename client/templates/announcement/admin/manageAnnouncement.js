@@ -19,6 +19,10 @@ Template.manageAnnouncement.onRendered(function() {
           onHidden: function() {
             Session.set('selectedAnnouncementId', '');
           },
+          onVisible: function() {
+            $('.ui.dropdown').dropdown();
+            $('.modal').modal('refresh');
+          },
         }).modal('show');
       }
     }
