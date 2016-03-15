@@ -10,6 +10,6 @@ Migrations.add({
     
   },
   down: function() {
-    Teams.update({},{$unset:{friendlySlugs:1,slug:1}},{multi:true});
+    Teams.update({},{$unset:{friendlySlugs:1,slug:1}},{multi: true, validate: false});
   }
 });

@@ -1,3 +1,3 @@
 	Meteor.startup(function() {
-  Migrations.migrateTo('0');
+  Migrations.migrateTo('3');
 });
