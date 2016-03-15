@@ -29,4 +29,8 @@ Template.header.helpers({
     return Meteor.user().profile.firstName;
   },
 
+  notifications() {
+    return Notifications.find({ ownerId: Meteor.userId() });
+  },
+
 });

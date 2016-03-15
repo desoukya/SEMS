@@ -28,6 +28,21 @@
 
       <div class="right menu">
         {{#if currentUser}}
+
+          <!-- Notifications -->
+          <a class="ui dropdown item" href="#">
+            <i class="ui alarm icon" id="notifications-icon"></i>
+
+            <div class="menu">
+              {{#each notifications}}
+                {{> notification}}
+              {{/each}}
+              <div class="ui divider"></div>
+              <a href="#" class="item centered text">See all</a>
+            </div>
+          </a>
+          <!-- /Notifications -->
+
           <!-- right DropDownList-->
           <div class="ui simple dropdown item">
             <i class="setting icon"></i>{{username}}

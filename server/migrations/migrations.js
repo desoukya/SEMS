@@ -7,7 +7,7 @@ Migrations.add({
   teams.forEach(function(team) {
     Teams.update({_id:team._id},{$set:{}},{validate: false})
   });
-    
+
   },
   down: function() {
     Teams.update({},{$unset:{friendlySlugs:1,slug:1}},{multi:true});
