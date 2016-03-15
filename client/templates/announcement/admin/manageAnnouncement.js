@@ -1,7 +1,9 @@
 Template.manageAnnouncement.helpers({
   announcements() {
     return Announcements.find({}, {
-      'createdAt': -1
+      sort: {
+        createdAt: -1
+      }
     });
   },
 });
@@ -11,9 +13,8 @@ Template.manageAnnouncement.onRendered(function() {
   Tracker.autorun(function() {
     var announcementId = Session.get('selectedAnnouncementId');
     if (announcementId !== '') {
-
       if (!!announcementId) {
-        
+
         $('#announcement-edit-modal').modal({
           onHidden: function() {
             Session.set('selectedAnnouncementId', '');
