@@ -1,0 +1,93 @@
+<template name="manageAnnouncement">
+  <div data-class="ui centered container grid">
+
+    <div class="row">
+      <div class="six wide center aligned column">
+
+        <h2 class="ui header">
+        <div class="content">
+          Manage Announcement
+        </div>
+      </h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="ui twelve wide column">
+        <div class="ui segment">
+          <div class="ui divided items">
+            {{#each announcements}}
+              {{> editableAnnouncement}}
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- Form Modal -->
+  <div class="ui small modal" id="announcement-edit-modal">
+    <div class="ui stackable container padded grid">
+      <div class="sixteen wide centered column">
+        {{>editAnnouncement }}
+      </div>
+    </div>
+  </div>
+  <!-- /Form Modal -->
+
+  <!-- Comfirm Deletion Modal -->
+  <div class="ui material-delete tiny modal" id="delete-item-modal">
+    <i class="close icon"></i>
+    <div class="header">
+      Are you sure you want to delete this Announcement ?
+    </div>
+    <div class="actions">
+      <div class="ui black deny button">
+        No
+      </div>
+      <div class="ui positive right labeled icon button">
+        Yes, Delete It .
+        <i class="checkmark icon"></i>
+      </div>
+    </div>
+  </div>
+  <!-- /Comfirm Deletion Modal -->
+</template>
+
+<template name="editableAnnouncement">
+  <div class="item">
+    <div class="content">
+      <div class="header">
+        {{title}}
+        <span class="ui right floated tiny header icons group">
+          <i id="edit-icon" class="action-icon edit link icon"></i>
+          <i id="delete-icon" class="action-icon trash red link icon"></i>
+        </span>
+      </div>
+      <div class="meta">
+        <span>
+        {{#if milestone}}
+          <a class="ui red tiny label">MileStone</a>
+          
+        {{else}}
+          <a class="ui yellow tiny label">Announcement</a>
+        {{/if}}
+
+        {{#if global}}
+          <a class="ui green tiny label">Global</a>
+          
+        {{else}}
+          <a class="ui orange tiny label">Team-Specific</a>
+        {{/if}}
+        </span>
+        <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
+          <i class="wait icon"></i>
+          {{formatDateHumanized createdAt}}
+        </span>
+      </div>
+      <div class="description">
+        {{description}}
+      </div>
+    </div>
+  </div>
+</template>
