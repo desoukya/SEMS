@@ -10,8 +10,11 @@ Migrations.add({
       collection.find().fetch().forEach(function(document) {
         var oldDate = document.createdAt;
         var newDate = Date.parse(oldDate);
-        collection.update({_id:document._id},{$set:{createdAt:newDate}},{validate: false});
-        console.log(oldDate + " -> " + newDate);
+        if(!!parseInt(newDate)){
+          console.log(oldDate + " -> " + newDate);
+          collection.update({_id:document._id},{$set:{createdAt:newDate}},{validate: false});
+        } else
+          console.log(oldDate, "couldn't parse old Date");
       });
 
       console.log('-----------------------------------------------');
@@ -25,6 +28,12 @@ Migrations.add({
       collection.find().fetch().forEach(function(document) {
         var oldDate = document.createdAt;
         var newDate = moment(parseInt(oldDate)).toString();
+
+        if(!!parseInt(oldDate)){
+          console.log(oldDate + " -> " + newDate);
+          collection.update({_id:document._id},{$set:{createdAt:newDate}},{validate: false});
+        } else
+          console.log(oldDate, " is not in the expected format");
         collection.update({_id:document._id},{$set:{createdAt:newDate}},{validate: false});
         console.log(oldDate + " -> " + newDate);
       });
