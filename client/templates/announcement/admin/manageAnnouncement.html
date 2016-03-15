@@ -7,6 +7,7 @@
         <h2 class="ui header">
         <div class="content">
           Manage Announcement
+          <i id="add-icon" class="add square link large icon"></i>
         </div>
       </h2>
       </div>
@@ -30,6 +31,16 @@
     <div class="ui stackable container padded grid">
       <div class="sixteen wide centered column">
         {{>editAnnouncement }}
+      </div>
+    </div>
+  </div>
+  <!-- /Form Modal -->
+
+  <!-- Form Modal -->
+  <div class="ui small modal" id="announcement-create-modal">
+    <div class="ui stackable container padded grid">
+      <div class="sixteen wide centered column">
+        {{>createAnnouncement }}
       </div>
     </div>
   </div>

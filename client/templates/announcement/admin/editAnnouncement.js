@@ -1,19 +1,14 @@
 Template.editAnnouncement.helpers({
   availableTeams() {
-    console.log(Teams.find().count());
     return Teams.find();
   },
   currentAnnouncementDropdownFormatted(teams) {
     var formattedTeams = teams.reduce(function(string, teamId) {
       return string += teamId + ','
     }, '').slice(0, -1);
-    console.log(formattedTeams);
     return formattedTeams;
   },
   currentAnnouncement() {
-    console.log(Announcements.findOne({
-      _id: Session.get('selectedAnnouncementId')
-    }));
     if (!!Session.get('selectedAnnouncementId'))
       return Announcements.findOne({
         _id: Session.get('selectedAnnouncementId')

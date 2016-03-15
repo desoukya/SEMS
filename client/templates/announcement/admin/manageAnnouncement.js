@@ -46,6 +46,10 @@ Template.manageAnnouncement.events({
       }).modal('show');
   },
 
+  'click #add-icon': function() {
+    $('#announcement-create-modal').modal('show');
+  },
+
   'click #edit-icon': function() {
     Session.set('selectedAnnouncementId', this._id);
   },

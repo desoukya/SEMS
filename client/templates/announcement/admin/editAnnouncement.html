@@ -1,6 +1,6 @@
 <template name="editAnnouncement">
 
-  <h3 class="ui center aligned header"> Edit Announcement </h3>
+  <h2 class="ui center aligned header"> Edit Announcement </h2>
 
   {{#with currentAnnouncement}}
     <form class="ui form segment">
@@ -24,7 +24,7 @@
 
       <!-- Company Selection -->
       <div class="field">
-        <div class="ui multiple search selection dropdown">
+        <div class="ui multiple search selection {{#if global}}disabled{{/if}} dropdown">
           <input type="hidden" value = "{{currentAnnouncementDropdownFormatted teams}}" name="companies">
           <div class="default text">Select Companies</div>
           <i class="dropdown icon"></i>
@@ -38,7 +38,6 @@
       </div>
       <div class="two fields">
         <div class="field">
-          <label>Global</label>
           <div class="ui toggle checkbox">
             <input checked="{{global}}" type="checkbox" id="global" name="global">
             <!-- remove this empty label at your own risk .. but belive me you will regret it-->
@@ -47,7 +46,6 @@
         </div>
         <!-- MilestoneCheckBox -->
         <div class="four wide large field">
-          <label>MileStone</label>
           <div class="ui toggle checkbox">
             <input checked="{{milestone}}" type="checkbox" id="milestone" name="milestone">
             <!-- remove this empty label at your own risk .. but belive me you will regret it-->
@@ -58,7 +56,7 @@
       <!-- /MilestoneCheckBox -->
       <!-- /Company Selection -->
 
-      <input type="submit" class="ui fluid large green submit button" value="Add Announcement">
+      <input type="submit" class="ui fluid large green submit button" value="Edit Announcement">
 
     </form>
   {{/with}}
