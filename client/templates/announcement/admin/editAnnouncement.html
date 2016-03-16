@@ -1,6 +1,8 @@
 <template name="editAnnouncement">
 
-  <h2 class="ui center aligned header"> Edit Announcement </h2>
+  <h2 class="ui center aligned header">
+    Edit Announcement
+  </h2>
 
   {{#with currentAnnouncement}}
     <form class="ui form segment">
@@ -8,10 +10,7 @@
       <!-- Announcement Title -->
       <div class="field">
         <label>Title</label>
-        <div class="ui left icon input">
-          <i class="user icon"></i>
-          <input type="text" name="title" value="{{title}}" placeholder="announcement">
-        </div>
+        <input type="text" name="title" value="{{title}}" placeholder="announcement">
       </div>
       <!-- /Announcement Title -->
 
@@ -25,7 +24,7 @@
       <!-- Company Selection -->
       <div class="field">
         <div class="ui multiple search selection {{#if global}}disabled{{/if}} dropdown">
-          <input type="hidden" value = "{{currentAnnouncementDropdownFormatted teams}}" name="companies">
+          <input type="hidden" value="{{currentAnnouncementDropdownFormatted teams}}" name="companies">
           <div class="default text">Select Companies</div>
           <i class="dropdown icon"></i>
 
