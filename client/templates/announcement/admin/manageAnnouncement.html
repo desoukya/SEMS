@@ -4,12 +4,13 @@
     <div class="row">
       <div class="six wide center aligned column">
 
-        <h2 class="ui header">
-        <div class="content">
-          Manage Announcement
-          <i id="add-icon" class="add square link large icon"></i>
-        </div>
-      </h2>
+        <h2 class="ui header">Manage Announcement</h2>
+
+        <a id="add-button" class="ui blue centered button">
+          <i class="announcement icon"></i>
+          Announce
+        </a>
+
       </div>
     </div>
 
@@ -26,7 +27,8 @@
     </div>
 
   </div>
-  <!-- Form Modal -->
+
+  <!-- Edit Announcement Modal -->
   <div class="ui small modal" id="announcement-edit-modal">
     <div class="ui stackable container padded grid">
       <div class="sixteen wide centered column">
@@ -34,9 +36,9 @@
       </div>
     </div>
   </div>
-  <!-- /Form Modal -->
+  <!-- /Edit Announcement Modal -->
 
-  <!-- Form Modal -->
+  <!-- Create announcement Modal -->
   <div class="ui small modal" id="announcement-create-modal">
     <div class="ui stackable container padded grid">
       <div class="sixteen wide centered column">
@@ -44,9 +46,9 @@
       </div>
     </div>
   </div>
-  <!-- /Form Modal -->
+  <!-- /Create announcement Modal -->
 
-  <!-- Comfirm Deletion Modal -->
+  <!-- Confirm Deletion Modal -->
   <div class="ui material-delete tiny modal" id="delete-item-modal">
     <i class="close icon"></i>
     <div class="header">
@@ -62,43 +64,49 @@
       </div>
     </div>
   </div>
-  <!-- /Comfirm Deletion Modal -->
+  <!-- /Confirm Deletion Modal -->
 </template>
 
 <template name="editableAnnouncement">
   <div class="item">
     <div class="content">
-      <div class="header">
-        {{title}}
-        <span class="ui right floated tiny header icons group">
-          <i id="edit-icon" class="action-icon edit link icon"></i>
-          <i id="delete-icon" class="action-icon trash red link icon"></i>
+
+      <div class="full width header">
+        <span class="ui small header">{{title}}</span>
+
+        <span class="ui right floated icons group">
+          <i id="edit-icon" class="edit normal link icon"></i>
+          <i id="delete-icon" class="trash normal red link icon"></i>
         </span>
+
       </div>
+
       <div class="meta">
         <span>
-        {{#if milestone}}
-          <a class="ui red tiny label">MileStone</a>
-          
-        {{else}}
-          <a class="ui yellow tiny label">Announcement</a>
-        {{/if}}
+          {{#if milestone}}
+            <a class="ui red mini label">Milestone</a>
 
-        {{#if global}}
-          <a class="ui green tiny label">Global</a>
-          
-        {{else}}
-          <a class="ui orange tiny label">Team-Specific</a>
-        {{/if}}
+          {{else}}
+            <a class="ui yellow mini label">Announcement</a>
+          {{/if}}
+
+          {{#if global}}
+            <a class="ui green mini label">Global</a>
+
+          {{else}}
+            <a class="ui orange mini label">Team-Specific</a>
+          {{/if}}
         </span>
         <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
           <i class="wait icon"></i>
           {{formatDateHumanized createdAt}}
         </span>
       </div>
+
       <div class="description">
         {{description}}
       </div>
+
     </div>
   </div>
 </template>

@@ -4,17 +4,13 @@ Template.editAnnouncement.helpers({
   },
 
   currentAnnouncementDropdownFormatted(teams) {
-    var formattedTeams = teams.reduce(function(string, teamId) {
-      return string += teamId + ','
-    }, '').slice(0, -1);
+    var formattedTeams = teams.join(',');
     return formattedTeams;
   },
 
   currentAnnouncement() {
     if (!!Session.get('selectedAnnouncementId'))
-      return Announcements.findOne({
-        _id: Session.get('selectedAnnouncementId')
-      });
+      return Announcements.findOne({ _id: Session.get('selectedAnnouncementId') });
   },
 
 });
@@ -30,7 +26,7 @@ Template.editAnnouncement.onRendered(function() {
               identifier: 'title',
               rules: [{
                 type: 'minLength[6]',
-                prompt: 'title must be at least 6 characters '
+                prompt: 'Title must be at least 6 characters '
               }]
             },
 
@@ -58,13 +54,13 @@ Template.editAnnouncement.events({
     var companies = event.target.companies.value.split(',').filter(function(company) {
       return company.length > 0;
     });
-    var global = $('#global').prop('checked');
+    var globalToggle = $('#global').prop('checked');
     var milestone = $('#milestone').prop('checked');
 
     var announcement = {
       title: title,
       description: description,
-      global: global,
+      global: globalToggle,
       milestone: milestone,
       teams: companies,
     };
@@ -85,7 +81,7 @@ Template.editAnnouncement.events({
         $('.selection.dropdown').removeClass('disabled');
         setTimeout(function() {
           $('#announcement-edit-modal').modal('hide');
-        }, 1000);
+        }, 750);
       }
     });
 

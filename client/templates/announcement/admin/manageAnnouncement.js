@@ -48,7 +48,8 @@ Template.manageAnnouncement.events({
       }).modal('show');
   },
 
-  'click #add-icon': function() {
+  'click #add-button': function(event) {
+    event.preventDefault()
     $('#announcement-create-modal').modal('show');
   },
 

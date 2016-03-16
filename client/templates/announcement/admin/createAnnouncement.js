@@ -66,7 +66,8 @@ Template.createAnnouncement.events({
       } else {
         sAlert.success('Your Announcement is published successfully !');
         $('.ui.form').form('reset');
-        $('.selection.dropdown').removeClass('disabled')
+        $('.selection.dropdown').removeClass('disabled');
+        $('#announcement-create-modal').modal('hide');
       }
     });
 
