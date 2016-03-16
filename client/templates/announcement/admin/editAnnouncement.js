@@ -2,12 +2,14 @@ Template.editAnnouncement.helpers({
   availableTeams() {
     return Teams.find();
   },
+
   currentAnnouncementDropdownFormatted(teams) {
     var formattedTeams = teams.reduce(function(string, teamId) {
       return string += teamId + ','
     }, '').slice(0, -1);
     return formattedTeams;
   },
+
   currentAnnouncement() {
     if (!!Session.get('selectedAnnouncementId'))
       return Announcements.findOne({
@@ -16,6 +18,7 @@ Template.editAnnouncement.helpers({
   },
 
 });
+
 Template.editAnnouncement.onRendered(function() {
   $(document)
     .ready(function() {
@@ -41,6 +44,7 @@ Template.editAnnouncement.onRendered(function() {
           }
         });
     });
+
   $('.ui.dropdown').dropdown();
   $('.ui.checkbox').checkbox();
 });
@@ -59,18 +63,18 @@ Template.editAnnouncement.events({
 
     var announcement = {
       title: title,
-      ownerId: Meteor.userId(),
       description: description,
       global: global,
       milestone: milestone,
       teams: companies,
-      createdAt: Date.now()
     };
+
     var data = {
       _id: Session.get('selectedAnnouncementId'),
       announcement: announcement
     };
-    Meteor.call('updateAnnouncement', data, function(err, teamId) {
+
+    Meteor.call('updateAnnouncement', data, function(err, announcementCount) {
       if (err) {
         $('.ui.form').form('add errors', {
           error: err.reason

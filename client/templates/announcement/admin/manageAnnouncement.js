@@ -7,9 +7,10 @@ Template.manageAnnouncement.helpers({
     });
   },
 });
+
 Template.manageAnnouncement.onRendered(function() {
 
-  //monitor when the selected material is changed
+  // Monitor when the announcement Id in session changes
   Tracker.autorun(function() {
     var announcementId = Session.get('selectedAnnouncementId');
     if (announcementId !== '') {
@@ -30,6 +31,7 @@ Template.manageAnnouncement.onRendered(function() {
   });
 
 });
+
 Template.manageAnnouncement.events({
 
   'click #delete-icon': function() {
