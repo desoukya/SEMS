@@ -1,0 +1,30 @@
+<template name="milestoneDetailed">
+  <div class="ui stackable container grid">
+    <div class="eight wide centered column">
+      <div class="ui segment">
+        <div class="item">
+          <div class="content">
+            <a href="{{pathFor 'team.milestone' _id=_id}}" class="header">{{title}}</a>
+            <div class="meta">
+              <span>
+          {{#if global}}
+            <a class="ui green label">Global</a>
+
+          {{else}}
+            <a class="ui orange label">Team-Specific</a>
+          {{/if}}
+        </span>
+              <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
+          <i class="wait icon"></i>
+          {{formatDateHumanized createdAt}}
+        </span>
+            </div>
+            <div class="description">
+              {{#markdown}}{{description}}{{/markdown}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
