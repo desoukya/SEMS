@@ -4,6 +4,7 @@ Template.createAnnouncement.helpers({
   },
 
 });
+
 Template.createAnnouncement.onRendered(function() {
   $(document)
     .ready(function() {
@@ -11,6 +12,7 @@ Template.createAnnouncement.onRendered(function() {
         .form({
           inline: true,
           fields: {
+
             name: {
               identifier: 'title',
               rules: [{
@@ -27,17 +29,10 @@ Template.createAnnouncement.onRendered(function() {
               }]
             },
 
-            /*companies: {
-              identifier: 'companies',
-              rules: [{
-                type: 'minCount[1]',
-                prompt: 'Please enter at leaset one team'
-              }]
-            },*/
-
           }
         });
     });
+
   $('.ui.dropdown').dropdown();
   $('.ui.checkbox').checkbox();
 });
@@ -51,25 +46,25 @@ Template.createAnnouncement.events({
     var companies = event.target.companies.value.split(',').filter(function(company) {
       return company.length > 0;
     });
-    var global = $('#global').prop('checked');
+    var globalToggle = $('#global').prop('checked'); // global is reserved
     var milestone = $('#milestone').prop('checked');
+
     var announcement = {
       title: title,
       ownerId: Meteor.userId(),
       description: description,
-      global: global,
+      global: globalToggle,
       milestone: milestone,
       teams: companies,
-      createdAt: Date.now()
     };
 
-    Meteor.call('createAnnouncement', announcement, function(err, teamId) {
+    Meteor.call('createAnnouncement', announcement, function(err, announcementId) {
       if (err) {
         $('.ui.form').form('add errors', {
           error: err.reason
         });
       } else {
-        sAlert.success('Your Announcement is announced successfully !');
+        sAlert.success('Your Announcement is published successfully !');
         $('.ui.form').form('reset');
         $('.selection.dropdown').removeClass('disabled')
       }
@@ -78,12 +73,11 @@ Template.createAnnouncement.events({
   },
 
   'change #global': function(event) {
-    if (event.currentTarget.checked){
+    if (event.currentTarget.checked) {
       $('.selection.dropdown').dropdown('clear');
       $('.selection.dropdown').addClass('disabled');
-    }
-    else{
-    $('.selection.dropdown').removeClass('disabled');
+    } else {
+      $('.selection.dropdown').removeClass('disabled');
     }
 
   },
