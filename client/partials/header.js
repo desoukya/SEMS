@@ -38,4 +38,8 @@ Template.header.helpers({
     return Notifications.find({ ownerId: Meteor.userId() });
   },
 
+  unreadNotificationsCount() {
+    return Notifications.find({ ownerId: Meteor.userId(), read: { $ne: true } }).count();
+  }
+
 });

@@ -31,7 +31,12 @@
 
           <!-- Notifications -->
           <a class="ui dropdown item" href="#" id="notification-dropdown">
-            <i class="ui alarm icon" id="notifications-icon"></i>
+
+            <i class="ui alarm icon" id="notifications-icon">
+              {{#if unreadNotificationsCount}}
+                <span class="ui mini top right attached blue circular label">{{unreadNotificationsCount}}</span>
+              {{/if}}
+            </i>
 
             <div class="menu">
               {{#each notifications}}
