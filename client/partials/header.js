@@ -17,6 +17,11 @@ Template.header.events({
     Router.go('home');
   },
 
+  'click #notification-dropdown': function(event) {
+    $('.notification.item').removeClass('active');
+    $('.notification.item').removeClass('selected');
+  },
+
 });
 
 Template.header.helpers({
@@ -27,6 +32,10 @@ Template.header.helpers({
 
   username() {
     return Meteor.user().profile.firstName;
+  },
+
+  notifications() {
+    return Notifications.find({ ownerId: Meteor.userId() });
   },
 
 });
