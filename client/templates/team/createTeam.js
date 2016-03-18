@@ -21,8 +21,9 @@ Template.createTeam.events({
         });
       } else {
         sAlert.success('Your team is created successfully !')
-        Router.go('team', {
-          _id: teamId
+        var teamSlug = Teams.findOne({_id:teamId}).slug
+        Router.go('team.edit', {
+          slug: teamSlug
         });
       }
     });
