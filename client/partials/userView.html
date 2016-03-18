@@ -1,0 +1,40 @@
+<template name="userView">
+  <!-- Notifications -->
+  <a class="ui dropdown item" href="#" id="notification-dropdown">
+
+    <i class="ui alarm icon" id="notifications-icon">
+              {{#if unreadNotificationsCount}}
+                <span class="ui mini top right attached blue circular label">{{unreadNotificationsCount}}</span>
+              {{/if}}
+            </i>
+
+    <div class="menu">
+      {{#each notifications}}
+        {{> notification}}
+      {{/each}}
+      <div class="ui divider"></div>
+      <a href="{{pathFor 'notifications.history'}}" class="item centered text">See all</a>
+    </div>
+  </a>
+  <!-- /Notifications -->
+
+  <!-- right DropDownList-->
+  <div class="ui simple dropdown item">
+    <i class="setting icon"></i>{{username}}
+    <i class="dropdown icon"></i>
+    <div class="menu">
+
+      <!-- Profile Button-->
+      <a class="item {{isActive 'user.profile'}}" href="{{pathFor 'user.profile' _id=userId}}">
+        <i class="user icon"></i>Profile</a>
+      <!-- /Profile Button-->
+
+      <!-- LogOut Button-->
+      <a class="item" id="logout_button">
+        <i class="red power icon"></i>Logout</a>
+      <!-- /LogOut Button-->
+
+    </div>
+  </div>
+  <!-- /right DropDownList-->
+</template>

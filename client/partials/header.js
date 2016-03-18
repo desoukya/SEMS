@@ -7,41 +7,8 @@ Template.header.onRendered(function() {
     }
 
   });
-  console.log("rendered");
 
   $('.ui.dropdown').dropdown();
 
 })
 
-Template.header.events({
-  'click #logout_button': function(event) {
-    Accounts.logout();
-    Router.go('home');
-  },
-
-  'click #notification-dropdown': function(event) {
-    $('.notification.item').removeClass('active');
-    $('.notification.item').removeClass('selected');
-  },
-
-});
-
-Template.header.helpers({
-
-  userId() {
-    return Meteor.userId();
-  },
-
-  username() {
-    return Meteor.user().profile.firstName;
-  },
-
-  notifications() {
-    return Notifications.find({ ownerId: Meteor.userId() });
-  },
-
-  unreadNotificationsCount() {
-    return Notifications.find({ ownerId: Meteor.userId(), read: { $ne: true } }).count();
-  }
-
-});
