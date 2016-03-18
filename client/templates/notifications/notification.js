@@ -8,11 +8,11 @@ Template.notification.events({
 
 Template.notification.helpers({
   formattedContent() {
-  	
-  	if(this.content.length > 50)
-  		return this.content.substring(0,50)+"...";
-  	else
-  		return this.content;
+
+    if (this.content.length > 80)
+      return this.content.substring(0, 80) + " ...";
+    else
+      return this.content;
   },
 
 });
