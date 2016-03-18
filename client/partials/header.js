@@ -1,6 +1,5 @@
 // ES6
 Template.header.onRendered(function() {
-  $('.ui.dropdown').dropdown();
 
   Meteor.call('getNodeEnv', function(err, env) {
     if (env === 'development') {
@@ -8,6 +7,9 @@ Template.header.onRendered(function() {
     }
 
   });
+  console.log("rendered");
+
+  $('.ui.dropdown').dropdown();
 
 })
 
