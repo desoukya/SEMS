@@ -26,11 +26,17 @@ Template.userView.helpers({
   },
 
   notifications() {
-    return Notifications.find({ ownerId: Meteor.userId() });
+    return Notifications.find({ ownerId: Meteor.userId() },{ limit: 5,
+      sort: {
+        createdAt: -1
+      }});
   },
 
   unreadNotificationsCount() {
-    return Notifications.find({ ownerId: Meteor.userId(), read: { $ne: true } }).count();
+    return Notifications.find({ ownerId: Meteor.userId(), read: { $ne: true } },{
+      sort: {
+        createdAt: -1
+      }}).count();
   }
 
 });
