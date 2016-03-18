@@ -10,6 +10,13 @@ Meteor.methods({
     if (Roles.userIsInRole(Meteor.userId(), [ADMIN, LECTURER, TA])) {
       let announcementId = Announcements.insert(announcement);
 
+      if (global)
+        teams = Teams.find({}, {
+          _id: 1
+        }).fetch().map(function(team) {
+          return team._id;
+        })
+
       teams.forEach(function(teamId) {
 
         let team = Teams.findOne({ _id: teamId });
