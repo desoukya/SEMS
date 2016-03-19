@@ -13,6 +13,14 @@ Template.editAnnouncement.helpers({
       return Announcements.findOne({ _id: Session.get('selectedAnnouncementId') });
   },
 
+  globalChecked() {
+    return Announcements.findOne({ _id: Session.get('selectedAnnouncementId') }).global ? 'checked' : '';
+  },
+
+  milestoneChecked() {
+    return Announcements.findOne({ _id: Session.get('selectedAnnouncementId') }).milestone ? 'checked' : '';
+  }
+
 });
 
 Template.editAnnouncement.onRendered(function() {
