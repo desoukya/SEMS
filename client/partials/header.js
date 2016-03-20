@@ -8,6 +8,4 @@ Template.header.onRendered(function() {
 
   });
 
-
 })
-
