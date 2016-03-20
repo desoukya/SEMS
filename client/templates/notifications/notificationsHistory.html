@@ -1,0 +1,13 @@
+<template name="notificationsHistory">
+  <div class="ui centered container grid">
+    <div class="ui ten wide column">
+      <div class="ui full width divided items">
+
+        {{#each notifications}}
+          {{> notificationCard}}
+        {{/each}}
+
+      </div>
+    </div>
+  </div>
+</template>

@@ -22,31 +22,9 @@
       {{/if}}
       <!-- /Team Button-->
 
-      <!-- Schdeule Button-->
-      <a class="item {{isActive 'discussions'}}" href="{{pathFor 'discussions'}}">QA</a>
-      <!-- /Schdeule Button-->
-
       <div class="right menu">
         {{#if currentUser}}
-          <!-- right DropDownList-->
-          <div class="ui simple dropdown item">
-            <i class="setting icon"></i>{{username}}
-            <i class="dropdown icon"></i>
-            <div class="menu">
-
-              <!-- Profile Button-->
-              <a class="item {{isActive 'user.profile'}}" href="{{pathFor 'user.profile' _id=userId}}">
-                <i class="user icon"></i>Profile</a>
-              <!-- /Profile Button-->
-
-              <!-- LogOut Button-->
-              <a class="item" id="logout_button">
-                <i class="red power icon"></i>Logout</a>
-              <!-- /LogOut Button-->
-
-            </div>
-          </div>
-          <!-- /right DropDownList-->
+          {{> userView}}
         {{else}}
 
           <!-- LogIn Button-->

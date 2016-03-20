@@ -3,7 +3,7 @@ Template.home.helpers({
     return TeamUtils.isInTeam(Meteor.userId());
   },
 
-  getTeamId() {
-    return TeamUtils.getTeam(Meteor.userId())._id;
+  getTeamSlug() {
+    return TeamUtils.getTeam(Meteor.userId()).slug;
   }
 });

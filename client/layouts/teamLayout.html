@@ -1,0 +1,35 @@
+<template name="teamLayout">
+  <div class="main-container">
+
+    <!-- Header -->
+    {{>header}}
+    <!-- /Header -->
+
+    <!-- Main content -->
+    <div class="ui container grid">
+      <div class="sixteen wide centered column">
+        <div class="row">
+          <!-- Header -->
+          <div class="main header">
+            <h1 class="ui text centered header">{{name}}</h1>
+            <h3 class="ui text centered red header">{{companyName}}</h3>
+            <img class="ui small rounded centered image" id="team-main-image" src="{{image}}" alt="team_image"/>
+          </div>
+          <!-- /Header -->
+        </div>
+      </div>
+
+      <div class="three wide column">
+        {{>sideBar}}
+      </div>
+      <div class="ui ten wide centered column">
+        {{>yield}}
+      </div>
+    </div>
+    <!-- /Main content -->
+
+    <!-- Footer -->
+    {{>footer}}
+    <!-- /Footer -->
+  </div>
+</template>
