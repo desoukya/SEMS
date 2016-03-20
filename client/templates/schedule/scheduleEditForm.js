@@ -185,7 +185,7 @@ Template.scheduleEditForm.events({
       content: $('#content').val(),
       week: $('#week').val(),
       description: $('#description').val(),
-      createdAt: new Date() //TODO : could be changed later .. to use MomentJs instead
+      createdAt: Date.now()
     };
 
     if (Session.get('selectedMaterialID') === '' || Session.get('selectedMaterialID') === undefined) {

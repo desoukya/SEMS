@@ -1,4 +1,4 @@
-Template.team.helpers({
+Template.editTeam.helpers({
   availableMembers() {
     var membersInTeams = []
 
@@ -19,7 +19,7 @@ Template.team.helpers({
 
 });
 
-Template.team.events({
+Template.editTeam.events({
   'click #addMembers': function(event) {
 
     var self = this;
@@ -94,7 +94,7 @@ Template.team.events({
 
 });
 
-Template.team.onRendered(function() {
+Template.editTeam.onRendered(function() {
   $('.ui.search.dropdown')
     .dropdown({
       maxSelections: 8

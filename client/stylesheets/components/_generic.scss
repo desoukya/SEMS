@@ -40,3 +40,25 @@
 .contact.info {
   margin-bottom: 60px;
 }
+
+.icons.group {
+  .icon {
+    padding-left: 9px;
+
+    opacity: 0.75;
+
+    -webkit-transition: opacity 0.2s ease-out;
+    -moz-transition: opacity 0.2s ease-out;
+    -o-transition: opacity 0.2s ease-out;
+    -ms-transition: opacity 0.2s ease-out;
+    transition: opacity 0.2s ease-out;
+
+    &:hover {
+      opacity: 1.0;
+    }
+  }
+}
+
+.full.width {
+  width: 100%;
+}

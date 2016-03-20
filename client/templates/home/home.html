@@ -8,7 +8,7 @@
 
         {{#if isInTeam}}
           <!-- User's Team -->
-          <a href="{{pathFor 'team' _id=getTeamId}}" class="ui big blue button" id="home-team-button-extra-pad">
+          <a href="{{pathFor 'team.info' slug=getTeamSlug}}" class="ui big blue button" id="home-team-button-extra-pad">
             <i class="users icon"></i>
             Your team
           </a>

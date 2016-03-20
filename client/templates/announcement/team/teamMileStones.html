@@ -1,0 +1,43 @@
+<template name="teamMilestones">
+  <div class="ui segment">
+    <div class="ui divided items">
+      {{#each milestones}}
+        {{> milestone}}
+      {{else}}
+        <div class="ui container grid">
+          <div class="center aligned middle aligned column">
+            <p>
+              <i class="huge warning circle icon"></i>
+            </p>
+            <h1 class="large text">No MileStones here yet</h1>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<template name="milestone">
+  <div class="item">
+    <div class="content">
+      <a href="{{pathFor 'team.milestone' _id=_id}}" class="header">{{title}}</a>
+      <div class="meta">
+        <span>
+          {{#if global}}
+            <a class="ui green label">Global</a>
+
+          {{else}}
+            <a class="ui orange label">Team-Specific</a>
+          {{/if}}
+        </span>
+        <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
+          <i class="wait icon"></i>
+          {{formatDateHumanized createdAt}}
+        </span>
+      </div>
+      <div class="description">
+        {{#markdown}}{{description}}{{/markdown}}
+      </div>
+    </div>
+  </div>
+</template>

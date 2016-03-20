@@ -1,0 +1,10 @@
+<template name="sideBar">
+  <div class="ui secondary vertical huge pointing menu">
+    <a class="item {{isActive 'team.info'}}" href="{{pathFor 'team.info' slug=slug }}">Team Info</a>
+    <a class="item {{isActive 'team.milestones'}}" href="{{pathFor 'team.milestones' slug=slug }}" >Milestones</a>
+    <a class="item {{isActive 'team.announcements'}}" href="{{pathFor 'team.announcements' slug=slug }}" >Announcements</a>
+    {{#if canEdit}}
+    <a class="item {{isActive 'team.edit'}}" href="{{pathFor 'team.edit' slug=slug }}">Edit Team</a>
+    {{/if}}
+  </div>
+</template>

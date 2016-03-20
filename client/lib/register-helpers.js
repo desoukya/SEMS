@@ -4,7 +4,16 @@ Template.registerHelper('equals', function(a, b) {
 
 Template.registerHelper('formatDate', function(date) {
   //need to confirm date format
-  return moment(date, 'ddd, MMM DD YYYY HH:mm:ss ZZ').format('MM-DD-YYYY');
+  return moment(parseInt(date)).format('MM-DD-YYYY');
+});
+
+Template.registerHelper('detailedDate', function(date) {
+  //need to confirm date format
+  return moment(parseInt(date)).format('LLL');
+});
+
+Template.registerHelper('formatDateHumanized', function(date) {
+  return moment(parseInt(date)).fromNow();
 });
 
 Template.registerHelper('increment', function(number) {
@@ -14,6 +23,14 @@ Template.registerHelper('increment', function(number) {
 
 Template.registerHelper('lowerCamelCase', function(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
+});
+
+
+Template.registerHelper('isActive', function(route) {
+  if (isCurrentRoute(route)) {
+    return 'active';
+  }
+  return '';
 });
 
 Template.registerHelper('colorOfRole', function(role) {
