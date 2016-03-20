@@ -11,3 +11,12 @@ Template.teamMilestones.helpers({
     });
   },
 });
+
+Template.milestone.helpers({
+  descriptionPreview() {
+    if (this.description.length > 400)
+      return this.description.substring(0, 400) + " ...";
+    else
+      return this.description;
+  }
+});
