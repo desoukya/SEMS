@@ -7,3 +7,5 @@ Template.home.helpers({
     return TeamUtils.getTeam(Meteor.userId())._id;
   }
 });
+
+ Meteor.call("calculateDailyLeaderBoard");

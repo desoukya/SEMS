@@ -38,8 +38,8 @@ Meteor.startup(function() {
 
     }
 
-    metrics = new Metrics();
-    // metrics.contributorsStatistics(function(err, res){
+    // metrics = new Metrics();
+    // metrics.contributorsStatistics("https://github.com/desoukya/SEMS",function(err, res){
     //     if(err){
     //         // console.log("error hena ya 3am", err);
     //     }
@@ -47,14 +47,38 @@ Meteor.startup(function() {
     //         console.log(res.data);
     //     }
     // });
-    metrics.weeklyCodeFrequency(function(err, res){
-        if(err){
-            // console.log("error hena ya 3am", err);
-        }
-        else{
-            console.log(res);
-        }
-    });
+    // metrics.weeklyCodeFrequency("https://github.com/desoukya/SEMS",function(err, res){
+    //     if(err){
+    //         // console.log("error hena ya 3am", err);
+    //     }
+    //     else{
+    //         console.log(res.data);
+    //     }
+    // });
+    // metrics.repoIssues("https://github.com/desoukya/SEMS",function(err, res) {
+    //     if (err) {
+    //         // console.log("error hena ya 3am", err);
+    //     } else {
+    //         console.log(res);
+    //     }
+    // }, { state: "closed" });
+    //  metrics.singleIssue("https://github.com/desoukya/SEMS",1,function(err, res) {
+    //     if (err) {
+    //         // console.log("error hena ya 3am", err);
+    //     } else {
+    //         console.log(res);
+    //     }
+    // });
+    // metrics.punchCard("https://github.com/desoukya/SEMS",function(err, res){
+    //     if(err){
+    //         // console.log("error hena ya 3am", err);
+    //     }
+    //     else{
+    //         console.log(res.data);
+    //     }
+    // });
+    // console.log(Teams.find().fetch());
+
 
 
 });
