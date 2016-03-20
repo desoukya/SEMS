@@ -1,0 +1,67 @@
+<template name="editAnnouncement">
+
+  <h2 class="ui center aligned header">
+    Edit Announcement
+  </h2>
+
+  {{#with currentAnnouncement}}
+    <form class="ui form segment">
+
+      <!-- Announcement Title -->
+      <div class="field">
+        <label>Title</label>
+        <input type="text" name="title" value="{{title}}" placeholder="announcement">
+      </div>
+      <!-- /Announcement Title -->
+
+      <!-- Announcement Description -->
+      <div class="field">
+        <label>Description</label>
+        <textarea name="description" value="{{description}}" placeholder="Description"></textarea>
+      </div>
+      <!-- /Announcement Description -->
+
+      <!-- Company Selection -->
+      <div class="field">
+        <div class="ui multiple search selection {{#if global}}disabled{{/if}} dropdown">
+          <input type="hidden" value="{{currentAnnouncementDropdownFormatted teams}}" name="companies">
+          <div class="default text">Select Companies</div>
+          <i class="dropdown icon"></i>
+
+          <div class="menu">
+            {{#each availableTeams}}
+              <div class="item" data-value="{{_id}}">{{companyName}}</div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+      <!-- /Company Selection -->
+
+      <div class="two fields">
+
+        <!-- Global Toggle -->
+        <div class="field">
+          <div class="ui toggle checkbox">
+            <input {{globalChecked}} type="checkbox" id="global" name="global">
+            <!-- remove this empty label at your own risk .. but belive me you will regret it-->
+            <label>Global</label>
+          </div>
+        </div>
+        <!-- /Global Toggle -->
+
+        <!-- MilestoneCheckBox -->
+        <div class="four wide large field">
+          <div class="ui toggle checkbox">
+            <input {{milestoneChecked}} type="checkbox" id="milestone" name="milestone">
+            <!-- remove this empty label at your own risk .. but belive me you will regret it-->
+            <label>Milestone</label>
+          </div>
+        </div>
+      </div>
+      <!-- /MilestoneCheckBox -->
+
+      <input type="submit" class="ui fluid large green submit button" value="Edit Announcement">
+
+    </form>
+  {{/with}}
+</template>

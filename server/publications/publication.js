@@ -62,3 +62,23 @@ Meteor.publish('teams', function() {
 Meteor.publish('companies', function() {
   return Companies.find({});
 });
+
+Meteor.publish('announcements', function() {
+  return Announcements.find({ milestone: { $ne: true } });
+});
+
+Meteor.publish('milestones', function() {
+  return Announcements.find({ milestone: true });
+});
+
+Meteor.publish('allAnnouncements', function() {
+  return Announcements.find();
+});
+
+Meteor.publish('questions', function() {
+  return Questions.find({});
+});
+
+Meteor.publish('notifications', function() {
+  return Notifications.find({ ownerId: this.userId });
+});
