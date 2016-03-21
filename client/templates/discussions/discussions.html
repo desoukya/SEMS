@@ -6,6 +6,7 @@
       <div class="ui blue button" id="toggle-question-form-button">Ask a question</div>
       <!-- /Toggle Question form button -->
 
+      
       <!-- Question Form -->
       <div class="ui segment transition hidden" id="add-question-form">
         <form class="ui form new-question">
@@ -45,16 +46,32 @@
       </div>
       <!-- /Question Form -->
 
+      <!-- Question SearchBox -->
+        {{> questionsSearchBox}}
+      <!-- /Question SearchBox -->
+
       <!-- Questions -->
-      <div class="ui segment">
+      <!--div class="ui segment">
         <div class="ui divided items">
           {{#each questions}}
             {{> question}}
           {{/each}}
         </div>
-      </div>
+      </div-->
       <!-- /Questions -->
 
     </div>
   </div>
 </template>
+
+<template name="questionsSearchBox">
+    {{> EasySearch.Input index = questionsIndex }}
+    <div class="ui segment">
+        <div class="ui divided items">
+          {{#EasySearch.Each index = questionsIndex }}
+            {{> question}}
+          {{/EasySearch.Each}}
+        </div>
+      </div>
+</template>
+  

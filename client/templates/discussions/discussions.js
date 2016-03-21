@@ -107,3 +107,7 @@ function animateForm() {
     animation: 'fade down'
   });
 }
+
+Template.questionsSearchBox.helpers({
+  questionsIndex: () => QuestionsIndex
+});
