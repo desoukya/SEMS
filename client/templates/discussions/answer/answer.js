@@ -68,7 +68,6 @@ Template.answer.events({
 
           Meteor.call('updateAnswer', answer, function(err) {
             if (err)
-
               sAlert.error(err.reason);
           });
 
@@ -79,13 +78,9 @@ Template.answer.events({
           // Clear the session on modal hide
           Session.set('answerId', undefined);
         }
+
       }).modal('show');
     });
 
   },
-
-
-
-
-
 });

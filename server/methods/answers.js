@@ -5,7 +5,7 @@ Meteor.methods({
     var answer = {
       ownerId: Meteor.userId(),
       description: description,
-      createdAt: new Date()
+      createdAt: Date.now()
     }
 
     // Add the new answer and get the id

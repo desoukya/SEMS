@@ -4,11 +4,13 @@
 
 <template name="question">
   <div class="item">
+
     <div class="vote">
-      <i class="chevron up link icon"></i>
-      <div>210</div>
-      <i class="chevron down link icon"></i>
+      <i class="chevron up link icon" id="upvote-arrow"></i>
+      <div class="votes">{{totalVotes}}</div>
+      <i class="chevron down link icon" id="downvote-arrow"></i>
     </div>
+
     <div class="content">
       <a href="{{pathFor 'question.page' _id= _id}}" class="header">{{title}}</a>
       <div class="extra">
@@ -22,5 +24,6 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>

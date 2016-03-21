@@ -19,5 +19,4 @@ Template.createAnswerForm.events({
 
   },
 
-
 });
