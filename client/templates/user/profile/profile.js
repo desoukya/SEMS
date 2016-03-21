@@ -19,6 +19,14 @@ Template.profile.helpers({
     }
   },
 
+  teamSlug() {
+    var team = TeamUtils.getTeam(this._id);
+
+    if (team) {
+      return team.slug;
+    }
+  },
+
   teamName() {
     var team = TeamUtils.getTeam(this._id);
 

@@ -34,14 +34,14 @@
 <template name="memberDetails">
   <div class="member item">
     <div class="ui small circular image">
-      <img src="{{profilePicture}}">
+      <img src="{{profilePicture.url}}">
     </div>
 
     <div class="header bottom aligned">
       <a href="{{pathFor 'user.profile' _id=_id}}">
         <h3 class="name">{{fullName}}</h3>
       </a>
-      <h5 class="tutorial">{{tutorialGroup}}</h5>
+      <h5 class="tutorial">{{profile.tutorialGroup}}</h5>
     </div>
   </div>
 </template>

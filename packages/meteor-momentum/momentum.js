@@ -3,8 +3,6 @@ Template.momentum.rendered = function() {
     return console.error("Missing 'plugin' argument to momentum");
 
   var specificClass = this.data.class;
-  console.log(specificClass);
-  console.log(this.lastNode);
   $(this.lastNode).addClass(specificClass);
   var plugin = Momentum.plugins[this.data.plugin];
 
@@ -12,7 +10,7 @@ Template.momentum.rendered = function() {
     return console.error("Can't find momentum plugin '" + this.data.plugin + "'");
 
   var hooks = plugin(_.omit(this.data, 'plugin'));
-  
+
   // default is to remove, *then* add
   if (! hooks.moveElement)
     hooks.moveElement = function(node, next, done) {
@@ -20,11 +18,11 @@ Template.momentum.rendered = function() {
         hooks.insertElement(node, next, done);
       });
     }
-  
+
   check(hooks, Match.Where(function (x) {
     return _.isFunction(x.insertElement) && _.isFunction(x.moveElement) && _.isFunction(x.removeElement);
   }));
-  
+
   // Pass in the _identity function for the done callback as by default
   // momentum doesn't care about when transitions are done.
   this.lastNode._uihooks = {

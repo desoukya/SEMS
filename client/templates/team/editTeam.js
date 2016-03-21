@@ -1,4 +1,4 @@
-Template.team.helpers({
+Template.editTeam.helpers({
   availableMembers() {
     var membersInTeams = []
 
@@ -19,7 +19,7 @@ Template.team.helpers({
 
 });
 
-Template.team.events({
+Template.editTeam.events({
   'click #addMembers': function(event) {
 
     var self = this;
@@ -94,7 +94,7 @@ Template.team.events({
 
 });
 
-Template.team.onRendered(function() {
+Template.editTeam.onRendered(function() {
   $('.ui.search.dropdown')
     .dropdown({
       maxSelections: 8
@@ -103,9 +103,17 @@ Template.team.onRendered(function() {
 
 //--------------------------------------------------------------
 
+Template.editableTeamMember.helpers({
+  isScrum() {
+    return Roles.userIsInRole(this._id, SCRUM);
+  },
+
+})
+
 Template.editableTeamMember.events({
   'click #delete-icon': function(event, template) {
     var self = this;
-    Meteor.call('removeFromAllTeams', self._id);
+    var team = this.team();
+    Meteor.call('removeFromTeam', self._id, team._id);
   },
 });

@@ -15,7 +15,7 @@
                 </div>
               </div>
             </div>
-            <img class="ui small centered circular image" src="{{profilePicture}}"/>
+            <img class="ui small centered circular image" src="{{profilePicture.url}}"/>
           </div>
           <input type="file" id="upload-profile-picture" class="ui centered" style="display:none">
         </div>
@@ -58,7 +58,7 @@
             <!-- GUC ID -->
             <div class="required field">
               <label>GUC ID</label>
-              <input placeholder="xy-abcdef" value={{GUCId}} name="gucid" type="text">
+              <input placeholder="xy-abcdef" value="{{profile.GUCId}}" name="gucid" type="text">
             </div>
             <!-- /GUC ID -->
 
@@ -66,7 +66,7 @@
             <div class="required field">
               <label>Tutorial group</label>
               <div class="ui search selection dropdown">
-                <input type="hidden" value="{{tutorialGroup}}" name="tutorial_group">
+                <input type="hidden" value="{{profile.tutorialGroup}}" name="tutorial_group">
                 <div class="default text">Tutorial</div>
                 <i class="dropdown icon"></i>
 
@@ -94,7 +94,7 @@
             <!-- Phone number -->
             <div class="field">
               <label>Phone number</label>
-              <input placeholder="0123456789" name="mobile" value={{mobile}} type="tel">
+              <input placeholder="0123456789" name="mobile" value={{profile.mobile}} type="tel">
             </div>
             <!-- /Phone number -->
 
@@ -102,7 +102,7 @@
             <div class="field">
               <label>
                 <i class="large github icon"></i>Github username</label>
-              <input type="text" name="github_user" value={{githubUser}} placeholder="geeky-developer">
+              <input type="text" name="github_user" value="{{profile.githubUser}}" placeholder="geeky-developer">
             </div>
             <!-- /Github account -->
           </div>

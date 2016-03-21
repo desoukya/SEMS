@@ -4,14 +4,14 @@ Template.createTeam.events({
 
     var name = event.target.teamName.value;
     var githubRepo = event.target.repoLink.value;
-    var company = event.target.company.value;
+    var company = Companies.findOne({_id:event.target.company.value});
 
     var team = {
       name: name,
       company: company,
       repo: githubRepo,
       members: [Meteor.userId()],
-      createdAt: new Date()
+      createdAt: Date.now()
     };
 
     Meteor.call('createTeam', team, function(err, teamId) {
@@ -21,8 +21,9 @@ Template.createTeam.events({
         });
       } else {
         sAlert.success('Your team is created successfully !')
-        Router.go('team', {
-          _id: teamId
+        var teamSlug = Teams.findOne({_id:teamId}).slug
+        Router.go('team.edit', {
+          slug: teamSlug
         });
       }
     });
@@ -46,7 +47,7 @@ Template.createTeam.helpers({
     var takenCompanies = [];
 
     Teams.find().fetch().forEach(function(team) {
-      takenCompanies.push(team.company);
+      takenCompanies.push(team.company._id);
     });
 
     takenCompanies = [].concat.apply([], takenCompanies);

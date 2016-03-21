@@ -150,16 +150,41 @@ Template.userEntry.events({
     template.modified.set(true);
     Session.set('toBeUpdatedRoles', roles);
   },
+
   'click #delete-icon': function(event, template) {
     var self = this;
-    $('#delete-item-modal')
+    $('#delete-user-modal')
       .modal({
         closable: false,
         onDeny() {
           //do nothing
         },
         onApprove() {
-          Meteor.users.remove({_id:self._id});
+
+          Meteor.call('removeUser', self._id, function(err) {
+            if (err)
+              sAlert.error(err.reason);
+            else {
+              var size = Session.get('pageSize');
+              var role = Session.get('role');
+              var page = '';
+              Tracker.nonreactive(function() {
+                page = Session.get('page');
+              });
+              UserSearch.store.remove({});
+              UserSearch.cleanHistory();
+              if (lastQuery !== undefined) {
+                var options = {
+                  skip: page * size,
+                  limit: size,
+                };
+                if (role != 'all')
+                  options.role = role;
+                UserSearch.search(lastQuery, options)
+              }
+            }
+          });
+
         }
       }).modal('show');
   },
