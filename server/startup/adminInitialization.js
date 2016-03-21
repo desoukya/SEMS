@@ -38,6 +38,8 @@ Meteor.startup(function() {
 
     }
 
+    console.log(Date.now())
+
     // metrics = new Metrics();
     // metrics.contributorsStatistics("https://github.com/desoukya/SEMS",function(err, res){
     //     if(err){
