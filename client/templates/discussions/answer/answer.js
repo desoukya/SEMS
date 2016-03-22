@@ -16,11 +16,41 @@ Template.answer.helpers({
     return moment(this.createdAt, 'ddd, MMM DD YYYY HH:mm:ss ZZ').format('LLL');
   },
 
+  activeUp() {
+    let answer = Answers.findOne({ _id: this._id });
+
+    if (!answer)
+      return
+
+    let upvoters = answer.upvotes
+      .map(function(x) {
+        return x.ownerId;
+      });
+
+    return _.contains(upvoters, Meteor.userId()) ? 'green' : '';
+
+  },
+
+  activeDown() {
+    let answer = Answers.findOne({ _id: this._id });
+
+    if (!answer)
+      return
+
+    let downvoters = answer.downvotes
+      .map(function(x) {
+        return x.ownerId;
+      });
+
+    return _.contains(downvoters, Meteor.userId()) ? 'red' : '';
+
+  },
+
 });
 
 
 Template.answer.events({
-  "click #delete-icon": function(event, template) {
+  'click #delete-icon': function(event, template) {
     event.preventDefault();
     let self = this;
 
@@ -68,7 +98,6 @@ Template.answer.events({
 
           Meteor.call('updateAnswer', answer, function(err) {
             if (err)
-
               sAlert.error(err.reason);
           });
 
@@ -79,13 +108,26 @@ Template.answer.events({
           // Clear the session on modal hide
           Session.set('answerId', undefined);
         }
+
       }).modal('show');
     });
 
   },
 
+  'click #upvote': function(event) {
+    Meteor.call('upvoteAnswer', this._id, function(err) {
+      if (err)
+        sAlert.error(err.reason);
+    });
 
+  },
 
+  'click #downvote': function(event) {
+    Meteor.call('downvoteAnswer', this._id, function(err) {
+      if (err)
+        sAlert.error(err.reason);
+    });
+  }
 
 
 });
