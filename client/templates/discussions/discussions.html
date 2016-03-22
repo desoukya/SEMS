@@ -55,14 +55,21 @@
 </template>
 <template name="navigator">
     <div class="ui pagination menu">
-    {{#each page}}
-        <a class="page item {{pageClasses this}} ">{{content}}</a>
-    {{/each}}
+        {{#each page}}
+        <a class="page item {{pageClasses this}} ">{{content}}</a> {{/each}}
     </div>
 </template>
+<template name="suggestion">
+  <option value="">lol{{label}}</option>
+</template>
 <template name="questionsSearchBox">
-    
-    {{> EasySearch.Input index = questionsIndex event="enter"}}
+    <div class="ui search">
+        <div class="ui icon input">
+            {{> EasySearch.Input index = questionsIndex }}
+            <i class="search icon"></i>
+        </div>
+        <div class="results"></div>
+    </div>
     <div class="ui pagination menu">
     </div>
     <div class="ui segment">

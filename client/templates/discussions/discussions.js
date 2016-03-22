@@ -103,7 +103,7 @@ function animateForm() {
   // Animating Question form on toggle
   $('#add-question-form').transition({
     duration: 500,
-    animation: 'fade down'
+    animation: 'slide down'
   });
 }
 
