@@ -46,6 +46,18 @@ Template.answer.helpers({
 
   },
 
+  isQuestionOwner() {
+    let question = Template.parentData(1);
+    return Meteor.userId() === question.ownerId;
+  },
+
+  bestAnswerActive() {
+    if (this.bestAnswer)
+      return 'green';
+    else
+      return 'grey';
+  }
+
 });
 
 
@@ -127,6 +139,19 @@ Template.answer.events({
       if (err)
         sAlert.error(err.reason);
     });
+  },
+
+  'click #best-answer-icon': function(event) {
+    let question = Template.parentData(1);
+
+    let data = { questionId: question._id, answerId: this._id, marked: this.bestAnswer };
+
+    if (Meteor.userId() === question.ownerId) {
+      Meteor.call('markBestAnswer', data, function(err) {
+        if (err)
+          sAlert.error(err.reason);
+      });
+    }
   }
 
 

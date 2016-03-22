@@ -5,8 +5,8 @@ Meteor.methods({
     var answer = {
       ownerId: Meteor.userId(),
       description: description,
-      upvotes:[],
-      downvotes:[],
+      upvotes: [],
+      downvotes: [],
       createdAt: Date.now()
     }
 
@@ -99,6 +99,28 @@ Meteor.methods({
       Answers.update({ _id: answerId }, { $pull: { 'upvotes': { 'ownerId': userId } } });
     }
   },
+
+  markBestAnswer(data) {
+    let { questionId, answerId, marked } = data;
+    let answer = Answers.findOne({ _id: answerId });
+    let question = Questions.findOne({ _id: questionId });
+
+    if (!question || !answer)
+      throw new Meteor.Error(404, "Resource not found");
+
+    // Remove best answer from all other answers
+    let answersIds = question.answers;
+
+    answersIds.forEach(function(id) {
+      Answers.update({ _id: id }, { $set: { bestAnswer: false } });
+    });
+
+    // Toggle the current answer's bestAnswer flag
+    marked = !marked;
+
+    Answers.update({ _id: answerId }, { $set: { bestAnswer: marked } });
+
+  }
 
 
 });
