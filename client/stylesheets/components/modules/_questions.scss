@@ -19,11 +19,17 @@
   width: 50px;
 }
 
-.item >.vote > * {
+.vote > * {
   display: block;
   line-height: 1em;
   margin: auto;
   text-align: center;
+}
+
+.vote {
+  .icon {
+    width: 100%;
+  }
 }
 
 .padded.segment {
