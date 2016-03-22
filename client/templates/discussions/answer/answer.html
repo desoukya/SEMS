@@ -4,41 +4,55 @@
 
     <div class="item">
 
-      <div class="header">
+      <div class="content">
 
-        <!-- Edit and delete icons -->
-        <div class="header">
+        <div class="ui grid">
+          <!-- Vote panel -->
+          <div class="ui one wide column">
+            <div class="vote">
+              <i class="chevron {{activeUp}} up link icon" id="upvote"></i>
+              <div class="votes">{{totalVotes}}</div>
+              <i class="chevron {{activeDown}} down link icon" id="downvote"></i>
+            </div>
+          </div>
+          <!-- /Vote panel -->
 
-          {{#if canEdit}}
-            <span class="ui right floated tiny header icons group">
-              <i id="edit-icon" class="edit link icon"></i>
-              <i id="delete-icon" class="trash red link icon"></i>
-            </span>
-          {{/if}}
+          <div class="ui fifteen wide column">
+            <!-- Edit and delete icons -->
+            <div class="header">
+
+              {{#if canEdit}}
+                <span class="ui right floated tiny header icons group">
+                  <i id="edit-icon" class="edit link icon"></i>
+                  <i id="delete-icon" class="trash red link icon"></i>
+                </span>
+              {{/if}}
+
+            </div>
+            <!-- /Edit and delete icons -->
+
+            <!-- Meta | Owner and Date -->
+            <div class="meta">
+              <span class="small meta">
+                Answered
+                {{formatDateHumanized createdAt}}
+                by
+                <a href="{{pathFor 'user.profile' _id=owner._id}}">{{owner.fullName}}</a>
+              </span>
+            </div>
+            <!-- /Meta | Owner and Date -->
+          </div>
 
         </div>
-        <!-- /Edit and delete icons -->
+
+        <!-- Answer content -->
+        <div class="description answer extra margin body">
+          <!-- NOTE: This should be preserved from formatting, to allow markdown to render properly -->
+          {{#markdown}}{{description}}{{/markdown}}
+        </div>
+        <!-- /Answer content -->
 
       </div>
-
-      <!-- Meta | Owner and Date -->
-      <div class="meta">
-        <span class="small meta">
-          Answered
-          {{formatDateHumanized createdAt}}
-          by
-          <a href="{{pathFor 'user.profile' _id=owner._id}}">{{owner.fullName}}</a>
-        </span>
-      </div>
-      <!-- /Meta | Owner and Date -->
-
-      <!-- Answer content -->
-      <div class="content answer body">
-        <!-- NOTE: This should be preserved from formatting, to allow markdown to render properly -->
-        {{#markdown}}{{description}}{{/markdown}}
-      </div>
-      <!-- /Answer content -->
-
     </div>
 
   </div>

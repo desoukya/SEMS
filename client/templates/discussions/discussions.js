@@ -57,6 +57,8 @@ Template.discussions.events({
       tags: tags,
       ownerId: Meteor.userId(),
       answers: [],
+      upvotes: [],
+      downvotes: [],
       createdAt: Date.now() // current time
     }
 
