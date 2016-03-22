@@ -14,6 +14,10 @@
               <div class="vote count">{{totalVotes}}</div>
               <i class="chevron {{activeDown}} down link large icon" id="downvote"></i>
             </div>
+
+            {{#if isQuestionOwner}}
+              <i class="check circle outline large {{bestAnswerActive}} link icon" id="best-answer-icon"></i>
+            {{/if}}
           </div>
           <!-- /Vote panel -->
 
