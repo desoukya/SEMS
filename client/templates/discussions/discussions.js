@@ -88,6 +88,7 @@ Template.discussions.helpers({
     });
   },
 
+
   allTags() {
     var everything = Questions.find().fetch();
     var allQuestionsTags = _.pluck(everything, "tags");
@@ -96,8 +97,6 @@ Template.discussions.helpers({
   },
 
 });
-
-
 
 
 function animateForm() {

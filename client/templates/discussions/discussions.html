@@ -60,15 +60,15 @@
     {{/each}}
     </div>
 </template>
-
 <template name="questionsSearchBox">
-    {{> EasySearch.Input index = questionsIndex }}
+    
+    {{> EasySearch.Input index = questionsIndex event="enter"}}
     <div class="ui pagination menu">
-        {{> EasySearch.Pagination index=questionsIndex maxPages=1 renderPagination="navigator"}}
     </div>
     <div class="ui segment">
         <div class="ui divided items">
             {{#EasySearch.Each index = questionsIndex }} {{> question}} {{/EasySearch.Each}}
         </div>
+        {{> EasySearch.Pagination index=questionsIndex maxPages=9 renderPagination="navigator"}}
     </div>
 </template>
