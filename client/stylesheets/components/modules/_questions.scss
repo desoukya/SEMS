@@ -15,20 +15,16 @@
   @extend .question.body;
 }
 
-.item >.vote {
-  width: 50px;
-}
-
-.vote > * {
-  display: block;
-  line-height: 1em;
-  margin: auto;
-  text-align: center;
-}
-
 .vote {
   .icon {
     width: 100%;
+  }
+
+  * {
+    display: block;
+    line-height: 1em;
+    margin: auto;
+    text-align: center;
   }
 }
 

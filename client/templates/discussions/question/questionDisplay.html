@@ -8,11 +8,7 @@
         <div class="ui grid">
           <!-- Voting panel -->
           <div class="ui one wide column">
-            <div class="vote">
-              <i class="chevron {{activeUp}} up link icon" id="upvote"></i>
-              <div class="votes">{{totalVotes}}</div>
-              <i class="chevron {{activeDown}} down link icon" id="downvote"></i>
-            </div>
+            {{> questionVotingPanel}}
           </div>
           <!-- /Voting panel -->
 

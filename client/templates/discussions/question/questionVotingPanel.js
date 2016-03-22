@@ -1,4 +1,4 @@
-Template.question.helpers({
+Template.questionVotingPanel.helpers({
   activeUp() {
     let question = Questions.findOne({ _id: this._id });
 
@@ -31,7 +31,7 @@ Template.question.helpers({
 
 });
 
-Template.question.events({
+Template.questionVotingPanel.events({
   'click #upvote': function(event) {
     Meteor.call('upvoteQuestion', this._id, function(err) {
       if (err)
@@ -46,5 +46,4 @@ Template.question.events({
         sAlert.error(err.reason);
     });
   }
-
 });

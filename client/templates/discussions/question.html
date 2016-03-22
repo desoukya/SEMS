@@ -5,24 +5,33 @@
 <template name="question">
   <div class="item">
 
-    <div class="vote">
-      <i class="chevron {{activeUp}} up link icon" id="upvote"></i>
-      <div class="votes">{{totalVotes}}</div>
-      <i class="chevron {{activeDown}} down link icon" id="downvote"></i>
-    </div>
-
     <div class="content">
-      <a href="{{pathFor 'question.page' _id= _id}}" class="header">{{title}}</a>
-      <div class="extra">
-        {{#each tags}}
-          {{> tag}}
-        {{/each}}
-        <div class="ui right floated text">
-          by
-          <a href="{{pathFor 'user.profile' _id= askerId}}">{{owner.fullName}}</a>
-          an hour ago
+
+      <div class="ui grid">
+        <div class="ui one wide column">
+          {{> questionVotingPanel}}
         </div>
+
+        <div class="ui fifteen wide column">
+
+          <div class="ui header">
+            <a href="{{pathFor 'question.page' _id= _id}}">{{title}}</a>
+          </div>
+
+          <div class="extra">
+            {{#each tags}}
+              {{> tag}}
+            {{/each}}
+            <div class="ui right floated text">
+              by
+              <a href="{{pathFor 'user.profile' _id= askerId}}">{{owner.fullName}}</a>
+              an hour ago
+            </div>
+          </div>
+        </div>
+
       </div>
+
     </div>
 
   </div>
