@@ -16,7 +16,13 @@
             </div>
 
             {{#if isQuestionOwner}}
-              <i class="check circle outline large {{bestAnswerActive}} link icon" id="best-answer-icon"></i>
+              <i class="check circle outline large {{bestAnswerActive}} link best answer icon" id="best-answer-icon"></i>
+            {{else}}
+              <!-- NOTE: Nested ifs used here to not add the 2 elements for question owner -->
+              {{#if bestAnswer}}
+                <i class="check circle outline large green best answer icon"></i>
+              {{/if}}
+
             {{/if}}
           </div>
           <!-- /Vote panel -->
