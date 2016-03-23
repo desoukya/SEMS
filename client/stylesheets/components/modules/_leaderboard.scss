@@ -1,0 +1,64 @@
+.leaderboard-table {
+    width: 100%;
+    background-color: white;
+    border: 7px solid grey;
+}
+
+.leaderboard-table tr:hover {
+    background-color: rgba(225, 225, 225, 0.52);
+    cursor: pointer;
+}
+
+.leaderboard-head {
+    padding: 13px;
+    border-bottom: solid 2px;
+    color: #746969;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.leaderboard-table tr:hover .leaderboard-head {
+    background-color: white;
+    cursor: auto;
+}
+
+.leaderboard-table tr:hover .leaderboard-score {
+    cursor: pointer!important;
+}
+
+.name-cell {
+    padding: 10px;
+    font-weight: 900;
+    text-transform: capitalize;
+    font-family: 'Audiowide', cursive;
+}
+
+.image-cell {
+    padding: 10px;
+}
+
+.score-cell {
+    padding: 10px;
+    color: #21BA45;
+}
+
+.reactive-table-input {
+    color: black;
+    border: solid 1px grey;
+    padding: 4px;
+}
+
+.input-group {
+    margin-bottom: 7px;
+    margin-top: 30px;
+    font-family: 'Audiowide', cursive;
+}
+
+.leaderboard-title {
+    color: #393838;
+    font-family: 'Faster One', cursive;
+    font-weight: 400;
+    font-size: 3em;
+    letter-spacing: 2px
+}
+

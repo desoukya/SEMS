@@ -48,3 +48,5 @@ markdown
 sems:highlight.js
 percolate:migrations
 todda00:friendly-slugs
+jcbernack:reactive-aggregate
+aslagle:reactive-table

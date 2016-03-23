@@ -1,4 +1,6 @@
 <template name="home">
+<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Faster+One' rel='stylesheet' type='text/css'>
   <div class="ui page full screen grid">
     <div class="row">
       <div data-class="ui center aligned middle aligned column">
@@ -31,9 +33,20 @@
           <i class="folder open outline icon"></i>
           Explore Course Materials
         </a>
+        <br>
+        <br>
+        <hr>
+        <br>
         <!-- /Explore materials button -->
+        <h1 class = "leaderboard-title"><span>Sprint</span> Leaderboard</h1>
+        <!-- {{#each teams}} {{> teamLeaderboard}} {{/each}} -->
+       {{> reactiveTable class="leaderboard-table" collection=teams settings=leaderboardSettings}}
 
       </div>
     </div>
   </div>
 </template>
+
+ <template name="imageRenderTmpl">
+    <img src="{{company.image}}" alt="">
+</template> 

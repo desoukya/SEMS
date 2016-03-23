@@ -4,6 +4,7 @@ Meteor.startup(function() {
         var pass = Random.id(20);
 
         // Creating the great admin
+        console.log(Meteor.settings.adminEmail)
         var userId = Accounts.createUser({
             email: Meteor.settings.adminEmail,
             password: pass,
@@ -38,7 +39,7 @@ Meteor.startup(function() {
 
     }
 
-    console.log(Date.now())
+    // console.log(Date.now())
 
     // metrics = new Metrics();
     // metrics.contributorsStatistics("https://github.com/desoukya/SEMS",function(err, res){

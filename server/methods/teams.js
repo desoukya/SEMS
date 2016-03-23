@@ -193,26 +193,6 @@ Meteor.methods({
       }
     });
 
-    var pointInc = 0;
-    var sortedTeams = Teams.aggregate([
-      { $unwind: "$metrics" },
-      { $group: { _id: "$_id", metrics: { $last: "$metrics" } } },
-      { $sort: { "metrics.dailyPoints": 1 } }
-    ]);
-    for (var i = 0; i < sortedTeams.length; i++) {
-      var team = sortedTeams[sortedTeams.length - 1];
-      // Teams.update({ _id: team._id }, { $inc: { dailyPoints: pointInc } },
-      //   function(err, affected) {
-      //     if (err) {
-      //       console.log("error while incrementing points in standardDev".red, err)
-      //     } else {
-      //       console.log(affected + " documents affected")
-      //     }
-      //   });
-      console.log(pointInc, +" " + team);
-      pointInc++;
-    }
-
   }
 
 
