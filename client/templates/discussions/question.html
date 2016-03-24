@@ -25,7 +25,7 @@
             <div class="ui right floated text">
               by
               <a href="{{pathFor 'user.profile' _id= askerId}}">{{owner.fullName}}</a>
-              an hour ago
+              {{formatDateHumanized createdAt}}
             </div>
           </div>
         </div>
