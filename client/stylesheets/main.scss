@@ -1,8 +1,8 @@
 // Base
+@import "base/_colors.scss";
 @import "base/_variables.scss";
 @import "base/_mixins.scss";
 @import "base/_base.scss";
-@import "base/_colors.scss";
 
 // Components
 @import "components/_generic.scss";
@@ -19,4 +19,5 @@
 @import "components/modules/_profile.scss";
 @import "components/modules/_questions.scss";
 @import "components/modules/_notification.scss";
+@import "components/modules/_answers.scss";
 @import "components/modules/_leaderboard.scss";

@@ -87,6 +87,10 @@ Meteor.publish('questions', function() {
   return Questions.find({});
 });
 
+Meteor.publish("answers", function() {
+  return Answers.find({});
+});
+
 Meteor.publish('notifications', function() {
   return Notifications.find({ ownerId: this.userId });
 });

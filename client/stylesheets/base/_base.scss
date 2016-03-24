@@ -2,24 +2,19 @@
   box-sizing: border-box;
 }
 
-*:before,
-*:after {
+*:after,
+*:before {
   box-sizing: border-box;
 }
 
-html,
-body {
+body,
+html {
   height: 100%;
   position: relative;
 }
 
 body {
   background-color: $background-color;
-}
-
-.full.page {
-  height: 88vh;
-  width: 100vh;
 }
 
 .section.header {

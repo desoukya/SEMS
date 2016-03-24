@@ -35,12 +35,12 @@ Template.discussions.onRendered(function() {
     }
   });
 
-  $('.ui.dropdown').dropdown('clear',{ allowAdditions: true });
+  $('.ui.dropdown').dropdown({ allowAdditions: true });
 
 });
 
 Template.discussions.events({
-  "submit .new-question": function(event) {
+  'submit .new-question': function(event) {
     // Prevent default browser form submit
     event.preventDefault();
 
@@ -57,6 +57,8 @@ Template.discussions.events({
       tags: tags,
       ownerId: Meteor.userId(),
       answers: [],
+      upvotes: [],
+      downvotes: [],
       createdAt: Date.now() // current time
     }
 
@@ -69,17 +71,24 @@ Template.discussions.events({
 
     // clear selected values
     $('.ui.dropdown').dropdown('clear');
+
+    animateForm();
+  },
+
+  'click #toggle-question-form-button': function(event, template) {
+    animateForm();
   },
 
 });
 
 Template.discussions.helpers({
   questions() {
-    return Questions.find({}, {
-      'createdAt': -1
-    });
+    return Questions.find({});
   },
 
+});
+
+Template.questionForm.helpers({
   allTags() {
     var everything = Questions.find().fetch();
     var allQuestionsTags = _.pluck(everything, "tags");
@@ -87,4 +96,35 @@ Template.discussions.helpers({
     return _.uniq(allQuestionsTagsConcatinatedArray);
   },
 
+});
+
+
+function animateForm() {
+  // Animating Question form on toggle
+  $('#add-question-form').transition({
+    duration: 500,
+    animation: 'slide down'
+  });
+}
+
+Template.questionsSearchBox.helpers({
+  questionsIndex() {
+    return QuestionsIndex;
+  },
+  questionBoxAttributes() {
+    var attributes = { 'placeholder': 'Search in questions', 'id': 'search-box' };
+    return attributes;
+  }
+});
+
+
+Template.questionsSearchBox.events({
+  'keyup #search-box': _.throttle(function(e) {
+    var query = $(e.target).val().trim();
+    if (query) {
+      $('.ui.question.search').search('show results');
+    } else {
+      $('.ui.question.search').search('hide results');
+    }
+  }, 200)
 });
