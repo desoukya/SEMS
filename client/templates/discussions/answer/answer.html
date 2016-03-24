@@ -41,29 +41,29 @@
             </div>
             <!-- /Edit and delete icons -->
 
-            <!-- Meta | Owner and Date -->
-            <div class="meta">
-              <span class="small meta">
-                Answered
-                {{formatDateHumanized createdAt}}
-                by
-                <a href="{{pathFor 'user.profile' _id=owner._id}}">{{owner.fullName}}</a>
-              </span>
+            <!-- Answer content -->
+            <div class="description answer extra margin body">
+              <!-- NOTE: This should be preserved from formatting, to allow markdown to render properly -->
+              {{#markdown}}{{description}}{{/markdown}}
             </div>
-            <!-- /Meta | Owner and Date -->
+            <!-- /Answer content -->
+
           </div>
 
         </div>
 
-        <!-- Answer content -->
-        <div class="description answer extra margin body">
-          <!-- NOTE: This should be preserved from formatting, to allow markdown to render properly -->
-          {{#markdown}}{{description}}{{/markdown}}
-        </div>
-        <!-- /Answer content -->
-
       </div>
+
     </div>
+
+    <!-- Meta | Owner and Date -->
+    <div class="ui right floated small meta">
+      Answered
+      {{formatDateHumanized createdAt}}
+      by
+      <a href="{{pathFor 'user.profile' _id=owner._id}}">{{owner.fullName}}</a>
+    </div>
+    <!-- /Meta | Owner and Date -->
 
   </div>
 </template>
