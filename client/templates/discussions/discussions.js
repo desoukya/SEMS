@@ -85,9 +85,7 @@ Template.discussions.events({
 
 Template.discussions.helpers({
   questions() {
-    return Questions.find({}, {
-      'createdAt': -1
-    });
+    return Questions.find({});
   },
 
 
