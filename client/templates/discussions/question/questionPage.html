@@ -10,11 +10,9 @@
 
       {{> questionDisplay}}
 
-      {{#momentum plugin="slide-height" class="ui animated list" }}
-        {{#each answersObjects}}
-          {{> answer}}
-        {{/each}}
-      {{/momentum}}
+      {{#each sortedAnswers}}
+        {{> answer}}
+      {{/each}}
 
       {{> createAnswerForm}}
 
