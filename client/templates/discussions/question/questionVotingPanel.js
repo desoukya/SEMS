@@ -4,7 +4,7 @@ Template.questionVotingPanel.helpers({
 
     if (!question)
       return
-
+    
     let upvoters = question.upvotes
       .map(function(x) {
         return x.ownerId;
