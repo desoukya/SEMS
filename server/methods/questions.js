@@ -29,7 +29,7 @@ Meteor.methods({
     if (!question)
       throw new Meteor.Error(404, 'The question you are trying to update doesn\'t exist !');
 
-    if (userId === question.userId || Roles.userIsInRole(userId, [ADMIN, LECTURER, TA, JTA])) {
+    if (userId === question.ownerId || Roles.userIsInRole(userId, [ADMIN, LECTURER, TA, JTA])) {
       Questions.update({ _id: questionId }, { $set: { title: title, description: description, tags: tags } });
     } else
       throw new Meteor.Error(401, 'You are not authorized to edit this question');
