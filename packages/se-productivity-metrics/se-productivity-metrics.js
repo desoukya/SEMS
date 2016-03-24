@@ -1,4 +1,4 @@
-Metrics = function(timeout) {
+Metrics = function(githubSecret, timeout) {
 
   colors.enabled = true; // To color Terminal outputs
 
@@ -8,7 +8,11 @@ Metrics = function(timeout) {
   if (typeof timeout === "number") {
     this.options = {
       timeout: timeout,
-      headers: { 'user-agent': 'meteor.js' }
+      headers: { 'user-agent': 'meteor.js' },
+      params: {
+        client_id: 'd275d9504a71d088dd47',
+        client_secret: githubSecret
+      }
     }
   } else {
     this.options = {
@@ -16,7 +20,7 @@ Metrics = function(timeout) {
       headers: { 'user-agent': 'meteor.js' },
       params: {
         client_id: 'd275d9504a71d088dd47',
-        client_secret: 'c35b2ad3a90df7837926251664026d8e8e438915'
+        client_secret: githubSecret
       }
     }
   }
@@ -46,8 +50,8 @@ Metrics = function(timeout) {
   }
 
   /**
-	Returns a weekly aggregate of the number of additions and deletions pushed to a repository.
-	**/
+  Returns a weekly aggregate of the number of additions and deletions pushed to a repository.
+  **/
   this.weeklyCodeFrequency = function(link, callback) {
     var userRepo = getUserRepo(link);
     Meteor.http.call("GET", "https://api.github.com/repos" + userRepo + "/stats/code_frequency", this.options,
@@ -65,13 +69,13 @@ Metrics = function(timeout) {
   /** 
     Each array contains the day number, hour number, and number of commits:
 
-	0-6: Sunday - Saturday
-	0-23: Hour of day
-	Number of commits
+  0-6: Sunday - Saturday
+  0-23: Hour of day
+  Number of commits
 
-	For example, [2, 14, 25] indicates that there were 25 total commits, 
-		during the 2:00pm hour on Tuesdays. All times are based on the time zone of individual commits.
-	**/
+  For example, [2, 14, 25] indicates that there were 25 total commits, 
+    during the 2:00pm hour on Tuesdays. All times are based on the time zone of individual commits.
+  **/
   this.punchCard = function(link, callback) {
     var userRepo = getUserRepo(link);
     Meteor.http.call("GET", "https://api.github.com/repos" + userRepo + "/stats/punch_card", this.options,
@@ -89,46 +93,45 @@ Metrics = function(timeout) {
   /**
     Returns issues of a repository
 
-  	This endpoint may also return pull requests in the response.If an issue is a pull request,
-  	the object will include a pull_request key.
+    This endpoint may also return pull requests in the response.If an issue is a pull request,
+    the object will include a pull_request key.
 
-	Params:
+  Params:
 
-	milestone: (integer or string)
-	If an integer is passed, it should refer to a milestone by its number field. If the string * is passed, 
-	issues with any milestone are accepted. If the string none is passed, issues without milestones are returned.
+  milestone: (integer or string)
+  If an integer is passed, it should refer to a milestone by its number field. If the string * is passed, 
+  issues with any milestone are accepted. If the string none is passed, issues without milestones are returned.
 
-	state: (string)	
-	Indicates the state of the issues to return. Can be either open, closed, or all. Default: open
+  state: (string) 
+  Indicates the state of the issues to return. Can be either open, closed, or all. Default: open
 
-	assignee: (string)	
-	Can be the name of a user. Pass in none for issues with no assigned user, and * for issues assigned to any user.
+  assignee: (string)  
+  Can be the name of a user. Pass in none for issues with no assigned user, and * for issues assigned to any user.
 
-	creator: (string)	
-	The user that created the issue.
+  creator: (string) 
+  The user that created the issue.
 
-	mentioned: (string)	
-	A user that's mentioned in the issue.
+  mentioned: (string) 
+  A user that's mentioned in the issue.
 
-	labels: (string)	
-	A list of comma separated label names. Example: bug,ui,@high
+  labels: (string)  
+  A list of comma separated label names. Example: bug,ui,@high
 
-	sort: (string)	
-	What to sort results by. Can be either created, updated, comments. Default: created
+  sort: (string)  
+  What to sort results by. Can be either created, updated, comments. Default: created
 
-	direction: 
-	(string)	The direction of the sort. Can be either asc or desc. Default: desc
+  direction: 
+  (string)  The direction of the sort. Can be either asc or desc. Default: desc
 
-	since: 
-	(string)	Only issues updated at or after this time are returned. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.
-	**/
+  since: 
+  (string)  Only issues updated at or after this time are returned. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.
+  **/
   this.repoIssues = function(link, callback, params) {
     var userRepo = getUserRepo(link);
     var opt = this.options;
     if (typeof params === "object") {
       opt.params = params;
     }
-    console.log("optionzzz", opt);
     Meteor.http.call("GET", "https://api.github.com/repos" + userRepo + "/issues", opt,
       function(err, res) {
         if (err) {

@@ -51,5 +51,3 @@ Template.home.helpers({
     };
   }
 });
-
-// Meteor.call("calculateDailyLeaderBoard");

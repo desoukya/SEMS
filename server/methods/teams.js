@@ -83,7 +83,7 @@ Meteor.methods({
   },
 
   calculateDailyLeaderBoard() {
-    metrics = new Metrics();
+    metrics = new Metrics(Meteor.settings.githubSecret);
     Teams.find({}, { fields: { repo: 1, metrics: 1, members: 1 } }).forEach(function(team) {
       if (!team.metrics) {
         Teams.update(team, { $push: { metrics: { totalWeeklyLines: 0, lineAdditions: 0, standardDev: 0, dailyPoints: 0, createdAt: Date.now() } } },
@@ -120,7 +120,6 @@ Meteor.methods({
           metrics.contributorsStatistics(team.repo, function(err, res) {
             if (!err) {
               contribStats = res.data;
-              console.log("hena".green + res.data);
             }
           });
 
