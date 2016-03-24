@@ -31,9 +31,26 @@
           <i class="folder open outline icon"></i>
           Explore Course Materials
         </a>
+        <br>
+        <br>
+        <div class="ui horizontal divider"></div>
+        <br>
         <!-- /Explore materials button -->
-
+        <h1 class = "leaderboard-title"><span>Sprint</span> Leaderboard</h1>
+       {{> reactiveTable class="ui selectable celled table" collection=teams settings=leaderboardSettings}}
       </div>
     </div>
   </div>
 </template>
+
+ <template name="imageRenderTmpl">
+    <img src="{{image}}" class = "ui centered tiny rounded image" alt="">
+</template> 
+
+<template name="numberRenderTmpl">
+  {{#if isFirst number}}
+   <div class="ui yellow big ribbon label center aligned"><i class="empty star icon"></i> Top Dogs</div>
+   {{else}}
+   <div class="center aligned">{{number}}</div>
+   {{/if}}
+</template> 

@@ -14,7 +14,8 @@
 
 .full.screen {
   width: 100vw;
-  height: 80vh;
+  min-height:80vh;
+  height: 100%;
 }
 
 .main.header {
