@@ -114,7 +114,7 @@ Template.questionsSearchBox.helpers({
     return QuestionsIndex;
   },
   questionBoxAttributes() {
-    var attributes = { 'placeholder': 'Search...' , 'id':'search-box'};
+    var attributes = { 'placeholder': 'Search in questions' , 'id':'search-box'};
     console.log(attributes);
     return attributes;
   }
