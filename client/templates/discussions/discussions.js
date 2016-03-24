@@ -79,8 +79,6 @@ Template.discussions.events({
     animateForm();
   },
 
-
-
 });
 
 Template.discussions.helpers({
@@ -88,8 +86,12 @@ Template.discussions.helpers({
     return Questions.find({});
   },
 
+});
 
+Template.questionForm.helpers({
   allTags() {
+    console.log("logged");
+
     var everything = Questions.find().fetch();
     var allQuestionsTags = _.pluck(everything, "tags");
     var allQuestionsTagsConcatinatedArray = [].concat.apply([], allQuestionsTags);
@@ -112,8 +114,7 @@ Template.questionsSearchBox.helpers({
     return QuestionsIndex;
   },
   questionBoxAttributes() {
-    var attributes = { 'placeholder': 'Search in questions' , 'id':'search-box'};
-    console.log(attributes);
+    var attributes = { 'placeholder': 'Search in questions', 'id': 'search-box' };
     return attributes;
   }
 });
@@ -123,9 +124,7 @@ Template.questionsSearchBox.events({
   'keyup #search-box': _.throttle(function(e) {
     var query = $(e.target).val().trim();
     if (query) {
-
       $('.ui.question.search').search('show results');
-      console.log(query);
     } else {
       $('.ui.question.search').search('hide results');
     }
