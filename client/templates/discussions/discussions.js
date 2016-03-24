@@ -90,8 +90,6 @@ Template.discussions.helpers({
 
 Template.questionForm.helpers({
   allTags() {
-    console.log("logged");
-
     var everything = Questions.find().fetch();
     var allQuestionsTags = _.pluck(everything, "tags");
     var allQuestionsTagsConcatinatedArray = [].concat.apply([], allQuestionsTags);
