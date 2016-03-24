@@ -19,12 +19,8 @@
     text-transform: uppercase;
 }
 
-.leaderboard-table tr:hover .leaderboard-head {
-    background-color: white;
-    cursor: auto;
-}
 
-.leaderboard-table tr:hover .leaderboard-score {
+.leaderboard-score:hover {
     cursor: pointer!important;
 }
 
@@ -33,14 +29,6 @@
     font-weight: 900;
     text-transform: capitalize;
     font-family: 'Audiowide', cursive;
-}
-
-.image-cell {
-    padding: 10px;
-}
-
-.image-cell img{
-	width: 113px;
 }
 
 .score-cell {
