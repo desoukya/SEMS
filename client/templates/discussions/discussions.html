@@ -60,15 +60,24 @@
     </div>
 </template>
 <template name="suggestion">
-  <option value="">lol{{label}}</option>
+    <option value="">lol{{label}}</option>
 </template>
 <template name="questionsSearchBox">
-    <div class="ui search">
-        <div class="ui icon input">
-            {{> EasySearch.Input index = questionsIndex }}
+    <div class="ui fluid question search">
+        <div class="ui fluid icon input">
+            {{> EasySearch.Input attributes = questionBoxAttributes index = questionsIndex }}
             <i class="search icon"></i>
         </div>
-        <div class="results"></div>
+        <div class="results">
+            {{#EasySearch.Each index = questionsIndex }}
+            <a class="result">
+                <div class="content">
+                    <div class="title">{{title}}
+                    </div>
+                </div>
+            </a>
+            {{/EasySearch.Each}}
+        </div>
     </div>
     <div class="ui pagination menu">
     </div>

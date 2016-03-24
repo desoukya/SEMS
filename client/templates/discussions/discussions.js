@@ -110,5 +110,26 @@ function animateForm() {
 }
 
 Template.questionsSearchBox.helpers({
-  questionsIndex: () => QuestionsIndex
+  questionsIndex() {
+    return QuestionsIndex;
+  },
+  questionBoxAttributes() {
+    var attributes = { 'placeholder': 'Search...' , 'id':'search-box'};
+    console.log(attributes);
+    return attributes;
+  }
+});
+
+
+Template.questionsSearchBox.events({
+  'keyup #search-box': _.throttle(function(e) {
+    var query = $(e.target).val().trim();
+    if (query) {
+
+      $('.ui.question.search').search('show results');
+      console.log(query);
+    } else {
+      $('.ui.question.search').search('hide results');
+    }
+  }, 200)
 });
