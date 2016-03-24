@@ -59,6 +59,14 @@ Meteor.publish('teams', function() {
   return Teams.find({});
 });
 
+Meteor.publish('leaderboardSortedTeams', function(){
+   ReactiveAggregate(this, Teams, [
+      { $unwind: "$metrics" },
+      { $group: { _id: "$_id", metrics: { $last: "$metrics" } } },
+      { $sort: { "metrics.dailyPoints": 1 } }
+    ]);
+})
+
 Meteor.publish('companies', function() {
   return Companies.find({});
 });

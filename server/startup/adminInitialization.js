@@ -30,7 +30,7 @@ Meteor.startup(function() {
       Email.send({
         to: Meteor.settings.adminEmail,
         from: Meteor.settings.systemEmail,
-        subject: '[SEMS] Welcome Adminstrator',
+        subject: "[SEMS] Welcome Adminstrator",
         text: `Hello Admin, your account is created with the following password: ${pass}\nPlease Change your password after logging in`
       });
 
