@@ -19,7 +19,7 @@ Template.materialGroup.helpers({
 
   },
   weekTitle(value) {
-    var weeks = ["Week 1","Week 2","Week 3","Week 4","Week 5","Week6","Midterms","Midterms","Week 8"];
+    var weeks = ["Week 1","Week 2","Week 3","Week 4","Week 5","Week6","Midterms","Midterms","Week 9"];
     //arrays are zero indexed ..  weeks are not
     return weeks[value-1];
   }
