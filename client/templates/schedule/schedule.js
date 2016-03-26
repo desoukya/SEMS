@@ -47,6 +47,8 @@ Template.schedule.helpers({
         value: '7'
       }, {
         value: '8'
+      }, {
+        value: '9'
       }];
     } else if (Template.instance().filterField.get() === 'content') {
       return [{
