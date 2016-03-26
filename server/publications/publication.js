@@ -98,6 +98,7 @@ Meteor.publish('notifications', function() {
 Meteor.publishComposite('questionData', function(questionId) {
 
   return {
+
     find() {
       return Questions.find({ _id: questionId });
 
@@ -113,10 +114,23 @@ Meteor.publishComposite('questionData', function(questionId) {
       },
 
       {
+
         find(question) {
           let answerIds = question.answers || [];
           return Answers.find({ _id: { $in: answerIds } });
-        }
+        },
+
+        children: [
+
+          {
+            find(answer) {
+              let commentIds = answer.comments || [];
+              return Comments.find({ _id: { $in: commentIds } });
+            },
+
+          }
+        ],
+
       }
 
     ],

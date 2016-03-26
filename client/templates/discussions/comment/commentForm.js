@@ -3,11 +3,10 @@ Template.commentForm.events({
     event.preventDefault();
 
     let collectionId = this._id;
-    let content = $('textarea[name=comment]').val();
 
-    // Passing collection type to use for Questions or Answers
-    // TODO: Can be passed as 2nd parameter better ?
-    let collectionType = 'question';
+    let content = template.find('textarea[name=comment]').value;
+
+    let collectionType = this.collectionType;
 
     let data = { collectionId, content, collectionType };
 
@@ -15,9 +14,8 @@ Template.commentForm.events({
       if (err)
         sAlert.error(err.reason)
       else
-        $('textarea[name=comment]').val('');
+        template.find('textarea[name=comment]').value = '';
     });
-
 
   },
 
