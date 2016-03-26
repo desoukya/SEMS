@@ -59,12 +59,12 @@ Meteor.publish('teams', function() {
   return Teams.find({});
 });
 
-Meteor.publish('leaderboardSortedTeams', function(){
-   ReactiveAggregate(this, Teams, [
-      { $unwind: "$metrics" },
-      { $group: { _id: "$_id", metrics: { $last: "$metrics" } } },
-      { $sort: { "metrics.dailyPoints": 1 } }
-    ]);
+Meteor.publish('leaderboardSortedTeams', function() {
+  ReactiveAggregate(this, Teams, [
+    { $unwind: "$metrics" },
+    { $group: { _id: "$_id", metrics: { $last: "$metrics" } } },
+    { $sort: { "metrics.dailyPoints": 1 } }
+  ]);
 })
 
 Meteor.publish('companies', function() {
@@ -93,4 +93,19 @@ Meteor.publish("answers", function() {
 
 Meteor.publish('notifications', function() {
   return Notifications.find({ ownerId: this.userId });
+});
+
+Meteor.publish('questionData', function(questionId) {
+  let question = Questions.find({ _id: questionId });
+
+  let questionObj = question.fetch()[0];
+
+  let commentIds = questionObj.comments || [];
+  let answerIds = questionObj.answers || [];
+
+  let comments = Comments.find({ _id: { $in: commentIds } });
+  let answers = Answers.find({ _id: { $in: answerIds } });
+
+  return [question, comments, answers];
+
 });
