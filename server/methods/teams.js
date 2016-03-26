@@ -84,7 +84,7 @@ Meteor.methods({
 
   calculateDailyLeaderBoard() {
     metrics = new Metrics(Meteor.settings.githubSecret);
-    Teams.find({}, { fields: { repo: 1, metrics: 1, members: 1 } }).forEach(function(team) {
+    Teams.find({ _id: "T8KL72gTHPLNz93fi" }, { fields: { repo: 1, metrics: 1, members: 1 } }).forEach(function(team) {
       if (!team.metrics) {
         Teams.update(team, { $push: { metrics: { totalWeeklyLines: 0, lineAdditions: 0, standardDev: 0, dailyPoints: 0, createdAt: Date.now() } } },
           function(err, affected) {
@@ -100,8 +100,9 @@ Meteor.methods({
           if (!err) {
             if (res.data.length > 0) {
               additionsAndSubt = (res.data[res.data.length - 1][1]) + (-1 * res.data[res.data.length - 1][2]);
+              console.log("Additions and sub " ,additionsAndSubt);
             } else {
-              console.log("No entries in weekly code frequency".yellow)
+              console.log("No entries in weekly code frequency for team ".yellow + team.name)
             }
           }
         });
@@ -109,7 +110,7 @@ Meteor.methods({
 
         var teamMembers = [];
         if (team.members.length < 1) {
-          console.log("This team has no members".red)
+          console.log("No members in team ".yellow + team.name);
         } else {
           for (var i = 0; i < team.members.length; i++) {
             var member = Meteor.users.findOne({ _id: team.members[i] }, { fields: { metrics: 1, profile: 1 } });
@@ -120,6 +121,7 @@ Meteor.methods({
           metrics.contributorsStatistics(team.repo, function(err, res) {
             if (!err) {
               contribStats = res.data;
+              console.log("contrib stats1 " ,contribStats);
             }
           });
 
@@ -143,7 +145,7 @@ Meteor.methods({
               }
             }
             if (!found) {
-              console.log('User did not make any commits or was not found in contributor List'.yellow);
+              console.log(teamMembers[i].profile.githubUser +' User did not make any commits or was not found in contributor List'.yellow);
             }
 
             Meteor.users.update(teamMembers[i], {
@@ -158,7 +160,7 @@ Meteor.methods({
               if (err) {
                 console.log("error while updating user with new metrics".red, err)
               } else {
-                console.log(affected + " users affected")
+                console.log(affected + " users affected".green)
               }
             });
 
@@ -185,7 +187,7 @@ Meteor.methods({
             if (err) {
               console.log("error while updating team with new metrics".red, err)
             } else {
-              console.log(affected + " teams affected")
+              console.log(affected + " teams affected".green)
             }
           });
         }

@@ -36,7 +36,6 @@ Metrics = function(githubSecret, timeout) {
    **/
   this.contributorsStatistics = function(link, callback) {
     var userRepo = getUserRepo(link);
-
     Meteor.http.call("GET", "https://api.github.com/repos" + userRepo + "/stats/contributors", this.options,
       function(err, res) {
         if (err) {
@@ -177,5 +176,10 @@ var getUserRepo = function(href) {
       search: match[6],
       hash: match[7]
   }*/
-  return match[5]
+  var id = ".git";
+  if (match[5].slice(-id.length) == id) {
+    return match[5].slice(0, match[5].length - id.length);
+  } else {
+    return match[5]
+  }
 };
