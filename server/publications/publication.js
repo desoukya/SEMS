@@ -95,17 +95,32 @@ Meteor.publish('notifications', function() {
   return Notifications.find({ ownerId: this.userId });
 });
 
-Meteor.publish('questionData', function(questionId) {
-  let question = Questions.find({ _id: questionId });
+Meteor.publishComposite('questionData', function(questionId) {
 
-  let questionObj = question.fetch()[0];
+  return {
+    find() {
+      return Questions.find({ _id: questionId });
 
-  let commentIds = questionObj.comments || [];
-  let answerIds = questionObj.answers || [];
+    },
 
-  let comments = Comments.find({ _id: { $in: commentIds } });
-  let answers = Answers.find({ _id: { $in: answerIds } });
+    children: [
 
-  return [question, comments, answers];
+      {
+        find(question) {
+          let commentIds = question.comments || [];
+          return Comments.find({ _id: { $in: commentIds } });
+        }
+      },
+
+      {
+        find(question) {
+          let answerIds = question.answers || [];
+          return Answers.find({ _id: { $in: answerIds } });
+        }
+      }
+
+    ],
+
+  }
 
 });
