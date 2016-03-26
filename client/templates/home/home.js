@@ -51,7 +51,7 @@ Template.home.helpers({
         headerClass: 'leaderboard-head leaderboard-score center aligned',
         cellClass: 'score-cell center aligned',
         sortOrder: 0,
-        sortDirection: 'ascending'
+        sortDirection: 'descending'
       }]
     };
   }

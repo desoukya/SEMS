@@ -63,7 +63,7 @@ Meteor.publish('leaderboardSortedTeams', function(){
    ReactiveAggregate(this, Teams, [
       { $unwind: "$metrics" },
       { $group: { _id: "$_id", metrics: { $last: "$metrics" } } },
-      { $sort: { "metrics.dailyPoints": 1 } }
+      { $sort: { "metrics.dailyPoints": -1 } }
     ]);
 })
 
