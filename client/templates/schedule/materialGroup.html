@@ -5,8 +5,13 @@
     <div class="ui row">
 
       <!-- materialGroup Header -->
-      <h2 class="header" >{{#if equals type 'week'}}{{lowerCamelCase type}}{{/if}}
+      <h2 class="header" >
+      {{#if equals type 'week'}}
+      {{weekTitle value}}
+      {{else}}
       {{lowerCamelCase value}}
+
+      {{/if}}
       </h2>
       <!-- /materialGroup Header -->
       
