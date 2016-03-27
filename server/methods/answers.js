@@ -151,6 +151,22 @@ Meteor.methods({
 
     Answers.update({ _id: answerId }, { $set: { bestAnswer: marked } });
 
+    let icon = "<i class=\"yellow star icon\"></i>";
+    let content = "your answer is marked as best answer";
+    let link = `/discussions/${question._id}`;
+
+    // I shouldn't notify myself that I marked my answer as the
+    // best answer :v
+    if (Meteor.userId() !== answer.ownerId) {
+      Notifications.insert({
+        ownerId: answer.ownerId,
+        content: `${icon} ${content}`,
+        link: link,
+        read: false,
+        createdAt: Date.now()
+      });
+
+    }
   }
 
 
