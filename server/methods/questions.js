@@ -59,7 +59,7 @@ Meteor.methods({
       Questions.update({ _id: questionId }, { $push: { 'upvotes': upvote } });
       Questions.update({ _id: questionId }, { $pull: { 'downvotes': { 'ownerId': userId } } });
 
-      let icon = "<i class=\"thumbs up icon\"></i>";
+      let icon = "<i class=\"green thumbs up icon\"></i>";
       let user = Meteor.users.findOne({ _id: userId });
       let content = "upvoted your question";
       let link = `/discussions/${question._id}`;
@@ -98,7 +98,7 @@ Meteor.methods({
       Questions.update({ _id: questionId }, { $push: { 'downvotes': downvote } });
       Questions.update({ _id: questionId }, { $pull: { 'upvotes': { 'ownerId': userId } } });
 
-      let icon = "<i class=\"thumbs down icon\"></i>";
+      let icon = "<i class=\"red thumbs down icon\"></i>";
       let content = "Your question is downvoted";
       let link = `/discussions/${question._id}`;
 

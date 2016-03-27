@@ -71,6 +71,22 @@ Meteor.methods({
       // Upvote and remove from downvoters
       Answers.update({ _id: answerId }, { $push: { 'upvotes': upvote } });
       Answers.update({ _id: answerId }, { $pull: { 'downvotes': { 'ownerId': userId } } });
+
+      let icon = "<i class=\"green thumbs up icon\"></i>";
+      let user = Meteor.users.findOne({ _id: userId });
+      let content = "upvoted your answer";
+      // FIXME: This should be refactored
+      let question = Questions.findOne({ answers: answerId });
+      let link = `/discussions/${question._id}`;
+
+      Notifications.insert({
+        ownerId: answer.ownerId,
+        content: `${icon} ${user.profile.firstName} ${content}`,
+        link: link,
+        read: false,
+        createdAt: Date.now()
+      });
+
     }
 
   },
@@ -97,6 +113,21 @@ Meteor.methods({
       // Downvote and remove from upvoters
       Answers.update({ _id: answerId }, { $push: { 'downvotes': downvote } });
       Answers.update({ _id: answerId }, { $pull: { 'upvotes': { 'ownerId': userId } } });
+
+      let icon = "<i class=\"red thumbs down icon\"></i>";
+      let content = "Your answer is downvoted";
+      // FIXME: This should be refactored
+      let question = Questions.findOne({ answers: answerId });
+      let link = `/discussions/${question._id}`;
+
+      Notifications.insert({
+        ownerId: answer.ownerId,
+        content: `${icon} ${content}`,
+        link: link,
+        read: false,
+        createdAt: Date.now()
+      });
+
     }
   },
 
