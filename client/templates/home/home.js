@@ -1,11 +1,7 @@
-Meteor.subscribe("leaderboardSortedTeams");
+// Meteor.subscribe("leaderboardSortedTeams");
 Template.home.helpers({
   isInTeam() {
-    if (Roles.userIsInRole(Meteor.userId(), ADMIN)) {
-      return false;
-    } else {
-      return TeamUtils.isInTeam(Meteor.userId());
-    }
+    return TeamUtils.isInTeam(Meteor.userId());
   },
 
   getTeamSlug() {
@@ -13,8 +9,6 @@ Template.home.helpers({
   },
 
   teams() {
-    console.log(Teams.find({}).fetch());
-
     return Teams.find({}).map(function(item, index) {
       item.number = index + 1;
       return item;

@@ -59,12 +59,22 @@ Meteor.publish('teams', function() {
   return Teams.find({});
 });
 
-Meteor.publish('leaderboardSortedTeams', function(){
-   ReactiveAggregate(this, Teams, [
-      { $unwind: "$metrics" },
-      { $group: { _id: "$_id", metrics: { $last: "$metrics" } } },
-      { $sort: { "metrics.dailyPoints": -1 } }
-    ]);
+Meteor.publish('leaderboardSortedTeams', function() {
+  ReactiveAggregate(this, Teams, [
+    { $unwind: "$metrics" }, {
+      $group: {
+        _id: "$_id",
+        metrics: { $last: "$metrics" },
+        company: { "$first": "$company" },
+        members: { "$first": "$members" },
+        name: { "$first": "$name" },
+        slug: { "$first": "$slug" },
+        friendlySlugs: { "$first": "$friendlySlugs" },
+        repo: { "$first": "$repo" }
+      }
+    },
+    { $sort: { "metrics.dailyPoints": -1 } }
+  ]);
 })
 
 Meteor.publish('companies', function() {
