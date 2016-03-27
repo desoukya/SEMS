@@ -79,6 +79,16 @@
           </div>
         </a>
       {{/EasySearch.Each}}
+      {{#EasySearch.IfNoResults index=questionsSuggestionsIndex}}
+      <div class="message empty">
+        <div class="header">
+          No Results
+        </div>
+        <div class="description">
+          Your search returned no results
+        </div>
+      </div>
+      {{/EasySearch.IfNoResults}}
     </div>
   </div>
   <div class="ui segment">

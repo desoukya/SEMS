@@ -31,17 +31,11 @@ Template.discussions.onRendered(function() {
           prompt: 'You need at least one tag for your question'
         }]
       }
-
     }
   });
   $('.ui.dropdown').dropdown({ allowAdditions: true });
-
-  /*Tracker.autorun(function(){
-    var query = QuestionsIndex.getComponentDict().get('searchDefinition');
-    console.log(query); 
-    let cursor = QuestionsIndex.search(query),docs = cursor.fetch();
-
-  })*/
+  //clear current question search on rendered
+  QuestionsIndex.getComponentMethods().search('');
 
 });
 
@@ -137,7 +131,6 @@ Template.questionsSearchBox.events({
     }
     //if pressed enter
     if(e.which == 13){
-      console.log("why not ?")
       QuestionsIndex.getComponentMethods().search(query);
     }
   }, 200)
