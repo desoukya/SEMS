@@ -11,10 +11,12 @@
       <div class="metadata">
         <div class="date">{{formatDateHumanized createdAt}}</div>
 
-        <span class="ui right floated icons group">
-          <i id="edit-comment-icon" class="edit small link black icon"></i>
-          <i id="delete-comment-icon" class="trash small red link icon"></i>
-        </span>
+        {{#if canEdit}}
+          <span class="ui right floated icons group">
+            <i id="edit-comment-icon" class="edit small link black icon"></i>
+            <i id="delete-comment-icon" class="trash small red link icon"></i>
+          </span>
+        {{/if}}
 
       </div>
 

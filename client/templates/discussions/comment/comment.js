@@ -1,7 +1,13 @@
 Template.comment.helpers({
   user() {
     return Meteor.users.findOne({ _id: this.ownerId });
+  },
+
+  canEdit() {
+    return Meteor.userId() === this.ownerId ||
+      Roles.userIsInRole(Meteor.userId(), [ADMIN, LECTURER, TA, JTA]);
   }
+
 });
 
 
