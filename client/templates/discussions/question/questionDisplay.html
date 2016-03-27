@@ -66,6 +66,12 @@
 
     {{> commentForm extendContext collectionType='question'}}
 
+    <div class="ui comments">
+      {{#each commentObjects}}
+        {{> comment}}
+      {{/each}}
+    </div>
+
   </div>
 
 </template>
