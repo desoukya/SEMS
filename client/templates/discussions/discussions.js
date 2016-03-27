@@ -34,8 +34,14 @@ Template.discussions.onRendered(function() {
 
     }
   });
-
   $('.ui.dropdown').dropdown({ allowAdditions: true });
+
+  /*Tracker.autorun(function(){
+    var query = QuestionsIndex.getComponentDict().get('searchDefinition');
+    console.log(query); 
+    let cursor = QuestionsIndex.search(query),docs = cursor.fetch();
+
+  })*/
 
 });
 
@@ -111,8 +117,11 @@ Template.questionsSearchBox.helpers({
   questionsIndex() {
     return QuestionsIndex;
   },
+  questionsSuggestionsIndex() {
+    return QuestionsSuggestionsIndex;
+  },
   questionBoxAttributes() {
-    var attributes = { 'placeholder': 'Search in questions', 'id': 'search-box' };
+    var attributes = { 'placeholder': 'Search in questions', 'id': 'search-box' , 'class': 'prompt'};
     return attributes;
   }
 });
@@ -125,6 +134,11 @@ Template.questionsSearchBox.events({
       $('.ui.question.search').search('show results');
     } else {
       $('.ui.question.search').search('hide results');
+    }
+    //if pressed enter
+    if(e.which == 13){
+      console.log("why not ?")
+      QuestionsIndex.getComponentMethods().search(query);
     }
   }, 200)
 });
