@@ -16,6 +16,19 @@ Meteor.methods({
     // Append the answer to the question
     Questions.update({ _id: questionId }, { $push: { answers: answerId } });
 
+    let question = Questions.findOne({ _id: questionId });
+    let icon = "<i class=\"idea icon\"></i>";
+    let content = "New answer on your question";
+    let link = `/discussions/${question._id}`;
+
+    Notifications.insert({
+      ownerId: question.ownerId,
+      content: `${icon} ${content}`,
+      link: link,
+      read: false,
+      createdAt: Date.now()
+    });
+
   },
 
   deleteAnswer(answerId) {
