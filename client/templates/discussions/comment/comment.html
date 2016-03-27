@@ -1,5 +1,6 @@
 <template name="comment">
   <div class="small comment">
+
     <a href="{{pathFor 'user.profile' _id=user._id}}" class="avatar">
       <img class="ui avatar image" src="{{user.profilePicture.url}}">
     </a>
@@ -9,6 +10,12 @@
 
       <div class="metadata">
         <div class="date">{{formatDateHumanized createdAt}}</div>
+
+        <span class="ui right floated icons group">
+          <i id="edit-comment-icon" class="edit small link black icon"></i>
+          <i id="delete-comment-icon" class="trash small red link icon"></i>
+        </span>
+
       </div>
 
       <div class="text">
