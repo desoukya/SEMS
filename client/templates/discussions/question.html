@@ -14,8 +14,8 @@
 
         <div class="ui fifteen wide column">
 
-          <div class="ui header">
-            <a href="{{pathFor 'question.page' slug= slug}}">{{title}}</a>
+          <div class="header">
+            <a class="ui big link blue header" href="{{pathFor 'question.page' _id= __originalId}}">{{title}}</a>
           </div>
 
           <div class="meta">
@@ -31,25 +31,26 @@
               {{answersCount}}
             </span>
 
-            <div class="extra">
-              {{#each tags}}
-                {{> tag}}
-              {{/each}}
+          </div>
 
-              <div class="ui card special popup">
-                <a class="image" href="{{pathFor 'user.profile' _id=owner._id}}">
-                  <img src="{{owner.profilePicture.url}}">
-                </a>
-                <div class="content">
-                  <a class="header centered text" href="{{pathFor 'user.profile' _id=owner._id}}">{{owner.fullName}}</a>
-                </div>
-              </div>
+          <div class="extra">
+            {{#each tags}}
+              {{> tag}}
+            {{/each}}
 
-              <div class="ui right floated text">
-                asked by
-                <a href="{{pathFor 'user.profile' _id= ownerId}}" class="question-owner-popup-activator">{{owner.fullName}}</a>
-                {{formatDateHumanized createdAt}}
+            <div class="ui card special popup">
+              <a class="image" href="{{pathFor 'user.profile' _id=owner._id}}">
+                <img src="{{owner.profilePicture.url}}">
+              </a>
+              <div class="content">
+                <a class="header centered text" href="{{pathFor 'user.profile' _id=owner._id}}">{{owner.fullName}}</a>
               </div>
+            </div>
+
+            <div class="ui right floated text">
+              asked by
+              <a href="{{pathFor 'user.profile' _id= ownerId}}" class="question-owner-popup-activator">{{owner.fullName}}</a>
+              {{formatDateHumanized createdAt}}
             </div>
           </div>
 

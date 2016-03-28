@@ -34,10 +34,12 @@ Template.discussions.onRendered(function() {
       }
     }
   });
+
   $('.ui.dropdown').dropdown({
     allowAdditions: true,
     direction: 'downward'
   });
+
   //clear current question search on rendered
   QuestionsIndex.getComponentMethods().search('');
 
