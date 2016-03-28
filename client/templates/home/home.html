@@ -37,6 +37,7 @@
         <br>
         <!-- /Explore materials button -->
         <h1 class = "leaderboard-title"><span>Sprint</span> Leaderboard</h1>
+        {{> reactiveTableFilter id="myFilter" label="Filter Teams" fields=["name"] }}
        {{> reactiveTable class="ui selectable celled table" collection=teams settings=leaderboardSettings}}
       </div>
     </div>
