@@ -65,5 +65,17 @@
     </div>
     <!-- /Meta | Owner and Date -->
 
+    <div class="ui horizontal divider">
+      Comments
+    </div>
+
+    {{> commentForm extendContext collectionType='answer'}}
+
+    <div class="ui comments">
+      {{#each commentObjects}}
+        {{> comment}}
+      {{/each}}
+    </div>
+
   </div>
 </template>
