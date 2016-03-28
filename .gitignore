@@ -8,3 +8,6 @@ mup-dev.json
 # everything in bash-scripts except templates
 bash-scripts/*
 !bash-scripts/*.template.*
+
+SEMS.tar.gz
+

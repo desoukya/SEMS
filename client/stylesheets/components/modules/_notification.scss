@@ -4,3 +4,16 @@
     min-width: 360px;
   }
 }
+
+.ui.menu .ui.dropdown .menu {
+  .notification.item {
+    padding-bottom: 20px !important;
+    padding-top: 10px !important;
+  }
+}
+
+.notification.date {
+  margin-bottom: 5px;
+  color: $grey;
+  font-size: 11px;
+}

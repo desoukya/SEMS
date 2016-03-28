@@ -59,6 +59,24 @@ Meteor.publish('teams', function() {
   return Teams.find({});
 });
 
+Meteor.publish('leaderboardSortedTeams', function() {
+  ReactiveAggregate(this, Teams, [
+    { $unwind: "$metrics" }, {
+      $group: {
+        _id: "$_id",
+        metrics: { $last: "$metrics" },
+        company: { "$first": "$company" },
+        members: { "$first": "$members" },
+        name: { "$first": "$name" },
+        slug: { "$first": "$slug" },
+        friendlySlugs: { "$first": "$friendlySlugs" },
+        repo: { "$first": "$repo" }
+      }
+    },
+    { $sort: { "metrics.dailyPoints": -1 } }
+  ]);
+})
+
 Meteor.publish('companies', function() {
   return Companies.find({});
 });
@@ -79,6 +97,55 @@ Meteor.publish('questions', function() {
   return Questions.find({});
 });
 
+Meteor.publish("answers", function() {
+  return Answers.find({});
+});
+
 Meteor.publish('notifications', function() {
   return Notifications.find({ ownerId: this.userId });
+
+});
+
+Meteor.publishComposite('questionData', function(questionSlug) {
+
+  return {
+
+    find() {
+      return Questions.find({ slug: questionSlug });
+
+    },
+
+    children: [
+
+      {
+        find(question) {
+          let commentIds = question.comments || [];
+          return Comments.find({ _id: { $in: commentIds } });
+        }
+      },
+
+      {
+
+        find(question) {
+          let answerIds = question.answers || [];
+          return Answers.find({ _id: { $in: answerIds } });
+        },
+
+        children: [
+
+          {
+            find(answer) {
+              let commentIds = answer.comments || [];
+              return Comments.find({ _id: { $in: commentIds } });
+            },
+
+          }
+        ],
+
+      }
+
+    ],
+
+  }
+
 });

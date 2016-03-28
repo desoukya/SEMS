@@ -11,17 +11,32 @@
   margin-bottom: 30px;
 }
 
-.item >.vote {
-  width: 50px;
+.answer.body {
+  @extend .question.body;
 }
 
-.item >.vote > * {
-  display: block;
-  line-height: 1em;
-  margin: auto;
-  text-align: center;
+.vote {
+  .icon {
+    width: 100%;
+  }
+
+  * {
+    display: block;
+    line-height: 1em;
+    margin: auto;
+    text-align: center;
+  }
+
+  .vote.count {
+    font-size: 1.3em;
+    font-weight: 800;
+  }
 }
 
-#question-wrapper {
+.padded.segment {
   padding: 30px;
+}
+
+span.highlight {
+    background-color: yellow;
 }

@@ -22,6 +22,12 @@
       {{/if}}
       <!-- /Team Button-->
 
+      <!-- Discussions Button-->
+      {{#if currentUser}}
+        <a class="item {{isActive 'discussions'}}" href="{{pathFor 'discussions'}}">Discussions</a>
+      {{/if}}
+      <!-- /Discussions Button-->
+
       <div class="right menu">
         {{#if currentUser}}
           {{> userView}}
