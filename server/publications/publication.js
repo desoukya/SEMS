@@ -95,12 +95,12 @@ Meteor.publish('notifications', function() {
   return Notifications.find({ ownerId: this.userId });
 });
 
-Meteor.publishComposite('questionData', function(questionId) {
+Meteor.publishComposite('questionData', function(questionSlug) {
 
   return {
 
     find() {
-      return Questions.find({ _id: questionId });
+      return Questions.find({ slug: questionSlug });
 
     },
 

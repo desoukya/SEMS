@@ -73,7 +73,7 @@
 
     <div class="results">
       {{#EasySearch.Each index=questionsSuggestionsIndex }}
-        <a href="{{pathFor 'question.page' _id= __originalId}}" class="result">
+        <a href="{{pathFor 'question.page' slug= slug}}" class="result">
           <div class="content">
             <div class="title">{{title}}</div>
           </div>
