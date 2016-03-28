@@ -60,16 +60,21 @@
 
     </div>
 
-    <div class="ui horizontal divider">
-      Comments
-    </div>
 
-    {{> commentForm extendContext collectionType='question'}}
-
-    <div class="ui comments">
-      {{#each commentObjects}}
-        {{> comment}}
-      {{/each}}
+    <div class="ui accordion">
+      <div class="title">
+        <i class="dropdown icon"></i>
+        show comments
+      </div>
+      <div class="content">
+        <div class="ui horizontal divider">Comments</div>
+        {{> commentForm extendContext collectionType='question'}}
+        <div class="ui comments">
+          {{#each commentObjects}}
+            {{> comment}}
+          {{/each}}
+        </div>
+      </div>
     </div>
 
   </div>

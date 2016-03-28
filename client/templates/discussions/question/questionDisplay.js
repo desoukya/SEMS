@@ -4,6 +4,7 @@ Template.questionDisplay.onRendered(function() {
   $('pre code').each(function(i, block) {
     hljs.highlightBlock(block);
   });
+  $('.ui.accordion').accordion();
 
 });
 

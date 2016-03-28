@@ -64,17 +64,21 @@
       <a href="{{pathFor 'user.profile' _id=owner._id}}">{{owner.fullName}}</a>
     </div>
     <!-- /Meta | Owner and Date -->
-
-    <div class="ui horizontal divider">
-      Comments
-    </div>
-
-    {{> commentForm extendContext collectionType='answer'}}
-
-    <div class="ui comments">
-      {{#each commentObjects}}
-        {{> comment}}
-      {{/each}}
+    
+    <div class="ui accordion">
+      <div class="title">
+        <i class="dropdown icon"></i>
+        show comments
+      </div>
+      <div class="content">
+        <div class="ui horizontal divider">Comments</div>
+        {{> commentForm extendContext collectionType='answer'}}
+        <div class="ui comments">
+          {{#each commentObjects}}
+            {{> comment}}
+          {{/each}}
+        </div>
+      </div>
     </div>
 
   </div>
