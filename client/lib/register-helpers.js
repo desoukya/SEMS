@@ -57,3 +57,10 @@ Template.registerHelper('colorOfRole', function(role) {
   }
   return roleColor;
 });
+
+// Based on this answer on SO :
+// http://stackoverflow.com/a/31525361/3357910
+// Passing variable to template and extend it to the current context
+Template.registerHelper('extendContext', function(data) {
+  return _.extend({}, this, data.hash);
+});

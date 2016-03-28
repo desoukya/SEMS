@@ -59,7 +59,7 @@
 <template name="questionsSearchBox">
   <div class="ui fluid question search">
     <div class="ui fluid right action left icon input">
-      {{> EasySearch.Input attributes=questionBoxAttributes index=questionsIndex }}
+      {{> EasySearch.Input attributes=questionBoxAttributes index= questionsSuggestionsIndex }}
       <i class="search icon"></i>
 
       <!-- Toggle Question form button -->
@@ -72,13 +72,23 @@
     <!-- /Question Form -->
 
     <div class="results">
-      {{#EasySearch.Each index=questionsIndex }}
-        <a href="{{pathFor 'question.page' _id= _id}}" class="result">
+      {{#EasySearch.Each index=questionsSuggestionsIndex }}
+        <a href="{{pathFor 'question.page' _id= __originalId}}" class="result">
           <div class="content">
             <div class="title">{{title}}</div>
           </div>
         </a>
       {{/EasySearch.Each}}
+      {{#EasySearch.IfNoResults index=questionsSuggestionsIndex}}
+      <div class="message empty">
+        <div class="header">
+          No Results
+        </div>
+        <div class="description">
+          Your search returned no results
+        </div>
+      </div>
+      {{/EasySearch.IfNoResults}}
     </div>
   </div>
   <div class="ui segment">

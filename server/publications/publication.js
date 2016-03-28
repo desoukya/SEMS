@@ -103,4 +103,49 @@ Meteor.publish("answers", function() {
 
 Meteor.publish('notifications', function() {
   return Notifications.find({ ownerId: this.userId });
+
+});
+
+Meteor.publishComposite('questionData', function(questionId) {
+
+  return {
+
+    find() {
+      return Questions.find({ _id: questionId });
+
+    },
+
+    children: [
+
+      {
+        find(question) {
+          let commentIds = question.comments || [];
+          return Comments.find({ _id: { $in: commentIds } });
+        }
+      },
+
+      {
+
+        find(question) {
+          let answerIds = question.answers || [];
+          return Answers.find({ _id: { $in: answerIds } });
+        },
+
+        children: [
+
+          {
+            find(answer) {
+              let commentIds = answer.comments || [];
+              return Comments.find({ _id: { $in: commentIds } });
+            },
+
+          }
+        ],
+
+      }
+
+    ],
+
+  }
+
 });

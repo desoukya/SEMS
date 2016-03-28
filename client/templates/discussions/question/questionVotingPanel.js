@@ -1,6 +1,6 @@
 Template.questionVotingPanel.helpers({
   activeUp() {
-    let question = Questions.findOne({ _id: this._id });
+    let question = Questions.findOne({ _id: this.__originalId });
 
     if (!question)
       return
@@ -15,7 +15,7 @@ Template.questionVotingPanel.helpers({
   },
 
   activeDown() {
-    let question = Questions.findOne({ _id: this._id });
+    let question = Questions.findOne({ _id: this.__originalId });
 
     if (!question)
       return
@@ -33,7 +33,7 @@ Template.questionVotingPanel.helpers({
 
 Template.questionVotingPanel.events({
   'click #upvote': function(event) {
-    Meteor.call('upvoteQuestion', this._id, function(err) {
+    Meteor.call('upvoteQuestion', this.__originalId, function(err) {
       if (err)
         sAlert.error(err.reason);
     });
@@ -41,7 +41,7 @@ Template.questionVotingPanel.events({
   },
 
   'click #downvote': function(event) {
-    Meteor.call('downvoteQuestion', this._id, function(err) {
+    Meteor.call('downvoteQuestion', this.__originalId, function(err) {
       if (err)
         sAlert.error(err.reason);
     });

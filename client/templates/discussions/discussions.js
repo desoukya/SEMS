@@ -31,11 +31,11 @@ Template.discussions.onRendered(function() {
           prompt: 'You need at least one tag for your question'
         }]
       }
-
     }
   });
-
   $('.ui.dropdown').dropdown({ allowAdditions: true });
+  //clear current question search on rendered
+  QuestionsIndex.getComponentMethods().search('');
 
 });
 
@@ -111,8 +111,11 @@ Template.questionsSearchBox.helpers({
   questionsIndex() {
     return QuestionsIndex;
   },
+  questionsSuggestionsIndex() {
+    return QuestionsSuggestionsIndex;
+  },
   questionBoxAttributes() {
-    var attributes = { 'placeholder': 'Search in questions', 'id': 'search-box' };
+    var attributes = { 'placeholder': 'Search in questions', 'id': 'search-box' , 'class': 'prompt'};
     return attributes;
   }
 });
@@ -125,6 +128,10 @@ Template.questionsSearchBox.events({
       $('.ui.question.search').search('show results');
     } else {
       $('.ui.question.search').search('hide results');
+    }
+    //if pressed enter
+    if(e.which == 13){
+      QuestionsIndex.getComponentMethods().search(query);
     }
   }, 200)
 });
