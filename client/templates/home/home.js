@@ -18,8 +18,8 @@ Template.home.helpers({
   leaderboardSettings() {
     return {
       rowsPerPage: 40,
-      showFilter: true,
       showNavigation: 'auto',
+      filters: ['myFilter'],
       fields: [{
         key: 'number',
         label: 'Position',
