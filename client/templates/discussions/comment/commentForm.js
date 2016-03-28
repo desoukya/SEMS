@@ -1,11 +1,7 @@
 Template.commentForm.events({
-  'click #add-comment-button': function(event, template) {
-    event.preventDefault();
-    // Fire form submit, to handle front-end validation
-    $(template.find('.reply.form')).submit();
-  },
-
   'submit .reply.form': function(event, template) {
+    event.preventDefault();
+
     let collectionId = this._id;
 
     let content = template.find('textarea[name=comment]').value;
