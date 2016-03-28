@@ -113,5 +113,12 @@ Meteor.methods({
     }
   },
 
+  getAllTags() {
+    var everything = Questions.find().fetch();
+    var allQuestionsTags = _.pluck(everything, "tags");
+    var allQuestionsTagsConcatinatedArray = [].concat.apply([], allQuestionsTags);
+    return _.uniq(allQuestionsTagsConcatinatedArray);
+  }
+
 
 });

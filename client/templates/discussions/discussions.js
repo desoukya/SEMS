@@ -1,6 +1,6 @@
 Template.discussions.onRendered(function() {
   $('.ui.form').form({
-    inline:true,
+    inline: true,
     fields: {
 
       title: {
@@ -34,7 +34,10 @@ Template.discussions.onRendered(function() {
       }
     }
   });
-  $('.ui.dropdown').dropdown({ allowAdditions: true });
+  $('.ui.dropdown').dropdown({
+    allowAdditions: true,
+    direction: 'downward'
+  });
   //clear current question search on rendered
   QuestionsIndex.getComponentMethods().search('');
 
@@ -95,10 +98,11 @@ Template.discussions.helpers({
 
 Template.questionForm.helpers({
   allTags() {
-    var everything = Questions.find().fetch();
-    var allQuestionsTags = _.pluck(everything, "tags");
-    var allQuestionsTagsConcatinatedArray = [].concat.apply([], allQuestionsTags);
-    return _.uniq(allQuestionsTagsConcatinatedArray);
+    return ReactiveMethod.call('getAllTags', function(err, tags) {
+      if (err)
+        sAlert.error(err.reason);
+    });
+
   },
 
 });
@@ -120,7 +124,7 @@ Template.questionsSearchBox.helpers({
     return QuestionsSuggestionsIndex;
   },
   questionBoxAttributes() {
-    var attributes = { 'placeholder': 'Search in questions', 'id': 'search-box' , 'class': 'prompt'};
+    var attributes = { 'placeholder': 'Search in questions', 'id': 'search-box', 'class': 'prompt' };
     return attributes;
   }
 });
@@ -135,7 +139,7 @@ Template.questionsSearchBox.events({
       $('.ui.question.search').search('hide results');
     }
     //if pressed enter
-    if(e.which == 13){
+    if (e.which == 13) {
       QuestionsIndex.getComponentMethods().search(query);
     }
   }, 200)
