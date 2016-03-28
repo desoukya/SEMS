@@ -90,105 +90,100 @@ Meteor.methods({
           function(err, affected) {
             if (err) {
               console.log("error while updating".red, err)
-            } else {
-              console.log(affected + " documents affected")
             }
           });
       } else {
         var additionsAndSubt = 0;
         metrics.weeklyCodeFrequency(team.repo, function(err, res) {
-          if (!err) {
+          if (!err && res.data) {
             if (res.data.length > 0) {
               additionsAndSubt = (res.data[res.data.length - 1][1]) + (-1 * res.data[res.data.length - 1][2]);
+
+              var teamMembers = [];
+              if (team.members.length < 1) {
+                console.log("No members in team ".yellow + team.name);
+              } else {
+
+                var contribStats = [];
+                metrics.contributorsStatistics(team.repo, function(err, res) {
+                  if (!err) {
+                    contribStats = res.data;
+
+                    for (var i = 0; i < team.members.length; i++) {
+                      var member = Meteor.users.findOne({ _id: team.members[i] }, { fields: { metrics: 1, profile: 1 } });
+                      teamMembers.push(member);
+                    }
+
+                    var lineDiff = additionsAndSubt - team.metrics[team.metrics.length - 1].totalWeeklyLines;
+                    var average = lineDiff / teamMembers.length;
+                    var cumulative = 0;
+                    for (var i = 0; i < teamMembers.length; i++) {
+                      var userTotalWeeklyLines = 0;
+                      var userLineAdditions = 0;
+                      var found = false;
+                      for (var j = 0; j < contribStats.length; j++) {
+                        if (teamMembers[i].profile.githubUser == contribStats[j].author.login) {
+                          found = true;
+
+                          userTotalWeeklyLines = contribStats[j].weeks[contribStats[j].weeks.length - 1].a +
+                            contribStats[j].weeks[contribStats[j].weeks.length - 1].c;
+
+                          userLineAdditions = userTotalWeeklyLines -
+                            teamMembers[i].metrics[teamMembers[i].metrics.length - 1].totalWeeklyLines
+                          break;
+                        }
+                      }
+                      if (!found) {
+                        console.log(teamMembers[i].profile.githubUser + ' User did not make any commits or was not found in contributor List'.yellow);
+                      }
+
+                      Meteor.users.update(teamMembers[i], {
+                        $push: {
+                          metrics: {
+                            totalWeeklyLines: userTotalWeeklyLines,
+                            lineAdditions: userLineAdditions,
+                            createdAt: Date.now()
+                          }
+                        }
+                      }, function(err, affected) {
+                        if (err) {
+                          console.log("error while updating user with new metrics".red, err)
+                        }
+                      });
+
+                      cumulative = cumulative + Math.pow((average - userLineAdditions), 2);
+                    }
+
+                    var variance = cumulative / teamMembers.length;
+                    var sd = Math.sqrt(variance);
+
+
+                    var newPoints = lineDiff - lineDiff * (sd / 1000);
+                    var updatedPoints = team.metrics[team.metrics.length - 1].dailyPoints + newPoints;
+                    updatedPoints = updatedPoints | 0;
+                    Teams.update(team, {
+                      $push: {
+                        metrics: {
+                          totalWeeklyLines: additionsAndSubt,
+                          lineAdditions: lineDiff,
+                          standardDev: sd,
+                          dailyPoints: updatedPoints,
+                          createdAt: Date.now()
+                        }
+                      }
+                    }, function(err, affected) {
+                      if (err) {
+                        console.log("error while updating team with new metrics".red, err)
+                      }
+                    });
+                  }
+                });
+              }
             } else {
-              console.log("No entries in weekly code frequency".yellow)
+              console.log("No entries in weekly code frequency for team ".yellow + team.name)
             }
           }
         });
-
-
-        var teamMembers = [];
-        if (team.members.length < 1) {
-          console.log("This team has no members".red)
-        } else {
-          for (var i = 0; i < team.members.length; i++) {
-            var member = Meteor.users.findOne({ _id: team.members[i] }, { fields: { metrics: 1, profile: 1 } });
-            teamMembers.push(member);
-          }
-
-          var contribStats = [];
-          metrics.contributorsStatistics(team.repo, function(err, res) {
-            if (!err) {
-              contribStats = res.data;
-            }
-          });
-
-          var lineDiff = additionsAndSubt - team.metrics[team.metrics.length - 1].totalWeeklyLines;
-          var average = lineDiff / teamMembers.length;
-          var cumulative = 0;
-          for (var i = 0; i < teamMembers.length; i++) {
-            var userTotalWeeklyLines = 0;
-            var userLineAdditions = 0;
-            var found = false;
-            for (var j = 0; j < contribStats.length; j++) {
-              if (teamMembers[i].profile.githubUser == contribStats[j].author.login) {
-                found = true;
-
-                userTotalWeeklyLines = contribStats[j].weeks[contribStats[j].weeks.length - 1].a +
-                  contribStats[j].weeks[contribStats[j].weeks.length - 1].c;
-
-                userLineAdditions = userTotalWeeklyLines -
-                  teamMembers[i].metrics[teamMembers[i].metrics.length - 1].totalWeeklyLines
-                break;
-              }
-            }
-            if (!found) {
-              console.log('User did not make any commits or was not found in contributor List'.yellow);
-            }
-
-            Meteor.users.update(teamMembers[i], {
-              $push: {
-                metrics: {
-                  totalWeeklyLines: userTotalWeeklyLines,
-                  lineAdditions: userLineAdditions,
-                  createdAt: Date.now()
-                }
-              }
-            }, function(err, affected) {
-              if (err) {
-                console.log("error while updating user with new metrics".red, err)
-              } else {
-                console.log(affected + " users affected")
-              }
-            });
-
-            cumulative = cumulative + Math.pow((average - userLineAdditions), 2);
-          }
-
-          var variance = cumulative / teamMembers.length;
-          var sd = Math.sqrt(variance);
-
-
-          var newPoints = lineDiff - lineDiff * (sd / 1000);
-          var updatedPoints = team.metrics[team.metrics.length - 1].dailyPoints + newPoints;
-          Teams.update(team, {
-            $push: {
-              metrics: {
-                totalWeeklyLines: additionsAndSubt,
-                lineAdditions: lineDiff,
-                standardDev: sd,
-                dailyPoints: updatedPoints,
-                createdAt: Date.now()
-              }
-            }
-          }, function(err, affected) {
-            if (err) {
-              console.log("error while updating team with new metrics".red, err)
-            } else {
-              console.log(affected + " teams affected")
-            }
-          });
-        }
       }
     });
 
