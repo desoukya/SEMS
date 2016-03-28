@@ -8,10 +8,8 @@ Meteor.methods({
       throw new Meteor.Error(409, 'Team was already created by this user');
     else if (!Roles.userIsInRole(Meteor.userId(), SCRUM))
       throw new Meteor.Error(401, "Not authorized to create a new team");
-    else{
-      team.metrics =  [{ totalWeeklyLines: 0, lineAdditions: 0, standardDev: 0, dailyPoints: 0, createdAt: Date.now() }];
+    else
       return Teams.insert(team);
-    }
 
   },
 
