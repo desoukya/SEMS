@@ -9,10 +9,6 @@ Template.questionDisplay.onRendered(function() {
 });
 
 Template.questionDisplay.helpers({
-  detailedDate() {
-    return moment(this.createdAt, 'ddd, MMM DD YYYY HH:mm:ss ZZ').format('LLL');
-  },
-
   canEdit() {
     return this.ownerId === Meteor.userId() || Roles.userIsInRole(Meteor.userId(), [ADMIN, LECTURER, TA]);
   }
