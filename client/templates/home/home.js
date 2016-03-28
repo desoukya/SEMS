@@ -55,6 +55,14 @@ Template.numberRenderTmpl.helpers({
 
   isFirst(number) {
     return number == 1;
+  },
+
+  isSecond(number) {
+    return number == 2;
+  },
+
+  isThird(number) {
+    return number == 3;
   }
 
 });

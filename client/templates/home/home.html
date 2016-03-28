@@ -50,8 +50,16 @@
 
 <template name="numberRenderTmpl">
   {{#if isFirst number}}
-   <div class="ui yellow big ribbon label center aligned"><i class="empty star icon"></i> Top Dogs</div>
-   {{else}}
-   <div class="center aligned">{{number}}</div>
-   {{/if}}
+   <div class="ui yellow big ribbon label center aligned full-width"><img class ="ui centered massive rounded image leaderboard-rank" src="images/first.png" alt=""> 1</div>
+  {{else}}
+    {{#if isSecond number}}
+    <div class="ui silver big ribbon label center aligned full-width"><img class ="ui centered massive rounded image leaderboard-rank" src="images/second.png" alt=""> 2</div>
+    {{else}}
+      {{#if isThird number}}
+      <div class="ui brown big ribbon label center aligned full-width"><img class ="ui centered massive rounded image leaderboard-rank" src="images/third.png" alt=""> 3</div>
+      {{else}}
+      <div class="center aligned">{{number}}</div>
+      {{/if}}
+    {{/if}}
+  {{/if}}
 </template> 
