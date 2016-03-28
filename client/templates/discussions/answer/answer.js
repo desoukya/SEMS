@@ -9,7 +9,7 @@ Template.answer.onRendered(function() {
 Template.answer.helpers({
   canEdit() {
     var userId = Meteor.userId();
-    return this.ownerId === userId || Roles.userIsInRole(userId, [ADMIN, LECTURER, TA]);
+    return this.ownerId === userId || Roles.userIsInRole(userId, [ADMIN, LECTURER, TA, JTA]);
   },
 
   detailedDate() {

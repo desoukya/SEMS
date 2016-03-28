@@ -7,7 +7,7 @@ Meteor.methods({
     if (!question)
       throw new Meteor.Error(404, 'The question you are trying to delete is not found');
 
-    if (userId === question.ownerId || Roles.userIsInRole(userId, [ADMIN, LECTURER, TA])) {
+    if (userId === question.ownerId || Roles.userIsInRole(userId, [ADMIN, LECTURER, TA, JTA])) {
 
       // Remove all answers related to this question
       Answers.remove({ _id: { $in: question.answers } });

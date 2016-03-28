@@ -10,7 +10,7 @@ Template.questionDisplay.onRendered(function() {
 
 Template.questionDisplay.helpers({
   canEdit() {
-    return this.ownerId === Meteor.userId() || Roles.userIsInRole(Meteor.userId(), [ADMIN, LECTURER, TA]);
+    return this.ownerId === Meteor.userId() || Roles.userIsInRole(Meteor.userId(), [ADMIN, LECTURER, TA, JTA]);
   }
 
 });

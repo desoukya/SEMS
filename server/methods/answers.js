@@ -38,7 +38,7 @@ Meteor.methods({
     if (!answer)
       throw new Meteor.Error(404, "The answer you are trying to delete is not found");
 
-    if (userId === answer.ownerId || Roles.userIsInRole(userId, [ADMIN, LECTURER, TA])) {
+    if (userId === answer.ownerId || Roles.userIsInRole(userId, [ADMIN, LECTURER, TA, JTA])) {
       Questions.update({ answers: answerId }, { $pull: { answers: answerId } });
       Answers.remove({ _id: answerId });
     } else
