@@ -62,7 +62,7 @@ Meteor.methods({
       let icon = "<i class=\"green thumbs up icon\"></i>";
       let user = Meteor.users.findOne({ _id: userId });
       let content = "upvoted your question";
-      let link = `/discussions/${question._id}`;
+      let link = `/discussions/${question.slug}`;
 
       Notifications.insert({
         ownerId: question.ownerId,
@@ -100,7 +100,7 @@ Meteor.methods({
 
       let icon = "<i class=\"red thumbs down icon\"></i>";
       let content = "Your question is downvoted";
-      let link = `/discussions/${question._id}`;
+      let link = `/discussions/${question.slug}`;
 
       Notifications.insert({
         ownerId: question.ownerId,
