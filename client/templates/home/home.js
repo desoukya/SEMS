@@ -1,4 +1,4 @@
-Meteor.subscribe("leaderboardSortedTeams");
+// Meteor.subscribe("leaderboardSortedTeams");
 Template.home.helpers({
   isInTeam() {
     return TeamUtils.isInTeam(Meteor.userId());
@@ -9,7 +9,6 @@ Template.home.helpers({
   },
 
   teams() {
-    console.log(Teams.find({}).fetch());
     return Teams.find({}).map(function(item, index) {
       item.number = index + 1;
       return item;
@@ -19,8 +18,8 @@ Template.home.helpers({
   leaderboardSettings() {
     return {
       rowsPerPage: 40,
-      showFilter: true,
       showNavigation: 'auto',
+      filters: ['myFilter'],
       fields: [{
         key: 'number',
         label: 'Position',
@@ -46,7 +45,7 @@ Template.home.helpers({
         headerClass: 'leaderboard-head leaderboard-score center aligned',
         cellClass: 'score-cell center aligned',
         sortOrder: 0,
-        sortDirection: 'ascending'
+        sortDirection: 'descending'
       }]
     };
   }

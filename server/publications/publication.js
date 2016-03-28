@@ -61,9 +61,19 @@ Meteor.publish('teams', function() {
 
 Meteor.publish('leaderboardSortedTeams', function() {
   ReactiveAggregate(this, Teams, [
-    { $unwind: "$metrics" },
-    { $group: { _id: "$_id", metrics: { $last: "$metrics" } } },
-    { $sort: { "metrics.dailyPoints": 1 } }
+    { $unwind: "$metrics" }, {
+      $group: {
+        _id: "$_id",
+        metrics: { $last: "$metrics" },
+        company: { "$first": "$company" },
+        members: { "$first": "$members" },
+        name: { "$first": "$name" },
+        slug: { "$first": "$slug" },
+        friendlySlugs: { "$first": "$friendlySlugs" },
+        repo: { "$first": "$repo" }
+      }
+    },
+    { $sort: { "metrics.dailyPoints": -1 } }
   ]);
 })
 
@@ -93,6 +103,7 @@ Meteor.publish("answers", function() {
 
 Meteor.publish('notifications', function() {
   return Notifications.find({ ownerId: this.userId });
+
 });
 
 Meteor.publishComposite('questionData', function(questionSlug) {

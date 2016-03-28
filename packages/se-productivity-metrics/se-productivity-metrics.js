@@ -36,11 +36,10 @@ Metrics = function(githubSecret, timeout) {
    **/
   this.contributorsStatistics = function(link, callback) {
     var userRepo = getUserRepo(link);
-
     Meteor.http.call("GET", "https://api.github.com/repos" + userRepo + "/stats/contributors", this.options,
       function(err, res) {
         if (err) {
-          console.log("error getting contributor statistics".red, err);
+          console.log("error getting contributor statistics".red + userRepo + " " + err);
           callback(err, res);
         } else {
           console.log("Retrieved contributor stats successfully".green, res.statusCode);
@@ -57,7 +56,7 @@ Metrics = function(githubSecret, timeout) {
     Meteor.http.call("GET", "https://api.github.com/repos" + userRepo + "/stats/code_frequency", this.options,
       function(err, res) {
         if (err) {
-          console.log("error getting weekly code frequency".red, err);
+          console.log("error getting weekly code frequency of ".red + userRepo + " " + err);
           callback(err, res);
         } else {
           console.log("Retrieved weekly code frequency successfully".green, res.statusCode);
@@ -81,7 +80,7 @@ Metrics = function(githubSecret, timeout) {
     Meteor.http.call("GET", "https://api.github.com/repos" + userRepo + "/stats/punch_card", this.options,
       function(err, res) {
         if (err) {
-          console.log("error getting punch card number of daily commits".red, err);
+          console.log("error getting punch card number of daily commits".red + userRepo + " " + err);
           callback(err, res);
         } else {
           console.log("Retrieved punch card successfully".green, res.statusCode);
@@ -135,7 +134,7 @@ Metrics = function(githubSecret, timeout) {
     Meteor.http.call("GET", "https://api.github.com/repos" + userRepo + "/issues", opt,
       function(err, res) {
         if (err) {
-          console.log("error getting the issues of the repo".red, err);
+          console.log("error getting the issues of the repo".red + userRepo + " " + err);
           callback(err, res);
         } else {
           console.log("Retrieved issues successfully".green, res.statusCode);
@@ -152,7 +151,7 @@ Metrics = function(githubSecret, timeout) {
     Meteor.http.call("GET", "https://api.github.com/repos" + userRepo + "/issues/" + number, this.options,
       function(err, res) {
         if (err) {
-          console.log("error getting issue".red, err);
+          console.log("error getting issue".red + userRepo + " " + err);
           callback(err, res);
         } else {
           console.log("Retrieved the issue successfully".green, res.statusCode);
@@ -177,5 +176,10 @@ var getUserRepo = function(href) {
       search: match[6],
       hash: match[7]
   }*/
-  return match[5]
+  var id = ".git";
+  if (match[5].slice(-id.length) == id) {
+    return match[5].slice(0, match[5].length - id.length);
+  } else {
+    return match[5]
+  }
 };
