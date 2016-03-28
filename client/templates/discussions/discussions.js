@@ -1,5 +1,6 @@
 Template.discussions.onRendered(function() {
   $('.ui.form').form({
+    inline:true,
     fields: {
 
       title: {
@@ -20,7 +21,7 @@ Template.discussions.onRendered(function() {
           prompt: 'You should have some description about your question'
         }, {
           type: 'length[25]',
-          prompt: 'Your question length should be at least 25 '
+          prompt: 'You should provide a better discription of your question. min length is 25 characters '
         }]
       },
 
