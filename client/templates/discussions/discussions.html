@@ -4,15 +4,8 @@
       <!-- Question SearchBox -->
       {{> questionsSearchBox}}
       <!-- /Question SearchBox -->
-      <!-- Questions -->
-      <!--div class="ui segment">
-        <div class="ui divided items">
-          {{#each questions}}
-            {{> question}}
-          {{/each}}
-        </div>
-      </div-->
-      <!-- /Questions -->
+      
+      {{> questionHelpModal}}
     </div>
   </div>
 </template>
@@ -22,12 +15,16 @@
     <form class="ui form new-question">
 
       <!-- Title -->
+
       <div class="field">
-        <label>Ask a question</label>
+        <label>
+          Ask a question
+          <i class="help link big icon" id="help-icon"></i>
+        </label>
         <input class="small" type="text" name="title" placeholder="Ask a question"/>
       </div>
       <!-- /Title -->
-
+      
       <!-- Description -->
       <div class="field">
         <label>Description</label>

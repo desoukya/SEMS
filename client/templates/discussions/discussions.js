@@ -78,6 +78,10 @@ Template.discussions.events({
   'click #toggle-question-form-button': function(event, template) {
     animateForm();
   },
+  'click #help-icon': function(event, template) {
+
+    $('#question-help-modal').modal('show');
+  }
 
 });
 

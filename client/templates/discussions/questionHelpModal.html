@@ -1,0 +1,141 @@
+<template name="questionHelpModal">
+  <div class="ui modal" id="question-help-modal">
+<i class="close icon"></i>
+  <div class="header">
+    How to write a question
+  </div>
+  <div class="content">
+    <div class="description">
+      <div class="ui header">What is Markdown?</div>
+      <p>
+        Markdown is a way to style text on the web. You control the display of the document; formatting words as bold or italic, adding images, and creating lists are just a few of the things we can do with Markdown. Mostly, Markdown is just regular text with a few non-alphabetic characters thrown in, like # or *.
+      </p>
+      
+      <div class="ui header">Synatx Guide</div>
+      <p>
+        Here’s an overview of Markdown syntax that you can use.
+      </p>
+      
+      <div class="ui horizontal divider">Headers</div>
+      <p>
+        #Hello -> <h1>Hello</h1>
+        ##world ->  <h2>world</h2>
+      </p>
+
+      <div class="ui horizontal divider">Emphasis</div>
+      <p>
+        *Hello* or  _Hello_ -> <i> _Hello_</i>
+      </p>
+      <p>
+        **Hello** or __Hello__->  <strong>world</strong>
+      </p>
+      
+      <div class="ui horizontal divider">Unorderd Lists</div>
+      <pre>
+    * Item 1
+    * Item 2
+      * Item 2a
+      * Item 2b
+      </pre>
+         -> 
+      <p>
+{{#markdown}}
+* Item 1
+* Item 2
+  * Item 2a
+  * Item 2b
+{{/markdown}}
+        
+      </p>
+
+       <div class="ui horizontal divider">Orderd Lists</div>
+      <pre>
+    1. Item 1
+    2. Item 2
+    3. Item 3
+       * Item 3a
+       * Item 3b
+      </pre>
+         -> 
+      <p>
+{{#markdown}}
+1. Item 1
+2. Item 2
+3. Item 3
+   * Item 3a
+   * Item 3b
+{{/markdown}}
+        
+      </p>
+
+<div class="ui horizontal divider">Images</div>
+Format: ![Alt Text](url)
+-> 
+{{#markdown}}![GitHub Logo](https://upload.wikimedia.org/wikipedia/commons/b/b1/Meanstack-624x250.jpg){{/markdown}}
+
+<div class="ui horizontal divider">Links</div>
+Format: [Text](url)
+-> 
+{{#markdown}}[GitHub](http://github.com){{/markdown}}
+
+<div class="ui horizontal divider">Blockquotes</div>
+Format: > quote
+-> 
+{{#markdown}}> i will leave tomorrow's problems to tomorrow's me   {{/markdown}}
+
+<div class="ui horizontal divider">Inline code</div>
+Format: `var true = false;`
+-> 
+{{#markdown}} `var true = false;` {{/markdown}}
+
+<div class="ui horizontal divider">code blocks</div>
+you can paste code snippets here and the markdown will highlight 
+<pre>
+  
+Format: > 
+```lang
+
+code goes here
+
+```
+Example for languages are js,html,java
+ 
+here is an example for a js snippet
+
+```js
+var string = "string";
+```
+
+</pre>
+-> 
+{{#markdown}}
+### java script
+```js
+for (i=0 ; i<3 ; i++) {
+  switch(i) {
+    case 1:
+      // do some stuff
+      break;
+    case 2:
+      // do some stuff
+      break;;
+    case 3:
+      // do some stuff
+      break;
+  }
+}
+```
+### html
+```html
+<form>
+    Login : <input type=textbox name=login><br>
+    Password : <input type=password name=pass><br>
+    <input type=button value="OK" onCLick="if (login.value=='admin'&&pass.value=='123456') window.location.replace('admin.php'); ">
+</form>
+```
+{{/markdown}}
+    </div>
+  </div>
+
+  </div>
+</template>
