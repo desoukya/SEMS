@@ -19,7 +19,7 @@ Meteor.methods({
     let question = Questions.findOne({ _id: questionId });
     let icon = "<i class=\"idea icon\"></i>";
     let content = "New answer on your question";
-    let link = `/discussions/${question._id}`;
+    let link = `/discussions/${question.slug}`;
 
     Notifications.insert({
       ownerId: question.ownerId,
@@ -90,7 +90,7 @@ Meteor.methods({
       let content = "upvoted your answer";
       // FIXME: This should be refactored
       let question = Questions.findOne({ answers: answerId });
-      let link = `/discussions/${question._id}`;
+      let link = `/discussions/${question.slug}`;
 
       Notifications.insert({
         ownerId: answer.ownerId,
@@ -131,7 +131,7 @@ Meteor.methods({
       let content = "Your answer is downvoted";
       // FIXME: This should be refactored
       let question = Questions.findOne({ answers: answerId });
-      let link = `/discussions/${question._id}`;
+      let link = `/discussions/${question.slug}`;
 
       Notifications.insert({
         ownerId: answer.ownerId,
@@ -166,7 +166,7 @@ Meteor.methods({
 
     let icon = "<i class=\"yellow star icon\"></i>";
     let content = "your answer is marked as best answer";
-    let link = `/discussions/${question._id}`;
+    let link = `/discussions/${question.slug}`;
 
     // I shouldn't notify myself that I marked my answer as the
     // best answer :v

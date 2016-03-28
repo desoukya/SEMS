@@ -24,7 +24,7 @@ Meteor.methods({
 
       let question = Questions.findOne({ _id: collectionId });
       let comments = question.commentObjects();
-      let link = `/discussions/${question._id}`;
+      let link = `/discussions/${question.slug}`;
 
       if (question.ownerId !== userId) {
         // Notifying the Question owner
@@ -66,7 +66,7 @@ Meteor.methods({
       let comments = answer.commentObjects();
       // This is bad, we need to pass the question id somehow
       let question = Questions.findOne({ answers: collectionId });
-      let link = `/discussions/${question._id}`;
+      let link = `/discussions/${question.slug}`;
 
       if (answer.ownerId !== userId) {
         // Notifying the Answer owner
