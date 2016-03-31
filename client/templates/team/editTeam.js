@@ -21,6 +21,8 @@ Template.editTeam.helpers({
 
 Template.editTeam.events({
   'click #addMembers': function(event) {
+    //temp fix
+    return;
 
     var self = this;
 
