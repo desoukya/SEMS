@@ -1,6 +1,6 @@
 Meteor.methods({
   getNodeEnv() {
-    return Meteor.settings.environment;
+    return process.env.NODE_ENV;
   },
 
 });
