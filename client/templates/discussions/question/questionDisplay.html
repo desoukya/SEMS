@@ -1,0 +1,81 @@
+<template name="questionDisplay">
+
+  <div class="ui clearing olive padded segment">
+    <div class="item">
+
+      <div class="content">
+
+        <div class="ui grid">
+          <!-- Voting panel -->
+          <div class="ui one wide column">
+            {{> questionVotingPanel}}
+          </div>
+          <!-- /Voting panel -->
+
+          <div class="ui fifteen wide column">
+            <!-- Title -->
+            <div class="header">
+
+              <span class="ui huge header">{{title}}</span>
+
+              {{#if canEdit}}
+                <span class="ui right floated tiny header icons group">
+                  <i id="edit-icon" class="edit link icon"></i>
+                  <i id="delete-icon" class="trash red link icon"></i>
+                </span>
+              {{/if}}
+
+            </div>
+            <!-- /Title -->
+
+            <!-- Meta | Owner and Date -->
+            <div class="meta">
+              <span class="small meta">
+                Asked by :
+                <a href="{{pathFor 'user.profile' _id=owner._id}}">{{owner.fullName}}</a>
+              </span>
+
+              <span class="small padded popup meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
+                <i class="wait icon"></i>
+                {{formatDateHumanized createdAt}}
+              </span>
+
+              <span class="small padded meta">
+                <i class="line chart icon"></i>
+                views :
+                {{views}}
+              </span>
+            </div>
+            <!-- /Meta | Owner and Date -->
+          </div>
+        </div>
+
+        <!-- Question content -->
+        <div class="description extra margin body">
+          <!-- NOTE: This should be preserved from formatting, to allow markdown to render properly -->
+          {{#markdown}}{{description}}{{/markdown}}
+        </div>
+        <!-- /Question content -->
+      </div>
+
+    </div>
+
+    <div class="ui accordion">
+      <div class="title">
+        <i class="dropdown icon"></i>
+        show comments
+      </div>
+      <div class="content">
+        <div class="ui horizontal divider">Comments</div>
+        {{> commentForm extendContext collectionType='question'}}
+        <div class="ui comments">
+          {{#each commentObjects}}
+            {{> comment}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</template>

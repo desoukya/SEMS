@@ -1,0 +1,35 @@
+<template name="commentEditModal">
+
+  {{#with commentData}}
+    <div class="ui modal" id="edit-comment-modal">
+
+      <i class="close icon"></i>
+
+      <div class="header">
+        Comment Editing
+      </div>
+
+      <div class="content">
+        <!-- Comment Edit form -->
+        <div class="ui form" id="question-edit-form">
+
+          <!-- Content -->
+          <div class="field">
+            <label>Content</label>
+            <textarea name="comment_content" value="{{content}}"></textarea>
+          </div>
+          <!-- /Content -->
+
+        </div>
+        <!-- /Comment Edit form -->
+
+      </div>
+
+      <div class="actions">
+        <div class="ui positive button">Update Comment</div>
+      </div>
+
+    </div>
+  {{/with}}
+
+</template>

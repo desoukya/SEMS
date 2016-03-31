@@ -1,0 +1,85 @@
+<template name="answer">
+
+  <div class="ui padded segment answer-wrapper">
+
+    <div class="item">
+
+      <div class="content">
+
+        <div class="ui grid">
+          <!-- Vote panel -->
+          <div class="ui one wide column">
+            <div class="vote">
+              <i class="chevron {{activeUp}} up link large icon" id="upvote"></i>
+              <div class="vote count">{{totalVotes}}</div>
+              <i class="chevron {{activeDown}} down link large icon" id="downvote"></i>
+            </div>
+
+            {{#if isQuestionOwner}}
+              <i class="check circle outline large {{bestAnswerActive}} link best answer icon" id="best-answer-icon"></i>
+            {{else}}
+              <!-- NOTE: Nested ifs used here to not add the 2 elements for question owner -->
+              {{#if bestAnswer}}
+                <i class="check circle outline large green best answer icon"></i>
+              {{/if}}
+
+            {{/if}}
+          </div>
+          <!-- /Vote panel -->
+
+          <div class="ui fifteen wide column">
+            <!-- Edit and delete icons -->
+            <div class="header">
+
+              {{#if canEdit}}
+                <span class="ui right floated tiny header icons group">
+                  <i id="edit-icon" class="edit link icon"></i>
+                  <i id="delete-icon" class="trash red link icon"></i>
+                </span>
+              {{/if}}
+
+            </div>
+            <!-- /Edit and delete icons -->
+
+            <!-- Answer content -->
+            <div class="description answer extra margin body">
+              <!-- NOTE: This should be preserved from formatting, to allow markdown to render properly -->
+              {{#markdown}}{{description}}{{/markdown}}
+            </div>
+            <!-- /Answer content -->
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Meta | Owner and Date -->
+    <div class="ui right floated small meta">
+      Answered
+      {{formatDateHumanized createdAt}}
+      by
+      <a href="{{pathFor 'user.profile' _id=owner._id}}">{{owner.fullName}}</a>
+    </div>
+    <!-- /Meta | Owner and Date -->
+    
+    <div class="ui accordion">
+      <div class="title">
+        <i class="dropdown icon"></i>
+        show comments
+      </div>
+      <div class="content">
+        <div class="ui horizontal divider">Comments</div>
+        {{> commentForm extendContext collectionType='answer'}}
+        <div class="ui comments">
+          {{#each commentObjects}}
+            {{> comment}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</template>

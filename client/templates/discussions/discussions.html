@@ -1,56 +1,122 @@
 <template name="discussions">
   <div class="ui container grid">
     <div class="twelve wide centered column">
+      <!-- Question SearchBox -->
+      {{> questionsSearchBox}}
+      <!-- /Question SearchBox -->
 
-      <!-- Question Form -->
-      <div class="ui segment">
-        <form class="ui form new-question">
+      {{> questionHelpModal}}
+    </div>
+  </div>
+</template>
 
-          <!-- Title -->
-          <div class="field">
-            <label>Ask a question</label>
-            <input class="small" type="text" name="title" placeholder="Ask a question"/>
-          </div>
-          <!-- /Title -->
+<template name="questionForm">
+  <div class="ui segment transition hidden" id="add-question-form">
+    <form class="ui form new-question">
 
-          <!-- Description -->
-          <div class="field">
-            <label>Description</label>
-            <textarea name="description"></textarea>
-          </div>
-          <!-- /Description -->
+      <!-- Title -->
 
-          <!-- Tags -->
-          <div class="field">
-            <label>Tags</label>
-            <div class="ui fluid multiple selection search dropdown">
-              <input id="tags" name="tags" type="hidden">
-              <i class="dropdown icon"></i>
-              <div class="default text">Skills</div>
-              <div class="menu">
-                {{#each allTags}}
-                  <div class="item" data-value="{{this}}">{{this}}</div>
-                {{/each}}
-              </div>
-            </div>
-          </div>
-          <!-- /Tags -->
-
-          <input type="submit" class="ui fluid large green submit button" value="submit">
-        </form>
+      <div class="field">
+        <label>
+          Ask a question
+          <i class="help circle link large icon" id="help-icon"></i>
+        </label>
+        <input class="small" type="text" name="title" placeholder="Ask a question"/>
       </div>
-      <!-- /Question Form -->
+      <!-- /Title -->
 
-      <!-- Questions -->
-      <div class="ui segment">
-        <div class="ui divided items">
-          {{#each questions}}
-            {{> question}}
-          {{/each}}
+      <!-- Description -->
+      <div class="field">
+        <label>Description</label>
+        <textarea name="description"></textarea>
+      </div>
+      <!-- /Description -->
+
+      <!-- Tags -->
+      <div class="field">
+        <label>Tags</label>
+        <div class="ui fluid multiple selection search dropdown">
+          <input id="tags" name="tags" type="hidden">
+          <i class="dropdown icon"></i>
+          <div class="default text">Tags</div>
+          <div class="menu">
+            {{#each allTags}}
+              <div class="item" data-value="{{this}}">{{this}}</div>
+            {{/each}}
+          </div>
         </div>
       </div>
-      <!-- /Questions -->
+      <!-- /Tags -->
 
+      <input type="submit" class="ui fluid large green submit button" value="submit">
+    </form>
+  </div>
+</template>
+
+<template name="questionsSearchBox">
+  <div class="ui fluid question search">
+    <div class="ui fluid right action left icon input">
+      {{> EasySearch.Input attributes=questionBoxAttributes index= questionsSuggestionsIndex }}
+      <i class="search icon"></i>
+
+      <!-- Toggle Question form button -->
+      <div class="ui blue button" id="toggle-question-form-button">Ask a question</div>
+      <!-- /Toggle Question form button -->
     </div>
+
+    <!-- Question Form -->
+    {{> questionForm}}
+    <!-- /Question Form -->
+
+    <div class="results">
+      {{#EasySearch.Each index=questionsSuggestionsIndex }}
+        <a href="{{pathFor 'question.page' slug= slug}}" class="result">
+          <div class="content">
+            <div class="title">{{title}}</div>
+          </div>
+        </a>
+      {{/EasySearch.Each}}
+      {{#EasySearch.IfNoResults index=questionsSuggestionsIndex}}
+      <div class="message empty">
+        <div class="header">
+          No Results
+        </div>
+        <div class="description">
+          Your search returned no results
+        </div>
+      </div>
+      {{/EasySearch.IfNoResults}}
+    </div>
+  </div>
+  <div class="ui segment">
+
+    <div class="ui divided items">
+      {{#EasySearch.Each index=questionsIndex }}
+        {{> question}}
+      {{/EasySearch.Each}}
+    </div>
+
+    {{#EasySearch.IfNoResults index=questionsIndex}}
+      <div class="ui page full screen grid">
+        <div class="center aligned middle aligned column">
+          <p>
+            <i class="large search icon"></i>
+          </p>
+          <h1 class="large text">Sorry no questions matches your search</h1>
+          <h1>be the first to ask this question</h1>
+
+        </div>
+      </div>
+    {{/EasySearch.IfNoResults}}
+
+    {{> EasySearch.Pagination index=questionsIndex maxPages=9 renderPagination="navigator"}}
+  </div>
+</template>
+
+<template name="navigator">
+  <div class="ui pagination menu">
+    {{#each page}}
+      <a class="page item {{pageClasses this}} ">{{content}}</a>
+    {{/each}}
   </div>
 </template>

@@ -6,13 +6,6 @@
   margin-top: 90px;
 }
 
-.date.meta {
-  color: grey;
-  font-size: 12px;
-  padding-left: 15px;
-  display: inline;
-}
-
 .type.meta {
   color: grey;
   font-size: 12px;
@@ -34,7 +27,7 @@
 .action-icon {
   cursor: pointer;
   margin: 0;
-  
+
   -webkit-transition: opacity 0.3s ease-out;
   -moz-transition: opacity 0.3s ease-out;
   -o-transition: opacity 0.3s ease-out;

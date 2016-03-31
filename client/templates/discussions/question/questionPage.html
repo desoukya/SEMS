@@ -1,7 +1,23 @@
 <template name="questionPage">
   <div class="ui container grid">
     <div class="twelve wide centered column">
-      {{> questionDetailed}}
+      <!-- Modals -->
+      {{> deleteAnswerConfirmationModal}}
+      {{> deleteQuestionConfirmationModal}}
+      {{> commentDeleteConfirmationModal}}
+      {{> questionEditModal}}
+      {{> answerEditModal}}
+      {{> commentEditModal}}
+      <!-- /Modals -->
+
+      {{> questionDisplay}}
+
+      {{#each sortedAnswers}}
+        {{> answer}}
+      {{/each}}
+
+      {{> createAnswerForm}}
+
     </div>
   </div>
 </template>
