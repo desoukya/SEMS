@@ -85,7 +85,7 @@ Meteor.methods({
   },
 
   calculateDailyLeaderBoard() {
-    metrics = new Metrics(Meteor.settings.githubSecret);
+    metrics = new Metrics(Meteor.settings.githubId, Meteor.settings.githubSecret);
     Teams.find({}, { fields: { repo: 1, metrics: 1, members: 1 } }).forEach(function(team) {
       if (!team.metrics) {
         Teams.update(team, { $push: { metrics: { totalWeeklyLines: 0, lineAdditions: 0, standardDev: 0, dailyPoints: 0, createdAt: Date.now() } } },
@@ -189,7 +189,25 @@ Meteor.methods({
       }
     });
 
-  }
+  },
+
+   getGithubAccessToken: function(credentialToken, credentialSecret) {
+      // Github.retrieveCredential wraps OAuth.retrieveCredential, which wraps OAuth._retrievePendingCredential
+      // From the Meteor docs here: https://github.com/meteor/meteor/blob/devel/packages/oauth/pending_credentials.js#L72
+        // When an oauth request is made, Meteor receives oauth credentials
+        // in one browser tab, and temporarily persists them while that
+        // tab is closed, then retrieves them in the browser tab that
+        // initiated the credential request.
+        //
+        // _pendingCredentials is the storage mechanism used to share the
+        // credential between the 2 tabs
+      // After retrieval, they are deleted from the db (unless stored in the User Collection by the developer or by an accounts package)
+      var credentials = Github.retrieveCredential(credentialToken, credentialSecret);
+      console.log('accessToken:', credentials.serviceData.accessToken);
+      return credentials.serviceData.accessToken;
+    }
+
+
 
 
 

@@ -1,4 +1,4 @@
-Metrics = function(githubSecret, timeout) {
+Metrics = function(githubId, githubSecret, timeout) {
 
   colors.enabled = true; // To color Terminal outputs
 
@@ -10,8 +10,10 @@ Metrics = function(githubSecret, timeout) {
       timeout: timeout,
       headers: { 'user-agent': 'meteor.js' },
       params: {
-        client_id: 'd275d9504a71d088dd47',
-        client_secret: githubSecret
+        client_id: githubId,
+        client_secret: githubSecret,
+        scope: 'repo',
+        accessToken: '384c054f56a100ab9e9958613664021f19ae9fcf'
       }
     }
   } else {
@@ -19,8 +21,10 @@ Metrics = function(githubSecret, timeout) {
       // timeout: 5000,
       headers: { 'user-agent': 'meteor.js' },
       params: {
-        client_id: 'd275d9504a71d088dd47',
-        client_secret: githubSecret
+        client_id: githubId,
+        client_secret: githubSecret,
+        scope: 'repo',
+        access_token: '384c054f56a100ab9e9958613664021f19ae9fcf'
       }
     }
   }
