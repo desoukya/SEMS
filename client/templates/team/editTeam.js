@@ -92,6 +92,31 @@ Template.editTeam.events({
 
   },
 
+  'click #changeSiteLink': function(event) {
+    if ($('#websiteLink').parent().hasClass('disabled')) {
+      $('#websiteLink').parent().removeClass('disabled');
+      $('#changeSiteLink').addClass('green');
+
+    } else {
+      Teams.update({
+        _id: this._id
+      }, {
+        $set: {
+          siteUrl: $('#websiteLink').val()
+        }
+      }, function(err) {
+        if (err)
+          sAlert.error('Can\'t update this website link , please provide a valid URL');
+        else {
+          $('#websiteLink').parent().addClass('disabled');
+          $('#changeSiteLink').removeClass('green');
+        }
+      });
+
+    }
+
+  },
+
 });
 
 Template.editTeam.onRendered(function() {
