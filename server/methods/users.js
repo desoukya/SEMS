@@ -3,22 +3,33 @@
 Meteor.methods({
   registerUser(userData) {
 
-    var profile = {
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      GUCId: userData.GUCId,
-      tutorialGroup: userData.tutorialGroup,
-      mobile: userData.mobile,
-      githubUser: userData.githubUser,
-    };
+    // Trimming strings into the given data
+    for (key in userData) {
+      if (userData.hasOwnProperty(key))
+        if (typeof userData.key === 'string')
+          userData.key = userData.key.trim();
+    }
 
-    if (userData.publicEmail)
-      profile.publicEmail = userData.email;
+    let {
+      firstName,
+      lastName,
+      GUCId,
+      tutorialGroup,
+      mobile,
+      githubUser,
+      publicEmail,
+      email,
+      password
+    } = userData;
 
+    let profile = { firstName, lastName, GUCId, tutorialGroup, mobile, githubUser };
 
-    var userId = Accounts.createUser({
-      email: userData.email,
-      password: userData.password,
+    if (publicEmail)
+      profile.publicEmail = email;
+
+    let userId = Accounts.createUser({
+      email: email,
+      password: password,
       profile: profile,
     });
 
@@ -32,57 +43,62 @@ Meteor.methods({
     } else
       throw new Meteor.Error(400, 'Can\'t create new user');
 
-
   },
 
   updateProfile(userData) {
-    if (UserUtils.isLoggedIn()) {
-      var user = Meteor.user();
-      var profile = user.profile;
+    if (!UserUtils.isLoggedIn)
+      throw new Meteor.Error(401, "Not authorized, please login first");
 
-      var digest = Package.sha.SHA256(userData.currentPass);
-      check(digest, String);
+    let user = Meteor.user();
+    let profile = user.profile;
 
-      var password = {
-        digest: digest,
-        algorithm: 'sha-256'
-      };
+    let {
+      currentPass,
+      firstName,
+      lastName,
+      GUCId,
+      tutorialGroup,
+      mobile,
+      githubUser,
+      publicEmail
+    } = userData;
 
-      var result = Accounts._checkPassword(user, password);
+    let digest = Package.sha.SHA256(currentPass);
+    check(digest, String);
 
-      if (result.error == null) {
-        // Password update is handled on client
+    let password = {
+      digest: digest,
+      algorithm: 'sha-256'
+    };
 
-        profile.firstName = userData.firstName;
-        profile.lastName = userData.lastName;
-        profile.GUCId = userData.GUCId;
-        profile.tutorialGroup = userData.tutorialGroup;
-        profile.mobile = userData.mobile;
-        profile.githubUser = userData.githubUser;
+    let result = Accounts._checkPassword(user, password);
 
-        //add public email if it's public
-        if (userData.publicEmail)
-          profile.publicEmail = Meteor.user().emails[0].address;
+    if (result.error)
+      throw result.error;
 
-        Meteor.users.update(user._id, {
-          $set: {
-            profile: profile
-          }
-        });
+    // Password update is handled on client
+    profile.firstName = firstName;
+    profile.lastName = lastName;
+    profile.GUCId = GUCId;
+    profile.tutorialGroup = tutorialGroup;
+    profile.mobile = mobile;
+    profile.githubUser = githubUser;
 
-        //delete public email if it's private
-        if (!userData.publicEmail) {
-          Meteor.users.update({ _id: Meteor.userId() }, {
-            $unset: {
-              'profile.publicEmail': ''
-            }
-          });
+    // Add public email if it's public
+    if (publicEmail)
+      profile.publicEmail = Meteor.user().emails[0].address;
+
+    Meteor.users.update(user._id, { $set: { profile: profile } });
+
+    // Delete public email if it's private
+    if (!userData.publicEmail) {
+      Meteor.users.update({ _id: Meteor.userId() }, {
+        $unset: {
+          'profile.publicEmail': ''
         }
-
-      } else
-        throw result.error;
-
+      });
     }
+
   },
 
   resendVerification(userId) {

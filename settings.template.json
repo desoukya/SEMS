@@ -2,7 +2,11 @@
   "adminEmail": "email",
   "systemEmail": "email",
 
+  "environment": "production|development",
+  "githubSecret": "SECRET_API_KEY",
+
   "MAIL_URL": "your_smtp_string",
+  "ROOT_URL": "ROOT_URL_IP_OR_DOMAIN",
 
   "public": {
     "analyticsSettings": {

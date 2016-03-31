@@ -19,12 +19,21 @@
     <a class="image" id="logo-link" href="{{pathFor 'team.info' slug=slug}}">
       <img class="team logo" src="{{image}}">
     </a>
+
     <div class="content">
       <a class="header" href="{{pathFor 'team.info' slug=slug}}">{{name}}</a>
       <div class="meta">
         <a href="#">Members Count :
           {{membersCount}}</a>
+
+        {{#if siteUrl}}
+          <a href="{{siteUrl}}" class="right floated icon">
+            <i class="blue large server link icon"></i>
+          </a>
+        {{/if}}
       </div>
+
     </div>
+
   </div>
 </template>
