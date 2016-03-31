@@ -8,8 +8,8 @@ Meteor.methods({
       throw new Meteor.Error(409, 'Team was already created by this user');
     else if (!Roles.userIsInRole(Meteor.userId(), SCRUM))
       throw new Meteor.Error(401, "Not authorized to create a new team");
-    else{
-      team.metrics =  [{ totalWeeklyLines: 0, lineAdditions: 0, standardDev: 0, dailyPoints: 0, createdAt: Date.now() }];
+    else {
+      team.metrics = [{ totalWeeklyLines: 0, lineAdditions: 0, standardDev: 0, dailyPoints: 0, createdAt: Date.now() }];
       return Teams.insert(team);
     }
 
@@ -85,7 +85,7 @@ Meteor.methods({
   },
 
   calculateDailyLeaderBoard() {
-    metrics = new Metrics(Meteor.settings.githubId, Meteor.settings.githubSecret);
+
     Teams.find({}, { fields: { repo: 1, metrics: 1, members: 1 } }).forEach(function(team) {
       if (!team.metrics) {
         Teams.update(team, { $push: { metrics: { totalWeeklyLines: 0, lineAdditions: 0, standardDev: 0, dailyPoints: 0, createdAt: Date.now() } } },
@@ -94,7 +94,9 @@ Meteor.methods({
               console.log("error while updating".red, err)
             }
           });
-      } else {
+      } else if (GitAuth.find({}).count() > 0) {
+        metrics = new Metrics(Meteor.settings.githubId, Meteor.settings.githubSecret, GitAuth.find({}).fetch()[0].accessToken);
+
         var additionsAndSubt = 0;
         metrics.weeklyCodeFrequency(team.repo, function(err, res) {
           if (!err && res.data) {
@@ -191,21 +193,36 @@ Meteor.methods({
 
   },
 
-   getGithubAccessToken: function(credentialToken, credentialSecret) {
-      // Github.retrieveCredential wraps OAuth.retrieveCredential, which wraps OAuth._retrievePendingCredential
-      // From the Meteor docs here: https://github.com/meteor/meteor/blob/devel/packages/oauth/pending_credentials.js#L72
-        // When an oauth request is made, Meteor receives oauth credentials
-        // in one browser tab, and temporarily persists them while that
-        // tab is closed, then retrieves them in the browser tab that
-        // initiated the credential request.
-        //
-        // _pendingCredentials is the storage mechanism used to share the
-        // credential between the 2 tabs
-      // After retrieval, they are deleted from the db (unless stored in the User Collection by the developer or by an accounts package)
-      var credentials = Github.retrieveCredential(credentialToken, credentialSecret);
-      console.log('accessToken:', credentials.serviceData.accessToken);
-      return credentials.serviceData.accessToken;
+  getGithubAccessToken: function(credentialToken, credentialSecret) {
+    // Github.retrieveCredential wraps OAuth.retrieveCredential, which wraps OAuth._retrievePendingCredential
+    // From the Meteor docs here: https://github.com/meteor/meteor/blob/devel/packages/oauth/pending_credentials.js#L72
+    // When an oauth request is made, Meteor receives oauth credentials
+    // in one browser tab, and temporarily persists them while that
+    // tab is closed, then retrieves them in the browser tab that
+    // initiated the credential request.
+    //
+    // _pendingCredentials is the storage mechanism used to share the
+    // credential between the 2 tabs
+    // After retrieval, they are deleted from the db (unless stored in the User Collection by the developer or by an accounts package)
+    var credentials = Github.retrieveCredential(credentialToken, credentialSecret);
+    console.log('accessToken:', credentials.serviceData.accessToken);
+
+    if (GitAuth.find({}).count() > 0) {
+      GitAuth.update({}, { $set: { accessToken: credentials.serviceData.accessToken } }, function(err, affected) {
+        if (err) {
+          console.log("Error while updating accessToken".red, err);
+        } else {
+          console.log("updated access Token successfully".green);
+        }
+      });
+    } else {
+      GitAuth.insert({ accessToken: credentials.serviceData.accessToken }, function(err, id) {
+        if (err) {
+          console.log("Error while inserting accessToken".red, err);
+        }
+      });
     }
+  }
 
 
 

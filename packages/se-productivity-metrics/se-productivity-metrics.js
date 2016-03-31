@@ -1,4 +1,4 @@
-Metrics = function(githubId, githubSecret, timeout) {
+Metrics = function(githubId, githubSecret, accessToken, timeout) {
 
   colors.enabled = true; // To color Terminal outputs
 
@@ -13,7 +13,7 @@ Metrics = function(githubId, githubSecret, timeout) {
         client_id: githubId,
         client_secret: githubSecret,
         scope: 'repo',
-        accessToken: '384c054f56a100ab9e9958613664021f19ae9fcf'
+        access_token: accessToken
       }
     }
   } else {
@@ -24,7 +24,7 @@ Metrics = function(githubId, githubSecret, timeout) {
         client_id: githubId,
         client_secret: githubSecret,
         scope: 'repo',
-        access_token: '384c054f56a100ab9e9958613664021f19ae9fcf'
+        access_token: accessToken
       }
     }
   }

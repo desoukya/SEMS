@@ -1,3 +1,20 @@
 <template name="githubAuth">
- <button class = "github medium ui button red" title="">press</button>
+    <div class="ui cards centered">
+        <div class="card">
+            <div class="content">
+                <div class="header">
+                    Github Authentication
+                </div>
+                <div class="meta">
+                    WARNING: Do not change unless you're the admin and want to change the app authentication.
+                </div>
+                <div class="description">
+                    <button class="github center aligned medium ui button red" title="">Authenticate</button>
+                </div>
+            </div>
+            <div class="extra content">
+                <p class="center aligned">{{accessToken}}</p>
+            </div>
+        </div>
+    </div>
 </template>

@@ -75,7 +75,11 @@ Meteor.publish('leaderboardSortedTeams', function() {
     },
     { $sort: { "metrics.dailyPoints": -1 } }
   ]);
-})
+});
+
+Meteor.publish('gitAuth', function() {
+  return GitAuth.find({});
+});
 
 Meteor.publish('companies', function() {
   return Companies.find({});
