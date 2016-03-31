@@ -4,11 +4,11 @@ Meteor.methods({
   registerUser(userData) {
 
     // Trimming strings into the given data
-    _.mapValues(userData, function(val) {
-      if (typeof val === 'string')
-        return val.trim();
-      return val;
-    });
+    for (key in userData) {
+      if (userData.hasOwnProperty(key))
+        if (typeof userData.key === 'string')
+          userData.key = userData.key.trim();
+    }
 
     let {
       firstName,
