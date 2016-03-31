@@ -56,3 +56,4 @@ github
 service-configuration
 oauth
 deanius:promise
+simple:reactive-method

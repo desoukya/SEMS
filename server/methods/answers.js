@@ -19,7 +19,7 @@ Meteor.methods({
     let question = Questions.findOne({ _id: questionId });
     let icon = "<i class=\"idea icon\"></i>";
     let content = "New answer on your question";
-    let link = `/discussions/${question._id}`;
+    let link = `/discussions/${question.slug}`;
 
     Notifications.insert({
       ownerId: question.ownerId,
@@ -38,7 +38,7 @@ Meteor.methods({
     if (!answer)
       throw new Meteor.Error(404, "The answer you are trying to delete is not found");
 
-    if (userId === answer.ownerId || Roles.userIsInRole(userId, [ADMIN, LECTURER, TA])) {
+    if (userId === answer.ownerId || Roles.userIsInRole(userId, [ADMIN, LECTURER, TA, JTA])) {
       Questions.update({ answers: answerId }, { $pull: { answers: answerId } });
       Answers.remove({ _id: answerId });
     } else
@@ -90,7 +90,7 @@ Meteor.methods({
       let content = "upvoted your answer";
       // FIXME: This should be refactored
       let question = Questions.findOne({ answers: answerId });
-      let link = `/discussions/${question._id}`;
+      let link = `/discussions/${question.slug}`;
 
       Notifications.insert({
         ownerId: answer.ownerId,
@@ -131,7 +131,7 @@ Meteor.methods({
       let content = "Your answer is downvoted";
       // FIXME: This should be refactored
       let question = Questions.findOne({ answers: answerId });
-      let link = `/discussions/${question._id}`;
+      let link = `/discussions/${question.slug}`;
 
       Notifications.insert({
         ownerId: answer.ownerId,
@@ -166,7 +166,7 @@ Meteor.methods({
 
     let icon = "<i class=\"yellow star icon\"></i>";
     let content = "your answer is marked as best answer";
-    let link = `/discussions/${question._id}`;
+    let link = `/discussions/${question.slug}`;
 
     // I shouldn't notify myself that I marked my answer as the
     // best answer :v

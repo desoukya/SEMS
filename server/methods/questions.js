@@ -7,7 +7,7 @@ Meteor.methods({
     if (!question)
       throw new Meteor.Error(404, 'The question you are trying to delete is not found');
 
-    if (userId === question.ownerId || Roles.userIsInRole(userId, [ADMIN, LECTURER, TA])) {
+    if (userId === question.ownerId || Roles.userIsInRole(userId, [ADMIN, LECTURER, TA, JTA])) {
 
       // Remove all answers related to this question
       Answers.remove({ _id: { $in: question.answers } });
@@ -62,7 +62,7 @@ Meteor.methods({
       let icon = "<i class=\"green thumbs up icon\"></i>";
       let user = Meteor.users.findOne({ _id: userId });
       let content = "upvoted your question";
-      let link = `/discussions/${question._id}`;
+      let link = `/discussions/${question.slug}`;
 
       Notifications.insert({
         ownerId: question.ownerId,
@@ -100,7 +100,7 @@ Meteor.methods({
 
       let icon = "<i class=\"red thumbs down icon\"></i>";
       let content = "Your question is downvoted";
-      let link = `/discussions/${question._id}`;
+      let link = `/discussions/${question.slug}`;
 
       Notifications.insert({
         ownerId: question.ownerId,
@@ -112,6 +112,13 @@ Meteor.methods({
 
     }
   },
+
+  getAllTags() {
+    var everything = Questions.find().fetch();
+    var allQuestionsTags = _.pluck(everything, "tags");
+    var allQuestionsTagsConcatinatedArray = [].concat.apply([], allQuestionsTags);
+    return _.uniq(allQuestionsTagsConcatinatedArray);
+  }
 
 
 });

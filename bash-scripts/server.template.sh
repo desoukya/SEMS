@@ -1,9 +1,10 @@
 #!/bin/sh
 
-cd <app-folder>
+export ROOT_URL=YOUR_ROOT_URL
+export NODE_ENV=production
+export MONGO_URL=YOUR_MONGODB_URL
+export MAIL_URL=smtp://YOUR_SMTP_URL
+export METEOR_SETTINGS="$(cat settings.json)"
+export PORT=3000
 
-export MONGO_URL=mongo-url
-export ROOT_URL=app-root-url
-export NODE_ENV=development|production
-
-meteor --settings settings.json --port PORT --production
+node bundle/main.js

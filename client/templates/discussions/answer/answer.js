@@ -2,14 +2,14 @@ Template.answer.onRendered(function() {
   $('pre code').each(function(i, block) {
     hljs.highlightBlock(block);
   });
-
+  $('.ui.accordion').accordion();
 });
 
 
 Template.answer.helpers({
   canEdit() {
     var userId = Meteor.userId();
-    return this.ownerId === userId || Roles.userIsInRole(userId, [ADMIN, LECTURER, TA]);
+    return this.ownerId === userId || Roles.userIsInRole(userId, [ADMIN, LECTURER, TA, JTA]);
   },
 
   detailedDate() {
