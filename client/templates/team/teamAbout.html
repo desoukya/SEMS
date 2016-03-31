@@ -34,8 +34,10 @@
 <template name="memberDetails">
   <div class="member item">
     <div class="ui small circular image">
-      <img src="{{profilePicture.url}}">
+      <img class="ui small circular image" src="{{profilePicture.url}}">
     </div>
+
+    <!-- <img class="ui small circular image" src="{{profilePicture.url}}"> -->
 
     <div class="header bottom aligned">
       <a href="{{pathFor 'user.profile' _id=_id}}">
