@@ -67,7 +67,7 @@ Template.home.events({
       win.focus();
     }
     else{
-      sAlert.error(this.name + " did not add their deployment link or did not deploy yet");
+      sAlert.warning(this.name + " did not add their deployment link or did not deploy yet");
     }
   }
 });
