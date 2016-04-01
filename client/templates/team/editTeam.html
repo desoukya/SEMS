@@ -10,7 +10,7 @@
       </div>
     {{/unless}}
 
-    <img class="ui avatar image" src= {{profilePicture.url}}>
+    <img class="ui avatar image" src={{profilePicture.url}}>
 
     <div class="content">
       <a class="header" href="{{pathFor 'user.profile' _id=_id}}">{{fullName}}</a>
@@ -41,6 +41,7 @@
               </button>
             </td>
           </tr>
+
           <tr>
             <td class="collapsing">Repo Link</td>
             <td>
@@ -55,10 +56,26 @@
               </button>
             </td>
           </tr>
+
+          <tr>
+            <td class="collapsing">Deployed app URL</td>
+            <td>
+              <div class="ui left icon fluid disabled input">
+                <i class="cloud icon"></i>
+                <input type="text" id="websiteLink" value="{{siteUrl}}" placeholder="site Link">
+              </div>
+            </td>
+            <td class="right aligned collapsing">
+              <button id="changeSiteLink" class="ui button">
+                Edit
+              </button>
+            </td>
+          </tr>
+
           <tr>
             <td class="collapsing">Add members</td>
             <td>
-              <div class="ui multiple search normal selection fluid dropdown">
+              <div class="ui multiple search normal selection fluid disabled dropdown">
                 <input id="members" type="hidden">
                 <i class="dropdown icon"></i>
                 <div class="default text">Choose Team members</div>
@@ -70,7 +87,7 @@
               </div>
             </td>
             <td class="right aligned collapsing">
-              <button id="addMembers" class="ui green button">
+              <button id="addMembers" class="ui disabled button">
                 Add
               </button>
             </td>

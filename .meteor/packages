@@ -33,7 +33,6 @@ underscore
 check
 random
 juliancwirko:s-alert
-juliancwirko:s-alert-stackslide
 sewdn:search-source
 okgrow:analytics
 tinytest
@@ -57,3 +56,4 @@ service-configuration
 oauth
 deanius:promise
 simple:reactive-method
+juliancwirko:s-alert-jelly

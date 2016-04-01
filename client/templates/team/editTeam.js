@@ -21,6 +21,8 @@ Template.editTeam.helpers({
 
 Template.editTeam.events({
   'click #addMembers': function(event) {
+    //temp fix
+    return;
 
     var self = this;
 
@@ -85,6 +87,31 @@ Template.editTeam.events({
         else {
           $('#repoLink').parent().addClass('disabled');
           $('#changeRepoLink').removeClass('green');
+        }
+      });
+
+    }
+
+  },
+
+  'click #changeSiteLink': function(event) {
+    if ($('#websiteLink').parent().hasClass('disabled')) {
+      $('#websiteLink').parent().removeClass('disabled');
+      $('#changeSiteLink').addClass('green');
+
+    } else {
+      Teams.update({
+        _id: this._id
+      }, {
+        $set: {
+          siteUrl: $('#websiteLink').val()
+        }
+      }, function(err) {
+        if (err)
+          sAlert.error('Can\'t update this website link , please provide a valid URL');
+        else {
+          $('#websiteLink').parent().addClass('disabled');
+          $('#changeSiteLink').removeClass('green');
         }
       });
 

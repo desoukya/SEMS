@@ -2,7 +2,7 @@ Template.login.events({
   'submit .form': function(event) {
     event.preventDefault();
 
-    var email = event.target.email.value;
+    var email = event.target.email.value.trim();
     var password = event.target.password.value;
 
     Meteor.loginWithPassword(email, password, function(err) {
