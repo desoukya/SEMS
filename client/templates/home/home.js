@@ -58,3 +58,16 @@ Template.numberRenderTmpl.helpers({
   }
 
 });
+
+Template.home.events({
+  'click .table tbody tr': function() {
+    var team = this;
+    if (this.siteUrl) {
+      var win = window.open(this.siteUrl, '_blank');
+      win.focus();
+    }
+    else{
+      sAlert.error(this.name + " did not add their deployment link or did not deploy yet");
+    }
+  }
+});
