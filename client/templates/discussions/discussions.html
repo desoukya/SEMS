@@ -76,16 +76,18 @@
           </div>
         </a>
       {{/EasySearch.Each}}
+
       {{#EasySearch.IfNoResults index=questionsSuggestionsIndex}}
-      <div class="message empty">
-        <div class="header">
-          No Results
+        <div class="message empty">
+          <div class="header">
+            No Results
+          </div>
+          <div class="description">
+            Your search returned no results
+          </div>
         </div>
-        <div class="description">
-          Your search returned no results
-        </div>
-      </div>
       {{/EasySearch.IfNoResults}}
+
     </div>
   </div>
   <div class="ui segment">
@@ -96,18 +98,21 @@
       {{/EasySearch.Each}}
     </div>
 
-    {{#EasySearch.IfNoResults index=questionsIndex}}
-      <div class="ui page full screen grid">
-        <div class="center aligned middle aligned column">
-          <p>
-            <i class="large search icon"></i>
-          </p>
-          <h1 class="large text">Sorry no questions matches your search</h1>
-          <h1>be the first to ask this question</h1>
+    {{#EasySearch.IfInputEmpty index=questionsIndex}}
+    {{else}}
+      {{#EasySearch.IfNoResults index=questionsIndex}}
+        <div class="ui page full screen grid">
+          <div class="center aligned middle aligned column">
+            <p>
+              <i class="large search icon"></i>
+            </p>
+            <h1 class="large text">Sorry no questions matches your search</h1>
+            <h1>be the first to ask this question</h1>
 
+          </div>
         </div>
-      </div>
-    {{/EasySearch.IfNoResults}}
+      {{/EasySearch.IfNoResults}}
+    {{/EasySearch.IfInputEmpty}}
 
     {{> EasySearch.Pagination index=questionsIndex maxPages=9 renderPagination="navigator"}}
   </div>
