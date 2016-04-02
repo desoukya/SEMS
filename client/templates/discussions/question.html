@@ -16,6 +16,9 @@
 
           <div class="header">
             <a class="ui big link blue header" href="{{pathFor 'question.page' _id= __originalId}}">{{title}}</a>
+            {{#if hasCorrectAnswer}}
+            <i class="check circle outline large green link icon"></i>
+            {{/if}}
           </div>
 
           <div class="meta">
@@ -55,7 +58,6 @@
           </div>
 
         </div>
-
       </div>
 
     </div>
