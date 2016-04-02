@@ -1,0 +1,24 @@
+{
+  "name": "sems",
+  "version": "0.4.1",
+  "description": "Software Engineering Management System for the GUC Students",
+  "main": "index.js",
+  "dependencies": {
+    "co": "^4.6.0",
+    "meteor-node-stubs": "^0.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/desoukya/SEMS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/desoukya/SEMS/issues"
+  },
+  "homepage": "https://github.com/desoukya/SEMS#readme"
+}
