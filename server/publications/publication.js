@@ -37,7 +37,7 @@ Meteor.publish('users', function(roles = ROLES) {
       filter = {};
     }
 
-    return Meteor.users.find(selector, filter);
+    return [Meteor.users.find(selector, filter),Images.find({})];
   }
   // If user is not logged in return nothing to fire up ready()
   return [];
@@ -70,12 +70,17 @@ Meteor.publish('leaderboardSortedTeams', function() {
         name: { "$first": "$name" },
         slug: { "$first": "$slug" },
         friendlySlugs: { "$first": "$friendlySlugs" },
-        repo: { "$first": "$repo" }
+        repo: { "$first": "$repo" },
+        siteUrl: { "$first": "$siteUrl" }
       }
     },
     { $sort: { "metrics.dailyPoints": -1 } }
   ]);
-})
+});
+
+Meteor.publish('gitAuth', function() {
+  return GitAuth.find({});
+});
 
 Meteor.publish('companies', function() {
   return Companies.find({});

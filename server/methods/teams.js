@@ -8,8 +8,10 @@ Meteor.methods({
       throw new Meteor.Error(409, 'Team was already created by this user');
     else if (!Roles.userIsInRole(Meteor.userId(), SCRUM))
       throw new Meteor.Error(401, "Not authorized to create a new team");
-    else
+    else {
+      team.metrics = [{ totalWeeklyLines: 0, lineAdditions: 0, standardDev: 0, dailyPoints: 0, createdAt: Date.now() }];
       return Teams.insert(team);
+    }
 
   },
 
@@ -83,22 +85,24 @@ Meteor.methods({
   },
 
   calculateDailyLeaderBoard() {
-    metrics = new Metrics(Meteor.settings.githubSecret);
+
     Teams.find({}, { fields: { repo: 1, metrics: 1, members: 1 } }).forEach(function(team) {
       if (!team.metrics) {
-        Teams.update(team, { $push: { metrics: { totalWeeklyLines: 0, lineAdditions: 0, standardDev: 0, dailyPoints: 0, createdAt: Date.now() } } },
+        Teams.update(team, { $push: { metrics: { totalWeeklyLines: 0, lineAdditions: 0, standardDev: 0, dailyPoints: 0, createdAt: Date.now(), currentWeek: "" } } },
           function(err, affected) {
             if (err) {
               console.log("error while updating".red, err)
             }
           });
-      } else {
+      } else if (GitAuth.find({}).count() > 0) {
+        metrics = new Metrics(Meteor.settings.githubId, Meteor.settings.githubSecret, GitAuth.find({}).fetch()[0].accessToken);
+
         var additionsAndSubt = 0;
         metrics.weeklyCodeFrequency(team.repo, function(err, res) {
           if (!err && res.data) {
             if (res.data.length > 0) {
               additionsAndSubt = (res.data[res.data.length - 1][1]) + (-1 * res.data[res.data.length - 1][2]);
-
+              var latestWeek = res.data[res.data.length - 1][0];
               var teamMembers = [];
               if (team.members.length < 1) {
                 console.log("No members in team ".yellow + team.name);
@@ -109,18 +113,25 @@ Meteor.methods({
                   if (!err) {
                     contribStats = res.data;
 
+
+                    if (team.metrics[team.metrics.length - 1].currentWeek != latestWeek) {
+                      var lineDiff = additionsAndSubt;
+                    } else {
+                      var lineDiff = additionsAndSubt - team.metrics[team.metrics.length - 1].totalWeeklyLines;
+                    }
+
                     for (var i = 0; i < team.members.length; i++) {
                       var member = Meteor.users.findOne({ _id: team.members[i] }, { fields: { metrics: 1, profile: 1 } });
                       teamMembers.push(member);
                     }
 
-                    var lineDiff = additionsAndSubt - team.metrics[team.metrics.length - 1].totalWeeklyLines;
                     var average = lineDiff / teamMembers.length;
                     var cumulative = 0;
                     for (var i = 0; i < teamMembers.length; i++) {
                       var userTotalWeeklyLines = 0;
                       var userLineAdditions = 0;
                       var found = false;
+
                       for (var j = 0; j < contribStats.length; j++) {
                         if (teamMembers[i].profile.githubUser == contribStats[j].author.login) {
                           found = true;
@@ -128,8 +139,12 @@ Meteor.methods({
                           userTotalWeeklyLines = contribStats[j].weeks[contribStats[j].weeks.length - 1].a +
                             contribStats[j].weeks[contribStats[j].weeks.length - 1].c;
 
-                          userLineAdditions = userTotalWeeklyLines -
-                            teamMembers[i].metrics[teamMembers[i].metrics.length - 1].totalWeeklyLines
+                          if (!teamMembers[i].metrics || teamMembers[i].metrics[teamMembers[i].metrics.length - 1].currentWeek != latestWeek) {
+                            userLineAdditions = userTotalWeeklyLines;
+                          } else {
+                            userLineAdditions = userTotalWeeklyLines -
+                              teamMembers[i].metrics[teamMembers[i].metrics.length - 1].totalWeeklyLines
+                          }
                           break;
                         }
                       }
@@ -142,7 +157,8 @@ Meteor.methods({
                           metrics: {
                             totalWeeklyLines: userTotalWeeklyLines,
                             lineAdditions: userLineAdditions,
-                            createdAt: Date.now()
+                            createdAt: Date.now(),
+                            currentWeek: latestWeek
                           }
                         }
                       }, function(err, affected) {
@@ -168,7 +184,8 @@ Meteor.methods({
                           lineAdditions: lineDiff,
                           standardDev: sd,
                           dailyPoints: updatedPoints,
-                          createdAt: Date.now()
+                          createdAt: Date.now(),
+                          currentWeek: latestWeek
                         }
                       }
                     }, function(err, affected) {
@@ -187,9 +204,37 @@ Meteor.methods({
       }
     });
 
+  },
+
+  getGithubAccessToken: function(credentialToken, credentialSecret) {
+    // Github.retrieveCredential wraps OAuth.retrieveCredential, which wraps OAuth._retrievePendingCredential
+    // From the Meteor docs here: https://github.com/meteor/meteor/blob/devel/packages/oauth/pending_credentials.js#L72
+    // When an oauth request is made, Meteor receives oauth credentials
+    // in one browser tab, and temporarily persists them while that
+    // tab is closed, then retrieves them in the browser tab that
+    // initiated the credential request.
+    //
+    // _pendingCredentials is the storage mechanism used to share the
+    // credential between the 2 tabs
+    // After retrieval, they are deleted from the db (unless stored in the User Collection by the developer or by an accounts package)
+    var credentials = Github.retrieveCredential(credentialToken, credentialSecret);
+    console.log('accessToken:', credentials.serviceData.accessToken);
+
+    if (GitAuth.find({}).count() > 0) {
+      GitAuth.update({}, { $set: { accessToken: credentials.serviceData.accessToken } }, function(err, affected) {
+        if (err) {
+          console.log("Error while updating accessToken".red, err);
+        } else {
+          console.log("updated access Token successfully".green);
+        }
+      });
+    } else {
+      GitAuth.insert({ accessToken: credentials.serviceData.accessToken }, function(err, id) {
+        if (err) {
+          console.log("Error while inserting accessToken".red, err);
+        }
+      });
+    }
   }
-
-
-
 
 });
