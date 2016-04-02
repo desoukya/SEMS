@@ -2,6 +2,8 @@ Meteor.methods({
 
   createQuestion(data) {
 
+    let { Bot } = require('../slack');
+
     let { title, description, tags } = data;
 
     let question = {
@@ -16,6 +18,7 @@ Meteor.methods({
     };
 
     Questions.insert(question);
+    Bot.send(`New Question Added : ${question.title}`);
   },
 
   deleteQuestion(questionId) {
