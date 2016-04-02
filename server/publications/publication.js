@@ -70,7 +70,8 @@ Meteor.publish('leaderboardSortedTeams', function() {
         name: { "$first": "$name" },
         slug: { "$first": "$slug" },
         friendlySlugs: { "$first": "$friendlySlugs" },
-        repo: { "$first": "$repo" }
+        repo: { "$first": "$repo" },
+        siteUrl: { "$first": "$siteUrl" }
       }
     },
     { $sort: { "metrics.dailyPoints": -1 } }

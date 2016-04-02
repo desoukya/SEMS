@@ -88,7 +88,7 @@ Meteor.methods({
 
     Teams.find({}, { fields: { repo: 1, metrics: 1, members: 1 } }).forEach(function(team) {
       if (!team.metrics) {
-        Teams.update(team, { $push: { metrics: { totalWeeklyLines: 0, lineAdditions: 0, standardDev: 0, dailyPoints: 0, createdAt: Date.now() } } },
+        Teams.update(team, { $push: { metrics: { totalWeeklyLines: 0, lineAdditions: 0, standardDev: 0, dailyPoints: 0, createdAt: Date.now(), currentWeek: "" } } },
           function(err, affected) {
             if (err) {
               console.log("error while updating".red, err)
@@ -102,7 +102,7 @@ Meteor.methods({
           if (!err && res.data) {
             if (res.data.length > 0) {
               additionsAndSubt = (res.data[res.data.length - 1][1]) + (-1 * res.data[res.data.length - 1][2]);
-
+              var latestWeek = res.data[res.data.length - 1][0];
               var teamMembers = [];
               if (team.members.length < 1) {
                 console.log("No members in team ".yellow + team.name);
@@ -113,18 +113,25 @@ Meteor.methods({
                   if (!err) {
                     contribStats = res.data;
 
+
+                    if (team.metrics[team.metrics.length - 1].currentWeek != latestWeek) {
+                      var lineDiff = additionsAndSubt;
+                    } else {
+                      var lineDiff = additionsAndSubt - team.metrics[team.metrics.length - 1].totalWeeklyLines;
+                    }
+
                     for (var i = 0; i < team.members.length; i++) {
                       var member = Meteor.users.findOne({ _id: team.members[i] }, { fields: { metrics: 1, profile: 1 } });
                       teamMembers.push(member);
                     }
 
-                    var lineDiff = additionsAndSubt - team.metrics[team.metrics.length - 1].totalWeeklyLines;
                     var average = lineDiff / teamMembers.length;
                     var cumulative = 0;
                     for (var i = 0; i < teamMembers.length; i++) {
                       var userTotalWeeklyLines = 0;
                       var userLineAdditions = 0;
                       var found = false;
+
                       for (var j = 0; j < contribStats.length; j++) {
                         if (teamMembers[i].profile.githubUser == contribStats[j].author.login) {
                           found = true;
@@ -132,8 +139,12 @@ Meteor.methods({
                           userTotalWeeklyLines = contribStats[j].weeks[contribStats[j].weeks.length - 1].a +
                             contribStats[j].weeks[contribStats[j].weeks.length - 1].c;
 
-                          userLineAdditions = userTotalWeeklyLines -
-                            teamMembers[i].metrics[teamMembers[i].metrics.length - 1].totalWeeklyLines
+                          if (!teamMembers[i].metrics || teamMembers[i].metrics[teamMembers[i].metrics.length - 1].currentWeek != latestWeek) {
+                            userLineAdditions = userTotalWeeklyLines;
+                          } else {
+                            userLineAdditions = userTotalWeeklyLines -
+                              teamMembers[i].metrics[teamMembers[i].metrics.length - 1].totalWeeklyLines
+                          }
                           break;
                         }
                       }
@@ -146,7 +157,8 @@ Meteor.methods({
                           metrics: {
                             totalWeeklyLines: userTotalWeeklyLines,
                             lineAdditions: userLineAdditions,
-                            createdAt: Date.now()
+                            createdAt: Date.now(),
+                            currentWeek: latestWeek
                           }
                         }
                       }, function(err, affected) {
@@ -172,7 +184,8 @@ Meteor.methods({
                           lineAdditions: lineDiff,
                           standardDev: sd,
                           dailyPoints: updatedPoints,
-                          createdAt: Date.now()
+                          createdAt: Date.now(),
+                          currentWeek: latestWeek
                         }
                       }
                     }, function(err, affected) {
@@ -223,10 +236,5 @@ Meteor.methods({
       });
     }
   }
-
-
-
-
-
 
 });
