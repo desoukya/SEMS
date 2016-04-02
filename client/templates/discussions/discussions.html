@@ -77,14 +77,14 @@
         </a>
       {{/EasySearch.Each}}
       {{#EasySearch.IfNoResults index=questionsSuggestionsIndex}}
-      <div class="message empty">
-        <div class="header">
-          No Results
+        <div class="message empty">
+          <div class="header">
+            No Results
+          </div>
+          <div class="description">
+            Your search returned no results
+          </div>
         </div>
-        <div class="description">
-          Your search returned no results
-        </div>
-      </div>
       {{/EasySearch.IfNoResults}}
     </div>
   </div>
@@ -109,14 +109,14 @@
       </div>
     {{/EasySearch.IfNoResults}}
 
-    {{> EasySearch.Pagination index=questionsIndex maxPages=9 renderPagination="navigator"}}
+    {{> EasySearch.Pagination index=questionsIndex maxPages=9 customRenderPagination="navigator"}}
   </div>
 </template>
 
 <template name="navigator">
-  <div class="ui pagination menu">
+  <div data-class="ui pagination menu">
     {{#each page}}
-      <a class="page item {{pageClasses this}} ">{{content}}</a>
+      <a data-class="page item {{pageClasses this}} ">{{content}}</a>
     {{/each}}
   </div>
 </template>

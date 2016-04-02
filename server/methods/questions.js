@@ -1,4 +1,23 @@
 Meteor.methods({
+
+  createQuestion(data) {
+
+    let { title, description, tags } = data;
+
+    let question = {
+      title: title,
+      description: description,
+      tags: tags,
+      ownerId: Meteor.userId(),
+      answers: [],
+      upvotes: [],
+      downvotes: [],
+      createdAt: Date.now()
+    };
+
+    Questions.insert(question);
+  },
+
   deleteQuestion(questionId) {
     let question = Questions.findOne({ _id: questionId });
     let userId = Meteor.userId();
