@@ -17,8 +17,29 @@ Meteor.methods({
       createdAt: Date.now()
     };
 
-    Questions.insert(question);
-    slack.send({ text: `New Question Added : ${question.title}` });
+    // Inserting and getting the id of the created question
+    let questionId = Questions.insert(question);
+
+    // Getting the question object to get the data after validation and insertion
+    question = Questions.findOne({ _id: questionId });
+
+    let link = `${process.env.ROOT_URL}/discussions/${question.slug}`;
+    let preview = question.description.substring(0, 30);
+
+    let message = {
+      text: `New Question : <${link}|${question.title}>`,
+      attachments: [{
+        fallback: `New Question : ${question.title}`,
+        color: '#36a64f',
+        fields: [{
+          title: `${question.owner().fullName()}`,
+          value: `${preview}`,
+        }]
+      }]
+
+    };
+
+    slack.send(message);
   },
 
   deleteQuestion(questionId) {
