@@ -24,7 +24,7 @@ Meteor.methods({
     question = Questions.findOne({ _id: questionId });
 
     let link = `${process.env.ROOT_URL}/discussions/${question.slug}`;
-    let preview = question.description.substring(0, 30);
+    let preview = question.description.substring(0, 60) + " ...";
 
     let message = {
       text: `New Question : <${link}|${question.title}>`,
