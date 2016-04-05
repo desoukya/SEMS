@@ -38,5 +38,12 @@
 }
 
 span.highlight {
-    background-color: yellow;
+  background-color: yellow;
+}
+
+.user-info.image {
+  img {
+    max-height: 150px;
+    object-fit: cover;
+  }
 }
