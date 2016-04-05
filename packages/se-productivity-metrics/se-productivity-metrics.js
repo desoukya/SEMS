@@ -53,6 +53,53 @@ Metrics = function(githubId, githubSecret, accessToken, timeout) {
   }
 
   /**
+  Parameters
+
+  Name   : Type   : Description
+  sha    : string : SHA or branch to start listing commits from. Default: the repository’s default branch (usually master).
+  path   : string : Only commits containing this file path will be returned.
+  author : string : GitHub login or email address by which to filter by commit author.
+  since  : string : Only commits after this date will be returned. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.
+  until  : string : Only commits before this date will be returned. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.
+
+   **/
+  this.allCommits = function(link, callback, path, since) {
+    var userRepo = getUserRepo(link);
+    var opt = this.options;
+    if (typeof path === "string") {
+      opt.params.path = path;
+    }
+    if (typeof since === "string") {
+      opt.params.since = since;
+    }
+    Meteor.http.call("GET", "https://api.github.com/repos" + userRepo + "/commits", opt,
+      function(err, res) {
+        if (err) {
+          console.log("error getting all commits".red + userRepo + " " + err);
+          callback(err, res);
+        } else {
+          console.log("Retrieved commits successfully".green, res.statusCode);
+          callback(err, res);
+        }
+      });
+  }
+
+  this.oneCommit = function(link, callback, sha) {
+    var userRepo = getUserRepo(link);
+
+    Meteor.http.call("GET", "https://api.github.com/repos" + userRepo + "/commits/"+ sha, this.options,
+      function(err, res) {
+        if (err) {
+          console.log("error getting one commit".red + userRepo + " " + err);
+          callback(err, res);
+        } else {
+          console.log("Retrieved one commit successfully".green, res.statusCode);
+          callback(err, res);
+        }
+      });
+  }
+
+  /**
   Returns a weekly aggregate of the number of additions and deletions pushed to a repository.
   **/
   this.weeklyCodeFrequency = function(link, callback) {
