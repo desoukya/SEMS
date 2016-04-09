@@ -3,10 +3,17 @@
   <div class="ui stackable container grid">
     <div class="twelve wide center aligned centered column">
 		<!-- 28- winnters -->
+		
 		<div class="row">
 	    <div class="ui horizontal divider"><div class="ui huge header">28 -</div></div>
 	    <div class="ui huge header">Coolsoft</div>
-	    <img class="ui fluid rounded image" src="/images/hall-of-fame/28-winners.jpg">
+	    <div class="ui stackable container four column very relaxed grid">
+	    {{#each winningTeamMembers}}
+	      <div class="column">
+	        {{> winningTeamMember}}
+	      </div>
+	    {{/each}}
+	  </div>
 	  </div>
 		<!-- /28- winnters -->
 
@@ -95,6 +102,24 @@
 		<!-- /25- winnters -->
 
 
+    </div>
+  </div>
+</template>
+<template name="winningTeamMember">
+  <div class="ui card">
+    <a class="image" id="logo-link" href="{{pathFor 'team.info' slug=slug}}">
+      <img class="" style= "height:140px;" src="{{image}}">
+    </a>
+
+    <div class="content">
+      <a class="header" href="{{pathFor 'team.info' slug=slug}}">{{name}}</a>
+      <div class="meta">
+        {{#if siteUrl}}
+          <a target="_blank" href="{{siteUrl}}" class="right floated icon">
+            <i class="blue large server link icon"></i>
+          </a>
+        {{/if}}
+      </div>
     </div>
   </div>
 </template>
