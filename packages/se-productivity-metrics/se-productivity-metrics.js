@@ -13,18 +13,19 @@ Metrics = function(githubId, githubSecret, accessToken, timeout) {
         client_id: githubId,
         client_secret: githubSecret,
         scope: 'repo',
-        access_token: accessToken
+        access_token: accessToken,
+        per_page: 100
       }
     }
   } else {
     this.options = {
-      // timeout: 5000,
       headers: { 'user-agent': 'meteor.js' },
       params: {
         client_id: githubId,
         client_secret: githubSecret,
         scope: 'repo',
-        access_token: accessToken
+        access_token: accessToken,
+        per_page: 100
       }
     }
   }
@@ -63,15 +64,24 @@ Metrics = function(githubId, githubSecret, accessToken, timeout) {
   until  : string : Only commits before this date will be returned. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.
 
    **/
-  this.allCommits = function(link, callback, path, since) {
+  this.allCommits = function allCommits(link, callback, queryParams, opts, oldRes) {
     var userRepo = getUserRepo(link);
     var opt = this.options;
-    if (typeof path === "string") {
-      opt.params.path = path;
+    if(opts){
+      opt = opts;
     }
-    if (typeof since === "string") {
-      opt.params.since = since;
+    if (typeof queryParams === "object") {
+      if (typeof queryParams.path === "string") {
+        opt.params.path = queryParams.path;
+      }
+      if (typeof queryParams.since === "string") {
+        opt.params.since = queryParams.since;
+      }
+      if (typeof queryParams.page === "number") {
+        opt.params.page = queryParams.page;
+      }
     }
+
     Meteor.http.call("GET", "https://api.github.com/repos" + userRepo + "/commits", opt,
       function(err, res) {
         if (err) {
@@ -79,7 +89,21 @@ Metrics = function(githubId, githubSecret, accessToken, timeout) {
           callback(err, res);
         } else {
           console.log("Retrieved commits successfully".green, res.statusCode);
-          callback(err, res);
+          var newRes;
+          if (oldRes) {
+            var newRes = oldRes.concat(res.data);
+          } else {
+            newRes = res.data;
+          }
+          getNextPage(res.headers.link, function(pageNo) {
+            if (pageNo) {
+              allCommits(link, function(err2, res2) {
+                callback(err2, res2)
+              }, { page: pageNo }, opt, newRes);
+            } else {
+              callback(err, newRes);
+            }
+          });
         }
       });
   }
@@ -87,7 +111,7 @@ Metrics = function(githubId, githubSecret, accessToken, timeout) {
   this.oneCommit = function(link, callback, sha) {
     var userRepo = getUserRepo(link);
 
-    Meteor.http.call("GET", "https://api.github.com/repos" + userRepo + "/commits/"+ sha, this.options,
+    Meteor.http.call("GET", "https://api.github.com/repos" + userRepo + "/commits/" + sha, this.options,
       function(err, res) {
         if (err) {
           console.log("error getting one commit".red + userRepo + " " + err);
@@ -233,4 +257,19 @@ var getUserRepo = function(href) {
   } else {
     return match[5]
   }
+};
+
+var getNextPage = function(link, callback) {
+
+  var splitArray = link.split(",");
+
+  _.each(splitArray, function(str, index, list) {
+    if ((str).indexOf('"next"') > -1) {
+      var i = str.indexOf('&page=');
+      var pageNo = parseInt(str.charAt(i + 6));
+      callback(pageNo);
+    } else if (index === list.length - 1) {
+      callback(null);
+    }
+  });
 };

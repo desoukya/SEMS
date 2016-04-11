@@ -97,62 +97,100 @@ Meteor.methods({
       } else if (GitAuth.find({}).count() > 0) {
         metrics = new Metrics(Meteor.settings.githubId, Meteor.settings.githubSecret, GitAuth.find({}).fetch()[0].accessToken);
 
-        var additionsAndSubt = 0;
+
         metrics.weeklyCodeFrequency(team.repo, function(err, res) {
           if (!err && res.data) {
-            if (res.data.length > 0) {
-              additionsAndSubt = (res.data[res.data.length - 1][1]) + (-1 * res.data[res.data.length - 1][2]);
-              var latestWeek = res.data[res.data.length - 1][0];
-              var teamMembers = [];
+            var weeklyData = res.data;
+            var weeklyLength = res.data.length;
+            if (weeklyLength > 0) {
+
+              var lastInWeeklyData = weeklyData[weeklyLength - 1];
+              var additionsAndSubt = (lastInWeeklyData[1]) + (-1 * lastInWeeklyData[2]);
+              var latestWeek = lastInWeeklyData[0];
+
+              var teamMetrics = team.metrics;
+              var teamMetricsLength = team.metrics.length;
+              var lastTeamMetric = teamMetrics[teamMetricsLength - 1];
+
+              if (lastTeamMetric.currentWeek != latestWeek) {
+                var lineDiff = additionsAndSubt;
+              } else {
+                var lineDiff = additionsAndSubt - lastTeamMetric.totalWeeklyLines;
+              }
+
               if (team.members.length < 1) {
                 console.log("No members in team ".yellow + team.name);
               } else {
 
-                var contribStats = [];
                 metrics.contributorsStatistics(team.repo, function(err, res) {
                   if (!err) {
-                    contribStats = res.data;
+                    var contribStats = res.data;
 
-
-                    if (team.metrics[team.metrics.length - 1].currentWeek != latestWeek) {
-                      var lineDiff = additionsAndSubt;
-                    } else {
-                      var lineDiff = additionsAndSubt - team.metrics[team.metrics.length - 1].totalWeeklyLines;
-                    }
-
+                    var teamMembers = [];
                     for (var i = 0; i < team.members.length; i++) {
                       var member = Meteor.users.findOne({ _id: team.members[i] }, { fields: { metrics: 1, profile: 1 } });
                       teamMembers.push(member);
                     }
 
-                    var average = lineDiff / teamMembers.length;
+                    metrics.allCommits(team.repo, function(err, res) {
+                      if (!err) {
+                        var nodeCommits = res.data;
+                        metrics.allCommits(team.repo, function(err1, res2) {
+                          if (!err1) {
+                            var bowerCommits = res2.data;
+                            var flaggedCommits = nodeCommits.concat(bowerCommits);
+                            _.each(flaggedCommits, function(fcommit, index, list) {
+
+                              metrics.oneCommit(team.repo, function(err2, commitData) {
+                                if (!err2) {
+                                  var commitUser = commitData.data.author.login;
+                                  var files = commitData.data.files;
+                                  var flaggedFiles = _.filter(files, function(file) {
+                                    return ((file.filename).indexOf("node_modules") > -1 || (file.filename).indexOf("bower_components") > -1)
+                                  });
+                                  _.each(flaggedFiles, function(file, index, list) {
+                                    lineDiff = lineDiff - file.changes;
+
+                                  })
+                                }
+                              }, fcommit.sha)
+
+                            });
+                          }
+                        }, "bower_components")
+                      }
+                    }, "node_modules")
+
+                    var numberOfMembers = teamMembers.length
+                    var average = lineDiff / numberOfMembers;
                     var cumulative = 0;
-                    for (var i = 0; i < teamMembers.length; i++) {
+
+                    _.each(teamMembers, function(member, index, list) {
                       var userTotalWeeklyLines = 0;
                       var userLineAdditions = 0;
                       var found = false;
 
-                      for (var j = 0; j < contribStats.length; j++) {
-                        if (teamMembers[i].profile.githubUser == contribStats[j].author.login) {
+                      _.each(contribStats, function(stat, i, l) {
+                        if (member.profile.githubUser == stat.author.login) {
                           found = true;
+                          var lastStatWeek = stat.weeks[stat.weeks.length - 1];
+                          userTotalWeeklyLines = lastStatWeek.a + lastStatWeek.c;
 
-                          userTotalWeeklyLines = contribStats[j].weeks[contribStats[j].weeks.length - 1].a +
-                            contribStats[j].weeks[contribStats[j].weeks.length - 1].c;
+                          var lastMemberMetric = member.metrics[member.metrics.length - 1];
 
-                          if (!teamMembers[i].metrics || teamMembers[i].metrics[teamMembers[i].metrics.length - 1].currentWeek != latestWeek) {
+                          if (!member.metrics || lastMemberMetric.currentWeek != latestWeek) {
                             userLineAdditions = userTotalWeeklyLines;
                           } else {
-                            userLineAdditions = userTotalWeeklyLines -
-                              teamMembers[i].metrics[teamMembers[i].metrics.length - 1].totalWeeklyLines
+                            userLineAdditions = userTotalWeeklyLines - lastMemberMetric.totalWeeklyLines
                           }
-                          break;
                         }
-                      }
+                      });
+
                       if (!found) {
-                        console.log(teamMembers[i].profile.githubUser + ' User did not make any commits or was not found in contributor List'.yellow);
+                        console.log(member.profile.githubUser + ' User did not make any commits or was not found in contributor List'.yellow);
                       }
 
-                      Meteor.users.update(teamMembers[i], {
+                      Meteor.users.update(member, {
                         $push: {
                           metrics: {
                             totalWeeklyLines: userTotalWeeklyLines,
@@ -168,14 +206,182 @@ Meteor.methods({
                       });
 
                       cumulative = cumulative + Math.pow((average - userLineAdditions), 2);
-                    }
+                    });
 
-                    var variance = cumulative / teamMembers.length;
+                    var variance = cumulative / numberOfMembers;
                     var sd = Math.sqrt(variance);
 
 
                     var newPoints = lineDiff - lineDiff * (sd / 1000);
-                    var updatedPoints = team.metrics[team.metrics.length - 1].dailyPoints + newPoints;
+                    var updatedPoints = lastTeamMetric.dailyPoints + newPoints;
+                    updatedPoints = updatedPoints | 0;
+                    Teams.update(team, {
+                      $push: {
+                        metrics: {
+                          totalWeeklyLines: additionsAndSubt,
+                          lineAdditions: lineDiff,
+                          standardDev: sd,
+                          dailyPoints: updatedPoints,
+                          createdAt: Date.now(),
+                          currentWeek: latestWeek
+                        }
+                      }
+                    }, function(err, affected) {
+                      if (err) {
+                        console.log("error while updating team with new metrics".red, err)
+                      }
+                    });
+                  }
+                });
+              }
+            } else {
+              console.log("No entries in weekly code frequency for team ".yellow + team.name)
+            }
+          }
+        });
+      }
+    });
+
+  },
+
+  calculateDailyLeaderBoardUpdated() {
+
+    Teams.find({}, { fields: { repo: 1, metrics: 1, members: 1 } }).forEach(function(team) {
+      if (!team.metrics) {
+        Teams.update(team, { $push: { metrics: { totalWeeklyLines: 0, lineAdditions: 0, standardDev: 0, dailyPoints: 0, createdAt: Date.now(), currentWeek: "" } } },
+          function(err, affected) {
+            if (err) {
+              console.log("error while updating".red, err)
+            }
+          });
+      } else if (GitAuth.find({}).count() > 0) {
+        metrics = new Metrics(Meteor.settings.githubId, Meteor.settings.githubSecret, GitAuth.find({}).fetch()[0].accessToken);
+
+        metrics.allCommits(team.repo, function(err, res) {
+          if (!err) {
+            var commits = res;
+            var reducedFlaggedCommits = _.map(commits, function(obj) {
+              return obj.sha;
+            });
+
+            var userAddedLines = {};
+
+            _.each(reducedFlaggedCommits, function(sha, index, list) {
+
+              metrics.oneCommit(team.repo, function(err2, commitData) {
+                if (!err2) {
+                  var commitUser = commitData.data.author.login;
+                  var files = commitData.data.files;
+                  if (!((commitData.data.commit.message).indexOf("Merge") > -1)) {
+                    // console.log(commitData.data.commit.message)
+                    var flaggedFiles = _.filter(files, function(file) {
+                      return (!((file.filename).indexOf("node_modules") > -1) && !((file.filename).indexOf("bower_components") > -1) && !((file.filename).indexOf(".json") > -1));
+                    });
+                    _.each(flaggedFiles, function(file, index, list) {
+                      if (commitUser in userAddedLines) {
+                        userAddedLines[commitUser] = userAddedLines[commitUser] + file.changes;
+                      } else {
+                        userAddedLines[commitUser] = file.changes;
+                      }
+                    });
+                  }
+                }
+              }, sha);
+
+              
+
+            });
+          }
+        })
+
+        metrics.weeklyCodeFrequency(team.repo, function(err, res) {
+          if (!err && res.data) {
+            var weeklyData = res.data;
+            var weeklyLength = res.data.length;
+            if (weeklyLength > 0) {
+
+              var lastInWeeklyData = weeklyData[weeklyLength - 1];
+              var additionsAndSubt = (lastInWeeklyData[1]) + (-1 * lastInWeeklyData[2]);
+              var latestWeek = lastInWeeklyData[0];
+
+              var teamMetrics = team.metrics;
+              var teamMetricsLength = team.metrics.length;
+              var lastTeamMetric = teamMetrics[teamMetricsLength - 1];
+
+              if (lastTeamMetric.currentWeek != latestWeek) {
+                var lineDiff = additionsAndSubt;
+              } else {
+                var lineDiff = additionsAndSubt - lastTeamMetric.totalWeeklyLines;
+              }
+
+              if (team.members.length < 1) {
+                console.log("No members in team ".yellow + team.name);
+              } else {
+
+                metrics.contributorsStatistics(team.repo, function(err, res) {
+                  if (!err) {
+                    var contribStats = res.data;
+
+                    var teamMembers = [];
+                    for (var i = 0; i < team.members.length; i++) {
+                      var member = Meteor.users.findOne({ _id: team.members[i] }, { fields: { metrics: 1, profile: 1 } });
+                      teamMembers.push(member);
+                    }
+
+
+                    var numberOfMembers = teamMembers.length
+                    var average = lineDiff / numberOfMembers;
+                    var cumulative = 0;
+
+                    _.each(teamMembers, function(member, index, list) {
+                      var userTotalWeeklyLines = 0;
+                      var userLineAdditions = 0;
+                      var found = false;
+
+                      _.each(contribStats, function(stat, i, l) {
+                        if (member.profile.githubUser == stat.author.login) {
+                          found = true;
+                          var lastStatWeek = stat.weeks[stat.weeks.length - 1];
+                          userTotalWeeklyLines = lastStatWeek.a + lastStatWeek.c;
+
+                          var lastMemberMetric = member.metrics[member.metrics.length - 1];
+
+                          if (!member.metrics || lastMemberMetric.currentWeek != latestWeek) {
+                            userLineAdditions = userTotalWeeklyLines;
+                          } else {
+                            userLineAdditions = userTotalWeeklyLines - lastMemberMetric.totalWeeklyLines
+                          }
+                        }
+                      });
+
+                      if (!found) {
+                        console.log(member.profile.githubUser + ' User did not make any commits or was not found in contributor List'.yellow);
+                      }
+
+                      Meteor.users.update(member, {
+                        $push: {
+                          metrics: {
+                            totalWeeklyLines: userTotalWeeklyLines,
+                            lineAdditions: userLineAdditions,
+                            createdAt: Date.now(),
+                            currentWeek: latestWeek
+                          }
+                        }
+                      }, function(err, affected) {
+                        if (err) {
+                          console.log("error while updating user with new metrics".red, err)
+                        }
+                      });
+
+                      cumulative = cumulative + Math.pow((average - userLineAdditions), 2);
+                    });
+
+                    var variance = cumulative / numberOfMembers;
+                    var sd = Math.sqrt(variance);
+
+
+                    var newPoints = lineDiff - lineDiff * (sd / 1000);
+                    var updatedPoints = lastTeamMetric.dailyPoints + newPoints;
                     updatedPoints = updatedPoints | 0;
                     Teams.update(team, {
                       $push: {
