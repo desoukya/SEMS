@@ -10,4 +10,4 @@ bash-scripts/*
 !bash-scripts/*.template.*
 
 SEMS.tar.gz
-
+node_modules/
