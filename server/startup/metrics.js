@@ -1,9 +1,9 @@
 // Calls function every 6 hours
-// Meteor.call("calculateDailyLeaderBoard");
+Meteor.call("calculateDailyLeaderBoardUpdated");
 // Meteor.setInterval(function() {
 //   Meteor.call("calculateDailyLeaderBoard");
 // }, 1000 * 60 * 60 * 6)
-metrics = new Metrics(Meteor.settings.githubId, Meteor.settings.githubSecret, GitAuth.find({}).fetch()[0].accessToken);
+// metrics = new Metrics(Meteor.settings.githubId, Meteor.settings.githubSecret, GitAuth.find({}).fetch()[0].accessToken);
 // date = new Date();
 // var personRegExp = new RegExp("node_modules");
 // metrics.allCommits("https://github.com/secourse2016/404notfound", function(err, res) {
@@ -14,7 +14,43 @@ metrics = new Metrics(Meteor.settings.githubId, Meteor.settings.githubSecret, Gi
 //     console.log(count);
 //   }
 // })
-var userWorthlessLines = {};
+
+
+// metrics.allCommits("https://github.com/secourse2016/stackoverflow-says-what.git", function(err, res) {
+//   if (!err) {
+//     var commits = res;
+//     var reducedFlaggedCommits = _.map(commits, function(obj) {
+//       return obj.sha;
+//     });
+
+//     var userAddedLines = {};
+
+//     _.each(reducedFlaggedCommits, function(sha, index, list) {
+
+//       var commitData = metrics.oneCommit("https://github.com/secourse2016/stackoverflow-says-what.git", sha);
+//       // console.log(commitData);
+//       if (commitData.data.author != null) {
+//         var commitUser = commitData.data.author.login;
+//         var files = commitData.data.files;
+//         if (!((commitData.data.commit.message).indexOf("Merge") > -1)) {
+//           // console.log(commitData.data.commit.message)
+//           var flaggedFiles = _.filter(files, function(file) {
+//             return (!((file.filename).indexOf("node_modules") > -1) && !((file.filename).indexOf("bower_components") > -1) && !((file.filename).indexOf(".json") > -1));
+//           });
+//           _.each(flaggedFiles, function(file, index, list) {
+//             if (commitUser in userAddedLines) {
+//               userAddedLines[commitUser] = userAddedLines[commitUser] + file.changes;
+//             } else {
+//               userAddedLines[commitUser] = file.changes;
+//             }
+//           });
+//         }
+//       }
+
+//     });
+//     console.log(userAddedLines);
+//   }
+// })
 
 // metrics.allCommits("https://github.com/secourse2016/404notfound", function(err, res) {
 //   if (!err) {

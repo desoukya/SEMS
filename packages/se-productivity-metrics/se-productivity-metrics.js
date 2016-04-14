@@ -67,7 +67,7 @@ Metrics = function(githubId, githubSecret, accessToken, timeout) {
   this.allCommits = function allCommits(link, callback, queryParams, opts, oldRes) {
     var userRepo = getUserRepo(link);
     var opt = this.options;
-    if(opts){
+    if (opts) {
       opt = opts;
     }
     if (typeof queryParams === "object") {
@@ -95,32 +95,28 @@ Metrics = function(githubId, githubSecret, accessToken, timeout) {
           } else {
             newRes = res.data;
           }
-          getNextPage(res.headers.link, function(pageNo) {
-            if (pageNo) {
-              allCommits(link, function(err2, res2) {
-                callback(err2, res2)
-              }, { page: pageNo }, opt, newRes);
-            } else {
-              callback(err, newRes);
-            }
-          });
+          if (res.headers.link) {
+            getNextPage(res.headers.link, function(pageNo) {
+              if (pageNo) {
+                allCommits(link, function(err2, res2) {
+                  callback(err2, res2)
+                }, { page: pageNo }, opt, newRes);
+              } else {
+                callback(err, newRes);
+              }
+            });
+          } else {
+            callback(err, newRes);
+          }
         }
       });
   }
 
-  this.oneCommit = function(link, callback, sha) {
+  this.oneCommit = function(link, sha) {
     var userRepo = getUserRepo(link);
 
-    Meteor.http.call("GET", "https://api.github.com/repos" + userRepo + "/commits/" + sha, this.options,
-      function(err, res) {
-        if (err) {
-          console.log("error getting one commit".red + userRepo + " " + err);
-          callback(err, res);
-        } else {
-          console.log("Retrieved one commit successfully".green, res.statusCode);
-          callback(err, res);
-        }
-      });
+    var commit = Meteor.http.call("GET", "https://api.github.com/repos" + userRepo + "/commits/" + sha, this.options);
+    return commit;
   }
 
   /**
