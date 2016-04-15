@@ -1,17 +1,18 @@
 <template name="teamGrades">
 
-    <table class="ui celled center aligned structured selectable table">
-        <thead>
-            <tr>
-                <th rowspan="2">Criteria</th>
-                <th rowspan="2">Details</th>
-                <th rowspan="2">Score</th>
-            </tr>
-        </thead>
+    {{#with entries}}
 
-        <tbody>
+        <table class="ui celled center aligned structured selectable table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Criteria</th>
+                    <th rowspan="2">Details</th>
+                    <th rowspan="2">Score</th>
+                </tr>
+            </thead>
 
-            {{#with entries}}
+            <tbody>
+
                 {{#each teamsGrades.criteria}}
                     <tr>
                         <td rowspan="{{rowSpan}}">{{name}}</td>
@@ -27,9 +28,36 @@
                         </tr>
                     {{/each}}
                 {{/each}}
-            {{/with}}
 
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+
+        <div class="ui statistics">
+            <!-- Team Total Grade -->
+            <div class="huge statistic">
+                <div class="value">
+                    <i class="yellow star icon"></i>
+                    {{totalGrade}}
+                </div>
+                <div class="label">
+                    Total Team grade
+                </div>
+            </div>
+            <!-- /Team Total Grade -->
+
+            <!-- Individual Grade -->
+            <div class="huge statistic">
+                <div class="value">
+                    <i class="green user icon"></i>
+                    {{individualsGrade}}
+                </div>
+                <div class="label">
+                    Your Grade
+                </div>
+            </div>
+            <!-- /Individual Grade -->
+        </div>
+
+    {{/with}}
 
 </template>
