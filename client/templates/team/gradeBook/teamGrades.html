@@ -1,6 +1,6 @@
 <template name="teamGrades">
 
-    <table class="ui celled center aligned structured table">
+    <table class="ui celled center aligned structured selectable table">
         <thead>
             <tr>
                 <th rowspan="2">Criteria</th>
@@ -10,27 +10,26 @@
         </thead>
 
         <tbody>
-            <tr>
-                <td>Alpha Team</td>
-                <td>Project 1</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td rowspan="3">Beta Team</td>
-                <td>Project 1</td>
-                <td>52</td>
-            </tr>
-            <tr>
-                <td>Project 2</td>
-                <td>12</td>
-            </tr>
-            <tr>
-                <td>Project 3</td>
-                <td>21</td>
-            </tr>
+
+            {{#with entries}}
+                {{#each teamsGrades.criteria}}
+                    <tr>
+                        <td rowspan="{{rowSpan}}">{{name}}</td>
+                    </tr>
+                    {{#each checklist}}
+                        <tr>
+                            <td>
+                                {{name}}
+                            </td>
+                            <td>
+                                {{grade.score}}
+                            </td>
+                        </tr>
+                    {{/each}}
+                {{/each}}
+            {{/with}}
+
         </tbody>
     </table>
-
-    {{criteria}}
 
 </template>

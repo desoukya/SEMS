@@ -8,7 +8,7 @@ Meteor.methods({
     let team = Teams.findOne({ slug: teamSlug });
 
     ret["teamsGrades"] = {};
-    ret.teamsGrades["criteria"] = gradeSheet.criteria;
+    ret.teamsGrades["criteria"] = gradeSheet.teamsGrades.criteria;
 
     ret["individualsGrades"] = {};
 
