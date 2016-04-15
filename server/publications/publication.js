@@ -37,7 +37,7 @@ Meteor.publish('users', function(roles = ROLES) {
       filter = {};
     }
 
-    return [Meteor.users.find(selector, filter),Images.find({})];
+    return [Meteor.users.find(selector, filter), Images.find({})];
   }
   // If user is not logged in return nothing to fire up ready()
   return [];
