@@ -3,6 +3,7 @@
     <a class="item {{isActive 'team.info'}}" href="{{pathFor 'team.info' slug=slug }}">Team Info</a>
     <a class="item {{isActive 'team.milestones'}}" href="{{pathFor 'team.milestones' slug=slug }}" >Milestones</a>
     <a class="item {{isActive 'team.announcements'}}" href="{{pathFor 'team.announcements' slug=slug }}" >Announcements</a>
+    <a class="item {{isActive 'team.gradebook'}}" href="{{pathFor 'team.gradebook' slug=slug }}" >Grades</a>
     {{#if canEdit}}
     <a class="item {{isActive 'team.edit'}}" href="{{pathFor 'team.edit' slug=slug }}">Edit Team</a>
     {{/if}}
