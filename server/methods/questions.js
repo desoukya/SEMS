@@ -23,17 +23,23 @@ Meteor.methods({
     // Getting the question object to get the data after validation and insertion
     question = Questions.findOne({ _id: questionId });
 
-    let link = `${process.env.ROOT_URL}/discussions/${question.slug}`;
-    let preview = question.description.substring(0, 60) + " ...";
+    let link = `${process.env.ROOT_URL}discussions/${question.slug}`;
+    let preview = question.description.substring(0, 200) + " ...";
+    let readableTags = tags.join(' | ');
 
     let message = {
-      text: `New Question : <${link}|${question.title}>`,
+      text: `*${question.owner().fullName()}* just asked a new question : <${link}|${question.title}>`,
       attachments: [{
         fallback: `New Question : ${question.title}`,
         color: '#36a64f',
         fields: [{
-          title: `${question.owner().fullName()}`,
+          title: `Breif`,
           value: `${preview}`,
+          short: true
+        }, {
+          title: "Tags",
+          value: `${readableTags}`,
+          short: true
         }]
       }]
 
