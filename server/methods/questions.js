@@ -1,4 +1,53 @@
 Meteor.methods({
+
+  createQuestion(data) {
+
+    let { slack } = require('../slack');
+
+    let { title, description, tags } = data;
+
+    let question = {
+      title: title,
+      description: description,
+      tags: tags,
+      ownerId: Meteor.userId(),
+      answers: [],
+      upvotes: [],
+      downvotes: [],
+      createdAt: Date.now()
+    };
+
+    // Inserting and getting the id of the created question
+    let questionId = Questions.insert(question);
+
+    // Getting the question object to get the data after validation and insertion
+    question = Questions.findOne({ _id: questionId });
+
+    let link = `${process.env.ROOT_URL}discussions/${question.slug}`;
+    let preview = question.description.substring(0, 200) + " ...";
+    let readableTags = tags.join(' | ');
+
+    let message = {
+      text: `*${question.owner().fullName()}* just asked a new question : <${link}|${question.title}>`,
+      attachments: [{
+        fallback: `New Question : ${question.title}`,
+        color: '#36a64f',
+        fields: [{
+          title: `Breif`,
+          value: `${preview}`,
+          short: true
+        }, {
+          title: "Tags",
+          value: `${readableTags}`,
+          short: true
+        }]
+      }]
+
+    };
+
+    slack.send(message);
+  },
+
   deleteQuestion(questionId) {
     let question = Questions.findOne({ _id: questionId });
     let userId = Meteor.userId();
