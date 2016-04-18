@@ -65,7 +65,7 @@ Template.editAnnouncement.events({
     var globalToggle = $('#global').prop('checked');
     var milestone = $('#milestone').prop('checked');
 
-    var announcement = {
+    var data = {
       title: title,
       description: description,
       global: globalToggle,
@@ -73,12 +73,9 @@ Template.editAnnouncement.events({
       teams: companies,
     };
 
-    var data = {
-      _id: Session.get('selectedAnnouncementId'),
-      announcement: announcement
-    };
+    var id = Session.get('selectedAnnouncementId');
 
-    Meteor.call('updateAnnouncement', data, function(err, announcementCount) {
+    Meteor.call('updateAnnouncement', id, data, function(err) {
       if (err) {
         $('.ui.form').form('add errors', {
           error: err.reason

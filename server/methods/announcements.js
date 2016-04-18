@@ -63,10 +63,35 @@ Meteor.methods({
       throw new Meteor.Error(401, 'Not authorized to create an Announcement');
   },
 
-  updateAnnouncement(data) {
-    // TODO: Check the arguments passed from client - Never Trusted !
+  updateAnnouncement(id, data) {
+
+    let { title, description, global, milestone, teams } = data;
+
+
     if (Roles.userIsInRole(Meteor.userId(), [ADMIN, LECTURER, TA])) {
-      return Announcements.update({ _id: data._id }, { $set: data.announcement });
+
+      Announcements.update({ _id: id }, { $set: data });
+
+      let typeHint = milestone ? 'Milestone' : 'Announcement';
+      let { slack } = require('../slack');
+
+      let message = {
+        text: `<!everyone> *UPDATE :* ${typeHint} is updated on the system`,
+        attachments: [{
+          fallback: `<!everyone> *UPDATE :* ${typeHint} is updated on the system`,
+          color: '#14c8b8',
+          fields: [{
+            title: `${title} is Updated`,
+            value: `Please check the system for updates`,
+            short: true
+          }]
+        }]
+
+      };
+
+      slack.send(message);
+
+
     } else
       throw new Meteor.Error(401, 'Not authorized to edit an Announcement');
   },
