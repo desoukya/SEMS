@@ -139,6 +139,7 @@ Template.editableTeamMember.helpers({
 
 Template.editableTeamMember.events({
   'click #delete-icon': function(event, template) {
+    return false;
     var self = this;
     var team = this.team();
     Meteor.call('removeFromTeam', self._id, team._id);

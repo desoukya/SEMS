@@ -10,26 +10,27 @@ Meteor.methods({
     if (Roles.userIsInRole(Meteor.userId(), [ADMIN, LECTURER, TA])) {
       let announcementId = Announcements.insert(announcement);
 
-      if (global)
-        teams = Teams.find({}, {
-          _id: 1
-        }).fetch().map(function(team) {
+      if (global) {
+        teams = Teams.find({}, { _id: 1 }).fetch().map(function(team) {
           return team._id;
-        })
+        });
+      }
 
+      let typeHint = milestone ? 'Milestone' : 'Announcement';
+
+      // Send system notifications
       teams.forEach(function(teamId) {
 
         let team = Teams.findOne({ _id: teamId });
 
         let members = team.members;
         let link = milestone ? `/milestones/${announcementId}` : `/teams/${team.slug}/announcements`;
-        let typeHint = milestone ? 'Milestone :' : 'Announcement :';
         let icon = milestone ? '<i class="idea icon"></i>' : '<i class="announcement icon"></i>';
 
         members.forEach(function(id) {
           Notifications.insert({
             ownerId: id,
-            content: `${icon} ${typeHint} ${title}`,
+            content: `${icon} ${typeHint} : ${title}`,
             link: link,
             read: false,
             createdAt: Date.now()
@@ -38,15 +39,59 @@ Meteor.methods({
 
       });
 
+      let color = milestone ? '#002fbe' : '#fbfa62';
+      let { slack } = require('../slack');
+
+      let message = {
+        text: `<!everyone> *New ${typeHint} is on the system*`,
+        attachments: [{
+          fallback: `<!everyone> *New ${typeHint} is on the system*`,
+          color: color,
+          fields: [{
+            title: `${typeHint} : ${title}`,
+            value: `Please check the system for new ${typeHint}`,
+            short: true
+          }]
+        }]
+
+      };
+
+      slack.send(message);
+
       return announcementId;
     } else
       throw new Meteor.Error(401, 'Not authorized to create an Announcement');
   },
 
-  updateAnnouncement(data) {
-    // TODO: Check the arguments passed from client - Never Trusted !
+  updateAnnouncement(id, data) {
+
+    let { title, description, global, milestone, teams } = data;
+
+
     if (Roles.userIsInRole(Meteor.userId(), [ADMIN, LECTURER, TA])) {
-      return Announcements.update({ _id: data._id }, { $set: data.announcement });
+
+      Announcements.update({ _id: id }, { $set: data });
+
+      let typeHint = milestone ? 'Milestone' : 'Announcement';
+      let { slack } = require('../slack');
+
+      let message = {
+        text: `<!everyone> *UPDATE :* ${typeHint} is updated on the system`,
+        attachments: [{
+          fallback: `<!everyone> *UPDATE :* ${typeHint} is updated on the system`,
+          color: '#14c8b8',
+          fields: [{
+            title: `${title} is Updated`,
+            value: `Please check the system for updates`,
+            short: true
+          }]
+        }]
+
+      };
+
+      slack.send(message);
+
+
     } else
       throw new Meteor.Error(401, 'Not authorized to edit an Announcement');
   },

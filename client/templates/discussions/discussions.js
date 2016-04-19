@@ -57,26 +57,22 @@ Template.discussions.events({
     });
     var description = event.target.description.value;
 
-    var question = {
-      title: title,
-      description: description,
-      tags: tags,
-      ownerId: Meteor.userId(),
-      answers: [],
-      upvotes: [],
-      downvotes: [],
-      createdAt: Date.now() // current time
-    }
+    var question = { title, description, tags };
 
-    // Insert a task into the collection
-    Questions.insert(question);
+    Meteor.call('createQuestion', question, function(err) {
+      if (err)
+        sAlert.error(err.reason);
+      else {
 
-    // Clear form
-    event.target.title.value = "";
-    event.target.description.value = "";
+        // Clear form
+        event.target.title.value = "";
+        event.target.description.value = "";
 
-    // clear selected values
-    $('.ui.dropdown').dropdown('clear');
+        // clear selected values
+        $('.ui.dropdown').dropdown('clear');
+
+      }
+    });
 
     animateForm();
   },
