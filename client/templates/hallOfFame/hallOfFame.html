@@ -1,85 +1,101 @@
 <!--the Schdeule Edit Page used in admin panel -->
 <template name="hallOfFame">
-  <div class="ui stackable container grid">
-    <div class="twelve wide center aligned centered column">
-		<!-- 28- winnters -->
-		
-		<div class="row">
-			<div class="ui horizontal divider"><div class="ui huge header">28 -</div></div>
-	    <div class="ui accordion">
-			  <div class="title">
-			  	<h2 class="ui huge center aligned icon header">
-					  <i class="orange star icon"></i>
-					  A Game Of Light
-					</h2>
-			  </div>
-			  <div class="content">
-	    		<div class="ui horizontal divider"> <i class="github icon"></i> Github repo</div>
-	    			<a target="_blank" href="https://github.com/NadineMansour/AGameOfLight_S1"> AGameOfLight</a>
-	    		<div class="ui horizontal divider"> <i class="users icon"></i> members</div>
-			    <div class="ui stackable container three column very relaxed grid">
-					  {{#each winningTeamMembers28}}
-				      <div class="column">
-				        {{> winningTeamMember}}
-				      </div>
-				    {{/each}}
-					</div>
-			  </div>
-		  </div>
-	  	    
-	  </div>
-		<!-- /28- winnters -->
+    <div class="ui stackable container grid">
+        <div class="twelve wide center aligned centered column">
+            <!-- 28- winners -->
 
-		<!-- 25- winnters -->
-		<div class="row">
-	    <div class="ui horizontal divider"><div class="ui huge header">25 -</div></div>
-	    <div class="ui accordion">
-			  <div class="title">
-			  	<h2 class="ui huge center aligned icon header">
-					  <i class="orange star icon"></i>
-					  Coolsoft
-					</h2>
-			  </div>
-			  <div class="content">
-	    		<div class="ui horizontal divider"> <i class="github icon"></i> Github repo</div>
-	    			<a target="_blank" href="https://github.com/alaashafaee/Coolsoft-14"> Coolsoft-14</a>
-	    		<div class="ui horizontal divider"> <i class="users icon"></i> members</div>
-			    <div class="ui middle aligned divided horizontal list">
-					  {{#each winningTeamMembers25}}
-						  <div class="item">
-						    <div class="content">
-						      <a class="header">{{this}}</a>
-						    </div>
-						  </div>
-					  {{/each}}
-					</div>
-			  	<div class="ui horizontal divider"> <i class="camera icon"></i> Photo</div>
-			  	<img class="ui fluid rounded image" src="/images/hall-of-fame/25-winners.jpg">
-			  </div>
-		  </div>
-		</div>
+            <div class="row">
+                <div class="ui horizontal divider">
+                    <div class="ui huge header">28 - Top Company</div>
+                </div>
+                <div class="ui accordion">
+                    <div class="title">
+                        <h2 class="ui huge center aligned icon header">
+                            <i class="orange star icon"></i>
+                            A Game Of Light
+                        </h2>
+                    </div>
+                    <div class="content">
+                        <div class="ui horizontal divider">
+                            <i class="github icon"></i>
+                            Github repo</div>
+                        <a target="_blank" href="https://github.com/NadineMansour/AGameOfLight_S1">
+                            AGameOfLight</a>
+                        <div class="ui horizontal divider">
+                            <i class="users icon"></i>
+                            Members</div>
+                        <div class="ui stackable container three column very relaxed grid">
+                            {{#each winningTeamMembers28}}
+                                <div class="column">
+                                    {{> winningTeamMember}}
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
 
-		<!-- /25- winnters -->
+            </div>
+            <!-- /28- winners -->
 
+            <!-- 25- winners -->
+            <div class="row">
+                <div class="ui horizontal divider">
+                    <div class="ui huge header">25 - Top Company</div>
+                </div>
+                <div class="ui accordion">
+                    <div class="title">
+                        <h2 class="ui huge center aligned icon header">
+                            <i class="orange star icon"></i>
+                            Coolsoft
+                        </h2>
+                    </div>
+                    <div class="content">
+                        <div class="ui horizontal divider">
+                            <i class="github icon"></i>
+                            Github repo</div>
+                        <a target="_blank" href="https://github.com/alaashafaee/Coolsoft-14">
+                            Coolsoft-14</a>
+                        <div class="ui horizontal divider">
+                            <i class="users icon"></i>
+                            Members</div>
+                        <div class="ui middle aligned divided horizontal list">
+                            {{#each winningTeamMembers25}}
+                                <div class="item">
+                                    <div class="content">
+                                        <a class="header">{{this}}</a>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
+                        <div class="ui horizontal divider">
+                            <i class="camera icon"></i>
+                            Photo</div>
+                        <img class="ui fluid rounded image" src="/images/hall-of-fame/25-winners.jpg">
+                    </div>
+                </div>
+            </div>
 
+            <!-- /25- winners -->
+
+        </div>
     </div>
-  </div>
 </template>
-<template name="winningTeamMember">
-  <div class="ui card">
-    <a class="image" id="logo-link" href="{{pathFor 'team.info' slug=slug}}">
-      <img class="" style= "height:140px;" src="{{image}}">
-    </a>
 
-    <div class="content">
-      <a class="header" href="{{pathFor 'team.info' slug=slug}}">{{name}}</a>
-      <div class="meta">
-        {{#if siteUrl}}
-          <a target="_blank" href="{{siteUrl}}" class="right floated icon">
-            <i class="blue large server link icon"></i>
-          </a>
-        {{/if}}
-      </div>
+<template name="winningTeamMember">
+    <div class="ui card">
+        <a class="image" id="logo-link" href="{{pathFor 'team.info' slug=slug}}">
+            <img class="winning-member-card" src="{{image}}">
+        </a>
+
+        <div class="content">
+            <a class="header" href="{{pathFor 'team.info' slug=slug}}">{{name}}</a>
+            <div class="meta">
+                {{#if siteUrl}}
+                    <a target="_blank" href="{{siteUrl}}" class="right floated icon">
+                        <i class="blue large server link icon"></i>
+                    </a>
+                {{/if}}
+            </div>
+        </div>
     </div>
-  </div>
 </template>
