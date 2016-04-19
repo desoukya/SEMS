@@ -56,6 +56,8 @@ oauth
 deanius:promise
 simple:reactive-method
 juliancwirko:s-alert-jelly
+standard-minifier-css
+standard-minifier-js
 cfs:graphicsmagick
 standard-minifier-css
 standard-minifier-js

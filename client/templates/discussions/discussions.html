@@ -114,14 +114,14 @@
       {{/EasySearch.IfNoResults}}
     {{/EasySearch.IfInputEmpty}}
 
-    {{> EasySearch.Pagination index=questionsIndex maxPages=9 renderPagination="navigator"}}
+    {{> EasySearch.Pagination index=questionsIndex maxPages=9 customRenderPagination="navigator"}}
   </div>
 </template>
 
 <template name="navigator">
-  <div class="ui pagination menu">
+  <div data-class="ui pagination menu">
     {{#each page}}
-      <a class="page item {{pageClasses this}} ">{{content}}</a>
+      <a data-class="page item {{pageClasses this}} ">{{content}}</a>
     {{/each}}
   </div>
 </template>

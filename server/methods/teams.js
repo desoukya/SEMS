@@ -9,7 +9,7 @@ Meteor.methods({
     else if (!Roles.userIsInRole(Meteor.userId(), SCRUM))
       throw new Meteor.Error(401, "Not authorized to create a new team");
     else {
-      team.metrics = [{ totalWeeklyLines: 0, lineAdditions: 0, standardDev: 0, dailyPoints: 0, createdAt: Date.now() }];
+      team.metrics = [{ totalWeeklyLines: 0, lineAdditions: 0, standardDev: 0, dailyPoints: 0, currentWeek: 0, createdAt: Date.now() }];
       return Teams.insert(team);
     }
 

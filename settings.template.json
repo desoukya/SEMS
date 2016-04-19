@@ -4,6 +4,9 @@
 
   "environment": "production|development",
   "githubSecret": "SECRET_API_KEY",
+  "slack": {
+    "hookUrl": "SLACK_HOOK_URL",
+  },
 
   "MAIL_URL": "your_smtp_string",
   "ROOT_URL": "ROOT_URL_IP_OR_DOMAIN",
