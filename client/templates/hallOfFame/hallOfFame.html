@@ -5,25 +5,35 @@
             <!-- 28- winners -->
 
             <div class="row">
-                <div class="ui horizontal divider">
+                <div class="ui horizontal extra padded divider">
                     <div class="ui huge header">28 - Top Company</div>
                 </div>
                 <div class="ui accordion">
                     <div class="title">
                         <h2 class="ui huge center aligned icon header">
-                            <i class="orange star icon"></i>
-                            A Game Of Light
+                            <i class="yellow trophy icon"></i>
+                            Touchdown
                         </h2>
                     </div>
                     <div class="content">
-                        <div class="ui horizontal divider">
-                            <i class="github icon"></i>
-                            Github repo</div>
+                        <div class="ui horizontal extra padded divider">
+                            <h3>
+                                <i class="big github icon"></i>
+                                Github repo
+                            </h3>
+                        </div>
+
                         <a target="_blank" href="https://github.com/NadineMansour/AGameOfLight_S1">
-                            AGameOfLight</a>
-                        <div class="ui horizontal divider">
-                            <i class="users icon"></i>
-                            Members</div>
+                            <h3>A Game Of Light</h3>
+                        </a>
+
+                        <div class="ui horizontal extra padded divider">
+                            <h3>
+                                <i class="big users icon"></i>
+                                Members
+                            </h3>
+                        </div>
+
                         <div class="ui stackable container three column very relaxed grid">
                             {{#each winningTeamMembers28}}
                                 <div class="column">
@@ -39,37 +49,52 @@
 
             <!-- 25- winners -->
             <div class="row">
-                <div class="ui horizontal divider">
+                <div class="ui horizontal extra padded divider">
                     <div class="ui huge header">25 - Top Company</div>
                 </div>
                 <div class="ui accordion">
                     <div class="title">
                         <h2 class="ui huge center aligned icon header">
-                            <i class="orange star icon"></i>
+                            <i class="yellow trophy icon"></i>
                             Coolsoft
                         </h2>
                     </div>
                     <div class="content">
-                        <div class="ui horizontal divider">
-                            <i class="github icon"></i>
-                            Github repo</div>
+                        <div class="ui horizontal extra padded divider">
+                            <h3>
+                                <i class="big github icon"></i>
+                                Github repo
+                            </h3>
+                        </div>
+
                         <a target="_blank" href="https://github.com/alaashafaee/Coolsoft-14">
-                            Coolsoft-14</a>
-                        <div class="ui horizontal divider">
-                            <i class="users icon"></i>
-                            Members</div>
+                            <h2>Coolsoft-14</h2>
+                        </a>
+
+                        <div class="ui horizontal extra padded divider">
+                            <h3>
+                                <i class="big users icon"></i>
+                                Members
+                            </h3>
+                        </div>
+
                         <div class="ui middle aligned divided horizontal list">
                             {{#each winningTeamMembers25}}
                                 <div class="item">
                                     <div class="content">
-                                        <a class="header">{{this}}</a>
+                                        <span class="ui header">{{this}}</span>
                                     </div>
                                 </div>
                             {{/each}}
                         </div>
-                        <div class="ui horizontal divider">
-                            <i class="camera icon"></i>
-                            Photo</div>
+
+                        <div class="ui horizontal extra padded divider">
+                            <h3>
+                                <i class="big camera icon"></i>
+                                Photo
+                            </h3>
+                        </div>
+
                         <img class="ui fluid rounded image" src="/images/hall-of-fame/25-winners.jpg">
                     </div>
                 </div>
@@ -83,19 +108,12 @@
 
 <template name="winningTeamMember">
     <div class="ui card">
-        <a class="image" id="logo-link" href="{{pathFor 'team.info' slug=slug}}">
+        <div class="image">
             <img class="winning-member-card" src="{{image}}">
-        </a>
+        </div>
 
         <div class="content">
-            <a class="header" href="{{pathFor 'team.info' slug=slug}}">{{name}}</a>
-            <div class="meta">
-                {{#if siteUrl}}
-                    <a target="_blank" href="{{siteUrl}}" class="right floated icon">
-                        <i class="blue large server link icon"></i>
-                    </a>
-                {{/if}}
-            </div>
+            <header class="header">{{name}}</header>
         </div>
     </div>
 </template>
