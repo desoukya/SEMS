@@ -119,6 +119,25 @@ Template.editTeam.events({
 
   },
 
+  'click #changeIonicId': function(event) {
+    if ($('#ionicId').parent().hasClass('disabled')) {
+      $('#ionicId').parent().removeClass('disabled');
+      $('#changeIonicId').addClass('green');
+
+    } else {
+      Teams.update( { _id: this._id }, { $set: { ionicId: $('#ionicId').val() } }, function(err) {
+        if (err)
+          sAlert.error('Can\'t update Ionic ID, please provide a valid ID');
+        else {
+          $('#ionicId').parent().addClass('disabled');
+          $('#changeIonicId').removeClass('green');
+        }
+      });
+
+    }
+
+  },
+
 });
 
 Template.editTeam.onRendered(function() {
