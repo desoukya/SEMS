@@ -23,3 +23,17 @@ Template.teamCard.helpers({
   },
 
 });
+
+Template.teamCard.events({
+  'click .blue.large.server.link.icon':function() {
+    analytics.track('Launch Deployment', {
+      teamId: this.slug
+    });
+  },
+
+  'click #ionicCopyIcon':function() {
+    analytics.track('Copy ionic ID', {
+      teamId: this.slug
+    });
+  }
+});
