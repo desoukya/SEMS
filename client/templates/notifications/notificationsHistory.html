@@ -1,13 +1,21 @@
 <template name="notificationsHistory">
-  <div class="ui centered container grid">
-    <div class="ui ten wide column">
-      <div class="ui full width divided items">
+    <div class="ui centered container grid">
+        <div class="ui ten wide column">
+            <div class="ui stacked segment">
+                <div class="ui large fluid buttons">
+                    <button class="ui left labeled icon green large button" id="read_notifications_button"><i class="white check cirlce icon"></i> Mark all as read</button>
+                    <div class="or"></div>
+                    <button class="ui right labeled icon red large button"><i class="white trash icon"></i> Delete all</button>
+                </div>
+            </div>
 
-        {{#each notifications}}
-          {{> notificationCard}}
-        {{/each}}
+            <div class="ui full width divided items">
 
-      </div>
+                {{#each notifications}}
+                    {{> notificationCard}}
+                {{/each}}
+
+            </div>
+        </div>
     </div>
-  </div>
 </template>
