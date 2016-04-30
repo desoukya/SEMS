@@ -1,6 +1,6 @@
 Template.browseTeam.onRendered(function () {
   // Initialize clipboard.js
-  let ionicClipboardHandler = new Clipboard('#ionicCopyIcon');
+  let ionicClipboardHandler = new Clipboard('.ionic-copy');
 
   let self = this;
 
