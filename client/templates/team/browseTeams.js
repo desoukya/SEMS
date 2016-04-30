@@ -1,6 +1,13 @@
+let ionicClipboardHandler = {};
+
 Template.browseTeam.onRendered(function () {
+
+  // Don't recreate the clipboard object
+  if (!_.isEmpty(ionicClipboardHandler))
+    ionicClipboardHandler.destroy();
+
   // Initialize clipboard.js
-  let ionicClipboardHandler = new Clipboard('.ionic-copy');
+  ionicClipboardHandler = new Clipboard('.ionic-copy');
 
   let self = this;
 
@@ -25,13 +32,13 @@ Template.teamCard.helpers({
 });
 
 Template.teamCard.events({
-  'click .blue.large.server.link.icon':function() {
+  'click .blue.large.server.link.icon': function () {
     analytics.track('Launch Deployment', {
       teamId: this.slug
     });
   },
 
-  'click #ionicCopyIcon':function() {
+  'click #ionicCopyIcon': function () {
     analytics.track('Copy ionic ID', {
       teamId: this.slug
     });
