@@ -1,9 +1,9 @@
 Meteor.methods({
-  readNotifications() {
+  readAllNotifications() {
     Notifications.update({ ownerId: Meteor.userId(), read: false }, { $set: { read: true } }, { multi: true });
   },
 
-  deleteNotifications() {
+  deleteAllNotifications() {
     Notifications.remove({ ownerId: Meteor.userId() });
   },
 
