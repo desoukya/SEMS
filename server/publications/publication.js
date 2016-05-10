@@ -10,7 +10,8 @@ Meteor.publish('users', function(roles = ROLES) {
   var filter = {
     fields: {
       profile: 1,
-      roles: 1
+      roles: 1,
+      pendingSurvey: 1,
     }
   };
 
@@ -43,8 +44,20 @@ Meteor.publish('users', function(roles = ROLES) {
   return [];
 });
 
+Meteor.publish('currUser', function(){
+ return Meteor.users.find({_id: this.userId});
+});
+
 Meteor.publish('images', function() {
   return Images.find({});
+});
+
+Meteor.publish('survey', function() {
+  return Survey.find({});
+});
+
+Meteor.publish('fullUsers', function() {
+  return Meteor.users.find({});
 });
 
 Meteor.publish('files', function() {
