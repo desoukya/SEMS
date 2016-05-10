@@ -54,6 +54,15 @@ Template.userSurvey.helpers({
 
     userQuesId(qid, uid) {
         return qid + "_" + uid;
+    },
+
+    scrumId() {
+        var team = Teams.findOne({ members: Meteor.userId() });
+        for (var i = 0; i < team.members.length; i++) {
+            if (Roles.userIsInRole(team.members[i], SCRUM)) {
+                return team.members[i];
+            }
+        }
     }
 
 });
