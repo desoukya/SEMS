@@ -9,17 +9,20 @@
                     WARNING: Do not change unless you're the admin and want to resend a new survey
                 </div>
                 <div class="description">
+                    {{#if onlineSurvey}} 
+                    <button class="rem-survey center aligned medium ui button red" title="">Remove Survey</button>
+                    {{else}}
                     <button class="survey center aligned medium ui button green" title="">Send Survey</button>
+                    {{/if}}
                 </div>
             </div>
             <div class="extra content">
-            {{#if onlineSurvey}}
-              <p class="ui green tiny header">There is a survey online</p>
-            {{else}}
-              <p class="ui red tiny header">No survey online</p>
-            {{/if}}
-                
-            </div> 
+                {{#if onlineSurvey}}
+                <p class="ui green tiny header">There is a survey online</p>
+                {{else}}
+                <p class="ui red tiny header">No survey online</p>
+                {{/if}}
+            </div>
         </div>
     </div>
     <div class="main header">
@@ -27,15 +30,13 @@
     </div>
     <div class="ui divider container"></div>
     <div class="ui stackable container one column very relaxed grid">
-        {{#each teams}}
-        <div class="column">
-            {{>surveyTeamCard}}
+        <div class="ui three stackable cards">
+            {{#each teams}} {{>surveyTeamCard}} {{/each}}
         </div>
-        {{/each}}
     </div>
 </template>
 <template name="surveyTeamCard">
-    <div class="ui card centered">
+    <div class="ui card">
         <div class="content">
             <div class="header">
                 <a class="header" href="{{pathFor 'team.info' slug=slug}}">{{name}}</a>

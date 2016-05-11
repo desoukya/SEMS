@@ -35,10 +35,13 @@
       <!-- /Hall of Fame Button-->
 
       <!-- survey Button-->
+      {{#if isInRole "student"}}
+       
         {{#if getPendingSurvey}}
       
         <a class="item {{isActive 'user.survey'}}" href="{{pathFor 'user.survey'}}">Survey</a>
         {{/if}}
+      {{/if}}
       <!-- /survey Button-->
 
       <div class="right menu">

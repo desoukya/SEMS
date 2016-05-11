@@ -67,9 +67,9 @@ Template.userSurvey.helpers({
 
 });
 
-Template.userSurvey.onRendered(function() {
-    $('.ui.radio.checkbox').checkbox();
-});
+Template.userSurvey.rendered = function () {
+     $('.ui.radio.checkbox').checkbox();
+};
 
 Template.userSurvey.events({
     'submit form': function(event) {
@@ -94,6 +94,8 @@ Template.userSurvey.events({
         $('.submit.survey-btn').removeClass('loading');
         $('.submit.survey-btn').addClass('disabled');
         $('.positive.message').removeClass('hidden');
+
+        sAlert.success("Thank you for filling the survey!");
 
         Meteor.users.update({ "_id": Meteor.userId() }, {
             "$set": {
