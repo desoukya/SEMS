@@ -12,7 +12,7 @@ Template.header.onRendered(function() {
 Template.header.helpers({
     getPendingSurvey() {
         var cuser = Meteor.user();
-        if (cuser) {
+        if (cuser && Roles.userIsInRole(Meteor.userId(), [STUDENT,SCRUM])) {
             return cuser.pendingSurvey;
         } else{
         	return false;
