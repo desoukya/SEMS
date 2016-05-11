@@ -10,14 +10,14 @@ Template.notificationsHistory.helpers({
 });
 
 Template.notificationsHistory.events({
-  'click #read_notifications_button': function (event, template) {
-    Meteor.call('readNotifications');
+  'click #read_all_notifications_button': function (event, template) {
+    Meteor.call('readAllNotifications');
   },
 
-  'click #delete_notifications_button': function (event, template) {
+  'click #delete_all_notifications_button': function (event, template) {
     $('#delete-notifications-modal').modal({
       onApprove() {
-        Meteor.call('deleteNotifications', function (err) {
+        Meteor.call('deleteAllNotifications', function (err) {
           if (err)
             sAlert.error(err.reason);
         });
