@@ -128,6 +128,25 @@ Meteor.methods({
         });
         return true;
     },
+
+    removeSurvey() {
+
+        Meteor.users.find({}).forEach(function(user) {
+            Meteor.users.update(user, {
+                $set: {
+                        pendingSurvey: false
+                    }
+            });
+        });
+        Survey.find({}).forEach(function(s) {
+            Survey.update(s, {
+                $set: {
+                    online: false
+                }
+            });
+        });
+        return true;
+    },
     updateSurveyTeam(teamId, ques) {
         Teams.update({ "_id": teamId, "questions.id": ques.name }, {
             "$inc": {

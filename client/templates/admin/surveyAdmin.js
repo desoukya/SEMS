@@ -1,8 +1,18 @@
 Template.surveyAdmin.events({
     'click .survey': function() {
+        $('button.survey').addClass('loading');
         Meteor.call('populateSurvey', function(error, result) {
             if (result) {
+               $('button.survey').removeClass('loading'); 
+            }
+        });
+    },
 
+    'click .rem-survey': function() {
+        $('button.rem-survey').addClass('loading');
+        Meteor.call('removeSurvey', function(error, result) {
+            if (result) {
+               $('button.survey').removeClass('loading'); 
             }
         });
     }
@@ -15,7 +25,6 @@ Template.surveyAdmin.helpers({
 
     onlineSurvey(){
         var survey = Survey.findOne({});
-        console.log(survey)
         return survey.online;
     }
 
