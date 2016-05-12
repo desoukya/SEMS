@@ -52,10 +52,6 @@ Template.userSurvey.helpers({
 
     },
 
-    userQuesId(qid, uid) {
-        return qid + "_" + uid;
-    },
-
     scrumId() {
         var team = Teams.findOne({ members: Meteor.userId() });
         for (var i = 0; i < team.members.length; i++) {
@@ -63,13 +59,36 @@ Template.userSurvey.helpers({
                 return team.members[i];
             }
         }
+    },
+
+    userQuesId(qid, uid) {
+        return qid + "_" + uid;
     }
+
 
 });
 
-Template.userSurvey.rendered = function () {
-     $('.ui.radio.checkbox').checkbox();
+Template.userSurvey.rendered = function() {
+    $('.ui.radio.checkbox').checkbox();
+
 };
+
+Template.oneTeamQues.rendered = function() {
+    $('.ui.radio.checkbox').checkbox();
+
+};
+
+Template.oneMemberQues.rendered = function() {
+    $('.ui.radio.checkbox').checkbox();
+
+};
+
+Template.oneMemberQues.helpers({
+    userQuesId(qid, uid) {
+        return qid + "_" + uid;
+    }
+
+});
 
 Template.userSurvey.events({
     'submit form': function(event) {

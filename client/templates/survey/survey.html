@@ -6,85 +6,16 @@
         </h3>
         <p class="ui text centered">Please rate how much you agree with these statements</p>
         <form class="ui form">
-            {{#each teamQ in teamQuestions}}
-            <div class="column">
-                <h3>{{teamQ.ques}}</h3>
-                <div class="required inline fields">
-                    <div class="field">
-                        <div class="ui radio checkbox">
-                            <input required type="radio" value="1" name="{{teamQ.id}}" tabindex="0" class="hidden">
-                            <label>Strongly disagree</label>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui radio checkbox">
-                            <input required type="radio" value="2" name="{{teamQ.id}}" tabindex="0" class="hidden">
-                            <label>slightly disagree</label>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui radio checkbox">
-                            <input required type="radio" value="3" name="{{teamQ.id}}" tabindex="0" class="hidden">
-                            <label>neutral</label>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui radio checkbox">
-                            <input required type="radio" value="4" name="{{teamQ.id}}" tabindex="0" class="hidden">
-                            <label>slightly agree</label>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui radio checkbox">
-                            <input required type="radio" value="5" name="{{teamQ.id}}" tabindex="0" class="hidden">
-                            <label>Strongly agree</label>
-                        </div>
-                    </div>
-                </div>
-                <br>
-            </div>
-            {{/each}}
+            {{#each teamQuestions}} {{>oneTeamQues}} {{/each}}
             <h3 class="ui horizontal divider header">
              <i class="user icon"></i>
             User Based
             </h3>
-            <p class="ui text centered">Please rate how much you agree with these statements <strong>for each user</strong></p> {{#each userQ in userQuestions}}
-            <h3>{{userQ.ques}}</h3> {{#each member in teamMembers}}
-            <div class="required inline fields">
-                <label class="username-label" for="{{userQuesId userQ.id member._id}}">{{member.fullName}}:</label>
-                <div class="field">
-                    <div class="ui radio checkbox">
-                        <input required type="radio" value="1" name="{{userQuesId userQ.id member._id}}" tabindex="0" class="hidden">
-                        <label>Strongly disagree</label>
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="ui radio checkbox">
-                        <input required type="radio" value="2" name="{{userQuesId userQ.id member._id}}" tabindex="0" class="hidden">
-                        <label>slightly disagree</label>
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="ui radio checkbox">
-                        <input required type="radio" value="3" name="{{userQuesId userQ.id member._id}}" tabindex="0" class="hidden">
-                        <label>neutral</label>
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="ui radio checkbox">
-                        <input required type="radio" value="4" name="{{userQuesId userQ.id member._id}}" tabindex="0" class="hidden">
-                        <label>slightly agree</label>
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="ui radio checkbox">
-                        <input required type="radio" value="5" name="{{userQuesId userQ.id member._id}}" tabindex="0" class="hidden">
-                        <label>Strongly agree</label>
-                    </div>
-                </div>
-            </div>
-            {{/each}}
-            <br> {{/each}} {{#unless isInRole "scrum-master"}}
+            <p class="ui text centered">Please rate how much you agree with these statements <strong>for each user</strong></p>
+            {{#each userQ in userQuestions}}
+            <h3>{{userQ.ques}}</h3> {{#each member in teamMembers}} {{>oneMemberQues userQ=userQ member=member}} {{/each}}
+            <br> {{/each}} 
+            {{#unless isInRole "scrum-master"}}
             <h3 class="ui horizontal divider header">
              <i class="spy icon"></i>
             Scrum Master
@@ -138,6 +69,81 @@
             <i class="close icon"></i>
             <div class="header">
                 Thank you for filling the survey!
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="oneTeamQues">
+    <div class="column">
+        <h3>{{ques}}</h3>
+        <div class="required inline fields">
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input required type="radio" value="1" name="{{id}}" tabindex="0" class="hidden">
+                    <label>Strongly disagree</label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input required type="radio" value="2" name="{{id}}" tabindex="0" class="hidden">
+                    <label>slightly disagree</label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input required type="radio" value="3" name="{{id}}" tabindex="0" class="hidden">
+                    <label>neutral</label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input required type="radio" value="4" name="{{id}}" tabindex="0" class="hidden">
+                    <label>slightly agree</label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input required type="radio" value="5" name="{{id}}" tabindex="0" class="hidden">
+                    <label>Strongly agree</label>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+</template>
+
+<template name="oneMemberQues">
+    <div class="required inline fields">
+        <label class="username-label" for="{{userQuesId userQ.id member._id}}">{{member.fullName}}:</label>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input required type="radio" value="1" name="{{userQuesId userQ.id member._id}}" tabindex="0" class="hidden">
+                <label>Strongly disagree</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input required type="radio" value="2" name="{{userQuesId userQ.id member._id}}" tabindex="0" class="hidden">
+                <label>slightly disagree</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input required type="radio" value="3" name="{{userQuesId userQ.id member._id}}" tabindex="0" class="hidden">
+                <label>neutral</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input required type="radio" value="4" name="{{userQuesId userQ.id member._id}}" tabindex="0" class="hidden">
+                <label>slightly agree</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input required type="radio" value="5" name="{{userQuesId userQ.id member._id}}" tabindex="0" class="hidden">
+                <label>Strongly agree</label>
             </div>
         </div>
     </div>
