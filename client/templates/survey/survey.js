@@ -83,11 +83,31 @@ Template.oneMemberQues.rendered = function() {
 
 };
 
+Template.oneScrumQues.rendered = function() {
+    $('.ui.radio.checkbox').checkbox();
+
+};
+
 Template.oneMemberQues.helpers({
     userQuesId(qid, uid) {
         return qid + "_" + uid;
     }
 
+});
+
+Template.oneScrumQues.helpers({
+    scrumId() {
+        var team = Teams.findOne({ members: Meteor.userId() });
+        for (var i = 0; i < team.members.length; i++) {
+            if (Roles.userIsInRole(team.members[i], SCRUM)) {
+                return team.members[i];
+            }
+        }
+    },
+    
+    userQuesId(qid, uid) {
+        return qid + "_" + uid;
+    }
 });
 
 Template.userSurvey.events({
