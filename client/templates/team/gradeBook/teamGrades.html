@@ -1,8 +1,8 @@
 <template name="teamGrades">
     <select id="currentMilestone" class="ui dropdown fluid">
         <option value="">current Milestone</option>
-        <option value="0">MileStone1</option>
-        <option value="1">MileStone2</option>
+        <option value="0">MileStone2</option>
+        <option value="1">MileStone3</option>
     </select>
     {{#with entries}}
 
@@ -41,7 +41,7 @@
             <div class="ui big statistic">
                 <div class="value">
                     <i class="yellow star icon"></i>
-                    {{totalGrade}}/81
+                    {{totalGrade}}/{{maxGrade}}
                 </div>
                 <div class="label">
                     Total Team grade
