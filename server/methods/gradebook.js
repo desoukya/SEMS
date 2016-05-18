@@ -1,8 +1,8 @@
 Meteor.methods({
-  getGrades(teamSlug) {
+  getGrades(teamSlug, milestone) {
     let userId = Meteor.userId();
 
-    let gradeSheet = Gradebook.findOne({}).sprints[0];
+    let gradeSheet = Gradebook.findOne({}).sprints[milestone];
     let ret = {};
 
     let team = Teams.findOne({ slug: teamSlug });

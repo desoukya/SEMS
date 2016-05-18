@@ -1,5 +1,9 @@
 <template name="teamGrades">
-
+    <select id="currentMilestone" class="ui dropdown fluid">
+        <option value="">current Milestone</option>
+        <option value="0">MileStone1</option>
+        <option value="1">MileStone2</option>
+    </select>
     {{#with entries}}
 
         <table class="ui celled center aligned structured selectable table">

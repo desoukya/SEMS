@@ -1,6 +1,19 @@
+Template.teamGrades.created = function() {
+  this.mileStone = new ReactiveVar(0);
+};
+
+Template.teamGrades.onRendered(function() {
+  var self = this;
+  $('.ui.dropdown')
+    .dropdown({
+      onChange(value, text, $choice){
+        self.mileStone.set(value);
+      }});
+});
+
 Template.teamGrades.helpers({
   entries() {
-    let res = ReactiveMethod.call('getGrades', this.slug, function(err) {
+    let res = ReactiveMethod.call('getGrades', this.slug,  Template.instance().mileStone.get(), function(err) {
       if (err)
         sAlert.error(err.reason);
     });
@@ -36,6 +49,5 @@ Template.teamGrades.helpers({
     }
 
     return res;
-
   }
 });
