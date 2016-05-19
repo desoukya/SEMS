@@ -45,8 +45,8 @@ Template.teamGrades.helpers({
 
       // Total grade for team
       res.totalGrade = marksArray[marksArray.length - 1].score;
-      console.log(milestone);
-      res.maxGrade = milestone == 0 ?81:165;
+      var maxGrades = [81,165,182]; 
+      res.maxGrade = maxGrades[milestone];
     }
     return res;
   }
