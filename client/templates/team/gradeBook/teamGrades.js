@@ -1,6 +1,19 @@
+Template.teamGrades.created = function() {
+  this.milestone = new ReactiveVar(0);
+};
+Template.teamGrades.onRendered(function() {
+  var self = this;
+  $('.ui.dropdown')
+    .dropdown({
+      onChange(value, text, $choice){
+        self.milestone.set(value);
+      }});
+});
+
 Template.teamGrades.helpers({
   entries() {
-    let res = ReactiveMethod.call('getGrades', this.slug, function(err) {
+    var milestone =  Template.instance().milestone.get();
+    let res = ReactiveMethod.call('getGrades', this.slug, milestone, function(err) {
       if (err)
         sAlert.error(err.reason);
     });
@@ -32,10 +45,9 @@ Template.teamGrades.helpers({
 
       // Total grade for team
       res.totalGrade = marksArray[marksArray.length - 1].score;
-
+      var maxGrades = [2,81,165,170]; 
+      res.maxGrade = maxGrades[milestone];
     }
-
     return res;
-
   }
 });
