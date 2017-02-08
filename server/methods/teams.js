@@ -53,9 +53,9 @@ Meteor.methods({
       // If he is the scrum of this team or an admin he can add members
       var team = Teams.findOne({ _id: teamId });
 
-      if (team.members.length >= 8) {
+      if (team.members.length >= 10) {
         // FIXME: Which http code here -_-
-        throw new Meteor.Error(403, 'Team size can\'t exceed 8 members');
+        throw new Meteor.Error(403, 'Team size can\'t exceed 10 members');
       }
 
       // Getting the member
