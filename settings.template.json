@@ -11,6 +11,8 @@
   "MAIL_URL": "your_smtp_string",
   "ROOT_URL": "ROOT_URL_IP_OR_DOMAIN",
 
+  "DDP_LOGS": true,
+
   "public": {
     "analyticsSettings": {
       "Mixpanel": {
