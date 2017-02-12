@@ -6,7 +6,7 @@ Meteor.startup(function() {
 
     let packet = JSON.parse(arguments[0]);
 
-    if (packet.method !== 'LogData') {
+    if (packet.msg === 'method' && packet.method !== 'LogData') {
       Meteor.call('LogData', arguments[0]);
     }
   };
