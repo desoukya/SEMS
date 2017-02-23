@@ -51,9 +51,12 @@
             </div>
 
             <div class="ui right floated text">
-              asked by
+              asked by   <a class="ui {{ colorOfRole role}} horizontal label">
+                  {{owner.roles}}
+                </a>
               <a href="{{pathFor 'user.profile' _id= ownerId}}" class="question-owner-popup-activator">{{owner.fullName}}</a>
               {{formatDateHumanized createdAt}}
+
             </div>
           </div>
 
