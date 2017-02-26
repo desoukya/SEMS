@@ -71,6 +71,9 @@ Meteor.publish('materials', function() {
 Meteor.publish('teams', function() {
   return Teams.find({});
 });
+Meteor.publish('tags', function() {
+  return Tags.find({});
+});
 
 Meteor.publish('leaderboardSortedTeams', function() {
   ReactiveAggregate(this, Teams, [
