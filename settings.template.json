@@ -6,10 +6,12 @@
   "githubSecret": "SECRET_API_KEY",
   "githubId": "App_ID",
   "slack": {
-    "hookUrl": "SLACK_HOOK_URL",
+    "hookUrl": "SLACK_HOOK_URL"
   },
   "MAIL_URL": "your_smtp_string",
   "ROOT_URL": "ROOT_URL_IP_OR_DOMAIN",
+
+  "DDP_LOGS": true,
 
   "public": {
     "analyticsSettings": {
