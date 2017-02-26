@@ -1,3 +1,54 @@
 <template name="tagsEdit">
+  <!-- container -->
 
+    <div class="ui container grid">
+
+      <!-- Header -->
+      <div class="row">
+        <div class="ui column">
+          <h1 class="ui header text centered">Edit Tags</h1>
+        </div>
+      </div>
+      <!-- /Header -->
+      <div class="row">
+        <div class="ui sixteen wide column">
+          <table class="ui celled padded unstackable table">
+            <th align = "center"> Tags
+            </th>
+            <tbody>
+
+              <tl align = "center">
+              {{#each viewTags}}
+              {{> Tag}}
+                <div id="delete" class="mini negative ui button" >
+                  <i class="remove icon"></i>
+                </div>
+            {{/each}}
+
+          </tl>
+
+
+
+            </tbody>
+          </table>
+          <form class = "form-register">
+          <div class="ui right labeled left icon input">
+          <i class="tags icon"></i>
+          <input  type="text" placeholder="Enter tags" name = "tagName">
+          <button class="ui tag button" type = "submit">
+            Add new Tag
+          </button>
+        </div>
+      </form>
+
+          </div>
+
+        </div>
+
+
+    </div>
+    <!-- container -->
+  </template>
+<template name = "Tag">
+<li>  {{name}} </li>
 </template>
