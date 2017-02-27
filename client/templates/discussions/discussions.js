@@ -52,9 +52,8 @@ Template.discussions.events({
 
     // Get value from form element
     var title = event.target.title.value;
-    var tags = $('#tags').val().split(',').filter(function(tag) {
-      return tag.length > 0;
-    });
+
+    var tags = event.target.tag.value.split(",");
     var description = event.target.description.value;
 
     var question = { title, description, tags };
@@ -95,11 +94,12 @@ Template.discussions.helpers({
 });
 
 Template.questionForm.helpers({
-  allTags() {
-    return ReactiveMethod.call('getAllTags', function(err, tags) {
-      if (err)
-        sAlert.error(err.reason);
-    });
+  'allTags': function(){
+    // return ReactiveMethod.call('getAllTags', function(err, tags) {
+    //   if (err)
+    //     sAlert.error(err.reason);
+    // });
+  return  Tags.find({});
 
   },
 
