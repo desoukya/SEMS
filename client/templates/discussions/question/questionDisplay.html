@@ -31,7 +31,9 @@
             <!-- Meta | Owner and Date -->
             <div class="meta">
               <span class="small meta">
-                Asked by :
+                Asked by :  <a class="mini ui {{ colorOfquestionOwner owner.roles }} horizontal label">
+                    {{owner.roles}}
+                  </a>
                 <a href="{{pathFor 'user.profile' _id=owner._id}}">{{owner.fullName}}</a>
 
               </span>
