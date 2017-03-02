@@ -58,6 +58,20 @@ Template.registerHelper('colorOfRole', function(role) {
   return roleColor;
 });
 
+Template.registerHelper('colorOfTag' , (name) =>{
+var tag = Tags.findOne({"name" : name});
+var course = tag.course;
+console.log(name);
+  var color;
+  if (course == true){
+    color = "red"
+}
+else
+{ color = "teal"
+}
+return color;
+});
+
 //for questions
 Template.registerHelper( 'colorOfquestionOwner', ([role]) => {
   var roleColor;
