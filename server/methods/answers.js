@@ -1,5 +1,5 @@
 Meteor.methods({
-  createAnswer(answerData) {
+  createAnswer(answerData,email) {
     var { description, questionId } = answerData;
 
     var answer = {
@@ -27,6 +27,14 @@ Meteor.methods({
       link: link,
       read: false,
       createdAt: Date.now()
+    });
+
+
+    Email.send({
+      to: email,
+      from: Meteor.settings.systemEmail,
+      subject: "[SEMS] New answer",
+      text: `Hello User, your question has a new answer`
     });
 
   },
