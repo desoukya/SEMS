@@ -61,7 +61,6 @@ Template.registerHelper('colorOfRole', function(role) {
 Template.registerHelper('colorOfTag' , (name) =>{
 var tag = Tags.findOne({"name" : name});
 var course = tag.course;
-console.log(name);
   var color;
   if (course == true){
     color = "red"

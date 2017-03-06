@@ -1,5 +1,38 @@
 <template name="discussions">
+
   <div class="ui container grid">
+    <div class = "centered row"> Available Tags:
+
+<div>
+<a class ="ui green horizontal label">All</a>
+      {{#each allTags}}
+      {{> filterTag}}
+      {{/each}}
+</div>
+</div>
+
+
+<form class="form-register">
+      <div class="field">
+        <label>Tags</label>
+        <div class="ui fluid multiple selection dropdown" name = "tag">
+    <input type="hidden" name="tag">
+    <i class="dropdown icon"></i>
+    <div class="default text">Select Tag</div>
+    <div class="menu">
+      {{#each subTags}}
+    <div class="item" data-value="{{this.name}}">{{this.name}}</div>
+
+    {{/each}}
+  </div>
+</div>
+<button class="ui green button">
+  Subscribe
+</button>
+      </div>
+    </form>
+
+
     <div class="twelve wide centered column">
       <!-- Question SearchBox -->
       {{> questionsSearchBox}}
@@ -91,12 +124,20 @@
 
     </div>
   </div>
+
+
+
+
   <div class="ui segment">
 
     <div class="ui divided items">
       {{#EasySearch.Each index=questionsIndex }}
         {{> question}}
       {{/EasySearch.Each}}
+
+      <!--{{#each questionsTags}}
+        {{> question}}
+      {{/each}} <!-->
     </div>
 
     {{#EasySearch.IfInputEmpty index=questionsIndex}}
@@ -117,6 +158,11 @@
 
     {{> EasySearch.Pagination index=questionsIndex maxPages=9 customRenderPagination="navigator"}}
   </div>
+
+
+
+
+
 </template>
 
 <template name="navigator">
@@ -125,4 +171,11 @@
       <a data-class="page item {{pageClasses this}} ">{{content}}</a>
     {{/each}}
   </div>
+</template>
+
+<template name="filterTag">
+  <!-- Filter tag -->
+  <a class="ui {{colorOfTag name}} horizontal label">{{this.name}}
+  </a>
+  <!-- /Filter tag -->
 </template>

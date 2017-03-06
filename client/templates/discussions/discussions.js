@@ -1,3 +1,8 @@
+
+Session.setDefault('pageSize', 15);
+Session.setDefault('page', 0);
+Session.setDefault('loading', true);
+Session.setDefault('tag', 'All');
 Template.discussions.onRendered(function() {
   $('.ui.form').form({
     inline: true,
@@ -82,23 +87,57 @@ Template.discussions.events({
   'click #help-icon': function(event, template) {
 
     $('#question-help-modal').modal('show');
+  },
+  'click .ui.label': function(event, template) {
+console.log(Meteor.userId());
+    Session.set('tag', event.target.text);
+
+  },
+  'submit .form-register' : function (event) {
+  //  event.preventDefault();
+    var user = Meteor.users.findOne({_id: Meteor.userId()});
+    var userSubs = user.subscriptions;
+    var subs = event.target.tag.value.split(",");
+
+
+    if(userSubs!=null){
+    var allSubs = userSubs.concat(subs);
+
   }
+    console.log(allSubs);
+    Meteor.call('updateSubscriptions', allSubs, function(err){
+      if(err){
+        sAlert.error(err.reason);
+      }
+    })
+  event.target.tag.value ='';
+
+  }
+
 
 });
 
 Template.discussions.helpers({
   questions() {
-    return Questions.find({});
-  },
+      return Questions.find({})
+    },
+
+  allTags(){
+  return  Tags.find({});
+
+},
+subTags(){
+  console.log(Meteor.userId())
+  var user = Meteor.users.findOne({_id: Meteor.userId()});
+  console.log(user);
+  return Tags.find({name: {$nin : user.subscriptions}});
+},
+
 
 });
 
 Template.questionForm.helpers({
   'allTags': function(){
-    // return ReactiveMethod.call('getAllTags', function(err, tags) {
-    //   if (err)
-    //     sAlert.error(err.reason);
-    // });
   return  Tags.find({});
 
   },
@@ -115,7 +154,23 @@ function animateForm() {
 }
 
 Template.questionsSearchBox.helpers({
+
+questionsTags()
+{
+var string = Session.get('tag').replace(/\u21b5/g,'')
+console.log(string);
+
+  if(Session.get('tag')==="All"){
+
+      return Questions.find({});
+    }
+  else{
+    return //Questions.findOne({tags: { "$in" : [string]}});
+  }
+},
+
   questionsIndex() {
+
     return QuestionsIndex;
   },
   questionsSuggestionsIndex() {
@@ -141,4 +196,22 @@ Template.questionsSearchBox.events({
       QuestionsIndex.getComponentMethods().search(query);
     }
   }, 200)
+});
+
+Template.filterTag.helpers({
+  'allTags': function(){
+  return  Tags.find({});
+}
+
+})
+
+Template.filterTag.events({
+  'click .ui.label': function(event, template) {
+
+    var size = Session.get('pageSize');
+    Session.set('tag', event.target.text);
+    Session.set('page', 0);
+
+  },
+
 });
