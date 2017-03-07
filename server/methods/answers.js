@@ -21,6 +21,7 @@ Meteor.methods({
     let content = "New answer on your question";
     let link = `/discussions/${question.slug}`;
 
+if(answer.ownerId!=question.ownerId){
     Notifications.insert({
       ownerId: question.ownerId,
       content: `${icon} ${content}`,
@@ -36,6 +37,7 @@ Meteor.methods({
       subject: "[SEMS] New answer",
       text: `Hello User, your question has a new answer`
     });
+  }
 
   },
 
