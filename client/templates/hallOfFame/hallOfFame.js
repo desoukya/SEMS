@@ -3,6 +3,16 @@ Template.hallOfFame.onRendered(function() {
 });
 
 Template.hallOfFame.helpers({
+  winningTeamMembers31A() {
+    return [ "A1", "A2", "A3"];
+  },
+  winningTeamMembers31B() {
+    return [ "B1", "B2", "B3"];
+  },
+  winningTeamMembers31C() {
+    return [ "C1", "C2", "C3"];
+  },
+
   winningTeamMembers28() {
     return [
     {name : 'Nadine Mansour', image:'/images/hall-of-fame/28-/teamWinner/nadin.jpg'},

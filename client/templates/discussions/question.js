@@ -6,5 +6,4 @@ Template.question.onRendered(function() {
       show: 300,
     }
   });
-
 });

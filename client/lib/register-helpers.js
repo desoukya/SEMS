@@ -58,6 +58,45 @@ Template.registerHelper('colorOfRole', function(role) {
   return roleColor;
 });
 
+Template.registerHelper('colorOfTag' , (name) =>{
+var tag = Tags.findOne({"name" : name});
+var course = tag.course;
+  var color;
+  if (course == true){
+    color = "red"
+}
+else
+{ color = "teal"
+}
+return color;
+});
+
+//for questions
+Template.registerHelper( 'colorOfquestionOwner', ([role]) => {
+  var roleColor;
+  switch (role) {
+    case ADMIN:
+      roleColor = "red";
+      break;
+    case LECTURER:
+      roleColor = "orange";
+      break;
+    case TA:
+      roleColor = "olive";
+      break;
+    case JTA:
+      roleColor = "purple";
+      break;
+    case SCRUM:
+      roleColor = "teal";
+      break;
+    case STUDENT:
+      roleColor = "green";
+      break;
+  }
+  return roleColor;
+});
+
 // Based on this answer on SO :
 // http://stackoverflow.com/a/31525361/3357910
 // Passing variable to template and extend it to the current context

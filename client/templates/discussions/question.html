@@ -1,5 +1,5 @@
 <template name="tag">
-  <a class="ui tiny label">{{this}}</a>
+  <a class="ui  tiny  {{colorOfTag this}} horizontal label">{{this}}</a>
 </template>
 
 <template name="question">
@@ -51,9 +51,12 @@
             </div>
 
             <div class="ui right floated text">
-              asked by
+              asked by   <a class="ui {{ colorOfquestionOwner owner.roles }} horizontal label">
+                  {{owner.roles}}
+                </a>
               <a href="{{pathFor 'user.profile' _id= ownerId}}" class="question-owner-popup-activator">{{owner.fullName}}</a>
               {{formatDateHumanized createdAt}}
+
             </div>
           </div>
 
