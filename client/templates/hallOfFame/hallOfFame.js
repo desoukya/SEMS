@@ -4,13 +4,13 @@ Template.hallOfFame.onRendered(function() {
 
 Template.hallOfFame.helpers({
   winningTeamMembers31A() {
-    return [ "A1", "A2", "A3"];
+    return [ "Mostafa Abdullah", "Omar Radwan", "Ahmed Elsagheer", "Ahmed Soliman", "Ahmed Ashraf Awwad", "Mohamed Khaled", "Ahmed Kamel"];
   },
   winningTeamMembers31B() {
-    return [ "B1", "B2", "B3"];
+    return [ "Hazem Ayman", "Mohamed Ashraf", "Mostafa Ibrahim", "Narihan Ellaithy", "Yara Sobhy", "Safa Ads","Youssef Radi"];
   },
   winningTeamMembers31C() {
-    return [ "C1", "C2", "C3"];
+    return [ "Gamal Mostafa", "Badry Atef", "Mina Samir", "Walid ElHefny","Patrick Mounir", "Ahmed Hesham Ghazy","Ahmed Ouda"];
   },
 
   winningTeamMembers28() {

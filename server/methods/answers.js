@@ -29,7 +29,8 @@ if(answer.ownerId!=question.ownerId){
       read: false,
       createdAt: Date.now()
     });
-
+if(email == undefined)
+email = Meteor.settings.adminEmail
 
     Email.send({
       to: email,
