@@ -35,6 +35,14 @@ Meteor.methods({
             read: false,
             createdAt: Date.now()
           });
+          let member = Meteor.users.findOne({_id: id})
+          let memberemail = member.emails[0].address
+          Email.send({
+            to: memberemail,
+            from: Meteor.settings.systemEmail,
+            subject: "[SEMS] Announcements",
+            text: `Hello User, there is a new announcement on the system` +"\n"+ typeHint +" "+title
+          });
         });
 
       });

@@ -1,5 +1,5 @@
 Meteor.methods({
-  createAnswer(answerData) {
+  createAnswer(answerData,email) {
     var { description, questionId } = answerData;
 
     var answer = {
@@ -21,6 +21,7 @@ Meteor.methods({
     let content = "New answer on your question";
     let link = `/discussions/${question.slug}`;
 
+if(answer.ownerId!=question.ownerId){
     Notifications.insert({
       ownerId: question.ownerId,
       content: `${icon} ${content}`,
@@ -28,6 +29,16 @@ Meteor.methods({
       read: false,
       createdAt: Date.now()
     });
+if(email == undefined)
+email = Meteor.settings.adminEmail
+
+    Email.send({
+      to: email,
+      from: Meteor.settings.systemEmail,
+      subject: "[SEMS] New answer",
+      text: `Hello User, your question has a new answer`
+    });
+  }
 
   },
 

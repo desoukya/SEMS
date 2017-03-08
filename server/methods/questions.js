@@ -45,6 +45,42 @@ Meteor.methods({
 
     };
 
+
+    //var user = Meteor.users.findOne({_id: question.ownerId});
+    users = Meteor.users.find({});
+       users.forEach(function(user){
+
+         var userSubs = user.subscriptions
+         var subfound = false;
+         for(var i = 0; i<question.tags.length; i++)
+         {
+           for(var j = 0; j<userSubs.length; j++){
+           if(question.tags[i] == userSubs[j])
+           {
+             subfound = true;
+             break;
+           }
+         }
+         }
+     //send Notifications to subscribers
+     if(subfound){
+       var content = "A tag you subscribed to has new questions"
+       let icon = "<i class=\"tag icon\"></i>";
+       let link = `/discussions/${question.slug}`;
+
+if(user._id != question.ownerId)
+         Notifications.insert({
+           ownerId: user._id,
+           content: `${icon} ${user.profile.firstName}: ${content}`,
+           link: link,
+           read: false,
+           createdAt: Date.now()
+         });
+     }
+
+       })
+
+
     slack.send(message);
   },
 

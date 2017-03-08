@@ -3,18 +3,25 @@
   <div class="ui container grid">
     <div class = "centered row"> Available Tags:
 
+
+<!-- filter tags -->
 <div>
 <a class ="ui green horizontal label">All</a>
       {{#each allTags}}
       {{> filterTag}}
       {{/each}}
 </div>
+<!-- /filter tags -->
+
+
 </div>
 
-
-<form class="form-register">
+<!-- subscriptions -->
+<div class = "three wide left column">
+      <form class="form-register">
       <div class="field">
-        <label>Tags</label>
+        <h2>Still need help?</h2>
+        <h3>Subscribe to available tags for future updates</h3>
         <div class="ui fluid multiple selection dropdown" name = "tag">
     <input type="hidden" name="tag">
     <i class="dropdown icon"></i>
@@ -31,6 +38,9 @@
 </button>
       </div>
     </form>
+  </div>
+    <!--/ subscriptions -->
+
 
 
     <div class="twelve wide centered column">

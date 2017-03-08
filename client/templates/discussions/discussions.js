@@ -104,13 +104,12 @@ console.log(Meteor.userId());
     var allSubs = userSubs.concat(subs);
 
   }
-    console.log(allSubs);
+    //console.log(allSubs);
     Meteor.call('updateSubscriptions', allSubs, function(err){
       if(err){
         sAlert.error(err.reason);
       }
     })
-  event.target.tag.value ='';
 
   }
 
@@ -129,7 +128,7 @@ Template.discussions.helpers({
 subTags(){
   console.log(Meteor.userId())
   var user = Meteor.users.findOne({_id: Meteor.userId()});
-  console.log(user);
+  //console.log(user);
   return Tags.find({name: {$nin : user.subscriptions}});
 },
 

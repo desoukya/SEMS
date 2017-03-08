@@ -6,10 +6,24 @@ Template.createAnswerForm.events({
 
     // Get the question Id from questionPage template
     var questionId = Template.parentData(1)._id;
+    let question = Questions.findOne({_id: questionId})
+    let qownerId = question.ownerId;
+    console.log(qownerId);
+    let qowner = Meteor.users.findOne({_id: qownerId});
+    var email = null;
+    if(qowner.emails == undefined){
+   email = Meteor.settings.adminEmail
+   }
+    else {
+
+          email = qowner.emails[0].address
+     }
+     console.log(email);
+
 
     var answer = { description, questionId };
 
-    Meteor.call('createAnswer', answer, function(err) {
+    Meteor.call('createAnswer', answer,email ,function(err) {
       if (err)
         sAlert.error(err.reason);
       else
