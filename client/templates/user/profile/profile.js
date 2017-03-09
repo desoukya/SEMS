@@ -37,7 +37,37 @@ Template.profile.helpers({
   getSubscriptions()
   {
 
+    var array = Meteor.user().subscriptions;
+    var length = array.length;
+    var tagDeleted = new Array(length);
+    //initialze array with false
+      for(var i = 0; i<tagDeleted.length; i++)
+      {
+
+        tagDeleted[i]=false;
+      }
+      //check if a subscribed tag is deleted from tags
+    for(var i = 0; i<array.length; i++)
+    {
+      if(!(Tags.findOne({name: array[i]})))
+
+      {
+        tagDeleted[i] = true;
+      }
+    }
+
+    //removing deleted tags of tags collection from subscriptions
+    for(var i = 0; i<tagDeleted.length; i++){
+      if(tagDeleted[i]==true){
+      array.splice(i,1)
+      
+      }
+    }
+Meteor.call('updateSubscriptions', array, function(err){
+  if(err) sAlert.error(err.reason);
+})
   return Meteor.user().subscriptions;
+
   }
 
 });
