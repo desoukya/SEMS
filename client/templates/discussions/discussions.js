@@ -30,8 +30,8 @@ Template.discussions.onRendered(function() {
         }]
       },
 
-      tags: {
-        identifier: 'tags',
+      tag: {
+        identifier: 'tag',
         rules: [{
           type: 'minCount[1]',
           prompt: 'You need at least one tag for your question'

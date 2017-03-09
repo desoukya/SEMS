@@ -64,11 +64,11 @@ Meteor.methods({
          }
      //send Notifications to subscribers
      if(subfound){
-       var content = "A tag you subscribed to has new questions"
+       var content = "A tag you subscribed to has new questions, to unsubscribe to tags go to your profile"
        let icon = "<i class=\"tag icon\"></i>";
        let link = `/discussions/${question.slug}`;
 
-if(user._id != question.ownerId)
+       if(user._id != question.ownerId)
          Notifications.insert({
            ownerId: user._id,
            content: `${icon} ${user.profile.firstName}: ${content}`,
