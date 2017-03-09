@@ -57,6 +57,14 @@
             {{email}}
           </h3>
         {{/if}}
+        {{#if haveSubscriptions}}
+        <h3>
+          <i class="green large tags  icon"></i>
+          {{#each getSubscriptions}}
+          {{> profiletag}}
+          {{/each}}
+        </h3>
+          {{/if}}
 
         {{#if isCurrentUser}}
           <a href="{{pathFor 'user.profile.edit'}}" class="ui yellow bottom floated fluid button">Edit your info</a>
@@ -66,5 +74,12 @@
       <!-- profile -->
 
     </div>
+  </div>
+</template>
+<template name = "profiletag">
+  <div class="ui transition label" name="tagName">
+    {{this}}
+    <i class="delete icon" id="deleteTag"></i>
+
   </div>
 </template>
