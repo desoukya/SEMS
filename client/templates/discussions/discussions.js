@@ -156,15 +156,16 @@ Template.questionsSearchBox.helpers({
 
 questionsTags()
 {
-var string = Session.get('tag').replace(/\u21b5/g,'')
-console.log(string);
+    var tagName = Session.get('tag').replace(/(\r\n|\n|\r)/gm, "<br />").split("<br />")
+    console.log(tagName[0]);
 
-  if(Session.get('tag')==="All"){
+     if(tagName[0]==="All"){
 
       return Questions.find({});
     }
   else{
-    return //Questions.findOne({tags: { "$in" : [string]}});
+    console.log(Questions.find({'tags': tagName[0]}).fetch())
+    return Questions.find({'tags': tagName[0]}).fetch();
   }
 },
 
@@ -206,9 +207,9 @@ Template.filterTag.helpers({
 
 Template.filterTag.events({
   'click .ui.label': function(event, template) {
-
+var correctTagName = event.target.text.replace(/(\r\n|\n|\r)/gm, "<br />").split("<br />")
     var size = Session.get('pageSize');
-    Session.set('tag', event.target.text);
+    Session.set('tag', correctTagName);
     Session.set('page', 0);
 
   },

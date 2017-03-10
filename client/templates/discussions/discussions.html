@@ -141,13 +141,13 @@
   <div class="ui segment">
 
     <div class="ui divided items">
-      {{#EasySearch.Each index=questionsIndex }}
+      <!--{{#EasySearch.Each index=questionsIndex }}
         {{> question}}
-      {{/EasySearch.Each}}
+      {{/EasySearch.Each}}-->
 
-      <!--{{#each questionsTags}}
+      {{#each questionsTags}}
         {{> question}}
-      {{/each}} <!-->
+      {{/each}}
     </div>
 
     {{#EasySearch.IfInputEmpty index=questionsIndex}}
@@ -185,7 +185,7 @@
 
 <template name="filterTag">
   <!-- Filter tag -->
-  <a class="ui {{colorOfTag name}} horizontal label">{{this.name}}
+  <a class="ui {{colorOfTag name}} horizontal label" name= "filterTags">{{this.name}}
   </a>
   <!-- /Filter tag -->
 </template>
