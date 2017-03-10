@@ -192,9 +192,9 @@ Template.questionsSearchBox.events({
       $('.ui.question.search').search('hide results');
     }
     //if pressed enter
-    if (e.which == 13) {
-      QuestionsIndex.getComponentMethods().search(query);
-    }
+    // if (e.which == 13) {
+    //   QuestionsIndex.getComponentMethods().search(query);
+    // }
   }, 200)
 });
 
