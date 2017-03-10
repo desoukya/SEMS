@@ -127,7 +127,7 @@ Template.discussions.helpers({
 
 },
 subTags(){
-  c//onsole.log(Meteor.userId())
+  //onsole.log(Meteor.userId())
   var user = Meteor.users.findOne({_id: Meteor.userId()});
   //console.log(user);
   return Tags.find({name: {$nin : user.subscriptions}});
