@@ -1,12 +1,13 @@
 <template name="discussions">
 
   <div class="ui container grid">
-    <div class = "centered row"> Available Tags:
+    <div class = "centered row">
+      <h3>Filters:</h3>
 
 
 <!-- filter tags -->
 <div>
-<a class ="ui green horizontal label">All</a>
+<a class ="ui green tag label" id ="filterLabel">All</a>
       {{#each allTags}}
       {{> filterTag}}
       {{/each}}
@@ -185,7 +186,7 @@
 
 <template name="filterTag">
   <!-- Filter tag -->
-  <a class="ui {{colorOfTag name}} horizontal label" name= "filterTags">{{this.name}}
+  <a class="ui {{colorOfTag name}} tag label" id= "filterLabel">{{this.name}}
   </a>
   <!-- /Filter tag -->
 </template>

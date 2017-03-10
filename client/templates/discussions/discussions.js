@@ -88,8 +88,9 @@ Template.discussions.events({
 
     $('#question-help-modal').modal('show');
   },
-  'click .ui.label': function(event, template) {
-console.log(Meteor.userId());
+  'click #filterLabel': function(event, template) {
+
+  //  console.log(Meteor.userId());
     Session.set('tag', event.target.text);
 
   },
@@ -126,7 +127,7 @@ Template.discussions.helpers({
 
 },
 subTags(){
-  console.log(Meteor.userId())
+  c//onsole.log(Meteor.userId())
   var user = Meteor.users.findOne({_id: Meteor.userId()});
   //console.log(user);
   return Tags.find({name: {$nin : user.subscriptions}});
@@ -157,14 +158,13 @@ Template.questionsSearchBox.helpers({
 questionsTags()
 {
     var tagName = Session.get('tag').replace(/(\r\n|\n|\r)/gm, "<br />").split("<br />")
-    console.log(tagName[0]);
 
      if(tagName[0]==="All"){
 
       return Questions.find({});
     }
   else{
-    console.log(Questions.find({'tags': tagName[0]}).fetch())
+
     return Questions.find({'tags': tagName[0]}).fetch();
   }
 },
@@ -204,14 +204,3 @@ Template.filterTag.helpers({
 }
 
 })
-
-Template.filterTag.events({
-  'click .ui.label': function(event, template) {
-var correctTagName = event.target.text.replace(/(\r\n|\n|\r)/gm, "<br />").split("<br />")
-    var size = Session.get('pageSize');
-    Session.set('tag', correctTagName);
-    Session.set('page', 0);
-
-  },
-
-});
