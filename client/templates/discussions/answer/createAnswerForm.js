@@ -3,7 +3,8 @@ Template.createAnswerForm.events({
     event.preventDefault();
 
     var description = event.target.answer.value;
-
+    var answerOwnerID = Meteor.userId();
+    var answerOwner  = Meteor.users.findOne({_id: answerOwnerID});
     // Get the question Id from questionPage template
     var questionId = Template.parentData(1)._id;
     let question = Questions.findOne({_id: questionId})
@@ -23,7 +24,7 @@ Template.createAnswerForm.events({
 
     var answer = { description, questionId };
 
-    Meteor.call('createAnswer', answer,email ,function(err) {
+    Meteor.call('createAnswer', answer,email,answerOwner.fullName() ,function(err) {
       if (err)
         sAlert.error(err.reason);
       else
