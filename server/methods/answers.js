@@ -1,5 +1,5 @@
 Meteor.methods({
-  createAnswer(answerData,email) {
+  createAnswer(answerData,email,answerOwner) {
     var { description, questionId } = answerData;
 
     var answer = {
@@ -29,14 +29,20 @@ if(answer.ownerId!=question.ownerId){
       read: false,
       createdAt: Date.now()
     });
-if(email == undefined)
-email = Meteor.settings.adminEmail
 
+    var username = ""
+if(email == undefined){
+email = Meteor.settings.adminEmail
+username = "admin";
+}else {
+var user = Meteor.users.findOne({_id: question.ownerId})
+username = user.fullName();
+}
     Email.send({
       to: email,
       from: Meteor.settings.systemEmail,
       subject: "[SEMS] New answer",
-      text: `Hello User, your question has a new answer`
+      text: `Hello `+ username +`, \n` + answerOwner +` just answered your question \n The answer is: `  + description
     });
   }
 
