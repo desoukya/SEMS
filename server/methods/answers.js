@@ -62,7 +62,7 @@ username = user.fullName();
    //send Notifications to followers
    if(questionFound){
      var content = "A question you are following has a new answer"
-     let icon = "<i class=\"tag icon\"></i>";
+     let icon = "<i class=\"pointing up icon\"></i>";
      let link = `/discussions/${question.slug}`;
 
      if(answer.ownerId != user._id)
