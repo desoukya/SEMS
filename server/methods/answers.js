@@ -46,6 +46,38 @@ username = user.fullName();
     });
   }
 
+//followers
+  users = Meteor.users.find({});
+     users.forEach(function(user){
+
+       var userQuestionsFollowed = user.questionsFollowed
+       var questionFound = false;
+       for(var i = 0; i<userQuestionsFollowed.length; i++)
+       {
+         if(questionId == userQuestionsFollowed[i]){
+           questionFound = true;
+           break;
+         }
+       }
+   //send Notifications to followers
+   if(questionFound){
+     var content = "A question you are following has a new answer"
+     let icon = "<i class=\"pointing up icon\"></i>";
+     let link = `/discussions/${question.slug}`;
+
+     if(answer.ownerId != user._id)
+       Notifications.insert({
+         ownerId: user._id,
+         content: `${icon} ${user.profile.firstName}: ${content}`,
+         link: link,
+         read: false,
+         createdAt: Date.now()
+       });
+   }
+
+     })
+
+
   },
 
   deleteAnswer(answerId) {
