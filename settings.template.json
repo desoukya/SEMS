@@ -20,5 +20,11 @@
         "people": true
       }
     }
+  },
+
+  "TWILIO": {
+    "FROM": "TWILIO_PHONE",
+    "SID": "TWILIO_SID",
+    "TOKEN": "TWILIO_TOKEN"
   }
 }

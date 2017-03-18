@@ -68,8 +68,17 @@ Template.createAnnouncement.events({
         $('.ui.form').form('reset');
         $('.selection.dropdown').removeClass('disabled');
         $('#announcement-create-modal').modal('hide');
+        let text = {
+          to: `+201063396664`,
+          message: 'sms'
+        };
+
+        Meteor.call('sendSMS',text, function(err){
+          if(err) sAlert.error(err.reason);
+        })
       }
     });
+
 
   },
 
