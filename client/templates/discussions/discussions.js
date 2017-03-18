@@ -95,7 +95,7 @@ Template.discussions.events({
 
   },
   'submit .form-register' : function (event) {
-  //  event.preventDefault();
+   event.preventDefault();
     var user = Meteor.users.findOne({_id: Meteor.userId()});
     var userSubs = user.subscriptions;
     var subs = event.target.tag.value.split(",");
@@ -111,6 +111,10 @@ Template.discussions.events({
         sAlert.error(err.reason);
       }
     })
+      $('.ui.multiple.selection.dropdown').dropdown('clear');
+      sAlert.success('Your subscriptions are updated successfully');
+
+
 
   }
 

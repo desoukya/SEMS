@@ -1,21 +1,7 @@
 <template name="discussions">
 
   <div class="ui container grid">
-    <div class = "centered row">
-      <h3>Filters:</h3>
 
-
-<!-- filter tags -->
-<div>
-<a class ="ui green tag label" id ="filterLabel">All</a>
-      {{#each allTags}}
-      {{> filterTag}}
-      {{/each}}
-</div>
-<!-- /filter tags -->
-
-
-</div>
 
 <!-- subscriptions -->
 <div class = "three wide left column">
@@ -23,7 +9,7 @@
       <div class="field">
         <h2>Still need help?</h2>
         <h3>Subscribe to available tags for future updates</h3>
-        <div class="ui fluid multiple selection dropdown" name = "tag">
+        <div class="ui fluid multiple selection dropdown" name = "tag" id= "input">
     <input type="hidden" name="tag">
     <i class="dropdown icon"></i>
     <div class="default text">Select Tag</div>
@@ -39,6 +25,37 @@
 </button>
       </div>
     </form>
+
+    <!-- filter tags -->
+<form>
+    <div class = "centered row">
+      <h1></h1>
+      <h2>Filters:</h2>
+
+
+      <table class="ui celled table" style="background-color:rgba(0, 0, 0, 0);">
+  <thead align = "center">
+    <tr>
+      <th style="background-color:rgba(0, 0, 0, 0);">Tags</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr align = "center">
+      <a class ="ui green horizontal label" id ="filterLabel">All
+        <div class="detail">100</div>
+      </a>
+    </tr>
+      {{#each allTags}}
+        <tr align = "center">
+          {{> filterTag}}
+        </tr>
+          {{/each}}
+  </tbody>
+      </table>
+  </div>
+</form>
+  <!-- /filter tags -->
+
   </div>
     <!--/ subscriptions -->
 
@@ -186,7 +203,8 @@
 
 <template name="filterTag">
   <!-- Filter tag -->
-  <a class="ui {{colorOfTag name}} tag label" id= "filterLabel">{{this.name}}
+  <a class="ui {{colorOfTag name}} horizontal label" id= "filterLabel">{{this.name}}
+    <div class="detail">10</div>
   </a>
   <!-- /Filter tag -->
 </template>

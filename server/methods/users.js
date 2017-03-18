@@ -128,6 +128,14 @@ Meteor.methods({
     let user = Meteor.user();
     Meteor.users.update(user._id, { $set: { subscriptions: subs } });
 
+  },
+  updateFollowedQuestions(questionIDs)
+  {
+    if (!UserUtils.isLoggedIn)
+      throw new Meteor.Error(401, "Not authorized, please login first");
+
+    let user = Meteor.user();
+    Meteor.users.update(user._id, {$set: {questionsFollowed: questionIDs}})
   }
 
 });
