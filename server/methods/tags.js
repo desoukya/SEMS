@@ -1,14 +1,32 @@
 Meteor.methods({
 
-  createTag(tagName, course)
+  createTag(tagName, lectures,project,labs,topic)
   {
     let tag = tagName;
     let userId = Meteor.userId();
     if(!Tags.findOne({"name" : tag}) && Roles.userIsInRole(userId, [ADMIN, LECTURER, TA, JTA]))
     {
-      if(course == true)
-    Tags.insert({"name" : tag, "course" : true});
-    else      Tags.insert({"name" : tag, "course" : false});
+      if(lectures == true){
+    Tags.insert({"name" : tag, "lectures" : true});
+  }
+    else {
+      if(project == true)
+      {
+        Tags.insert({"name" : tag, "project" : true});
+      }
+      else {
+        if(labs == true)
+        {
+          Tags.insert({"name" : tag, "labs" : true});
+        }
+        else {
+          if(topic == true)
+          {
+            Tags.insert({"name" : tag, "topic" : true});
+          }
+        }
+      }
+    }
 
     }
 

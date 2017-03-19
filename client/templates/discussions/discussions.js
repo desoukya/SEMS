@@ -4,6 +4,7 @@ Session.setDefault('page', 0);
 Session.setDefault('loading', true);
 Session.setDefault('tag', 'All');
 Template.discussions.onRendered(function() {
+  $('.ui.accordion').accordion();
   $('.ui.form').form({
     inline: true,
     fields: {
@@ -106,7 +107,7 @@ Template.discussions.events({
 
   }
     //console.log(allSubs);
-    Meteor.call('updateSubscriptions', allSubs, function(err){
+    Meteor.call('updateSubscriptions', allSubs,user._id, function(err){
       if(err){
         sAlert.error(err.reason);
       }
@@ -126,8 +127,20 @@ Template.discussions.helpers({
       return Questions.find({})
     },
 
-  allTags(){
-  return  Tags.find({});
+  lectureTags(){
+  return  Tags.find({lectures: true});
+
+},
+    projectTags(){
+return  Tags.find({project: true});
+
+},
+  labTags(){
+return  Tags.find({labs: true});
+
+},
+topicTags(){
+return  Tags.find({topic : true});
 
 },
 subTags(){

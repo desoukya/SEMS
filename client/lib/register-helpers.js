@@ -59,16 +59,26 @@ Template.registerHelper('colorOfRole', function(role) {
 });
 
 Template.registerHelper('colorOfTag' , (name) =>{
-var tag = Tags.findOne({"name" : name});
-var course = tag.course;
-  var color;
-  if (course == true){
-    color = "red"
-}
-else
-{ color = "teal"
-}
-return color;
+      var tag = Tags.findOne({"name" : name});
+      var lectures = tag.lectures;
+      var topic = tag.topic;
+      var labs = tag.labs;
+      var project = tag.project;
+
+        var color;
+        if(lectures == true||labs == true){
+          color = "yellow";
+        }
+        else {
+          if(project==true)
+          {
+           color = "red";
+         }
+           else {
+             color = "teal";
+           }
+        }
+      return color;
 });
 
 //for questions

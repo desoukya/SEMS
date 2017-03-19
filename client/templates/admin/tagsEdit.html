@@ -3,15 +3,32 @@
 
     <div class="ui container grid" align = "center">
 
-      <!-- Header -->
-      <div class="row">
-        <div class="ui column">
-          <h1 class="ui header text centered">Edit Tags</h1>
-        </div>
-      </div>
-      <!-- /Header -->
-      <div class="centered row" align = "center">
-        <div class="ui eight wide column" align = "center">
+<div class ="ui six wide left column" align = "left">
+  <form class = "form-register">
+    <h3>Create a new Tag</h3>
+  <div class="ui right labeled left icon input">
+  <i class="tags icon"></i>
+  <input  type="text" placeholder="Enter tags" name = "tagName">
+  <button class="ui green tag button" type = "submit">
+    Add new Tag
+  </button>
+</div>
+
+<div>
+<select class="ui dropdown" id = "type">
+  <option value="">Type</option>
+  <option value="topic">Topic</option>
+  <option value="lectures">Lectures</option>
+  <option value="labs">Labs</option>
+  <option value="project">Project</option>
+</select>
+</div>
+
+</form>
+</div>
+
+
+        <div class="ui six wide centered column">
           <table class="ui celled padded unstackable table ">
             <th align = "center" style = "font-size:300%" >Tags</th>
             <tbody class = "left aligned">
@@ -26,23 +43,11 @@
         </td>
             </tbody>
           </table>
-          <form class = "form-register">
-          <div class="ui right labeled left icon input">
-          <i class="tags icon"></i>
-          <input  type="text" placeholder="Enter tags" name = "tagName">
-          <button class="ui tag button" type = "submit">
-            Add new Tag
-          </button>
-        </div>
-        <div class="ui toggle checkbox">
-  <input type="checkbox" name = "public" id = "course">
-  <label id = "label">Topic</label>
-</div>
-      </form>
+
 
           </div>
 
-        </div>
+
 
 
     </div>

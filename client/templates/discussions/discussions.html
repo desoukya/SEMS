@@ -3,10 +3,91 @@
   <div class="ui container grid">
 
 
+
+
 <!-- subscriptions -->
 <div class = "three wide left column">
+
+
+      <!-- filter tags -->
+  <form>
+      <div class = "centered row">
+
+        <h2>Filters:</h2>
+        <div class="ui list">
+          <div class="ui styled fluid accordion" >
+
+
+            <div class="title ">
+            <i class="dropdown icon"></i>
+                All Tags</div>
+            <div class="content ">
+            <p class="transition visible" style="display: block !important;">
+            <div class="item">
+              <a class ="ui green horizontal label" id ="filterLabel">All
+                <div class="detail">100</div>
+              </a>
+            </div>
+            </p>
+            </div>
+
+
+          <div class="title ">
+          <i class="dropdown icon"></i>
+              Lectures</div>
+          <div class="content ">
+          <p class="transition visible" style="display: block !important;">{{#each lectureTags}}
+          <div class="item">
+              {{> filterTag}}
+          </div>
+          {{/each}}</p>
+          </div>
+
+
+          <div class="title ">
+          <i class="dropdown icon"></i>
+              Labs</div>
+          <div class="content ">
+          <p class="transition visible" style="display: block !important;">{{#each labTags}}
+          <div class="item">
+              {{> filterTag}}
+          </div>
+          {{/each}}</p>
+          </div>
+
+          <div class="title ">
+          <i class="dropdown icon"></i>
+              Project</div>
+          <div class="content ">
+          <p class="transition visible" style="display: block !important;">{{#each projectTags}}
+          <div class="item">
+              {{> filterTag}}
+          </div>
+          {{/each}}</p>
+          </div>
+          <div class="title ">
+          <i class="dropdown icon"></i>
+              Topics</div>
+          <div class="content ">
+          <p class="transition visible" style="display: block !important;">{{#each topicTags}}
+          <div class="item">
+              {{> filterTag}}
+          </div>
+          {{/each}}</p>
+          </div>
+
+          </div>
+        </div>
+    </div>
+  </form>
+    <!-- /filter tags -->
+
+
+
+
       <form class="form-register">
       <div class="field">
+          <h1></h1>
         <h2>Still need help?</h2>
         <h3>Subscribe to available tags for future updates</h3>
         <div class="ui fluid multiple selection dropdown" name = "tag" id= "input">
@@ -26,35 +107,6 @@
       </div>
     </form>
 
-    <!-- filter tags -->
-<form>
-    <div class = "centered row">
-      <h1></h1>
-      <h2>Filters:</h2>
-
-
-      <table class="ui celled table" style="background-color:rgba(0, 0, 0, 0);">
-  <thead align = "center">
-    <tr>
-      <th style="background-color:rgba(0, 0, 0, 0);">Tags</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr align = "center">
-      <a class ="ui green horizontal label" id ="filterLabel">All
-        <div class="detail">100</div>
-      </a>
-    </tr>
-      {{#each allTags}}
-        <tr align = "center">
-          {{> filterTag}}
-        </tr>
-          {{/each}}
-  </tbody>
-      </table>
-  </div>
-</form>
-  <!-- /filter tags -->
 
   </div>
     <!--/ subscriptions -->

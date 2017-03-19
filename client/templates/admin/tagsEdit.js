@@ -15,15 +15,30 @@ Template.tagsEdit.events({
     e.preventDefault();
 
     var tagName = e.target.tagName.value;
-     var course = $('#course').prop('checked');
-  
-  Meteor.call('createTag', tagName, course, function(err)
+    var type = $("#type").val();
+    var lectures = false;
+    var project = false;
+    var labs = false;
+    var topic = false;
+    switch(type)
+    {
+      case "lectures": lectures = true; break;
+      case "project": project = true; break;
+      case "labs": labs = true; break;
+      case "topic": topic = true; break;
+    }
+    if(type == "")
+    sAlert.error("You must choose the type of the tag");
+    if(type !=""){
+  Meteor.call('createTag', tagName, lectures,project,labs,topic, function(err)
 {
   if(err)
   sAlert.error("This tag already exists");
 
-});
+});}
 e.target.tagName.value = '';
+$('.ui.dropdown').dropdown('clear');
+
   },
 
   'click #delete-icon' : function()
@@ -34,15 +49,5 @@ e.target.tagName.value = '';
       sAlert.error(err.reason);
     } )
 
-  },
-
-  'change #course': function(event) {
-    console.log(event.currentTarget.checked);
-    if (event.currentTarget.checked)
-    $('#label').text("Course");
-  else
-
-  $('#label').text("Topic");
-
-  },
+  }
 })
