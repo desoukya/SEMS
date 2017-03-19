@@ -60,10 +60,10 @@ Template.profile.helpers({
     for(var i = 0; i<tagDeleted.length; i++){
       if(tagDeleted[i]==true){
       array.splice(i,1)
-      
+
       }
     }
-Meteor.call('updateSubscriptions', array, function(err){
+Meteor.call('updateSubscriptions', array,Meteor.userId(), function(err){
   if(err) sAlert.error(err.reason);
 })
   return Meteor.user().subscriptions;
@@ -91,7 +91,7 @@ var removed = false;
     }
     console.log(array)
     console.log(removed)
-    Meteor.call('updateSubscriptions', array, function(err){
+    Meteor.call('updateSubscriptions', array,Meteor.userId(), function(err){
       if(err)
       sAlert.error(err.reason);
     })

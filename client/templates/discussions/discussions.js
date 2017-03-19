@@ -107,7 +107,7 @@ Template.discussions.events({
 
   }
     //console.log(allSubs);
-    Meteor.call('updateSubscriptions', allSubs, function(err){
+    Meteor.call('updateSubscriptions', allSubs,user._id, function(err){
       if(err){
         sAlert.error(err.reason);
       }

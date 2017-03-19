@@ -21,23 +21,23 @@ Meteor.methods({
     let content = "New answer on your question";
     let link = `/discussions/${question.slug}`;
 
-if(answer.ownerId!=question.ownerId){
-    Notifications.insert({
-      ownerId: question.ownerId,
-      content: `${icon} ${content}`,
-      link: link,
-      read: false,
-      createdAt: Date.now()
-    });
+      if(answer.ownerId!=question.ownerId){
+          Notifications.insert({
+            ownerId: question.ownerId,
+            content: `${icon} ${content}`,
+            link: link,
+            read: false,
+            createdAt: Date.now()
+          });
 
-    var username = ""
-if(email == undefined){
-email = Meteor.settings.adminEmail
-username = "admin";
-}else {
-var user = Meteor.users.findOne({_id: question.ownerId})
-username = user.fullName();
-}
+          var username = ""
+      if(email == undefined){
+      email = Meteor.settings.adminEmail
+      username = "admin";
+      }else {
+      var user = Meteor.users.findOne({_id: question.ownerId})
+      username = user.fullName();
+      }
     Email.send({
       to: email,
       from: Meteor.settings.systemEmail,

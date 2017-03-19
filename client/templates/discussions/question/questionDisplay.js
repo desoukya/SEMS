@@ -63,12 +63,38 @@ Template.questionDisplay.events({
 
         let questionId = self._id;
 
+
         // Delete this bad question and redirect
         Meteor.call('deleteQuestion', questionId, function(err) {
           if (err)
             sAlert.error(err.reason);
-          else
-            Router.go('discussions');
+          else{
+
+            users = Meteor.users.find({});
+               users.forEach(function(user){
+                 var questionFound=false;
+                 var index = -1;
+                 var questionsFollowed = user.questionsFollowed;
+                 for(var i = 0; i<questionsFollowed.length; i++)
+                 {
+                   if(questionsFollowed[i]==questionId){
+                     questionFound = true
+                     index = i;
+                     break;
+                   }
+                 }
+                 if(questionFound && index!=-1 ){
+
+                   questionsFollowed.splice(index,1);
+                  console.log(questionsFollowed)
+                  console.log("------------------------")
+                    Meteor.call('updateFollowedQuestions', questionsFollowed,user._id, function(err){
+                      if(err){ sAlert.error(err.reason)}
+                    })
+                 }
+                });
+
+            Router.go('discussions')};
         });
 
       }
@@ -111,13 +137,16 @@ Template.questionDisplay.events({
     var questions = [this._id];
     var user = Meteor.users.findOne({_id: Meteor.userId()});
     var alreadyfollowed = user.questionsFollowed;
-    if(alreadyfollowed!=null)
+
+
+    if(alreadyfollowed!=[])
     {
-      questions.concat(alreadyfollowed);
+      console.log("hi");
+      questions = questions.concat(alreadyfollowed);
+
 
     }
-      console.log(questions)
-    Meteor.call('updateFollowedQuestions', questions, function(err)
+    Meteor.call('updateFollowedQuestions', questions, user._id, function(err)
   {
     if(err)
     sAlert.error(err.reason);
@@ -136,7 +165,7 @@ Template.questionDisplay.events({
       alreadyfollowed.splice(index, 1);
     }
     console.log(alreadyfollowed);
-    Meteor.call('updateFollowedQuestions', alreadyfollowed, function(err){
+    Meteor.call('updateFollowedQuestions', alreadyfollowed,user._id, function(err){
       if(err){
         sAlert.error(err.reason)
       }
