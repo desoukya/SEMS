@@ -9,6 +9,15 @@ Template.questionDisplay.onRendered(function() {
 });
 
 Template.questionDisplay.helpers({
+  isClosed(){
+    let question = Questions.findOne({_id: this._id})
+    if(question.closed == true)
+    { return true;
+      }
+      else {
+        return false;
+      }
+  },
   canEdit() {
     return this.ownerId === Meteor.userId() || Roles.userIsInRole(Meteor.userId(), [ADMIN, LECTURER, TA, JTA]);
   },

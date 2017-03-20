@@ -1,6 +1,12 @@
 <template name="questionDisplay">
 
   <div class="ui clearing olive padded segment">
+    {{#if isClosed}}
+     <a class="ui red ribbon label">Closed</a>
+
+    {{else}}
+     <a class="ui green ribbon label">Opened</a>
+      {{/if}}
     <div class="item">
 
       <div class="content">
