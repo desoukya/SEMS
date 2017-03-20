@@ -35,7 +35,7 @@ Template.questionDisplay.helpers({
     if(userID == this.ownerId) return false;
     var user = Meteor.users.findOne({_id: userID});
     var followed = false;
-    console.log(user.questionsFollowed)
+    //console.log(user.questionsFollowed)
     for(var i = 0; i<user.questionsFollowed.length; i++)
     {
       if(user.questionsFollowed[i]==this._id)
@@ -54,6 +54,7 @@ Template.questionDisplay.events({
   'click #delete-icon': function(event, template) {
     event.preventDefault();
     let self = this;
+    //var deleted = false;
 
     $('#delete-question-modal').modal({
       onDeny() {
@@ -69,37 +70,13 @@ Template.questionDisplay.events({
           if (err)
             sAlert.error(err.reason);
           else{
-
-            users = Meteor.users.find({});
-               users.forEach(function(user){
-                 var questionFound=false;
-                 var index = -1;
-                 var questionsFollowed = user.questionsFollowed;
-                 for(var i = 0; i<questionsFollowed.length; i++)
-                 {
-                   if(questionsFollowed[i]==questionId){
-                     questionFound = true
-                     index = i;
-                     break;
-                   }
-                 }
-                 if(questionFound && index!=-1 ){
-
-                   questionsFollowed.splice(index,1);
-                  console.log(questionsFollowed)
-                  console.log("------------------------")
-                    Meteor.call('updateFollowedQuestions', questionsFollowed,user._id, function(err){
-                      if(err){ sAlert.error(err.reason)}
-                    })
-                 }
-                });
-
-            Router.go('discussions')};
+          //  deleted = true;
+            Router.go('discussions')
+          };
         });
 
       }
     }).modal('show');
-
   },
 
   'click #edit-icon': function(event, template) {
@@ -141,7 +118,7 @@ Template.questionDisplay.events({
 
     if(alreadyfollowed!=[])
     {
-      console.log("hi");
+      //console.log("hi");
       questions = questions.concat(alreadyfollowed);
 
 
@@ -164,7 +141,7 @@ Template.questionDisplay.events({
     {
       alreadyfollowed.splice(index, 1);
     }
-    console.log(alreadyfollowed);
+    //console.log(alreadyfollowed);
     Meteor.call('updateFollowedQuestions', alreadyfollowed,user._id, function(err){
       if(err){
         sAlert.error(err.reason)

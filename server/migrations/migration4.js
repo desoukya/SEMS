@@ -5,7 +5,7 @@ Migrations.add({
   {
  users = Meteor.users.find({});
     users.forEach(function(user){
-      console.log(user);
+    //  console.log(user);
       Meteor.users.update({_id: user._id},{$set: {subscriptions: []}}, false, true)
     });
   },
