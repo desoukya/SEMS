@@ -1,6 +1,7 @@
 <template name="createAnswerForm">
 
   <!-- Answers Form -->
+  {{#if questionClosed}}
   <div class="ui segment">
 
     <p>Have an answer to this question ?
@@ -19,5 +20,6 @@
       <input type="submit" class="ui fluid large green submit button" value="Answer">
     </form>
   </div>
+  {{/if}}
   <!-- /Answers Form -->
 </template>
