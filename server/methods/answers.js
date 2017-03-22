@@ -10,6 +10,7 @@ Meteor.methods({
       createdAt: Date.now()
     }
 
+    Meteor.users.update({_id: answer.ownerId},{$inc: {answers: 1}});
     // Add the new answer and get the id
     var answerId = Answers.insert(answer);
 
@@ -209,9 +210,12 @@ Meteor.methods({
       Answers.update({ _id: id }, { $set: { bestAnswer: false } });
     });
     if(data.marked==true){
-    Questions.update({_id: questionId}, {$set: {closed: false}});}
+    Questions.update({_id: questionId}, {$set: {closed: false}});
+    Meteor.users.update({_id: answer.ownerId},{$inc: {bestAnswers: -1}})
+  }
     else {
       Questions.update({_id: questionId}, {$set: {closed: true}});
+        Meteor.users.update({_id: answer.ownerId},{$inc: {bestAnswers: 1}})
     }
     // Toggle the current answer's bestAnswer flag
     marked = !marked;

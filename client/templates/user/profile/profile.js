@@ -34,6 +34,23 @@ Template.profile.helpers({
       return team.name;
     }
   },
+  getAnswers(){
+    if(Meteor.userId()===this._id){
+    return Meteor.user().answers;}
+    else {
+      var user = Meteor.users.find({_id: this._id}).fetch();
+      return user[0].answers;
+    }
+  },
+  getBestAnswers(){
+    if(Meteor.userId()===this._id){
+    return Meteor.user().bestAnswers;}
+    else {
+      var user = Meteor.users.find({_id: this._id}).fetch();
+
+      return user[0].bestAnswers;
+    }
+  },
   getSubscriptions()
   {
 
