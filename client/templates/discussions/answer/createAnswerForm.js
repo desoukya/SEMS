@@ -9,7 +9,7 @@ Template.createAnswerForm.events({
     var questionId = Template.parentData(1)._id;
     let question = Questions.findOne({_id: questionId})
     let qownerId = question.ownerId;
-    console.log(qownerId);
+    //console.log(qownerId);
     let qowner = Meteor.users.findOne({_id: qownerId});
     var email = null;
     if(qowner.emails == undefined){
@@ -19,7 +19,7 @@ Template.createAnswerForm.events({
 
           email = qowner.emails[0].address
      }
-     console.log(email);
+     //console.log(email);
 
 
     var answer = { description, questionId };

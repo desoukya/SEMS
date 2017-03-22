@@ -68,7 +68,8 @@ Meteor.call('updateSubscriptions', array,Meteor.userId(), function(err){
 })
   return Meteor.user().subscriptions;
 
-  }
+}
+
 
 });
 
@@ -89,8 +90,8 @@ var removed = false;
         break;
       }
     }
-    console.log(array)
-    console.log(removed)
+    //console.log(array)
+    //console.log(removed)
     Meteor.call('updateSubscriptions', array,Meteor.userId(), function(err){
       if(err)
       sAlert.error(err.reason);
