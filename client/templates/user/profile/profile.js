@@ -34,6 +34,12 @@ Template.profile.helpers({
       return team.name;
     }
   },
+  getAnswers(){
+    return Meteor.user().answers;
+  },
+  getBestAnswers(){
+    return Meteor.user().bestAnswers;
+  },
   getSubscriptions()
   {
 

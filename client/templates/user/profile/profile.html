@@ -7,9 +7,16 @@
 
         <!-- Team Ribbon -->
         {{#if teamId }}
-          <a class="ui red big right ribbon label" href="{{pathFor 'team.info' slug=teamSlug}}">{{teamName}}</a>
+          <a class="ui red big right ribbon label" href="{{pathFor 'team.info' slug=teamSlug}}" title="Team">{{teamName}}</a>
         {{/if}}
         <!-- /Team Ribbon -->
+
+        <!-- BestAnswers -->
+        <h3>
+          <a class="ui green big left ribbon label" title="Number of Best Answers"><i class="big trophy icon"></i>
+            {{getBestAnswers}}</a>
+      </h3>
+        <!-- /BestAnswers -->
 
         <!-- Profile picture -->
         {{#if Template.subscriptionsReady}}
@@ -27,7 +34,7 @@
         <!-- Tutorial Group -->
         {{#if profile.tutorialGroup}}
           <h3>
-            <i class="large green users icon"></i>
+            <i class="large green users icon" title="Tutorial Group"></i>
             {{profile.tutorialGroup}}
           </h3>
         {{/if}}
@@ -36,7 +43,7 @@
         <!-- Mobile -->
         {{#if profile.mobile}}
           <h3>
-            <i class="large green phone square icon"></i>
+            <i class="large green phone square icon" title="Phone Number"></i>
             {{profile.mobile}}
           </h3>
         {{/if}}
@@ -45,7 +52,7 @@
         <!-- Github -->
         {{#if profile.githubUser}}
           <h3>
-            <i class="large green github square icon"></i>
+            <i class="large green github square icon" title="Github Username"></i>
             {{profile.githubUser}}
           </h3>
         {{/if}}
@@ -53,24 +60,22 @@
 
         {{#if havePublicEmail}}
           <h3>
-            <i class="green large mail square icon"></i>
+            <i class="green large mail square icon" title="Email"></i>
             {{email}}
           </h3>
         {{/if}}
         {{#if haveSubscriptions}}
         <h3>
-          <i class="green large tags  icon"></i>
+          <i class="green large tags  icon" title="Subscriptions"></i>
           {{#each getSubscriptions}}
           {{> profiletag}}
           {{/each}}
         </h3>
           {{/if}}
-
-
-
-          
-
-
+          <h3>
+            <i class="green large reply icon" title="Number of Answers"></i>
+            {{getAnswers}}
+          </h3>
 
         {{#if isCurrentUser}}
           <a href="{{pathFor 'user.profile.edit'}}" class="ui yellow bottom floated fluid button">Edit your info</a>
