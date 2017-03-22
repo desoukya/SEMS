@@ -5,18 +5,21 @@
       <!-- profile -->
       <div class="ui segment" id="profile-wrapper">
 
+
+        <!-- BestAnswers -->
+          <a class="ui green big left ribbon label" title="Number of Best Answers"><i class="big trophy icon"></i>
+            {{getBestAnswers}}</a>
+
+        <!-- /BestAnswers -->
         <!-- Team Ribbon -->
         {{#if teamId }}
-          <a class="ui red big right ribbon label" href="{{pathFor 'team.info' slug=teamSlug}}" title="Team">{{teamName}}</a>
+        <h3>
+          <a class="ui red big center left ribbon label" href="{{pathFor 'team.info' slug=teamSlug}}" title="Team">{{teamName}}</a>
+        </h3>
         {{/if}}
         <!-- /Team Ribbon -->
 
-        <!-- BestAnswers -->
-        <h3>
-          <a class="ui green big left ribbon label" title="Number of Best Answers"><i class="big trophy icon"></i>
-            {{getBestAnswers}}</a>
-      </h3>
-        <!-- /BestAnswers -->
+
 
         <!-- Profile picture -->
         {{#if Template.subscriptionsReady}}
@@ -64,6 +67,7 @@
             {{email}}
           </h3>
         {{/if}}
+          {{#if isCurrentUser}}
         {{#if haveSubscriptions}}
         <h3>
           <i class="green large tags  icon" title="Subscriptions"></i>
@@ -72,10 +76,13 @@
           {{/each}}
         </h3>
           {{/if}}
+          {{/if}}
+
           <h3>
             <i class="green large reply icon" title="Number of Answers"></i>
             {{getAnswers}}
           </h3>
+
 
         {{#if isCurrentUser}}
           <a href="{{pathFor 'user.profile.edit'}}" class="ui yellow bottom floated fluid button">Edit your info</a>
