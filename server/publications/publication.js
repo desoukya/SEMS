@@ -12,6 +12,8 @@ Meteor.publish('users', function(roles = ROLES) {
       profile: 1,
       roles: 1,
       pendingSurvey: 1,
+      bestAnswers: 1,
+      answers: 1
     }
   };
 

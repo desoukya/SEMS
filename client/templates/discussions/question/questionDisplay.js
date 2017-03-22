@@ -10,7 +10,7 @@ Template.questionDisplay.onRendered(function() {
 
 Template.questionDisplay.helpers({
   isClosed(){
-    let question = Questions.findOne({_id: this._id})
+    let question = Questions.findOne({_id: this._id})  
     if(question.closed == true)
     { return true;
       }
