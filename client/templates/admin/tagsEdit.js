@@ -27,15 +27,13 @@ Template.tagsEdit.events({
       case "labs": labs = true; break;
       case "topic": topic = true; break;
     }
-    if(type == "")
-    sAlert.error("You must choose the type of the tag");
-    if(type !=""){
+  
   Meteor.call('createTag', tagName, lectures,project,labs,topic, function(err)
 {
   if(err)
-  sAlert.error("This tag already exists");
+  sAlert.error(err.reason);
 
-});}
+});
 e.target.tagName.value = '';
 $('.ui.dropdown').dropdown('clear');
 

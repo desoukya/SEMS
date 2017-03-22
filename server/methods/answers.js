@@ -198,6 +198,7 @@ Meteor.methods({
     let answer = Answers.findOne({ _id: answerId });
     let question = Questions.findOne({ _id: questionId });
 
+
     if (!question || !answer)
       throw new Meteor.Error(404, "Resource not found");
 
@@ -207,7 +208,11 @@ Meteor.methods({
     answersIds.forEach(function(id) {
       Answers.update({ _id: id }, { $set: { bestAnswer: false } });
     });
-
+    if(data.marked==true){
+    Questions.update({_id: questionId}, {$set: {closed: false}});}
+    else {
+      Questions.update({_id: questionId}, {$set: {closed: true}});
+    }
     // Toggle the current answer's bestAnswer flag
     marked = !marked;
 

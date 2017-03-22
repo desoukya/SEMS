@@ -1,3 +1,15 @@
+Template.createAnswerForm.helpers({
+  questionClosed(){
+    let questionId = Template.parentData(1)._id;
+    let question = Questions.findOne({_id: questionId})
+    //console.log(question);
+    if(question.closed == true){
+      return false;
+    }
+    return true;
+  }
+})
+
 Template.createAnswerForm.events({
   'submit #create-answer-form': function(event, template) {
     event.preventDefault();

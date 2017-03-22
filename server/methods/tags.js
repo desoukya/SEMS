@@ -4,6 +4,9 @@ Meteor.methods({
   {
     let tag = tagName;
     let userId = Meteor.userId();
+    if(tag == ""){
+      throw new Meteor.Error(400,"The tag you're creating doesn't have a name");
+    }
     if(!Tags.findOne({"name" : tag}) && Roles.userIsInRole(userId, [ADMIN, LECTURER, TA, JTA]))
     {
       if(lectures == true){
@@ -23,6 +26,10 @@ Meteor.methods({
           if(topic == true)
           {
             Tags.insert({"name" : tag, "topic" : true});
+          }
+          else {
+            throw new Meteor.Error(400,"You didn't choose a tag type");
+
           }
         }
       }

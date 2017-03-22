@@ -123,6 +123,12 @@ Template.discussions.events({
 });
 
 Template.discussions.helpers({
+
+  countOpenedQuestions(){
+  //  console.log(Questions.find({closed: false}).count())
+      return Questions.find({closed: false}).count();
+  },
+
   questions() {
       return Questions.find({})
     },
@@ -218,6 +224,10 @@ Template.questionsSearchBox.events({
 Template.filterTag.helpers({
   'allTags': function(){
   return  Tags.find({});
-}
+},
+countOpenedQuestions(tagName){
+//  console.log(Questions.find({'tags': tagName,closed: false}).count())
+    return Questions.find({'tags': tagName,closed: false}).count();
+},
 
 })
