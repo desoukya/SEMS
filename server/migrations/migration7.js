@@ -10,12 +10,14 @@ Migrations.add({
       Meteor.users.update({_id: user._id},{$set: {bestAnswers: 0}}, false, true)
         Meteor.users.update({_id: user._id},{$set: {answers: 0}}, false, true)
     });
-  questions = Questions.find({});
+  questions = Questions.find({}).fetch();
     //console.log(answers);
     questions.forEach(function(question){
       var answers = question.answers;
+      console.log(answers);
       for(var i =0 ; i<answers.length;i++){
-        var answer = Answers.find({_id: answers[i]});
+        var answer = Answers.find({_id: answers[i]}).fetch();
+        console.log(answer);
         var owner = answer.ownerId;
           Meteor.users.update({_id: owner},{$inc: {answers: 1}}, false, true)
           if(answer.bestAnswer == true)
