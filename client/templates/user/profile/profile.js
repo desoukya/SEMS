@@ -35,7 +35,7 @@ Template.profile.helpers({
     }
   },
   getAnswers(){
-    if(Meteor.userId()===this._id){
+    if(Meteor.userId()==this._id){
     return Meteor.user().answers;}
     else {
       var user = Meteor.users.find({_id: this._id}).fetch();
@@ -43,11 +43,11 @@ Template.profile.helpers({
     }
   },
   getBestAnswers(){
-    if(Meteor.userId()===this._id){
+    if(Meteor.userId()==this._id){
     return Meteor.user().bestAnswers;}
     else {
       var user = Meteor.users.find({_id: this._id}).fetch();
-
+      
       return user[0].bestAnswers;
     }
   },

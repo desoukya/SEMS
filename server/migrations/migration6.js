@@ -9,7 +9,8 @@ Migrations.add({
     var answers = question.answers;
     var bestFound = false;
     for(var i = 0; i<answers.length; i++){
-      if(answers[i].bestAnswer==true){
+      var answer = Answers.find({_id: answers[i]})
+      if(answer.bestAnswer==true){
         bestFound=true;
         break;
       }
