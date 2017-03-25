@@ -94,7 +94,7 @@ Template.discussions.events({
     },
     'click #filterLabel': function(event, template) {
 
-        //  console.log(Meteor.userId());
+      
         Session.set('tag', event.target.text);
 
     },
@@ -111,7 +111,7 @@ Template.discussions.events({
             var allSubs = userSubs.concat(subs);
 
         }
-        //console.log(allSubs);
+
         Meteor.call('updateSubscriptions', allSubs, user._id, function(err) {
             if (err) {
                 sAlert.error(err.reason);
@@ -129,8 +129,8 @@ Template.discussions.events({
 
 Template.discussions.helpers({
 
-    countOpenedQuestions() {
-        //  console.log(Questions.find({closed: false}).count())
+    countAllOpenedQuestions() {
+
         return Questions.find({
             closed: false
         }).count();
@@ -142,34 +142,34 @@ Template.discussions.helpers({
 
     lectureTags() {
         return Tags.find({
-            lectures: true
+            type: "Lectures"
         });
 
     },
     projectTags() {
         return Tags.find({
-            project: true
+            type: "Project"
         });
 
     },
     labTags() {
         return Tags.find({
-            labs: true
+            type: "Labs"
         });
 
     },
     topicTags() {
         return Tags.find({
-            topic: true
+            type: "Topic"
         });
 
     },
     subTags() {
-        //onsole.log(Meteor.userId())
+
         var user = Meteor.users.findOne({
             _id: Meteor.userId()
         });
-        //console.log(user);
+
         return Tags.find({
             name: {
                 $nin: user.subscriptions
@@ -239,10 +239,7 @@ Template.questionsSearchBox.events({
         } else {
             $('.ui.question.search').search('hide results');
         }
-        //if pressed enter
-        // if (e.which == 13) {
-        //   QuestionsIndex.getComponentMethods().search(query);
-        // }
+
     }, 200)
 });
 
@@ -250,8 +247,8 @@ Template.filterTag.helpers({
     'allTags': function() {
         return Tags.find({});
     },
-    countOpenedQuestions(tagName) {
-        //  console.log(Questions.find({'tags': tagName,closed: false}).count())
+    countOpenedQuestionsPerTag(tagName) {
+
         return Questions.find({
             'tags': tagName,
             closed: false

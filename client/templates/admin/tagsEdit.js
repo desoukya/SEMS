@@ -1,8 +1,3 @@
-Template.tagsEdit.created = function() {
-    //  TODO
-    this.type = new ReactiveVar("Topic");
-}
-
 Template.tagsEdit.helpers({
 
     viewTags: function() {
@@ -15,26 +10,14 @@ Template.tagsEdit.events({
 
         var tagName = e.target.tagName.value;
         var type = $("#type").val();
-        var lectures = false;
-        var project = false;
-        var labs = false;
-        var topic = false;
-        switch (type) {
-            case "lectures":
-                lectures = true;
-                break;
-            case "project":
-                project = true;
-                break;
-            case "labs":
-                labs = true;
-                break;
-            case "topic":
-                topic = true;
-                break;
+        console.log(tagName);
+        console.log(type);
+        let Tag = {
+          name: tagName,
+          tagType: type
         }
-
-        Meteor.call('createTag', tagName, lectures, project, labs, topic, function(err) {
+        console.log(Tag)
+        Meteor.call('createTag', Tag, function(err) {
             if (err)
                 sAlert.error(err.reason);
 

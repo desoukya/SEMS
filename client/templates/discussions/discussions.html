@@ -25,7 +25,7 @@
             <p class="transition visible" style="display: block !important;">
             <div class="item">
               <a class ="ui green horizontal label" id ="filterLabel">All
-                <div class="detail">{{countOpenedQuestions}}</div>
+                <div class="detail">{{countAllOpenedQuestions}}</div>
               </a>
             </div>
             </p>
@@ -256,7 +256,7 @@
 <template name="filterTag">
   <!-- Filter tag -->
   <a class="ui {{colorOfTag name}} horizontal label" id= "filterLabel">{{this.name}}
-    <div class="detail">{{countOpenedQuestions this.name}}</div>
+    <div class="detail">{{countOpenedQuestionsPerTag this.name}}</div>
   </a>
   <!-- /Filter tag -->
 </template>

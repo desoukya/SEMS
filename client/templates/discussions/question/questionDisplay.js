@@ -62,6 +62,15 @@ Template.questionDisplay.helpers({
         } else {
             return true;
         }
+    },
+
+    role() {
+
+        var user = Meteor.users.find({
+            _id: this.ownerId
+        }).fetch();
+        return user[0].roles[0];
+
     }
 
 });
