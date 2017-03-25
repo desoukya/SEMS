@@ -26,19 +26,19 @@ Template.createAnswerForm.events({
         let question = Questions.findOne({
             _id: questionId
         })
-        let qownerId = question.ownerId;
+        let questionOwnerId = question.ownerId;
 
-        let qowner = Meteor.users.findOne({
-            _id: qownerId
+        let questionOwner = Meteor.users.findOne({
+            _id: questionOwnerId
         });
         var email = null;
-        if (qowner.emails == undefined) {
+        if (questionOwner.emails == undefined) {
             email = Meteor.settings.adminEmail
         } else {
 
-            email = qowner.emails[0].address
+            email = questionOwner.emails[0].address
         }
-      
+
 
 
         var answer = {
