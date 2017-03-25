@@ -35,21 +35,29 @@ Template.profile.helpers({
     }
   },
   getAnswers(){
-    if(Meteor.userId()==this._id){
-    return Meteor.user().answers;}
-    else {
-      var user = Meteor.users.find({_id: this._id}).fetch();
-      return user[0].answers;
-    }
+    // if(Meteor.userId()==this._id){
+    // return Meteor.user().answers;}
+    // else {
+    //   var user = Meteor.users.find({_id: this._id}).fetch();
+    //   return user[0].answers;
+    // }
+    //console.log(Meteor.userId())
+    var answersCount =  this.allAnswersCount(this._id).answersCount;
+    console.log(answersCount)
+    return answersCount;
   },
   getBestAnswers(){
-    if(Meteor.userId()==this._id){
-    return Meteor.user().bestAnswers;}
-    else {
-      var user = Meteor.users.find({_id: this._id}).fetch();
-      
-      return user[0].bestAnswers;
-    }
+    // if(Meteor.userId()==this._id){
+    // return Meteor.user().bestAnswers;}
+    // else {
+    //   var user = Meteor.users.find({_id: this._id}).fetch();
+    //
+    //   return user[0].bestAnswers;
+    // }
+    var bestAnswersCount =  this.allAnswersCount(this._id).bestAnswersCount;
+    console.log(bestAnswersCount)
+    return bestAnswersCount;
+
   },
   getSubscriptions()
   {
