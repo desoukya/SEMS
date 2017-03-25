@@ -1,174 +1,219 @@
 Meteor.publish('users', function(roles = ROLES) {
 
-  // Checking that roles is an array of strings
-  check(roles, [String]);
+    // Checking that roles is an array of strings
+    check(roles, [String]);
 
-  var userId = this.userId;
-  var user = Meteor.users.findOne(userId);
-
-
-  var filter = {
-    fields: {
-      profile: 1,
-      roles: 1,
-      pendingSurvey: 1,
-      bestAnswers: 1,
-      answers: 1
-    }
-  };
-
-  var selector = {};
-
-  if (roles) {
-    var filteredRoles = []
-    _.each(roles, function(role) {
-      if (_.contains(ROLES, role)) {
-        filteredRoles.push(role);
-      }
-    });
+    var userId = this.userId;
+    var user = Meteor.users.findOne(userId);
 
 
-    selector['roles'] = {
-      $in: filteredRoles
-    }
+    var filter = {
+        fields: {
+            profile: 1,
+            roles: 1,
+            pendingSurvey: 1,
+            bestAnswers: 1,
+            answers: 1
+        }
+    };
 
-  }
+    var selector = {};
 
-  if (user) {
-    // Admins can have full access to users
-    if (Roles.userIsInRole(user, ADMIN)) {
-      filter = {};
+    if (roles) {
+        var filteredRoles = []
+        _.each(roles, function(role) {
+            if (_.contains(ROLES, role)) {
+                filteredRoles.push(role);
+            }
+        });
+
+
+        selector['roles'] = {
+            $in: filteredRoles
+        }
+
     }
 
-    return [Meteor.users.find(selector, filter), Images.find({})];
-  }
-  // If user is not logged in return nothing to fire up ready()
-  return [];
+    if (user) {
+        // Admins can have full access to users
+        if (Roles.userIsInRole(user, ADMIN)) {
+            filter = {};
+        }
+
+        return [Meteor.users.find(selector, filter), Images.find({})];
+    }
+    // If user is not logged in return nothing to fire up ready()
+    return [];
 });
 
-Meteor.publish('currUser', function(){
- return Meteor.users.find({_id: this.userId});
+Meteor.publish('currUser', function() {
+    return Meteor.users.find({
+        _id: this.userId
+    });
 });
 
 Meteor.publish('images', function() {
-  return Images.find({});
+    return Images.find({});
 });
 
 Meteor.publish('survey', function() {
-  return Survey.find({});
+    return Survey.find({});
 });
 
 Meteor.publish('fullUsers', function() {
-  return Meteor.users.find({});
+    return Meteor.users.find({});
 });
 
 Meteor.publish('files', function() {
-  return Files.find({});
+    return Files.find({});
 });
 
 Meteor.publish('materials', function() {
-  return Materials.find({});
+    return Materials.find({});
 });
 
 Meteor.publish('teams', function() {
-  return Teams.find({});
+    return Teams.find({});
 });
 Meteor.publish('tags', function() {
-  return Tags.find({});
+    return Tags.find({});
 });
 
 Meteor.publish('leaderboardSortedTeams', function() {
-  ReactiveAggregate(this, Teams, [
-    { $unwind: "$metrics" }, {
-      $group: {
-        _id: "$_id",
-        metrics: { $last: "$metrics" },
-        company: { "$first": "$company" },
-        members: { "$first": "$members" },
-        name: { "$first": "$name" },
-        slug: { "$first": "$slug" },
-        friendlySlugs: { "$first": "$friendlySlugs" },
-        repo: { "$first": "$repo" },
-        siteUrl: { "$first": "$siteUrl" }
-      }
-    },
-    { $sort: { "metrics.dailyPoints": -1 } }
-  ]);
+    ReactiveAggregate(this, Teams, [{
+            $unwind: "$metrics"
+        }, {
+            $group: {
+                _id: "$_id",
+                metrics: {
+                    $last: "$metrics"
+                },
+                company: {
+                    "$first": "$company"
+                },
+                members: {
+                    "$first": "$members"
+                },
+                name: {
+                    "$first": "$name"
+                },
+                slug: {
+                    "$first": "$slug"
+                },
+                friendlySlugs: {
+                    "$first": "$friendlySlugs"
+                },
+                repo: {
+                    "$first": "$repo"
+                },
+                siteUrl: {
+                    "$first": "$siteUrl"
+                }
+            }
+        },
+        {
+            $sort: {
+                "metrics.dailyPoints": -1
+            }
+        }
+    ]);
 });
 
 Meteor.publish('gitAuth', function() {
-  return GitAuth.find({});
+    return GitAuth.find({});
 });
 
 Meteor.publish('companies', function() {
-  return Companies.find({});
+    return Companies.find({});
 });
 
 Meteor.publish('announcements', function() {
-  return Announcements.find({ milestone: { $ne: true } });
+    return Announcements.find({
+        milestone: {
+            $ne: true
+        }
+    });
 });
 
 Meteor.publish('milestones', function() {
-  return Announcements.find({ milestone: true });
+    return Announcements.find({
+        milestone: true
+    });
 });
 
 Meteor.publish('allAnnouncements', function() {
-  return Announcements.find();
+    return Announcements.find();
 });
 
 Meteor.publish('questions', function() {
-  return Questions.find({});
+    return Questions.find({});
 });
 
 Meteor.publish("answers", function() {
-  return Answers.find({});
+    return Answers.find({});
 });
 
 Meteor.publish('notifications', function() {
-  return Notifications.find({ ownerId: this.userId });
+    return Notifications.find({
+        ownerId: this.userId
+    });
 
 });
 
 Meteor.publishComposite('questionData', function(questionSlug) {
 
-  return {
+    return {
 
-    find() {
-      return Questions.find({ slug: questionSlug });
+        find() {
+            return Questions.find({
+                slug: questionSlug
+            });
 
-    },
-
-    children: [
-
-      {
-        find(question) {
-          let commentIds = question.comments || [];
-          return Comments.find({ _id: { $in: commentIds } });
-        }
-      },
-
-      {
-
-        find(question) {
-          let answerIds = question.answers || [];
-          return Answers.find({ _id: { $in: answerIds } });
         },
 
         children: [
 
-          {
-            find(answer) {
-              let commentIds = answer.comments || [];
-              return Comments.find({ _id: { $in: commentIds } });
+            {
+                find(question) {
+                    let commentIds = question.comments || [];
+                    return Comments.find({
+                        _id: {
+                            $in: commentIds
+                        }
+                    });
+                }
             },
 
-          }
+            {
+
+                find(question) {
+                    let answerIds = question.answers || [];
+                    return Answers.find({
+                        _id: {
+                            $in: answerIds
+                        }
+                    });
+                },
+
+                children: [
+
+                    {
+                        find(answer) {
+                            let commentIds = answer.comments || [];
+                            return Comments.find({
+                                _id: {
+                                    $in: commentIds
+                                }
+                            });
+                        },
+
+                    }
+                ],
+
+            }
+
         ],
 
-      }
-
-    ],
-
-  }
+    }
 
 });
