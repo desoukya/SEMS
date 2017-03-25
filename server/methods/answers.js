@@ -65,10 +65,10 @@ Meteor.methods({
         users = Meteor.users.find({});
         users.forEach(function(user) {
 
-            var userQuestionsFollowed = user.questionsFollowed
+            var usersQuestionsFollowed = user.questionsFollowed
             var questionFound = false;
-            for (var i = 0; i < userQuestionsFollowed.length; i++) {
-                if (questionId == userQuestionsFollowed[i]) {
+            for (var i = 0; i < usersQuestionsFollowed.length; i++) {
+                if (questionId == usersQuestionsFollowed[i]) {
                     questionFound = true;
                     break;
                 }
