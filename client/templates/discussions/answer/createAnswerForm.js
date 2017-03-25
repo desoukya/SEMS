@@ -4,7 +4,7 @@ Template.createAnswerForm.helpers({
         let question = Questions.findOne({
             _id: questionId
         })
-        //console.log(question);
+
         if (question.closed == true) {
             return false;
         }
@@ -27,7 +27,7 @@ Template.createAnswerForm.events({
             _id: questionId
         })
         let qownerId = question.ownerId;
-        //console.log(qownerId);
+
         let qowner = Meteor.users.findOne({
             _id: qownerId
         });
@@ -38,7 +38,7 @@ Template.createAnswerForm.events({
 
             email = qowner.emails[0].address
         }
-        //console.log(email);
+      
 
 
         var answer = {

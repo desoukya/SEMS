@@ -50,7 +50,7 @@ Template.questionDisplay.helpers({
             _id: userID
         });
         var followed = false;
-        //console.log(user.questionsFollowed)
+
         for (var i = 0; i < user.questionsFollowed.length; i++) {
             if (user.questionsFollowed[i] == this._id) {
                 followed = true;
@@ -148,7 +148,7 @@ Template.questionDisplay.events({
 
 
         if (alreadyfollowed != []) {
-            //console.log("hi");
+
             questions = questions.concat(alreadyfollowed);
 
 
@@ -170,7 +170,7 @@ Template.questionDisplay.events({
         if (index != -1) {
             alreadyfollowed.splice(index, 1);
         }
-        //console.log(alreadyfollowed);
+      
         Meteor.call('updateFollowedQuestions', alreadyfollowed, user._id, function(err) {
             if (err) {
                 sAlert.error(err.reason)

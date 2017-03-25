@@ -37,12 +37,12 @@ Template.profile.helpers({
     getAnswers() {
 
         var answersCount = this.allAnswersCount(this._id).answersCount;
-        console.log(answersCount)
+
         return answersCount;
     },
     getBestAnswers() {
         var bestAnswersCount = this.allAnswersCount(this._id).bestAnswersCount;
-        console.log(bestAnswersCount)
+      
         return bestAnswersCount;
 
     },

@@ -10,13 +10,12 @@ Template.tagsEdit.events({
 
         var tagName = e.target.tagName.value;
         var type = $("#type").val();
-        console.log(tagName);
-        console.log(type);
+
         let Tag = {
           name: tagName,
           tagType: type
         }
-        console.log(Tag)
+      
         Meteor.call('createTag', Tag, function(err) {
             if (err)
                 sAlert.error(err.reason);

@@ -30,11 +30,11 @@ Template.question.helpers({
         var question = Questions.find({
             _id: this._id
         }).fetch();
-        console.log(question)
+
         var user = Meteor.users.find({
             _id: question[0].ownerId
         }).fetch();
-        console.log(user[0])
+      
         return user[0].roles[0];
     }
 })

@@ -16,7 +16,7 @@ Template.home.helpers({
     },
     getFollowedQuestions() {
         Meteor.subscribe('questions');
-        //console.log(Questions.find().fetch())
+
         var array = Meteor.user().questionsFollowed;
         var length = array.length;
         var questionDeleted = new Array(length);
@@ -28,7 +28,7 @@ Template.home.helpers({
         //check if a subscribed tag is deleted from tags
         for (var i = 0; i < array.length; i++) {
 
-            //  console.log(Questions.find({_id: array[i]}).fetch());
+        
             if (Questions.find({
                     _id: array[i]
                 }).fetch().length == 0)
