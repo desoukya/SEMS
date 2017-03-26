@@ -4,6 +4,13 @@ Template.tagsEdit.helpers({
         return Tags.find({});
     }
 });
+
+Template.tagsEdit.onRendered(function(){
+  $('.ui.dropdown').dropdown({
+      allowAdditions: true,
+      direction: 'downward'
+  });
+})
 Template.tagsEdit.events({
     'submit .form-register': function(e) {
         e.preventDefault();
@@ -15,7 +22,7 @@ Template.tagsEdit.events({
           name: tagName,
           tagType: type
         }
-      
+
         Meteor.call('createTag', Tag, function(err) {
             if (err)
                 sAlert.error(err.reason);
