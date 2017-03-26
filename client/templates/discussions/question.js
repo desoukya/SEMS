@@ -10,20 +10,29 @@ Template.question.onRendered(function() {
 
 Template.question.helpers({
 
-    followed() {
+    isFollowing() {
         var question = this._id;
         var user = Meteor.users.findOne({
             _id: Meteor.userId()
         })
-        var followedquestions = user.questionsFollowed;
+        var questionsFollowed = user.questionsFollowed;
         var found = false;
-        for (var i = 0; i < followedquestions.length; i++) {
-            if (followedquestions[i] == question) {
+        for (var i = 0; i < questionsFollowed.length; i++) {
+            if (questionsFollowed[i] == question) {
                 found = true;
             }
         }
-        if (found == true) {
-            return true;
-        } else return false;
+      return found;
+    },
+    role() {
+        var question = Questions.find({
+            _id: this._id
+        }).fetch();
+
+        var user = Meteor.users.find({
+            _id: question[0].ownerId
+        }).fetch();
+
+        return user[0].roles[0];
     }
 })

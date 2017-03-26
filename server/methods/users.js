@@ -153,20 +153,23 @@ Meteor.methods({
         });
 
     },
-    updateFollowedQuestions(questionIDs, ID) {
+    updateFollowedQuestions(followedQuestions) {
+        let {
+            questions,
+            userId
+        } = followedQuestions
 
-        //  let user = Meteor.user();
-        if (questionIDs == []) {
+        if (questions == []) {
 
-            Meteor.users.update(ID, {
+            Meteor.users.update(userId, {
                 $set: {
                     questionsFollowed: []
                 }
             })
         } else {
-            Meteor.users.update(ID, {
+            Meteor.users.update(userId, {
                 $set: {
-                    questionsFollowed: questionIDs
+                    questionsFollowed: questions
                 }
             })
         }

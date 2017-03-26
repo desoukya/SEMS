@@ -4,11 +4,8 @@ Template.createAnswerForm.helpers({
         let question = Questions.findOne({
             _id: questionId
         })
-        //console.log(question);
-        if (question.closed == true) {
-            return false;
-        }
-        return true;
+        return !(question.closed)
+
     }
 })
 
@@ -26,27 +23,29 @@ Template.createAnswerForm.events({
         let question = Questions.findOne({
             _id: questionId
         })
-        let qownerId = question.ownerId;
-        //console.log(qownerId);
-        let qowner = Meteor.users.findOne({
-            _id: qownerId
+        let questionOwnerId = question.ownerId;
+
+        let questionOwner = Meteor.users.findOne({
+            _id: questionOwnerId
         });
-        var email = null;
-        if (qowner.emails == undefined) {
-            email = Meteor.settings.adminEmail
+        var questionOwnerEmail = null;
+        if (questionOwner.emails == undefined) {
+            questionOwnerEmail = Meteor.settings.adminEmail
         } else {
 
-            email = qowner.emails[0].address
+            questionOwnerEmail = questionOwner.emails[0].address
         }
-        //console.log(email);
 
+        var answerOwnerName = answerOwner.fullName();
 
         var answer = {
             description,
-            questionId
+            questionId,
+            questionOwnerEmail,
+            answerOwnerName
         };
 
-        Meteor.call('createAnswer', answer, email, answerOwner.fullName(), function(err) {
+        Meteor.call('createAnswer', answer, function(err) {
             if (err)
                 sAlert.error(err.reason);
             else

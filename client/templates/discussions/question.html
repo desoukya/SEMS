@@ -19,7 +19,7 @@
             {{#if hasCorrectAnswer}}
             <i class="check circle outline large green link icon"></i>
             {{/if}}
-            {{#if followed}}
+            {{#if isFollowing}}
             <a class = "ui green horizontal label">Following</a>
             {{/if}}
           </div>
@@ -54,8 +54,8 @@
             </div>
 
             <div class="ui right floated text">
-              asked by   <a class="ui {{ colorOfquestionOwner owner.roles }} horizontal label" id = "roleLabel">
-                  {{owner.roles}}
+              asked by   <a class="ui {{ colorOfRole role }} horizontal label" id = "roleLabel">
+                  {{role}}
                 </a>
               <a href="{{pathFor 'user.profile' _id= ownerId}}" class="question-owner-popup-activator">{{owner.fullName}}</a>
               {{formatDateHumanized createdAt}}

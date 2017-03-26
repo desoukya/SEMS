@@ -1,46 +1,32 @@
 Meteor.methods({
 
-    createTag(tagName, lectures, project, labs, topic) {
-        let tag = tagName;
+    createTag(Tag) {
+
+      var {
+        name,
+        tagType
+      } = Tag;
+
         let userId = Meteor.userId();
-        if (tag == "") {
+
+        if (name == "") {
             throw new Meteor.Error(400, "The tag you're creating doesn't have a name");
         }
-        if (!Tags.findOne({
-                "name": tag
-            }) && Roles.userIsInRole(userId, [ADMIN, LECTURER, TA, JTA])) {
-            if (lectures == true) {
-                Tags.insert({
-                    "name": tag,
-                    "lectures": true
-                });
-            } else {
-                if (project == true) {
-                    Tags.insert({
-                        "name": tag,
-                        "project": true
-                    });
-                } else {
-                    if (labs == true) {
-                        Tags.insert({
-                            "name": tag,
-                            "labs": true
-                        });
-                    } else {
-                        if (topic == true) {
-                            Tags.insert({
-                                "name": tag,
-                                "topic": true
-                            });
-                        } else {
-                            throw new Meteor.Error(400, "You didn't choose a tag type");
-
-                        }
-                    }
-                }
-            }
-
+        if(tagType == ""){
+            throw new Meteor.Error(400, "Please specify tag type");
         }
+        if ((!Tags.findOne({"name": name})) && Roles.userIsInRole(userId, [ADMIN, LECTURER, TA, JTA])) {
+
+                Tags.insert({
+                    "name": name,
+                    "type": tagType
+                });
+
+                    }
+                    else {
+                      throw new Meteor.Error(400,"The tag info you're providing is not correct")
+                    }
+
 
     },
 

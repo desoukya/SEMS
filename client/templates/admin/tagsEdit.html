@@ -17,10 +17,10 @@
         <div>
         <select class="ui dropdown" id = "type">
           <option value="">Type</option>
-          <option value="topic">Topic</option>
-          <option value="lectures">Lectures</option>
-          <option value="labs">Labs</option>
-          <option value="project">Project</option>
+          <option value="Topic">Topic</option>
+          <option value="Lectures">Lectures</option>
+          <option value="Labs">Labs</option>
+          <option value="Project">Project</option>
         </select>
         </div>
 
@@ -35,7 +35,7 @@
 
               <td class = "left aligned">
 
-              {{#each viewTags}}
+              {{#each tags}}
               <li style="font-size:200%">{{name}}<i id="delete-icon" class="trash red link icon" ></i> </li>
 
             {{/each}}
