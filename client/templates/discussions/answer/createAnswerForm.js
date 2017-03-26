@@ -31,22 +31,24 @@ Template.createAnswerForm.events({
         let questionOwner = Meteor.users.findOne({
             _id: questionOwnerId
         });
-        var email = null;
+        var questionOwnerEmail = null;
         if (questionOwner.emails == undefined) {
-            email = Meteor.settings.adminEmail
+            questionOwnerEmail = Meteor.settings.adminEmail
         } else {
 
-            email = questionOwner.emails[0].address
+          questionOwnerEmail = questionOwner.emails[0].address
         }
 
-
+        var answerOwnerName = answerOwner.fullName();
 
         var answer = {
             description,
-            questionId
+            questionId,
+            questionOwnerEmail,
+            answerOwnerName
         };
 
-        Meteor.call('createAnswer', answer, email, answerOwner.fullName(), function(err) {
+        Meteor.call('createAnswer', answer, function(err) {
             if (err)
                 sAlert.error(err.reason);
             else

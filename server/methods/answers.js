@@ -1,8 +1,10 @@
 Meteor.methods({
-    createAnswer(answerData, email, answerOwner) {
+    createAnswer(answerData) {
         var {
             description,
-            questionId
+            questionId,
+            questionOwnerEmail,
+            answerOwnerName
         } = answerData;
 
         var answer = {
@@ -44,8 +46,8 @@ Meteor.methods({
             });
 
             var username = ""
-            if (email == undefined) {
-                email = Meteor.settings.adminEmail
+            if (questionOwnerEmail == undefined) {
+              questionOwnerEmail = Meteor.settings.adminEmail
                 username = "admin";
             } else {
                 var user = Meteor.users.findOne({
@@ -54,10 +56,10 @@ Meteor.methods({
                 username = user.fullName();
             }
             Email.send({
-                to: email,
+                to: questionOwnerEmail,
                 from: Meteor.settings.systemEmail,
                 subject: "[SEMS] New answer",
-                text: `Hello ` + username + `, \n` + answerOwner + ` just answered your question \n The answer is: ` + description
+                text: `Hello ` + username + `, \n` + answerOwnerName + ` just answered your question \n The answer is: ` + description
             });
         }
 

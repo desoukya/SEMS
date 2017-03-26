@@ -34,28 +34,18 @@ Template.registerHelper('isActive', function(route) {
 });
 
 Template.registerHelper('colorOfRole', function(role) {
-    var roleColor;
-    switch (role) {
-        case ADMIN:
-            roleColor = "red";
-            break;
-        case LECTURER:
-            roleColor = "orange";
-            break;
-        case TA:
-            roleColor = "olive";
-            break;
-        case JTA:
-            roleColor = "purple";
-            break;
-        case SCRUM:
-            roleColor = "teal";
-            break;
-        case STUDENT:
-            roleColor = "green";
-            break;
+    let roleColors = {
+        "admin": 'red',
+        "lecturer": 'orange',
+        "teaching-assistant": 'olive',
+        "junior-teaching-assistant": 'purple',
+        "scrum-master": 'teal',
+        "student": 'green',
+
     }
-    return roleColor;
+
+    return roleColors[role];
+
 });
 
 Template.registerHelper('colorOfTag', (name) => {
@@ -63,24 +53,15 @@ Template.registerHelper('colorOfTag', (name) => {
         "name": name
     });
 
-    var color;
 
-    switch (tag.type) {
-        case 'Lectures':
-            color = "yellow";
-            break;
-        case 'Labs':
-            color = "yellow";
-            break;
-        case 'Project':
-            color = "red";
-            break;
-        case 'Topic':
-            color = "teal";
-            break;
-
+    let tagsColors = {
+        Lectures: 'yellow',
+        Labs: 'yellow',
+        Project: 'red',
+        Topic: 'teal'
     }
-    return color;
+    return tagsColors[tag.type];
+
 });
 
 
