@@ -15,11 +15,7 @@ Template.questionDisplay.helpers({
         let question = Questions.findOne({
             _id: this._id
         })
-        if (question.closed == true) {
-            return true;
-        } else {
-            return false;
-        }
+        return question.closed;
     },
     canEdit() {
         return this.ownerId === Meteor.userId() || Roles.userIsInRole(Meteor.userId(), [ADMIN, LECTURER, TA, JTA]);
@@ -30,18 +26,14 @@ Template.questionDisplay.helpers({
         var user = Meteor.users.findOne({
             _id: userID
         });
-        var followed = false;
+        var alreadyFollowing = false;
         for (var i = 0; i < user.questionsFollowed.length; i++) {
             if (user.questionsFollowed[i] == this._id) {
-                followed = true;
+                alreadyFollowing = true;
                 break;
             }
         }
-        if (followed == false) {
-            return true;
-        } else {
-            return false;
-        }
+        return !(alreadyFollowing);
     },
     canUnfollow() {
         var userID = Meteor.userId();
@@ -49,19 +41,15 @@ Template.questionDisplay.helpers({
         var user = Meteor.users.findOne({
             _id: userID
         });
-        var followed = false;
+        var alreadyFollowing = false;
 
         for (var i = 0; i < user.questionsFollowed.length; i++) {
             if (user.questionsFollowed[i] == this._id) {
-                followed = true;
+                alreadyFollowing = true;
                 break;
             }
         }
-        if (followed == false) {
-            return false;
-        } else {
-            return true;
-        }
+      return alreadyFollowing;
     },
 
     role() {
@@ -79,7 +67,7 @@ Template.questionDisplay.events({
     'click #delete-icon': function(event, template) {
         event.preventDefault();
         let self = this;
-        //var deleted = false;
+
 
         $('#delete-question-modal').modal({
             onDeny() {
@@ -95,7 +83,7 @@ Template.questionDisplay.events({
                     if (err)
                         sAlert.error(err.reason);
                     else {
-                        //  deleted = true;
+
                         Router.go('discussions')
                     };
                 });
@@ -144,16 +132,20 @@ Template.questionDisplay.events({
         var user = Meteor.users.findOne({
             _id: Meteor.userId()
         });
-        var alreadyfollowed = user.questionsFollowed;
+        var alreadyfollowedQuestions = user.questionsFollowed;
 
 
-        if (alreadyfollowed != []) {
+        if (alreadyfollowedQuestions != []) {
 
-            questions = questions.concat(alreadyfollowed);
-
+            questions = questions.concat(alreadyfollowedQuestions);
 
         }
-        Meteor.call('updateFollowedQuestions', questions, user._id, function(err) {
+        let userId = user._id;
+        let followedQuestions = {
+          questions,
+          userId
+        }
+        Meteor.call('updateFollowedQuestions', followedQuestions, function(err) {
             if (err)
                 sAlert.error(err.reason);
         })
@@ -165,13 +157,18 @@ Template.questionDisplay.events({
         var user = Meteor.users.findOne({
             _id: Meteor.userId()
         });
-        var alreadyfollowed = user.questionsFollowed;
-        var index = alreadyfollowed.indexOf(question);
+        var alreadyfollowedQuestions = user.questionsFollowed;
+        var index = alreadyfollowedQuestions.indexOf(question);
         if (index != -1) {
-            alreadyfollowed.splice(index, 1);
+            alreadyfollowedQuestions.splice(index, 1);
         }
-      
-        Meteor.call('updateFollowedQuestions', alreadyfollowed, user._id, function(err) {
+        let userId = user._id;
+        let followedQuestions = {
+          questions: alreadyfollowedQuestions,
+          userId
+        }
+
+        Meteor.call('updateFollowedQuestions', followedQuestions, function(err) {
             if (err) {
                 sAlert.error(err.reason)
             }
