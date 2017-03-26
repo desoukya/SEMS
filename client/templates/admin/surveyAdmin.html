@@ -9,18 +9,18 @@
                     WARNING: Do not change unless you're the admin and want to resend a new survey
                 </div>
                 <div class="description">
-                    {{#if onlineSurvey}} 
-                    <button class="rem-survey center aligned medium ui button red" title="">Remove Survey</button>
+                    {{#if onlineSurvey}}
+                        <button class="rem-survey center aligned medium ui button red" title="">Remove Survey</button>
                     {{else}}
-                    <button class="survey center aligned medium ui button green" title="">Send Survey</button>
+                        <button class="survey center aligned medium ui button green" title="">Send Survey</button>
                     {{/if}}
                 </div>
             </div>
             <div class="extra content">
                 {{#if onlineSurvey}}
-                <p class="ui green tiny header">There is a survey online</p>
+                    <p class="ui green tiny header">There is a survey online</p>
                 {{else}}
-                <p class="ui red tiny header">No survey online</p>
+                    <p class="ui red tiny header">No survey online</p>
                 {{/if}}
             </div>
         </div>
@@ -31,7 +31,9 @@
     <div class="ui divider container"></div>
     <div class="ui stackable container one column very relaxed grid">
         <div class="ui three stackable cards">
-            {{#each teams}} {{>surveyTeamCard}} {{/each}}
+            {{#each teams}}
+                {{>surveyTeamCard}}
+            {{/each}}
         </div>
     </div>
 </template>
@@ -42,30 +44,36 @@
                 <a class="header" href="{{pathFor 'team.info' slug=slug}}">{{name}}</a>
             </div>
             <div class="meta">
-                <span class="right floated time">{{filledCount}} / {{membersCount}}</span>
+                <span class="right floated time">{{filledCount}}
+                    /
+                    {{membersCount}}</span>
                 <span class="category">{{companyName}}</span>
             </div>
             <div class="description">
-                {{#each members}} {{>eachUserPending}} {{/each}}
+                {{#each members}}
+                    {{>eachUserPending}}
+                {{/each}}
             </div>
         </div>
         <div class="extra content">
-            <a class="ui expand-view green right labeled icon button centered" href="{{pathFor 'admin.teamInfo' slug=slug}}" {{!-- value="{{_id}}" --}}>
-                <i class="right plus icon"></i> Expand view
-            </a>
-        </div>
+            <a class="ui expand-view green right labeled icon button centered" href="{{pathFor 'admin.teamInfo' slug=slug}}" {{!-- value="{{_id}} " --}}>
+                <i class=" right plus icon"></i>
+            Expand view
+        </a>
     </div>
+</div>
 </template>
 <template name="eachUserPending">
-    <div class="header">{{fullName}}
-        <span class="right floated time">
-            {{#if pendingSurvey}}
-               <strong class="ui red tiny header"> Pending</strong>
-               {{else}}
-               <strong class="ui green tiny header">Done</strong>
-            {{/if}}
+<div class="header">{{fullName}}
+    <span class="right floated time">
+        {{#if pendingSurvey}}
+            <strong class="ui red tiny header">
+                Pending</strong>
+        {{else}}
+            <strong class="ui green tiny header">Done</strong>
+        {{/if}}
 
-        </span>
-    </div>
-    <div class="ui fitted divider"></div>
+    </span>
+</div>
+<div class="ui fitted divider"></div>
 </template>

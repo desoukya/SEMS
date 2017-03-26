@@ -1,98 +1,98 @@
 <template name="adminPanel">
 
-  <div class="ui container grid">
+    <div class="ui container grid">
 
-    <!-- Header -->
-    <div class="ui row">
-      <div class="ui center aligned column">
-        <div class="main header">
-          <h1 class="header">Adminstrator Panel</h1>
+        <!-- Header -->
+        <div class="ui row">
+            <div class="ui center aligned column">
+                <div class="main header">
+                    <h1 class="header">Adminstrator Panel</h1>
+                </div>
+            </div>
         </div>
-      </div>
+        <!-- /Header -->
+
+        <!-- OPTIONS -->
+        <div class="ui three cards row">
+            <!-- Manage Users -->
+            <div class="ui selectable card">
+                <div class="content">
+                    <a href="{{pathFor 'users.manage'}}" class="not styled link">
+                        <div class="header text centered">
+                            <i class="huge users icon"></i>
+                            <h2>Manage Users</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- /Manage Users -->
+
+            <!-- Edit Schedule -->
+            <div class="ui selectable card">
+                <div class="content">
+                    <a href="{{pathFor 'schedule.edit'}}" class="not styled link">
+                        <div class="header text centered">
+                            <i class="huge edit icon"></i>
+                            <h2>Edit Schedule</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- /Edit Schedule -->
+
+            <!-- Create Announcements -->
+            <div class="ui selectable card">
+                <div class="content">
+                    <a href="{{pathFor 'announcements.manage'}}" class="not styled link">
+                        <div class="header text centered">
+                            <i class="huge announcement icon"></i>
+                            <h2>Manage Announcements</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- /create announcements -->
+
+            <!-- Authenticate Github -->
+            <div class="ui selectable card">
+                <div class="content">
+                    <a href="{{pathFor 'github.authenticate'}}" class="not styled link">
+                        <div class="header text centered">
+                            <i class="huge github icon"></i>
+                            <h2>Authenticate Github app</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- /Authenticate Github -->
+
+            <!-- Survey panel -->
+            <div class="ui selectable card">
+                <div class="content">
+                    <a href="{{pathFor 'survey.admin'}}" class="not styled link">
+                        <div class="header text centered">
+                            <i class="huge tasks icon"></i>
+                            <h2>Survey Panel</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- /Survey panel -->
+            <!-- edit tags -->
+            <div class="ui selectable card">
+                <div class="content">
+                    <a href="{{pathFor 'tags.edit'}}" class="not styled link">
+                        <div class="header text centered">
+                            <i class="huge tags icon"></i>
+                            <h2>Edit Tags</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- /edit tags -->
+        </div>
+        <!-- /OPTIONS -->
+
     </div>
-    <!-- /Header -->
-
-    <!-- OPTIONS -->
-    <div class="ui three cards row">
-      <!-- Manage Users -->
-      <div class="ui selectable card">
-        <div class="content">
-          <a href="{{pathFor 'users.manage'}}" class="not styled link">
-            <div class="header text centered">
-              <i class="huge users icon"></i>
-              <h2>Manage Users</h2>
-            </div>
-          </a>
-        </div>
-      </div>
-      <!-- /Manage Users -->
-
-      <!-- Edit Schedule -->
-      <div class="ui selectable card">
-        <div class="content">
-          <a href="{{pathFor 'schedule.edit'}}" class="not styled link">
-            <div class="header text centered">
-              <i class="huge edit icon"></i>
-              <h2>Edit Schedule</h2>
-            </div>
-          </a>
-        </div>
-      </div>
-      <!-- /Edit Schedule -->
-
-      <!-- Create Announcements -->
-      <div class="ui selectable card">
-        <div class="content">
-          <a href="{{pathFor 'announcements.manage'}}" class="not styled link">
-            <div class="header text centered">
-              <i class="huge announcement icon"></i>
-              <h2>Manage Announcements</h2>
-            </div>
-          </a>
-        </div>
-      </div>
-      <!-- /create announcements -->
-
-      <!-- Authenticate Github -->
-      <div class="ui selectable card">
-        <div class="content">
-          <a href="{{pathFor 'github.authenticate'}}" class="not styled link">
-            <div class="header text centered">
-              <i class="huge github icon"></i>
-              <h2>Authenticate Github app</h2>
-            </div>
-          </a>
-        </div>
-      </div>
-      <!-- /Authenticate Github -->
-
-      <!-- Survey panel -->
-      <div class="ui selectable card">
-        <div class="content">
-          <a href="{{pathFor 'survey.admin'}}" class="not styled link">
-            <div class="header text centered">
-              <i class="huge tasks icon"></i>
-              <h2>Survey Panel</h2>
-            </div>
-          </a>
-        </div>
-      </div>
-      <!-- /Survey panel -->
-      <!-- edit tags -->
-      <div class="ui selectable card">
-        <div class="content">
-          <a href="{{pathFor 'tags.edit'}}" class="not styled link">
-            <div class="header text centered">
-              <i class="huge tags icon"></i>
-              <h2>Edit Tags</h2>
-            </div>
-          </a>
-        </div>
-      </div>
-      <!-- /edit tags -->
-    </div>
-    <!-- /OPTIONS -->
-
-  </div>
 
 </template>

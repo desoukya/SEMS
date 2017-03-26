@@ -1,12 +1,12 @@
 <template name="notification">
-  <a href="{{link}}" class="dropped notification item">
-    {{{formattedContent}}}
-    {{#unless read}}
-      <a class="ui blue empty circular label"></a>
-    {{/unless}}
+    <a href="{{link}}" class="dropped notification item">
+        {{{formattedContent}}}
+        {{#unless read}}
+            <a class="ui blue empty circular label"></a>
+        {{/unless}}
 
-    <div class="bottom aligned right floated notification date">
-      {{formatDateHumanized createdAt}}
-    </div>
-  </a>
+        <div class="bottom aligned right floated notification date">
+            {{formatDateHumanized createdAt}}
+        </div>
+    </a>
 </template>

@@ -1,38 +1,38 @@
 <template name="milestoneDetailed">
 
-  <div class="ui stackable container grid">
-    <div class="twelve wide centered column">
-      <div class="ui segment">
+    <div class="ui stackable container grid">
+        <div class="twelve wide centered column">
+            <div class="ui segment">
 
-        <div class="item">
+                <div class="item">
 
-          <div class="header">
-            <h1>{{title}}</h1>
-          </div>
+                    <div class="header">
+                        <h1>{{title}}</h1>
+                    </div>
 
-          <div class="meta">
-            <span>
-              {{#if global}}
-                <a class="ui mini green label">global</a>
-              {{else}}
-                <a class="ui mini orange label">team-specific</a>
-              {{/if}}
-            </span>
+                    <div class="meta">
+                        <span>
+                            {{#if global}}
+                                <a class="ui mini green label">global</a>
+                            {{else}}
+                                <a class="ui mini orange label">team-specific</a>
+                            {{/if}}
+                        </span>
 
-            <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
-              <i class="wait icon"></i>
-              {{formatDateHumanized createdAt}}
-            </span>
-          </div>
+                        <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
+                            <i class="wait icon"></i>
+                            {{formatDateHumanized createdAt}}
+                        </span>
+                    </div>
 
-          <div class="content extra margin body">
-            {{#markdown}}{{description}}{{/markdown}}
-          </div>
+                    <div class="content extra margin body">
+                        {{#markdown}}{{description}}{{/markdown}}
+                    </div>
 
+                </div>
+
+            </div>
         </div>
-
-      </div>
     </div>
-  </div>
 
 </template>

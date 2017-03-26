@@ -1,25 +1,25 @@
 <template name="createAnswerForm">
 
-  <!-- Answers Form -->
-  {{#if questionClosed}}
-  <div class="ui segment">
+    <!-- Answers Form -->
+    {{#if questionClosed}}
+        <div class="ui segment">
 
-    <p>Have an answer to this question ?
-      <br>
-      please read the previous answers, you can use comments for clarification and discussions, use answers to add new answers only</p>
+            <p>Have an answer to this question ?
+                <br>
+                please read the previous answers, you can use comments for clarification and discussions, use answers to add new answers only</p>
 
-    <form class="ui form" id="create-answer-form">
+            <form class="ui form" id="create-answer-form">
 
-      <!-- Description -->
-      <div class="field">
-        <label>Answer</label>
-        <textarea name="answer" id="answer-text-area"></textarea>
-      </div>
-      <!-- /Description -->
+                <!-- Description -->
+                <div class="field">
+                    <label>Answer</label>
+                    <textarea name="answer" id="answer-text-area"></textarea>
+                </div>
+                <!-- /Description -->
 
-      <input type="submit" class="ui fluid large green submit button" value="Answer">
-    </form>
-  </div>
-  {{/if}}
-  <!-- /Answers Form -->
+                <input type="submit" class="ui fluid large green submit button" value="Answer">
+            </form>
+        </div>
+    {{/if}}
+    <!-- /Answers Form -->
 </template>

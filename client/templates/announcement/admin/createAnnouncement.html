@@ -1,69 +1,69 @@
 <template name="createAnnouncement">
-  <h2 class="ui center aligned header">
-    Create an Announcement
-  </h2>
+    <h2 class="ui center aligned header">
+        Create an Announcement
+    </h2>
 
-  <form class="ui large form ">
-    <div class="ui stacked segment">
+    <form class="ui large form ">
+        <div class="ui stacked segment">
 
-      <div class="fields">
+            <div class="fields">
 
-        <!-- Announcement Title -->
-        <div class="twelve wide required field">
-          <label>Title</label>
-          <input type="text" name="title" placeholder="Announcement Title">
-        </div>
-        <!-- /Announcement Title -->
+                <!-- Announcement Title -->
+                <div class="twelve wide required field">
+                    <label>Title</label>
+                    <input type="text" name="title" placeholder="Announcement Title">
+                </div>
+                <!-- /Announcement Title -->
 
-        <!-- MilestoneCheckBox -->
-        <div class="four wide field">
-          <label>Milestone</label>
-          <div class="ui toggle checkbox">
-            <input type="checkbox" id="milestone" name="milestone">
-          </div>
-        </div>
-        <!-- /MilestoneCheckBox -->
+                <!-- MilestoneCheckBox -->
+                <div class="four wide field">
+                    <label>Milestone</label>
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" id="milestone" name="milestone">
+                    </div>
+                </div>
+                <!-- /MilestoneCheckBox -->
 
-      </div>
-
-      <!-- Announcement Description -->
-      <div class="field">
-        <label>Description</label>
-        <textarea name="description" placeholder="Description"></textarea>
-      </div>
-      <!-- /Announcement Description -->
-
-      <div class="two fields">
-
-        <!-- Company Selection -->
-        <div class="field">
-          <div class="ui multiple search selection dropdown">
-            <input type="hidden" name="companies">
-            <div class="default text">Select Companies</div>
-            <i class="dropdown icon"></i>
-
-            <div class="menu">
-              {{#each teams}}
-                <div class="item" data-value="{{_id}}">{{companyName}}</div>
-              {{/each}}
             </div>
-          </div>
+
+            <!-- Announcement Description -->
+            <div class="field">
+                <label>Description</label>
+                <textarea name="description" placeholder="Description"></textarea>
+            </div>
+            <!-- /Announcement Description -->
+
+            <div class="two fields">
+
+                <!-- Company Selection -->
+                <div class="field">
+                    <div class="ui multiple search selection dropdown">
+                        <input type="hidden" name="companies">
+                        <div class="default text">Select Companies</div>
+                        <i class="dropdown icon"></i>
+
+                        <div class="menu">
+                            {{#each teams}}
+                                <div class="item" data-value="{{_id}}">{{companyName}}</div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+                <!-- /Company Selection -->
+
+                <!-- Global Toggle -->
+                <div class="field">
+                    <label>Global</label>
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" id="global" name="global">
+                    </div>
+                </div>
+                <!-- /Global Toggle -->
+
+            </div>
+
+            <input type="submit" class="ui fluid large green submit button" value="Announce">
+
         </div>
-        <!-- /Company Selection -->
-
-        <!-- Global Toggle -->
-        <div class="field">
-          <label>Global</label>
-          <div class="ui toggle checkbox">
-            <input type="checkbox" id="global" name="global">
-          </div>
-        </div>
-        <!-- /Global Toggle -->
-
-      </div>
-
-      <input type="submit" class="ui fluid large green submit button" value="Announce">
-
-    </div>
-  </form>
+    </form>
 </template>
