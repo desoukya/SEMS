@@ -42,7 +42,7 @@ Template.profile.helpers({
     },
     getBestAnswers() {
         var bestAnswersCount = this.allAnswersCount(this._id).bestAnswersCount;
-      
+
         return bestAnswersCount;
 
     },
@@ -79,7 +79,53 @@ Template.profile.helpers({
         })
         return Meteor.user().subscriptions;
 
-    }
+    },
+    getFollowedQuestions() {
+        Meteor.subscribe('questions');
+
+        var array = Meteor.user().questionsFollowed;
+        var length = array.length;
+        if(length!=0){
+        var questionDeleted = new Array(length);
+        //initialze array with false
+        for (var i = 0; i < questionDeleted.length; i++) {
+
+            questionDeleted[i] = false;
+        }
+        //check if a followed question is deleted from discussions
+        for (var i = 0; i < array.length; i++) {
+
+
+            if (Questions.find({
+                    _id: array[i]
+                }).fetch().length == 0)
+
+            {
+                questionDeleted[i] = true;
+            }
+
+        }
+
+        //removing deleted questions of questions collection from questions followed
+        for (var i = 0; i < questionDeleted.length; i++) {
+            if (questionDeleted[i] == true) {
+                array.splice(i, 1)
+
+            }
+        }
+        var userId = Meteor.userId();
+        let followedQuestions = {
+          questions: array,
+          userId
+
+        }
+        Meteor.call('updateFollowedQuestions', followedQuestions, function(err) {
+            if (err) sAlert.error(err.reason);
+        })
+      }
+        return Meteor.user().questionsFollowed;
+
+    },
 
 
 });

@@ -10,7 +10,7 @@ Template.question.onRendered(function() {
 
 Template.question.helpers({
 
-    followed() {
+    isFollowing() {
         var question = this._id;
         var user = Meteor.users.findOne({
             _id: Meteor.userId()

@@ -1,6 +1,6 @@
 Template.tagsEdit.helpers({
 
-    viewTags: function() {
+    tags: function() {
         return Tags.find({});
     }
 });

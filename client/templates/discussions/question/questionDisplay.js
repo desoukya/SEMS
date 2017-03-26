@@ -22,7 +22,8 @@ Template.questionDisplay.helpers({
     },
     canFollow() {
         var userID = Meteor.userId();
-        if (userID == this.ownerId) return false;
+        if (userID == this.ownerId)
+            return false;
         var user = Meteor.users.findOne({
             _id: userID
         });
@@ -49,7 +50,7 @@ Template.questionDisplay.helpers({
                 break;
             }
         }
-      return alreadyFollowing;
+        return alreadyFollowing;
     },
 
     role() {
@@ -142,8 +143,8 @@ Template.questionDisplay.events({
         }
         let userId = user._id;
         let followedQuestions = {
-          questions,
-          userId
+            questions,
+            userId
         }
         Meteor.call('updateFollowedQuestions', followedQuestions, function(err) {
             if (err)
@@ -164,8 +165,8 @@ Template.questionDisplay.events({
         }
         let userId = user._id;
         let followedQuestions = {
-          questions: alreadyfollowedQuestions,
-          userId
+            questions: alreadyfollowedQuestions,
+            userId
         }
 
         Meteor.call('updateFollowedQuestions', followedQuestions, function(err) {
