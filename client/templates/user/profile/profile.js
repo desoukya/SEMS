@@ -48,81 +48,57 @@ Template.profile.helpers({
 	},
 	getSubscriptions() {
 
-		var subscriptions = Meteor.user().subscriptions;
-		var length = subscriptions.length;
-		var tagDeleted = new Array(length);
-		//initialze array with false
-		for(var i = 0; i < tagDeleted.length; i++) {
 
-			tagDeleted[i] = false;
-		}
-		//check if a subscribed tag is deleted from tags
-		for(var i = 0; i < subscriptions.length; i++) {
-			if(!(Tags.findOne({
-					name: subscriptions[i]
-				})))
-
-			{
-				tagDeleted[i] = true;
+		var userSubscriptions = Meteor.user().subscriptions;
+		var existingUserSubscriptions = Tags.find({
+			name: {
+				$in: userSubscriptions
 			}
-		}
+		}).fetch();
+		if(userSubscriptions.length !== existingUserSubscriptions.length) {
 
-		//removing deleted tags of tags collection from subscriptions
-		for(var i = 0; i < tagDeleted.length; i++) {
-			if(tagDeleted[i] == true) {
-				subscriptions.splice(i, 1)
+			//this step is done as subscriptions is an array of strings, but existingUserSubscriptions is an array of objects
 
+			var subscriptions = []
+			for(var i = 0; i < existingUserSubscriptions.length; i++) {
+				subscriptions[i] = existingUserSubscriptions[i].name
 			}
-		}
-		var userId = Meteor.userId();
 
-		let userSubscriptions = {
-			subscriptions,
-			userId
+			var userId = Meteor.userId();
+
+			let userSubscriptions = {
+				subscriptions,
+				userId
+			}
+			Meteor.call('updateSubscriptions', userSubscriptions, function(err) {
+				if(err) sAlert.error(err.reason);
+			})
 		}
 
-		Meteor.call('updateSubscriptions', userSubscriptions, function(err) {
-			if(err) sAlert.error(err.reason);
-		})
 		return Meteor.user().subscriptions;
 
 	},
 	getFollowedQuestions() {
 		Meteor.subscribe('questions');
 
-		var array = Meteor.user().questionsFollowed;
-		var length = array.length;
-		if(length != 0) {
-			var questionDeleted = new Array(length);
-			//initialze array with false
-			for(var i = 0; i < questionDeleted.length; i++) {
+		var alreadyFollowedQuestions = Meteor.user().questionsFollowed;
 
-				questionDeleted[i] = false;
+		var existingQuestionsFollowed = Questions.find({
+			_id: {
+				$in: alreadyFollowedQuestions
 			}
-			//check if a followed question is deleted from discussions
-			for(var i = 0; i < array.length; i++) {
+		}).fetch();
 
-
-				if(Questions.find({
-						_id: array[i]
-					}).fetch().length == 0)
-
-				{
-					questionDeleted[i] = true;
-				}
-
+		if(alreadyFollowedQuestions.length !== existingQuestionsFollowed.length) {
+			//this step is done as followedQuestions is an array of strings, but existingQuestionsFollowed is an array of objects
+			var questions = []
+			for(var i = 0; i < existingQuestionsFollowed; i++) {
+				questions[i] = existingQuestionsFollowed[i]._id;
 			}
 
-			//removing deleted questions of questions collection from questions followed
-			for(var i = 0; i < questionDeleted.length; i++) {
-				if(questionDeleted[i] == true) {
-					array.splice(i, 1)
-
-				}
-			}
 			var userId = Meteor.userId();
 			let followedQuestions = {
-				questions: array,
+				questions: questions,
 				userId
 
 			}
@@ -130,10 +106,9 @@ Template.profile.helpers({
 				if(err) sAlert.error(err.reason);
 			})
 		}
+
 		return Meteor.user().questionsFollowed;
-
 	},
-
 
 });
 
