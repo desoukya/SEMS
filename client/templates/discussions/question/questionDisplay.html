@@ -1,98 +1,99 @@
 <template name="questionDisplay">
 
-  <div class="ui clearing olive padded segment">
-    {{#if isClosed}}
-     <a class="ui red ribbon label">Closed</a>
+    <div class="ui clearing olive padded segment">
+        {{#if isClosed}}
+            <a class="ui red ribbon label">Closed</a>
 
-    {{else}}
-     <a class="ui green ribbon label">Opened</a>
-      {{/if}}
-    <div class="item">
+        {{else}}
+            <a class="ui green ribbon label">Opened</a>
+        {{/if}}
+        <div class="item">
 
-      <div class="content">
+            <div class="content">
 
-        <div class="ui grid">
-          <!-- Voting panel -->
-          <div class="ui one wide column">
-            {{> questionVotingPanel}}
-          </div>
-          <!-- /Voting panel -->
+                <div class="ui grid">
+                    <!-- Voting panel -->
+                    <div class="ui one wide column">
+                        {{> questionVotingPanel}}
+                    </div>
+                    <!-- /Voting panel -->
 
-          <div class="ui fifteen wide column">
-            <!-- Title -->
-            <div class="header">
+                    <div class="ui fifteen wide column">
+                        <!-- Title -->
+                        <div class="header">
 
-              <span class="ui huge header">{{title}}</span>
+                            <span class="ui huge header">{{title}}</span>
 
-              <span class="ui right floated tiny header icons group">
-                {{#if canFollow}}
-                <i id = "follow-icon" class="pointing up icon" title="Follow"></i>
-                {{/if}}
-                {{#if canUnfollow}}
-                  <i id = "unfollow-icon" class="pointing down icon" title="Unfollow"></i>
-                {{/if}}
-              {{#if canEdit}}
+                            <span class="ui right floated tiny header icons group">
+                                {{#if canFollow}}
+                                    <i id="follow-icon" class="pointing up icon" title="Follow"></i>
+                                {{/if}}
+                                {{#if canUnfollow}}
+                                    <i id="unfollow-icon" class="pointing down icon" title="Unfollow"></i>
+                                {{/if}}
+                                {{#if canEdit}}
 
-                  <i id="edit-icon" class="edit link icon" title="Edit"></i>
-                  <i id="delete-icon" class="trash red link icon" title="Delete"></i>
+                                    <i id="edit-icon" class="edit link icon" title="Edit"></i>
+                                    <i id="delete-icon" class="trash red link icon" title="Delete"></i>
 
-              {{/if}}
-                </span>
+                                {{/if}}
+                            </span>
 
+                        </div>
+                        <!-- /Title -->
+
+                        <!-- Meta | Owner and Date -->
+                        <div class="meta">
+                            <span class="small meta">
+                                Asked by :
+                                <a class="mini ui {{ colorOfRole role }} horizontal label">
+                                    {{role}}
+                                </a>
+                                <a href="{{pathFor 'user.profile' _id=owner._id}}">{{owner.fullName}}</a>
+
+                            </span>
+
+                            <span class="small padded popup meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
+                                <i class="wait icon"></i>
+                                {{formatDateHumanized createdAt}}
+                            </span>
+
+                            <span class="small padded meta">
+                                <i class="line chart icon"></i>
+                                views :
+                                {{views}}
+                            </span>
+                        </div>
+                        <!-- /Meta | Owner and Date -->
+                    </div>
+                </div>
+
+                <!-- Question content -->
+                <div class="description extra margin body">
+                    <!-- NOTE: This should be preserved from formatting, to allow markdown to render properly -->
+                    {{#markdown}}{{description}}{{/markdown}}
+                </div>
+                <!-- /Question content -->
             </div>
-            <!-- /Title -->
 
-            <!-- Meta | Owner and Date -->
-            <div class="meta">
-              <span class="small meta">
-                Asked by :  <a class="mini ui {{ colorOfRole role }} horizontal label">
-                    {{role}}
-                  </a>
-                <a href="{{pathFor 'user.profile' _id=owner._id}}">{{owner.fullName}}</a>
-
-              </span>
-
-              <span class="small padded popup meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
-                <i class="wait icon"></i>
-                {{formatDateHumanized createdAt}}
-              </span>
-
-              <span class="small padded meta">
-                <i class="line chart icon"></i>
-                views :
-                {{views}}
-              </span>
-            </div>
-            <!-- /Meta | Owner and Date -->
-          </div>
         </div>
 
-        <!-- Question content -->
-        <div class="description extra margin body">
-          <!-- NOTE: This should be preserved from formatting, to allow markdown to render properly -->
-          {{#markdown}}{{description}}{{/markdown}}
+        <div class="ui accordion">
+            <div class="title">
+                <i class="dropdown icon"></i>
+                show comments ({{commentsCount}})
+            </div>
+            <div class="content">
+                <div class="ui horizontal divider">Comments</div>
+                {{> commentForm extendContext collectionType='question'}}
+                <div class="ui comments">
+                    {{#each commentObjects}}
+                        {{> comment}}
+                    {{/each}}
+                </div>
+            </div>
         </div>
-        <!-- /Question content -->
-      </div>
 
     </div>
-
-    <div class="ui accordion">
-      <div class="title">
-        <i class="dropdown icon"></i>
-        show comments ({{commentsCount}})
-      </div>
-      <div class="content">
-        <div class="ui horizontal divider">Comments</div>
-        {{> commentForm extendContext collectionType='question'}}
-        <div class="ui comments">
-          {{#each commentObjects}}
-            {{> comment}}
-          {{/each}}
-        </div>
-      </div>
-    </div>
-
-  </div>
 
 </template>

@@ -1,17 +1,17 @@
 <template name="notificationCard">
-  <div class="ui {{#unless read}}blue{{/unless}} segment">
-    <a href="{{link}}" class="not styled link" id="notification-card">
-      <div class="ui item">
+    <div class="ui {{#unless read}}blue{{/unless}} segment">
+        <a href="{{link}}" class="not styled link" id="notification-card">
+            <div class="ui item">
 
-        <div class="header">
-          <h3>{{{content}}}</h3>
-        </div>
+                <div class="header">
+                    <h3>{{{content}}}</h3>
+                </div>
 
-        <div class="bottom aligned right floated notification date">
-          {{detailedDate createdAt}}
-        </div>
+                <div class="bottom aligned right floated notification date">
+                    {{detailedDate createdAt}}
+                </div>
 
-      </div>
-    </a>
-  </div>
+            </div>
+        </a>
+    </div>
 </template>

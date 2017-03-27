@@ -1,154 +1,142 @@
 Template.profile.helpers({
-    isCurrentUser() {
-        return Meteor.userId() === this._id;
-    },
+	isCurrentUser() {
+		return Meteor.userId() === this._id;
+	},
 
-    email() {
-        if (this.emails)
-            return this.email();
-        else
-            return this.profile.publicEmail;
+	email() {
+		if(this.emails)
+			return this.email();
+		else
+			return this.profile.publicEmail;
 
-    },
+	},
 
-    teamId() {
-        var team = TeamUtils.getTeam(this._id);
+	teamId() {
+		var team = TeamUtils.getTeam(this._id);
 
-        if (team) {
-            return team._id;
-        }
-    },
+		if(team) {
+			return team._id;
+		}
+	},
 
-    teamSlug() {
-        var team = TeamUtils.getTeam(this._id);
+	teamSlug() {
+		var team = TeamUtils.getTeam(this._id);
 
-        if (team) {
-            return team.slug;
-        }
-    },
+		if(team) {
+			return team.slug;
+		}
+	},
 
-    teamName() {
-        var team = TeamUtils.getTeam(this._id);
+	teamName() {
+		var team = TeamUtils.getTeam(this._id);
 
-        if (team) {
-            return team.name;
-        }
-    },
-    getAnswers() {
+		if(team) {
+			return team.name;
+		}
+	},
+	getAnswers() {
 
-        var answersCount = this.allAnswersCount(this._id).answersCount;
+		var answersCount = this.allAnswersCount(this._id).answersCount;
 
-        return answersCount;
-    },
-    getBestAnswers() {
-        var bestAnswersCount = this.allAnswersCount(this._id).bestAnswersCount;
+		return answersCount;
+	},
+	getBestAnswers() {
+		var bestAnswersCount = this.allAnswersCount(this._id).bestAnswersCount;
 
-        return bestAnswersCount;
+		return bestAnswersCount;
 
-    },
-    getSubscriptions() {
-
-        var array = Meteor.user().subscriptions;
-        var length = array.length;
-        var tagDeleted = new Array(length);
-        //initialze array with false
-        for (var i = 0; i < tagDeleted.length; i++) {
-
-            tagDeleted[i] = false;
-        }
-        //check if a subscribed tag is deleted from tags
-        for (var i = 0; i < array.length; i++) {
-            if (!(Tags.findOne({
-                    name: array[i]
-                })))
-
-            {
-                tagDeleted[i] = true;
-            }
-        }
-
-        //removing deleted tags of tags collection from subscriptions
-        for (var i = 0; i < tagDeleted.length; i++) {
-            if (tagDeleted[i] == true) {
-                array.splice(i, 1)
-
-            }
-        }
-        Meteor.call('updateSubscriptions', array, Meteor.userId(), function(err) {
-            if (err) sAlert.error(err.reason);
-        })
-        return Meteor.user().subscriptions;
-
-    },
-    getFollowedQuestions() {
-        Meteor.subscribe('questions');
-
-        var array = Meteor.user().questionsFollowed;
-        var length = array.length;
-        if(length!=0){
-        var questionDeleted = new Array(length);
-        //initialze array with false
-        for (var i = 0; i < questionDeleted.length; i++) {
-
-            questionDeleted[i] = false;
-        }
-        //check if a followed question is deleted from discussions
-        for (var i = 0; i < array.length; i++) {
+	},
+	getSubscriptions() {
 
 
-            if (Questions.find({
-                    _id: array[i]
-                }).fetch().length == 0)
+		var userSubscriptions = Meteor.user().subscriptions;
+		var existingUserSubscriptions = Tags.find({
+			name: {
+				$in: userSubscriptions
+			}
+		}).fetch();
+		if(userSubscriptions.length !== existingUserSubscriptions.length) {
 
-            {
-                questionDeleted[i] = true;
-            }
+			//this step is done as subscriptions is an array of strings, but existingUserSubscriptions is an array of objects
 
-        }
+			var subscriptions = []
+			for(var i = 0; i < existingUserSubscriptions.length; i++) {
+				subscriptions[i] = existingUserSubscriptions[i].name
+			}
 
-        //removing deleted questions of questions collection from questions followed
-        for (var i = 0; i < questionDeleted.length; i++) {
-            if (questionDeleted[i] == true) {
-                array.splice(i, 1)
+			var userId = Meteor.userId();
 
-            }
-        }
-        var userId = Meteor.userId();
-        let followedQuestions = {
-          questions: array,
-          userId
+			let userSubscriptions = {
+				subscriptions,
+				userId
+			}
+			Meteor.call('updateSubscriptions', userSubscriptions, function(err) {
+				if(err) sAlert.error(err.reason);
+			})
+		}
 
-        }
-        Meteor.call('updateFollowedQuestions', followedQuestions, function(err) {
-            if (err) sAlert.error(err.reason);
-        })
-      }
-        return Meteor.user().questionsFollowed;
+		return Meteor.user().subscriptions;
 
-    },
+	},
+	getFollowedQuestions() {
+		Meteor.subscribe('questions');
 
+		var alreadyFollowedQuestions = Meteor.user().questionsFollowed;
+
+		var existingQuestionsFollowed = Questions.find({
+			_id: {
+				$in: alreadyFollowedQuestions
+			}
+		}).fetch();
+
+		if(alreadyFollowedQuestions.length !== existingQuestionsFollowed.length) {
+			//this step is done as followedQuestions is an array of strings, but existingQuestionsFollowed is an array of objects
+			var questions = []
+			for(var i = 0; i < existingQuestionsFollowed; i++) {
+				questions[i] = existingQuestionsFollowed[i]._id;
+			}
+
+			var userId = Meteor.userId();
+			let followedQuestions = {
+				questions: questions,
+				userId
+
+			}
+			Meteor.call('updateFollowedQuestions', followedQuestions, function(err) {
+				if(err) sAlert.error(err.reason);
+			})
+		}
+
+		return Meteor.user().questionsFollowed;
+	},
 
 });
 
 Template.profiletag.events({
 
-    'click #deleteTag': function(event) {
-        var array = Meteor.user().subscriptions;
-        var string = this;
+	'click #deleteTag': function(event) {
+		var subscriptions = Meteor.user().subscriptions;
+		var tagName = this;
 
-        var removed = false;
-        for (var i = 0; i < array.length; i++) {
-            if (array[i] == string) {
-                array.splice(i, 1);
-                removed = true
-                break;
-            }
-        }
+		var removed = false;
+		for(var i = 0; i < subscriptions.length; i++) {
+			if(subscriptions[i] == tagName) {
+				subscriptions.splice(i, 1);
+				removed = true
+				break;
+			}
+		}
+		var userId = Meteor.userId();
 
-        Meteor.call('updateSubscriptions', array, Meteor.userId(), function(err) {
-            if (err)
-                sAlert.error(err.reason);
-        })
+		let userSubscriptions = {
+			subscriptions,
+			userId
+		}
 
-    }
+		Meteor.call('updateSubscriptions', userSubscriptions, function(err) {
+			if(err)
+				sAlert.error(err.reason);
+		})
+
+	}
 })

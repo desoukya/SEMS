@@ -1,23 +1,23 @@
 <template name="questionPage">
-  <div class="ui container grid">
-    <div class="twelve wide centered column">
-      <!-- Modals -->
-      {{> deleteAnswerConfirmationModal}}
-      {{> deleteQuestionConfirmationModal}}
-      {{> commentDeleteConfirmationModal}}
-      {{> questionEditModal}}
-      {{> answerEditModal}}
-      {{> commentEditModal}}
-      <!-- /Modals -->
+    <div class="ui container grid">
+        <div class="twelve wide centered column">
+            <!-- Modals -->
+            {{> deleteAnswerConfirmationModal}}
+            {{> deleteQuestionConfirmationModal}}
+            {{> commentDeleteConfirmationModal}}
+            {{> questionEditModal}}
+            {{> answerEditModal}}
+            {{> commentEditModal}}
+            <!-- /Modals -->
 
-      {{> questionDisplay}}
+            {{> questionDisplay}}
 
-      {{#each sortedAnswers}}
-        {{> answer}}
-      {{/each}}
+            {{#each sortedAnswers}}
+                {{> answer}}
+            {{/each}}
 
-      {{> createAnswerForm}}
+            {{> createAnswerForm}}
 
+        </div>
     </div>
-  </div>
 </template>

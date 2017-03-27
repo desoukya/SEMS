@@ -1,71 +1,72 @@
 <template name="tag">
-  <a class="ui  tiny  {{colorOfTag this}} horizontal label" id = "questionTagLabel">{{this}}</a>
+    <a class="ui  tiny  {{colorOfTag this}} horizontal label" id="questionTagLabel">{{this}}</a>
 </template>
 
 <template name="question">
-  <div class="item">
+    <div class="item">
 
-    <div class="content">
+        <div class="content">
 
-      <div class="ui grid">
-        <div class="ui one wide column">
-          {{> questionVotingPanel}}
-        </div>
+            <div class="ui grid">
+                <div class="ui one wide column">
+                    {{> questionVotingPanel}}
+                </div>
 
-        <div class="ui fifteen wide column">
+                <div class="ui fifteen wide column">
 
-          <div class="header">
-            <a class="ui big link blue header" href="{{pathFor 'question.page' _id= __originalId}}">{{title}}</a>
-            {{#if hasCorrectAnswer}}
-            <i class="check circle outline large green link icon"></i>
-            {{/if}}
-            {{#if isFollowing}}
-            <a class = "ui green horizontal label">Following</a>
-            {{/if}}
-          </div>
+                    <div class="header">
+                        <a class="ui big link blue header" href="{{pathFor 'question.page' _id= __originalId}}">{{title}}</a>
+                        {{#if hasCorrectAnswer}}
+                            <i class="check circle outline large green link icon"></i>
+                        {{/if}}
+                        {{#if isFollowing}}
+                            <a class="ui green horizontal label">Following</a>
+                        {{/if}}
+                    </div>
 
-          <div class="meta">
-            <span class="small meta">
-              <i class="line chart icon"></i>
-              views :
-              {{views}}
-            </span>
+                    <div class="meta">
+                        <span class="small meta">
+                            <i class="line chart icon"></i>
+                            views :
+                            {{views}}
+                        </span>
 
-            <span class="small padded meta">
-              <i class="idea icon"></i>
-              answers :
-              {{answersCount}}
-            </span>
+                        <span class="small padded meta">
+                            <i class="idea icon"></i>
+                            answers :
+                            {{answersCount}}
+                        </span>
 
-          </div>
+                    </div>
 
-          <div class="extra">
-            {{#each tags}}
-              {{> tag}}
-            {{/each}}
+                    <div class="extra">
+                        {{#each tags}}
+                            {{> tag}}
+                        {{/each}}
 
-            <div class="ui card special popup">
-              <a class="user-info image" href="{{pathFor 'user.profile' _id=owner._id}}">
-                <img src="{{owner.profilePicture.url}}">
-              </a>
-              <div class="content">
-                <a class="header centered text" href="{{pathFor 'user.profile' _id=owner._id}}">{{owner.fullName}}</a>
-              </div>
+                        <div class="ui card special popup">
+                            <a class="user-info image" href="{{pathFor 'user.profile' _id=owner._id}}">
+                                <img src="{{owner.profilePicture.url}}">
+                            </a>
+                            <div class="content">
+                                <a class="header centered text" href="{{pathFor 'user.profile' _id=owner._id}}">{{owner.fullName}}</a>
+                            </div>
+                        </div>
+
+                        <div class="ui right floated text">
+                            asked by
+                            <a class="ui {{ colorOfRole role }} horizontal label" id="roleLabel">
+                                {{role}}
+                            </a>
+                            <a href="{{pathFor 'user.profile' _id= ownerId}}" class="question-owner-popup-activator">{{owner.fullName}}</a>
+                            {{formatDateHumanized createdAt}}
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
-            <div class="ui right floated text">
-              asked by   <a class="ui {{ colorOfRole role }} horizontal label" id = "roleLabel">
-                  {{role}}
-                </a>
-              <a href="{{pathFor 'user.profile' _id= ownerId}}" class="question-owner-popup-activator">{{owner.fullName}}</a>
-              {{formatDateHumanized createdAt}}
-
-            </div>
-          </div>
-
         </div>
-      </div>
-
     </div>
-  </div>
 </template>
