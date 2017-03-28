@@ -138,10 +138,15 @@ Template.discussions.events({
 Template.discussions.helpers({
 
 	countAllOpenedQuestions() {
+		var openedQuestionsCounter = 0;
+		var questions = Questions.find({}).fetch();
+		for(var i = 0; i < questions.length; i++) {
 
-		return Questions.find({
-			closed: false
-		}).count();
+			if(questions[i].isClosed() == false) {
+				openedQuestionsCounter++;
+			}
+		}
+		return openedQuestionsCounter;
 	},
 
 	questions() {
@@ -257,10 +262,16 @@ Template.filterTag.helpers({
 	},
 	countOpenedQuestionsPerTag(tagName) {
 
-		return Questions.find({
-			'tags': tagName,
-			closed: false
-		}).count();
+		var openedQuestionsCounter = 0;
+		var questions = Questions.find({
+			tags: tagName
+		}).fetch();
+		questions.forEach(function(question) {
+			if(question.isClosed() != true) {
+				openedQuestionsCounter++;
+			}
+		})
+		return openedQuestionsCounter;
 	},
 
 })
