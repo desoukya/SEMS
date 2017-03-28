@@ -1,9 +1,9 @@
 module.exports = {
 	servers: {
 		one: {
-			host: Meteor.settings.host,
-			username: Meteor.settings.username,
-			pem: Meteor.settings.pem
+			host: "35.165.204.233",
+			username: "ubuntu",
+			pem: "/home/yasmeenwafa/Desktop/sems.pem"
 			// password:
 			// or leave blank for authenticate from ssh-agent
 		}
@@ -11,7 +11,7 @@ module.exports = {
 
 	meteor: {
 		name: 'SEMS',
-		path: Meteor.settings.path,
+		path: "/home/yasmeenwafa/Desktop/SEMS",
 		servers: {
 			one: {},
 		},
@@ -19,8 +19,8 @@ module.exports = {
 			serverOnly: true,
 		},
 		env: {
-			ROOT_URL: Meteor.settings.ROOT_URL,
-			MONGO_URL: Meteor.settings.MONGO_URL,
+			ROOT_URL: "http://ec2-35-165-204-233.us-west-2.compute.amazonaws.com",
+			MONGO_URL: "mongodb://localhost/meteor",
 		},
 
 
@@ -38,7 +38,7 @@ module.exports = {
 	mongo: {
 		oplog: true,
 		port: 27017,
-		version: '3.4.1',
+		version: '3.4.2',
 		servers: {
 			one: {},
 		},

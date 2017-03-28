@@ -2,6 +2,7 @@ public/uploads/
 run-server.sh
 settings.json
 mup.json
+mup.js
 mup-prod.json
 mup-dev.json
 
