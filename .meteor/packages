@@ -26,7 +26,7 @@ aldeed:collection2
 reactive-var@1.0.11
 momentjs:moment
 fourseven:scss
-email@1.1.18
+email
 underscore@1.0.10
 check@1.2.4
 random@1.0.10

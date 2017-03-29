@@ -1,45 +1,45 @@
 <template name="footer">
-  <footer class="ui inverted vertical footer segment">
+    <footer class="ui inverted vertical footer segment">
 
-    <!-- Legal Modal -->
-    {{> legalModal}}
-    <!-- /Legal Modal -->
+        <!-- Legal Modal -->
+        {{> legalModal}}
+        <!-- /Legal Modal -->
 
-    <div class="ui container">
-      <div class="ui unstackable inverted equal height divided grid">
+        <div class="ui container">
+            <div class="ui unstackable inverted equal height divided grid">
 
-        <!-- About Section -->
-        <div class="three wide column">
-          <h4 class="ui inverted header">About</h4>
-          <div class="ui inverted link list">
-            <a href="{{pathFor 'faq'}}" class="item">FAQ</a>
-            <a href="#" class="item" id="legal">Legal</a>
-          </div>
+                <!-- About Section -->
+                <div class="three wide column">
+                    <h4 class="ui inverted header">About</h4>
+                    <div class="ui inverted link list">
+                        <a href="{{pathFor 'faq'}}" class="item">FAQ</a>
+                        <a href="#" class="item" id="legal">Legal</a>
+                    </div>
+                </div>
+                <!-- /About Section -->
+
+                <!-- Get in touch -->
+                <div class="three wide column">
+                    <h4 class="ui inverted header">Get in touch</h4>
+                    <div class="ui inverted link list">
+                        <a href="/contact" class="item">Contact Us</a>
+                        <a target="_blank" href="https://github.com/desoukya/SEMS/issues" class="item">Report an issue</a>
+                    </div>
+                </div>
+                <!-- /Get in touch -->
+
+                <!-- Footer extra text -->
+                <div class="seven wide column">
+                    <h4 class="ui inverted header">SE Management System &copy; 2017</h4>
+
+                    <!-- Mixpanel badge -->
+                    <a href="https://mixpanel.com/f/partner" rel="nofollow"><img src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics"/></a>
+                    <!-- /Mixpanel badge -->
+                </div>
+                <!-- /Footer extra text -->
+
+            </div>
         </div>
-        <!-- /About Section -->
 
-        <!-- Get in touch -->
-        <div class="three wide column">
-          <h4 class="ui inverted header">Get in touch</h4>
-          <div class="ui inverted link list">
-            <a href="/contact" class="item">Contact Us</a>
-            <a target="_blank" href="https://github.com/desoukya/SEMS/issues" class="item">Report an issue</a>
-          </div>
-        </div>
-        <!-- /Get in touch -->
-
-        <!-- Footer extra text -->
-        <div class="seven wide column">
-          <h4 class="ui inverted header">SE Management System &copy; 2017</h4>
-
-          <!-- Mixpanel badge -->
-          <a href="https://mixpanel.com/f/partner" rel="nofollow"><img src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics"/></a>
-          <!-- /Mixpanel badge -->
-        </div>
-        <!-- /Footer extra text -->
-
-      </div>
-    </div>
-
-  </footer>
+    </footer>
 </template>
