@@ -1,53 +1,53 @@
 <template name="questionEditModal">
-  <div class="ui modal" id="question-edit-modal">
+    <div class="ui modal" id="question-edit-modal">
 
-    <i class="close icon"></i>
+        <i class="close icon"></i>
 
-    <div class="header">
-      Question Editing
-    </div>
-
-    <div class="content">
-      <!-- Question Edit form -->
-      <div class="ui form" id="question-edit-form">
-
-        <!-- Title Field -->
-        <div class="field">
-          <label>Question Title</label>
-          <input type="text" name="question_title" value="{{title}}">
+        <div class="header">
+            Question Editing
         </div>
-        <!-- /Title Field -->
 
-        <!-- Description Field -->
-        <div class="field">
-          <label>Description</label>
-          <textarea name="question_description" value="{{description}}"></textarea>
-        </div>
-        <!-- /Description Field -->
+        <div class="content">
+            <!-- Question Edit form -->
+            <div class="ui form" id="question-edit-form">
 
-        <!-- Tags -->
-        <div class="field">
-          <label>Tags</label>
-          <div class="ui fluid multiple selection search dropdown">
-            <input id="tags" name="tags" type="hidden" value="{{separatedTags}}">
-            <i class="dropdown icon"></i>
-            <div class="default text">Tags</div>
-            <div class="menu">
-              {{#each tags}}
-                <div class="item" data-value="{{this}}">{{this}}</div>
-              {{/each}}
+                <!-- Title Field -->
+                <div class="field">
+                    <label>Question Title</label>
+                    <input type="text" name="question_title" value="{{title}}">
+                </div>
+                <!-- /Title Field -->
+
+                <!-- Description Field -->
+                <div class="field">
+                    <label>Description</label>
+                    <textarea name="question_description" value="{{description}}"></textarea>
+                </div>
+                <!-- /Description Field -->
+
+                <!-- Tags -->
+                <div class="field">
+                    <label>Tags</label>
+                    <div class="ui fluid multiple selection dropdown">
+                        <input id="tags" name="tags" type="hidden" value="{{separatedTags}}">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Tags</div>
+                        <div class="menu">
+                            {{#each allTags}}
+                                <div class="item" data-value="{{this.name}}">{{this.name}}</div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+                <!-- /Tags -->
+
             </div>
-          </div>
+            <!-- /Question Edit form -->
+
         </div>
-        <!-- /Tags -->
 
-      </div>
-      <!-- /Question Edit form -->
-
+        <div class="actions">
+            <div class="ui positive button">Update Question</div>
+        </div>
     </div>
-
-    <div class="actions">
-      <div class="ui positive button">Update Question</div>
-    </div>
-  </div>
 </template>

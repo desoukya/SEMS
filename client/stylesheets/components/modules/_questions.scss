@@ -11,10 +11,6 @@
   margin-bottom: 30px;
 }
 
-.answer.body {
-  @extend .question.body;
-}
-
 .vote {
   .icon {
     width: 100%;
