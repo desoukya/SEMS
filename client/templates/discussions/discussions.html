@@ -1,127 +1,247 @@
 <template name="discussions">
-  <div class="ui container grid">
-    <div class="twelve wide centered column">
-      <!-- Question SearchBox -->
-      {{> questionsSearchBox}}
-      <!-- /Question SearchBox -->
 
-      {{> questionHelpModal}}
+    <div class="ui container grid">
+
+        <!-- subscriptions -->
+        <div class="three wide left column">
+
+            <!-- filter tags -->
+            <form>
+                <div class="centered row">
+
+                    <h2>Filters:</h2>
+                    <div class="ui list">
+                        <div class="ui styled fluid accordion">
+
+                            <div class="title ">
+                                <i class="dropdown icon"></i>
+                                All Tags</div>
+                            <div class="content ">
+                                <p class="transition visible" style="display: block !important;">
+                                    <div class="item">
+                                        <a class="ui green horizontal label" id="filterLabel">All
+                                            <div class="detail">{{countAllOpenedQuestions}}</div>
+                                        </a>
+                                    </div>
+                                </p>
+                            </div>
+
+                            <div class="title ">
+                                <i class="dropdown icon"></i>
+                                Lectures</div>
+                            <div class="content ">
+                                <p class="transition visible" style="display: block !important;">
+                                    {{#each lectureTags}}
+                                        <div class="item">
+                                            {{> filterTag}}
+                                        </div>
+                                    {{/each}}
+                                </p>
+                            </div>
+
+                            <div class="title ">
+                                <i class="dropdown icon"></i>
+                                Labs</div>
+                            <div class="content ">
+                                <p class="transition visible" style="display: block !important;">
+                                    {{#each labTags}}
+                                        <div class="item">
+                                            {{> filterTag}}
+                                        </div>
+                                    {{/each}}
+                                </p>
+                            </div>
+
+                            <div class="title ">
+                                <i class="dropdown icon"></i>
+                                Project</div>
+                            <div class="content ">
+                                <p class="transition visible" style="display: block !important;">
+                                    {{#each projectTags}}
+                                        <div class="item">
+                                            {{> filterTag}}
+                                        </div>
+                                    {{/each}}
+                                </p>
+                            </div>
+                            <div class="title ">
+                                <i class="dropdown icon"></i>
+                                Topics</div>
+                            <div class="content ">
+                                <p class="transition visible" style="display: block !important;">
+                                    {{#each topicTags}}
+                                        <div class="item">
+                                            {{> filterTag}}
+                                        </div>
+                                    {{/each}}
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- /filter tags -->
+
+            <form class="form-register">
+                <div class="field">
+                    <h1></h1>
+                    <h2>Still need help?</h2>
+                    <h3>Subscribe to available tags for future updates</h3>
+                    <div class="ui fluid multiple selection dropdown" name="tag" id="input">
+                        <input type="hidden" name="tag">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Select Tag</div>
+                        <div class="menu">
+                            {{#each subTags}}
+                                <div class="item" data-value="{{this.name}}">{{this.name}}</div>
+
+                            {{/each}}
+                        </div>
+                    </div>
+                    <button class="ui green button">
+                        Subscribe
+                    </button>
+                </div>
+            </form>
+
+        </div>
+        <!--/ subscriptions -->
+
+        <div class="twelve wide centered column">
+            <!-- Question SearchBox -->
+            {{> questionsSearchBox}}
+            <!-- /Question SearchBox -->
+
+            {{> questionHelpModal}}
+        </div>
     </div>
-  </div>
 </template>
 
 <template name="questionForm">
-  <div class="ui segment transition hidden" id="add-question-form">
-    <form class="ui form new-question">
+    <div class="ui segment transition hidden" id="add-question-form">
+        <form class="ui form new-question">
 
-      <!-- Title -->
+            <!-- Title -->
 
-      <div class="field">
-        <label>
-          Ask a question
-          <i class="help circle link large icon" id="help-icon"></i>
-        </label>
-        <input class="small" type="text" name="title" placeholder="Ask a question"/>
-      </div>
-      <!-- /Title -->
+            <div class="field">
+                <label>
+                    Ask a question
+                    <i class="help circle link large icon" id="help-icon"></i>
+                </label>
+                <input class="small" type="text" name="title" placeholder="Ask a question"/>
+            </div>
+            <!-- /Title -->
 
-      <!-- Description -->
-      <div class="field">
-        <label>Description</label>
-        <textarea name="description"></textarea>
-      </div>
-      <!-- /Description -->
+            <!-- Description -->
+            <div class="field">
+                <label>Description</label>
+                <textarea name="description"></textarea>
+            </div>
+            <!-- /Description -->
 
-      <!-- Tags -->
-      <div class="field">
-        <label>Tags</label>
-        <div class="ui fluid multiple selection search dropdown">
-          <input id="tags" name="tags" type="hidden">
-          <i class="dropdown icon"></i>
-          <div class="default text">Tags</div>
-          <div class="menu">
-            {{#each allTags}}
-              <div class="item" data-value="{{this}}">{{this}}</div>
-            {{/each}}
-          </div>
-        </div>
-      </div>
-      <!-- /Tags -->
+            <!-- Tags -->
+            <div class="field">
+                <label>Tags</label>
+                <div class="ui fluid multiple selection dropdown" name="tag">
+                    <input type="hidden" name="tag">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Select Tag</div>
+                    <div class="menu">
+                        {{#each allTags}}
+                            <div class="item" data-value="{{this.name}}">{{this.name}}</div>
 
-      <input type="submit" class="ui fluid large green submit button" value="submit">
-    </form>
-  </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+            <!-- /Tags -->
+
+            <input type="submit" class="ui fluid large green submit button" value="submit">
+        </form>
+    </div>
 </template>
 
 <template name="questionsSearchBox">
-  <div class="ui fluid question search">
-    <div class="ui fluid right action left icon input">
-      {{> EasySearch.Input attributes=questionBoxAttributes index= questionsSuggestionsIndex }}
-      <i class="search icon"></i>
+    <div class="ui fluid question search">
+        <div class="ui fluid right action left icon input">
+            {{> EasySearch.Input attributes=questionBoxAttributes index= questionsSuggestionsIndex }}
+            <i class="search icon"></i>
 
-      <!-- Toggle Question form button -->
-      <div class="ui blue button" id="toggle-question-form-button">Ask a question</div>
-      <!-- /Toggle Question form button -->
-    </div>
-
-    <!-- Question Form -->
-    {{> questionForm}}
-    <!-- /Question Form -->
-
-    <div class="results">
-      {{#EasySearch.Each index=questionsSuggestionsIndex }}
-        <a href="{{pathFor 'question.page' slug= slug}}" class="result">
-          <div class="content">
-            <div class="title">{{title}}</div>
-          </div>
-        </a>
-      {{/EasySearch.Each}}
-
-      {{#EasySearch.IfNoResults index=questionsSuggestionsIndex}}
-        <div class="message empty">
-          <div class="header">
-            No Results
-          </div>
-          <div class="description">
-            Your search returned no results
-          </div>
+            <!-- Toggle Question form button -->
+            <div class="ui blue button" id="toggle-question-form-button">Ask a question</div>
+            <!-- /Toggle Question form button -->
         </div>
-      {{/EasySearch.IfNoResults}}
 
-    </div>
-  </div>
-  <div class="ui segment">
+        <!-- Question Form -->
+        {{> questionForm}}
+        <!-- /Question Form -->
 
-    <div class="ui divided items">
-      {{#EasySearch.Each index=questionsIndex }}
-        {{> question}}
-      {{/EasySearch.Each}}
-    </div>
+        <div class="results">
+            {{#EasySearch.Each index=questionsSuggestionsIndex }}
+                <a href="{{pathFor 'question.page' slug= slug}}" class="result">
+                    <div class="content">
+                        <div class="title">{{title}}</div>
+                    </div>
+                </a>
+            {{/EasySearch.Each}}
 
-    {{#EasySearch.IfInputEmpty index=questionsIndex}}
-    {{else}}
-      {{#EasySearch.IfNoResults index=questionsIndex}}
-        <div class="ui page full screen grid">
-          <div class="center aligned middle aligned column">
-            <p>
-              <i class="large search icon"></i>
-            </p>
-            <h1 class="large text">Sorry no questions matches your search</h1>
-            <h1>be the first to ask this question</h1>
+            {{#EasySearch.IfNoResults index=questionsSuggestionsIndex}}
+                <div class="message empty">
+                    <div class="header">
+                        No Results
+                    </div>
+                    <div class="description">
+                        Your search returned no results
+                    </div>
+                </div>
+            {{/EasySearch.IfNoResults}}
 
-          </div>
         </div>
-      {{/EasySearch.IfNoResults}}
-    {{/EasySearch.IfInputEmpty}}
+    </div>
 
-    {{> EasySearch.Pagination index=questionsIndex maxPages=9 customRenderPagination="navigator"}}
-  </div>
+    <div class="ui segment">
+
+        <div class="ui divided items">
+
+            {{#each questionsTags}}
+                {{> question}}
+            {{/each}}
+        </div>
+
+        {{#EasySearch.IfInputEmpty index=questionsIndex}}
+        {{else}}
+            {{#EasySearch.IfNoResults index=questionsIndex}}
+                <div class="ui page full screen grid">
+                    <div class="center aligned middle aligned column">
+                        <p>
+                            <i class="large search icon"></i>
+                        </p>
+                        <h1 class="large text">Sorry no questions matches your search</h1>
+                        <h1>be the first to ask this question</h1>
+
+                    </div>
+                </div>
+            {{/EasySearch.IfNoResults}}
+        {{/EasySearch.IfInputEmpty}}
+
+        {{> EasySearch.Pagination index=questionsIndex maxPages=9 customRenderPagination="navigator"}}
+    </div>
+
 </template>
 
 <template name="navigator">
-  <div data-class="ui pagination menu">
-    {{#each page}}
-      <a data-class="page item {{pageClasses this}} ">{{content}}</a>
-    {{/each}}
-  </div>
+    <div data-class="ui pagination menu">
+        {{#each page}}
+            <a data-class="page item {{pageClasses this}} ">{{content}}</a>
+        {{/each}}
+    </div>
+</template>
+
+<template name="filterTag">
+    <!-- Filter tag -->
+    <a class="ui {{colorOfTag name}} horizontal label" id="filterLabel">{{this.name}}
+        <div class="detail">{{countOpenedQuestionsPerTag this.name}}</div>
+    </a>
+    <!-- /Filter tag -->
 </template>
