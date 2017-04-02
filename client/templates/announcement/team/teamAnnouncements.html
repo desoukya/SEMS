@@ -1,40 +1,40 @@
 <template name="teamAnnouncements">
-  <div class="ui divided items">
-    {{#each announcements}}
-      {{> announcement}}
-    {{else}}
-      <div class="ui container grid">
-        <div class="center aligned middle aligned column">
-          <p>
-            <i class="huge warning circle icon"></i>
-          </p>
-          <h1 class="large text">No Announcements here yet</h1>
-        </div>
-      </div>
-    {{/each}}
-  </div>
+    <div class="ui divided items">
+        {{#each announcements}}
+            {{> announcement}}
+        {{else}}
+            <div class="ui container grid">
+                <div class="center aligned middle aligned column">
+                    <p>
+                        <i class="huge warning circle icon"></i>
+                    </p>
+                    <h1 class="large text">No Announcements here yet</h1>
+                </div>
+            </div>
+        {{/each}}
+    </div>
 </template>
 
 <template name="announcement">
-  <div class="item">
-    <div class="content">
-      <div class="header">{{title}}</div>
-      <div class="meta">
-        <span>
-          {{#if global}}
-            <a class="ui green tiny label">global</a>
-          {{else}}
-            <a class="ui orange tiny label">team-specific</a>
-          {{/if}}
-        </span>
-        <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
-          <i class="wait icon"></i>
-          {{formatDateHumanized createdAt}}
-        </span>
-      </div>
-      <div class="description">
-        {{#markdown}}{{description}}{{/markdown}}
-      </div>
+    <div class="item">
+        <div class="content">
+            <div class="header">{{title}}</div>
+            <div class="meta">
+                <span>
+                    {{#if global}}
+                        <a class="ui green tiny label">global</a>
+                    {{else}}
+                        <a class="ui orange tiny label">team-specific</a>
+                    {{/if}}
+                </span>
+                <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
+                    <i class="wait icon"></i>
+                    {{formatDateHumanized createdAt}}
+                </span>
+            </div>
+            <div class="description">
+                {{#markdown}}{{description}}{{/markdown}}
+            </div>
+        </div>
     </div>
-  </div>
 </template>
