@@ -217,11 +217,20 @@ Template.questionsSearchBox.helpers({
 
 		if(tagName[0] === "All") {
 
-			return Questions.find({});
+
+			return Questions.find({}, {
+				sort: {
+					createdAt: -1
+				}
+			});
 		} else {
 
 			return Questions.find({
 				'tags': tagName[0]
+			}, {
+				sort: {
+					createdAt: -1
+				}
 			}).fetch();
 		}
 	},

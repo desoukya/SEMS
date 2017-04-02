@@ -1,7 +1,11 @@
 Template.tagsEdit.helpers({
 
 	tags: function() {
-		return Tags.find({});
+		return Tags.find({}, {
+			sort: {
+				createdAt: -1
+			}
+		});
 	}
 });
 
