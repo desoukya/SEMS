@@ -1,0 +1,7 @@
+<template name="staffSideBar">
+    <div class="ui secondary vertical huge pointing menu">
+        <a class="item {{isActive 'staffTeam.info'}}" href="{{pathFor 'staffTeam.info' name=name }}">Team Info</a>
+        <a class="item {{isActive 'staffTeam.announcements'}}" href="{{pathFor 'staffTeam.announcements' name=name }}">Announcements</a>
+        <a Edi class="item {{isActive 'staffTeam.links'}}" href="{{pathFor 'staffTeam.links' name=name}}">Links</a>
+    </div>
+</template>

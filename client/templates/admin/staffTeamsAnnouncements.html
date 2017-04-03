@@ -1,0 +1,34 @@
+<template name="staffTeamAnnouncements">
+
+    <div class="row">
+        <div class="ui twelve wide column">
+            <div class="ui segment">
+                <div class="ui divided items">
+                    {{#each getAnnouncements}}
+                        <div class="item">
+                            <div class="content">
+
+                                <div class="full width header">
+                                    <span class="ui small header">{{title}}</span>
+                                </div>
+
+                                <div class="meta">
+                                    <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
+                                        <i class="wait icon"></i>
+                                        {{formatDateHumanized createdAt}}
+                                    </span>
+                                </div>
+
+                                <div class="description">
+                                    {{#markdown}}{{description}}{{/markdown}}
+                                </div>
+
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

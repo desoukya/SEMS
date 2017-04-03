@@ -103,6 +103,9 @@ Meteor.publish('allAnnouncements', function() {
 Meteor.publish('questions', function() {
 	return Questions.find({});
 });
+Meteor.publish('staffTeams', function() {
+	return StaffTeams.find({});
+});
 
 Meteor.publish("answers", function() {
 	return Answers.find({});

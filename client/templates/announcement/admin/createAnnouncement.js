@@ -2,6 +2,9 @@ Template.createAnnouncement.helpers({
 	teams() {
 		return Teams.find();
 	},
+	staffTeams() {
+		return StaffTeams.find();
+	}
 
 });
 

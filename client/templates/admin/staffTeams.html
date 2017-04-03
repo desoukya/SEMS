@@ -1,0 +1,81 @@
+<template name="staffTeams">
+    {{> createStaffTeam}}
+</template>
+
+<template name="createStaffTeam">
+    <div data-class="ui middle aligned left aligned container grid">
+        <div class="six wide column">
+
+            <h2 class="ui header">
+                <div class="content">
+                    Create a staff team
+                </div>
+            </h2>
+
+            <form class="ui large form ">
+                <div class="ui stacked segment">
+
+                    <!-- Team Name -->
+                    <div class="field">
+                        <label>Team Name</label>
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input type="text" name="teamName" placeholder="The Expendables">
+                        </div>
+                    </div>
+                    <!-- /Team Name -->
+                    <!-- /Team members -->
+                    <div class="field">
+
+                        <div class="ui fluid multiple search normal selection dropdown">
+                            <input id="members" type="hidden">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Choose Team members</div>
+                            <div class="menu">
+                                {{#each getStaffMembers}}
+                                    {{> staffMemberChoice}}
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Team members -->
+
+                    <input type="submit" id="createStaffTeam" class="ui fluid large green submit button" value="Create team">
+
+                </div>
+
+                <div class="ui error message">
+                    The name is already taken, please choose another name
+                </div>
+            </form>
+
+        </div>
+        <div class="ui six wide centered column">
+
+            <table class="ui celled padded unstackable table ">
+                <th align="center" style="font-size:300%">Staff Teams</th>
+                <tbody class="left aligned">
+
+                    <td class="left aligned">
+
+                        {{#each getStaffTeams}}
+                            <li style="font-size:150%">
+                                <a href="{{pathFor 'staffTeam.info' name=name}}">{{name}}</a>
+                                <i id="delete-icon" class="trash red link icon"></i>
+                                <i class="wait icon"></i>
+                                {{formatDateHumanized createdAt}}
+                            </li>
+                        {{/each}}
+
+                    </td>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</template>
+
+<template name="staffMemberChoice">
+    <div class="item" data-value="{{_id}}">{{fullName}}</div>
+</template>
