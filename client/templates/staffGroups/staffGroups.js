@@ -1,11 +1,11 @@
-Template.staffTeams.onRendered(function() {
+Template.staffGroups.onRendered(function() {
 	$('.ui.dropdown').dropdown({
 		allowAdditions: true,
 		direction: 'downward'
 	});
 })
 
-Template.createStaffTeam.helpers({
+Template.createStaffGroup.helpers({
 
 	getStaffMembers() {
 		return Meteor.users.find({
@@ -14,9 +14,9 @@ Template.createStaffTeam.helpers({
 			}
 		}).fetch()
 	},
-	getStaffTeams() {
+	getStaffGroups() {
 
-		return StaffTeams.find({}, {
+		return StaffGroups.find({}, {
 			sort: {
 				createdAt: -1
 			}
@@ -25,32 +25,32 @@ Template.createStaffTeam.helpers({
 
 })
 
-Template.createStaffTeam.events({
+Template.createStaffGroup.events({
 	'submit .form': function(event) {
 		event.preventDefault();
-		let name = event.target.teamName.value;
+		let name = event.target.groupName.value;
 		let members = $('#members').val().split(",");
-		let links = [];
-		console.log(members)
+		let posts = [];
+
 		let teamInfo = {
 			name,
 			members,
-			links
+			posts,
 		}
-		Meteor.call('createStaffTeam', teamInfo, function(err) {
+		Meteor.call('createStaffGroup', teamInfo, function(err) {
 			if(err) {
 				sAlert.error(err.reason);
 			}
 		})
 		$('.ui.multiple.selection.dropdown').dropdown('clear');
-		event.target.teamName.value = '';
+		event.target.groupName.value = '';
 
 
 	},
 	'click #delete-icon': function() {
 
 		let teamId = this._id;
-		Meteor.call('deleteStaffTeam', teamId, function(err) {
+		Meteor.call('deleteStaffGroup', teamId, function(err) {
 			if(err) {
 				sAlert.error(err.reason)
 			}

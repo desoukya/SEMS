@@ -1,10 +1,10 @@
 Meteor.methods({
 
-	createStaffTeam(teamInfo) {
+	createStaffGroup(teamInfo) {
 		let {
 			name,
 			members,
-			links,
+			posts,
 		} = teamInfo
 
 		if(name == "") {
@@ -13,13 +13,13 @@ Meteor.methods({
 		if(members == []) {
 			throw new Meteor.Error(401, "You can't create an empty team");
 		}
-		if(!(StaffTeams.findOne({
+		if(!(StaffGroups.findOne({
 				"name": name
 			}))) {
-			StaffTeams.insert({
+			StaffGroups.insert({
 				"name": name,
 				"members": members,
-				"links": links,
+				"posts": posts,
 				createdAt: Date.now()
 			})
 		} else {
@@ -27,25 +27,25 @@ Meteor.methods({
 		}
 	},
 
-	deleteStaffTeam(teamId) {
-		if(StaffTeams.findOne({
+	deleteStaffGroup(teamId) {
+		if(StaffGroups.findOne({
 				_id: teamId
 			})) {
-			StaffTeams.remove(teamId)
+			StaffGroups.remove(teamId)
 		} else {
 			throw new Meteor.Error("The staff team you're trying to delete is not found")
 		}
 	},
 
-	updateLinks(teamInfo) {
+	updatePosts(teamInfo) {
 		let {
 			_id,
-			links,
+			posts,
 		} = teamInfo
 
-		StaffTeams.update(_id, {
+		StaffGroups.update(_id, {
 			$set: {
-				links: links
+				posts: posts
 			}
 		})
 

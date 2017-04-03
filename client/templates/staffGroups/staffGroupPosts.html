@@ -1,11 +1,11 @@
-<template name="staffTeamLinks">
+<template name="staffGroupPosts">
     <div data-class="ui middle aligned left aligned container grid">
 
         <div class="six wide column">
 
             <h2 class="ui header">
                 <div class="content">
-                    Post a link
+                    Create a Post
                 </div>
             </h2>
 
@@ -33,7 +33,7 @@
                     </div>
                     <!-- /description -->
 
-                    <input type="submit" id="postALink" class="ui fluid large green submit button" value="Post a link">
+                    <input type="submit" id="createAPost" class="ui fluid large green submit button" value="Create a post">
 
                 </div>
 
@@ -44,11 +44,11 @@
 
         </div>
 
-        <div class="ui six wide centered column">
+        <div class="ui eight wide centered column">
 
             <div class="ui segment">
                 <div class="ui divided items">
-                    {{#each getLinks}}
+                    {{#each getPosts}}
                         <div class="item">
                             <div class="content">
 
@@ -66,6 +66,10 @@
 
                                 <div class="description">
                                     {{#markdown}}{{description}}{{/markdown}}
+                                </div>
+
+                                <div class="full right width footer" align="right">
+                                    <a class="ui right small fotter" href="{{pathFor 'user.profile' _id=ownerId}}">{{getOwnerName ownerId}}</a>
                                 </div>
 
                             </div>

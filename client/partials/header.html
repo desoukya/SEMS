@@ -22,11 +22,11 @@
             {{/if}}
             <!-- /Team Button-->
 
-            <!-- staff Team Button-->
+            <!-- staff group Button-->
             {{#if isInRole "admin,teaching-assistant,junior-teaching-assistant,lecturer"}}
-                <a class="item {{isActive 'staffTeams.browse'}}" href="{{pathFor 'staffTeams.browse'}}">Staff Teams</a>
+                <a class="item {{isActive 'staffGroups.browse'}}" href="{{pathFor 'staffGroups.browse'}}">Staff Groups</a>
             {{/if}}
-            <!-- /staff Team Button-->
+            <!-- /staff group Button-->
 
             <!-- Discussions Button-->
             {{#if currentUser}}
