@@ -22,6 +22,12 @@
             {{/if}}
             <!-- /Team Button-->
 
+            <!-- staff Team Button-->
+            {{#if isInRole "admin,teaching-assistant,junior-teaching-assistant,lecturer"}}
+                <a class="item {{isActive 'staffTeams.browse'}}" href="{{pathFor 'staffTeams.browse'}}">Staff Teams</a>
+            {{/if}}
+            <!-- /staff Team Button-->
+
             <!-- Discussions Button-->
             {{#if currentUser}}
                 <a class="item {{isActive 'discussions'}}" href="{{pathFor 'discussions'}}">Discussions</a>

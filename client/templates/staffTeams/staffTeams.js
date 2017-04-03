@@ -30,10 +30,12 @@ Template.createStaffTeam.events({
 		event.preventDefault();
 		let name = event.target.teamName.value;
 		let members = $('#members').val().split(",");
+		let links = [];
 		console.log(members)
 		let teamInfo = {
 			name,
-			members
+			members,
+			links
 		}
 		Meteor.call('createStaffTeam', teamInfo, function(err) {
 			if(err) {

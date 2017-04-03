@@ -1,0 +1,31 @@
+<template name="staffTeamsBrowse">
+
+    <div class="main header">
+        <h1 class="ui huge text centered ">Staff Teams</h1>
+    </div>
+
+    <div class="ui divider container"></div>
+
+    <div class="ui stackable container four column very relaxed grid">
+        {{#each staffTeams}}
+            <div class="column">
+                {{>staffTeamCard}}
+            </div>
+        {{/each}}
+    </div>
+</template>
+
+<template name="staffTeamCard">
+    <div class="ui card">
+
+        <div class="content">
+            <a class="header" href="{{pathFor 'staffTeam.info' name=name}}">{{name}}</a>
+            <div class="meta">
+                <a href="#">Members Count :
+                    {{membersCount}}</a>
+            </div>
+
+        </div>
+
+    </div>
+</template>
