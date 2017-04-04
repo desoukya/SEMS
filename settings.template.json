@@ -19,7 +19,10 @@
   "MONGO_URL": "MONGO_URL",
 
   "DDP_LOGS": true,
-
+  "kadira": {
+    "appId": "appId",
+    "appSecret": "appSecret" 
+  },
   "public": {
     "analyticsSettings": {
       "Mixpanel": {
