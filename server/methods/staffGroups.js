@@ -40,16 +40,40 @@ Meteor.methods({
 	updatePosts(teamInfo) {
 		let {
 			_id,
+			postOwnerId,
 			posts,
 		} = teamInfo
 
+
+
+		var group = StaffGroups.findOne(_id: _id);
 		StaffGroups.update(_id, {
 			$set: {
 				posts: posts
 			}
 		})
 
-	}
+		let icon = "<i class=\"idea icon\"></i>";
+		let content = "New post on your team";
+		let link = `/staff-groups/${group.name}/posts`;
 
+		for(var i = 0; i < group.members.length; i++) {
+			if(group.members[i] != postOwnerId) {
+				Notifications.insert({
+					ownerId: group.members[i],
+					content: `${icon} ${content}`,
+					link: link,
+					read: false,
+					createdAt: Date.now()
+				});
+			}
+		}
+
+
+
+
+
+
+	}
 
 })

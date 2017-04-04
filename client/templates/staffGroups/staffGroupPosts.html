@@ -1,51 +1,64 @@
-<template name="staffGroupPosts">
-    <div data-class="ui middle aligned left aligned container grid">
+<template name="createPost">
 
-        <div class="six wide column">
+    <h2 class="ui header">
+        <div class="content">
+            Create a Post
+        </div>
+    </h2>
 
-            <h2 class="ui header">
-                <div class="content">
-                    Create a Post
+    <form class="ui large form ">
+        <div class="ui stacked segment">
+
+            <!-- Title -->
+            <div class="field">
+                <label>Title</label>
+                <div class="ui left icon input">
+                    <i class="minus icon"></i>
+                    <input type="text" name="title" placeholder="Link title">
                 </div>
-            </h2>
+            </div>
+            <!-- /title -->
 
-            <form class="ui large form ">
-                <div class="ui stacked segment">
+            <!-- /description -->
+            <div class="field">
 
-                    <!-- Title -->
-                    <div class="field">
-                        <label>Title</label>
-                        <div class="ui left icon input">
-                            <i class="minus icon"></i>
-                            <input type="text" name="title" placeholder="Link title">
-                        </div>
-                    </div>
-                    <!-- /title -->
-
-                    <!-- /description -->
-                    <div class="field">
-
-                        <label>Description</label>
-                        <div class="ui left icon input">
-                            <i class="content icon"></i>
-                            <input type="text" name="description" placeholder="Link description">
-                        </div>
-                    </div>
-                    <!-- /description -->
-
-                    <input type="submit" id="createAPost" class="ui fluid large green submit button" value="Create a post">
-
+                <label>Description</label>
+                <div class="ui left icon input">
+                    <i class="content icon"></i>
+                    <input type="text" name="description" placeholder="Link description">
                 </div>
+            </div>
+            <!-- /description -->
 
-                <div class="ui error message">
-                    The name is already taken, please choose another name
-                </div>
-            </form>
+            <input type="submit" id="createAPost" class="ui fluid large green submit button" value="Create a post">
 
         </div>
 
-        <div class="ui eight wide centered column">
+        <div class="ui error message">
+            The name is already taken, please choose another name
+        </div>
+    </form>
 
+</template>
+
+<template name="staffGroupPosts">
+
+    <!-- Create post Modal -->
+    <div class="ui small modal" id="post-create-modal">
+        <div class="ui stackable container padded grid">
+            <div class="sixteen wide centered column">
+                {{>createPost }}
+            </div>
+        </div>
+    </div>
+    <!-- /Create post Modal -->
+    <div data-class="ui middle aligned left aligned container grid">
+
+        <div class="ui eighteen wide left column">
+            <a id="add-button" class="ui blue button">
+                <i class="tag icon"></i>
+                Create Post
+            </a>
             <div class="ui segment">
                 <div class="ui divided items">
                     {{#each getPosts}}

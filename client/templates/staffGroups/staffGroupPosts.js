@@ -14,6 +14,14 @@ Template.staffGroupPosts.helpers({
 })
 
 Template.staffGroupPosts.events({
+	'click #add-button': function(event) {
+		event.preventDefault()
+		$('#post-create-modal').modal('show');
+	},
+
+})
+
+Template.createPost.events({
 	'submit .form': function(event) {
 		event.preventDefault();
 		let title = event.target.title.value;
@@ -35,6 +43,7 @@ Template.staffGroupPosts.events({
 
 		let teamInfo = {
 			_id: this._id,
+			postOwnerId: Meteor.userId(),
 			posts: newPosts,
 		}
 
@@ -46,7 +55,7 @@ Template.staffGroupPosts.events({
 		})
 		event.target.description.value = '';
 		event.target.title.value = '';
-
+		$('#post-create-modal').modal('hide');
 
 	},
 })
