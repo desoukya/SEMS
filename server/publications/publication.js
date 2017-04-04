@@ -76,6 +76,14 @@ Meteor.publish('teams', function() {
 Meteor.publish('tags', function() {
 	return Tags.find({});
 });
+Meteor.publish('tagsInfo', function() {
+	return Tags.find({}, {
+		fields: {
+			name: 1,
+			createdAt: 1,
+		}
+	});
+});
 
 
 Meteor.publish('companies', function() {
