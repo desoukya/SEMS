@@ -43,9 +43,17 @@
                         <i class="dropdown icon"></i>
 
                         <div class="menu">
+                            <div class="header">Teams</div>
+
                             {{#each teams}}
                                 <div class="item" data-value="{{_id}}">{{companyName}}</div>
                             {{/each}}
+                            <div class="header">Staff Groups</div>
+
+                            {{#each staffGroups}}
+                                <div class="item" data-value="{{_id}}">{{name}}</div>
+                            {{/each}}
+
                         </div>
                     </div>
                 </div>

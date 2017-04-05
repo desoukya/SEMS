@@ -1,12 +1,6 @@
 {
   "adminEmail": "adminEmail",
   "systemEmail": "systemEmail",
-  "host" : "ip",
-  "username" : "username",
-  "pem" : "path to pem",
-  "path" : "project path",
-
-
 
   "environment": "production|development",
   "githubSecret": "SECRET_API_KEY",
@@ -21,8 +15,9 @@
   "DDP_LOGS": true,
   "kadira": {
     "appId": "appId",
-    "appSecret": "appSecret" 
-  },
+    "appSecret": "appSecret"
+  }
+,
   "public": {
     "analyticsSettings": {
       "Mixpanel": {
