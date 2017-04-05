@@ -81,6 +81,7 @@
         <div class="ui stackable container padded grid">
             <div class="sixteen wide centered column">
                 {{>EditPost }}
+
             </div>
         </div>
     </div>
@@ -91,19 +92,23 @@
         <div class="ui stackable container padded grid">
             <div class="sixteen wide centered column">
                 {{>createPost }}
+
             </div>
         </div>
     </div>
     <!-- /Create post Modal -->
+
     <div data-class="ui middle aligned left aligned container grid">
 
         <div class="ui eighteen wide left column">
             <a id="add-button" class="ui blue button">
-                <i class="tag icon"></i>
+                <i class="write icon"></i>
                 Create Post
             </a>
+            <i class="help circle link big icon" id="help-icon"></i>
+            {{> postHelpModal}}
             <div class="ui segment">
-                <div class="ui divided items">
+                <div class=" ui divided items">
                     {{#each getPosts}}
                         <div class="item">
                             <div class="content">

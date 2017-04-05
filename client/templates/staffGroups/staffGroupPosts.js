@@ -52,7 +52,11 @@ Template.staffGroupPosts.events({
 				sAlert.error(err.reason)
 			}
 		})
-	}
+	},
+	'click #help-icon': function(event, template) {
+
+		$('#post-help-modal').modal('show');
+	},
 
 })
 
@@ -109,4 +113,5 @@ Template.EditPost.events({
 		$('#post-edit-modal').modal('hide');
 
 	},
+
 })

@@ -4,11 +4,19 @@ Template.staffGroupAnnouncements.helpers({
 			teams: {
 				$in: [this._id]
 			}
+		}, {
+			sort: {
+				createdAt: -1
+			}
 		})
 	},
 	getGlobalAnnouncements() {
 		return Announcements.find({
 			global: true
+		}, {
+			sort: {
+				createdAt: -1
+			}
 		});
 	}
 })
