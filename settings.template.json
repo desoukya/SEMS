@@ -1,7 +1,7 @@
 {
   "adminEmail": "adminEmail",
   "systemEmail": "systemEmail",
-  
+
   "environment": "production|development",
   "githubSecret": "SECRET_API_KEY",
   "githubId": "App_ID",
@@ -14,10 +14,10 @@
 
   "DDP_LOGS": true,
   "kadira": {
-  "appId": "appID",
-  "appSecret": "appSecret"
-},
-
+    "appId": "appId",
+    "appSecret": "appSecret"
+  }
+,
   "public": {
     "analyticsSettings": {
       "Mixpanel": {
