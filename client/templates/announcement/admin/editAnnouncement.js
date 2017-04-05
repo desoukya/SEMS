@@ -2,6 +2,9 @@ Template.editAnnouncement.helpers({
 	availableTeams() {
 		return Teams.find();
 	},
+	staffTeams() {
+		return StaffTeams.find();
+	},
 
 	currentAnnouncementDropdownFormatted(teams) {
 		var formattedTeams = teams.join(',');
