@@ -6,7 +6,7 @@
         </div>
     </h2>
 
-    <form class="ui large form ">
+    <form class="ui large form " id="create">
         <div class="ui stacked segment">
 
             <!-- Title -->
@@ -14,7 +14,7 @@
                 <label>Title</label>
                 <div class="ui left icon input">
                     <i class="minus icon"></i>
-                    <input type="text" name="title" placeholder="Link title">
+                    <input type="text" name="title" placeholder="Post title">
                 </div>
             </div>
             <!-- /title -->
@@ -25,7 +25,7 @@
                 <label>Description</label>
                 <div class="ui left icon input">
                     <i class="content icon"></i>
-                    <input type="text" name="description" placeholder="Link description">
+                    <input type="text" name="description" placeholder="Post description">
                 </div>
             </div>
             <!-- /description -->
@@ -33,15 +33,58 @@
             <input type="submit" id="createAPost" class="ui fluid large green submit button" value="Create a post">
 
         </div>
+    </form>
 
-        <div class="ui error message">
-            The name is already taken, please choose another name
+</template>
+<template name="EditPost">
+
+    <h2 class="ui header">
+        <div class="content">
+            Edit Post
+        </div>
+    </h2>
+
+    <form class="ui large form " id="editForm">
+        <div class="ui stacked segment">
+
+            <!-- Title -->
+            <div class="field">
+                <label>Title</label>
+                <div class="ui left icon input">
+                    <i class="minus icon"></i>
+                    <input type="text" name="title" placeholder="Post title" value="{{title}}">
+                </div>
+            </div>
+            <!-- /title -->
+
+            <!-- /description -->
+            <div class="field">
+
+                <label>Description</label>
+                <div class="ui left icon input">
+                    <i class="content icon"></i>
+                    <input type="text" name="description" placeholder="Post description" value="{{description}}">
+                </div>
+            </div>
+            <!-- /description -->
+
+            <input type="submit" class="ui fluid large green submit button" value="Edit">
+
         </div>
     </form>
 
 </template>
-
 <template name="staffGroupPosts">
+
+    <!-- edit post Modal -->
+    <div class="ui small modal" id="post-edit-modal">
+        <div class="ui stackable container padded grid">
+            <div class="sixteen wide centered column">
+                {{>EditPost }}
+            </div>
+        </div>
+    </div>
+    <!-- /edit post Modal -->
 
     <!-- Create post Modal -->
     <div class="ui small modal" id="post-create-modal">
@@ -66,6 +109,14 @@
                             <div class="content">
 
                                 <div class="full width header">
+                                    <span class="ui right floated tiny header icons group">
+                                        {{#if canEdit this.ownerId}}
+
+                                            <i id="edit-icon" class="edit link icon" title="Edit"></i>
+                                            <i id="delete-icon" class="trash red link icon" title="Delete"></i>
+
+                                        {{/if}}
+                                    </span>
                                     <span class="ui small header">{{title}}</span>
                                 </div>
 

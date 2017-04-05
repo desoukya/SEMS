@@ -3,14 +3,33 @@ Template.staffGroupPosts.onRendered(function() {
 })
 Template.staffGroupPosts.helpers({
 	getPosts() {
-		return this.posts;
+		var postsIds = this.posts;
+		var posts = Posts.find({
+			_id: {
+				$in: postsIds
+			}
+		}, {
+			sort: {
+				createdAt: -1
+			}
+		}).fetch()
+
+		return posts;
 	},
 	getOwnerName(ownerId) {
 		var owner = Meteor.users.findOne({
 			_id: ownerId
 		})
 		return owner.fullName()
+	},
+	canEdit(postOwnerId) {
+		if(postOwnerId === Meteor.userId()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
+
 })
 
 Template.staffGroupPosts.events({
@@ -18,37 +37,42 @@ Template.staffGroupPosts.events({
 		event.preventDefault()
 		$('#post-create-modal').modal('show');
 	},
+	'click #edit-icon': function(event) {
+		event.preventDefault();
+		Session.set('postId', this._id);
+
+		$('#post-edit-modal').modal('show');
+
+	},
+	'click #delete-icon': function(event) {
+		event.preventDefault();
+		let postId = this._id;
+		Meteor.call('deletePost', postId, function(err) {
+			if(err) {
+				sAlert.error(err.reason)
+			}
+		})
+	}
 
 })
 
 Template.createPost.events({
-	'submit .form': function(event) {
+	'submit #create': function(event) {
 		event.preventDefault();
 		let title = event.target.title.value;
 		let description = event.target.description.value;
-		let createdAt = Date.now();
-		let owner = Meteor.userId();
-		let post = {
+		var groupId = Template.parentData(1)._id;
+		let ownerId = Meteor.userId();
+
+		let Post = {
 			title,
 			description,
-			createdAt,
-			ownerId: owner,
-
-		}
-		var existingPosts = this.posts;
-		var newPost = [post];
-		var newPosts = existingPosts.concat(newPost);
-
-
-
-		let teamInfo = {
-			_id: this._id,
-			postOwnerId: Meteor.userId(),
-			posts: newPosts,
+			ownerId,
+			groupId,
 		}
 
 
-		Meteor.call('updatePosts', teamInfo, function(err) {
+		Meteor.call('createPost', Post, function(err) {
 			if(err) {
 				sAlert.error(err.reason)
 			}
@@ -56,6 +80,33 @@ Template.createPost.events({
 		event.target.description.value = '';
 		event.target.title.value = '';
 		$('#post-create-modal').modal('hide');
+
+	},
+})
+Template.EditPost.events({
+	'submit #editForm': function(event) {
+		event.preventDefault();
+		let title = event.target.title.value;
+		let description = event.target.description.value;
+		let ownerId = Meteor.userId();
+		let postId = Session.get('postId')
+
+		let Post = {
+			postId,
+			title,
+			description,
+			ownerId,
+		}
+
+
+		Meteor.call('updatePost', Post, function(err) {
+			if(err) {
+				sAlert.error(err.reason)
+			}
+		})
+		event.target.description.value = '';
+		event.target.title.value = '';
+		$('#post-edit-modal').modal('hide');
 
 	},
 })
