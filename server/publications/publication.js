@@ -76,6 +76,14 @@ Meteor.publish('teams', function() {
 Meteor.publish('tags', function() {
 	return Tags.find({});
 });
+Meteor.publish('tagsInfo', function() {
+	return Tags.find({}, {
+		fields: {
+			name: 1,
+			createdAt: 1,
+		}
+	});
+});
 
 
 Meteor.publish('companies', function() {
@@ -102,6 +110,12 @@ Meteor.publish('allAnnouncements', function() {
 
 Meteor.publish('questions', function() {
 	return Questions.find({});
+});
+Meteor.publish('staffGroups', function() {
+	return StaffGroups.find({});
+});
+Meteor.publish('posts', function() {
+	return Posts.find({});
 });
 
 Meteor.publish("answers", function() {

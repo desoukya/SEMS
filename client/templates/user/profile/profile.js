@@ -103,7 +103,7 @@ Template.profile.helpers({
 
 	},
 	getFollowedQuestions() {
-		Meteor.subscribe('questions');
+
 
 		var alreadyFollowedQuestions = Meteor.user().questionsFollowed;
 

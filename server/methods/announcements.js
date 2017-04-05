@@ -33,32 +33,53 @@ Meteor.methods({
 				let team = Teams.findOne({
 					_id: teamId
 				});
-
-				let members = team.members;
-				let link = milestone ? `/milestones/${announcementId}` : `/teams/${team.slug}/announcements`;
-				let icon = milestone ? '<i class="idea icon"></i>' : '<i class="announcement icon"></i>';
-
-				members.forEach(function(id) {
-					Notifications.insert({
-						ownerId: id,
-						content: `${icon} ${typeHint} : ${title}`,
-						link: link,
-						read: false,
-						createdAt: Date.now()
+				if(!team) {
+					let group = StaffGroups.findOne({
+						_id: teamId
 					});
-					let member = Meteor.users.findOne({
-						_id: id
-					})
-					let memberemail = member.emails[0].address
-					Email.send({
-						to: memberemail,
-						from: Meteor.settings.systemEmail,
-						subject: "[SEMS] Announcements",
-						text: `Hello User, there is a new announcement on the system` + "\n" + typeHint + " " + title
-					});
-				});
+					console.log(teamId)
+					if(group) {
+						let members = group.members;
+						let link = milestone ? `/milestones/${announcementId}` : `/staff-groups/${group.name}/announcements`;
+						let icon = milestone ? '<i class="idea icon"></i>' : '<i class="announcement icon"></i>';
 
-			});
+						members.forEach(function(id) {
+							Notifications.insert({
+								ownerId: id,
+								content: `${icon} ${typeHint} : ${title}`,
+								link: link,
+								read: false,
+								createdAt: Date.now()
+							});
+						})
+					}
+				} else {
+
+					let members = team.members;
+					let link = milestone ? `/milestones/${announcementId}` : `/teams/${team.slug}/announcements`;
+					let icon = milestone ? '<i class="idea icon"></i>' : '<i class="announcement icon"></i>';
+
+					members.forEach(function(id) {
+						Notifications.insert({
+							ownerId: id,
+							content: `${icon} ${typeHint} : ${title}`,
+							link: link,
+							read: false,
+							createdAt: Date.now()
+						});
+						let member = Meteor.users.findOne({
+							_id: id
+						})
+						let memberemail = member.emails[0].address
+						Email.send({
+							to: memberemail,
+							from: Meteor.settings.systemEmail,
+							subject: "[SEMS] Announcements",
+							text: `Hello User, there is a new announcement on the system` + "\n" + typeHint + " " + title
+						});
+					}); //end inner loop
+				}
+			}); //end loop
 
 			let color = milestone ? '#002fbe' : '#fbfa62';
 			let {
