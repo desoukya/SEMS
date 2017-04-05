@@ -1,13 +1,7 @@
 {
   "adminEmail": "adminEmail",
   "systemEmail": "systemEmail",
-  "host" : "ip",
-  "username" : "username",
-  "pem" : "path to pem",
-  "path" : "project path",
-
-
-
+  
   "environment": "production|development",
   "githubSecret": "SECRET_API_KEY",
   "githubId": "App_ID",
@@ -19,6 +13,10 @@
   "MONGO_URL": "MONGO_URL",
 
   "DDP_LOGS": true,
+  "kadira": {
+  "appId": "appID",
+  "appSecret": "appSecret"
+},
 
   "public": {
     "analyticsSettings": {
