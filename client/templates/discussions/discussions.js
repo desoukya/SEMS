@@ -1,6 +1,6 @@
 Session.setDefault('pageSize', 15);
 Session.setDefault('page', 0);
-Session.setDefault('loading', true);
+//Session.setDefault('loading', true);
 Session.setDefault('tag', 'All');
 Template.discussions.onRendered(function() {
 	$('.ui.accordion').accordion();
