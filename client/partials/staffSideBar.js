@@ -7,6 +7,13 @@ Template.staffSideBar.helpers({
 			}
 		}
 		return false;
+	},
+	canEdit() {
+		var userId = Meteor.userId();
+		if(Roles.userIsInRole(userId, ADMIN)) {
+			return true;
+		}
+		return false;
 	}
 
 })

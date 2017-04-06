@@ -1,0 +1,79 @@
+<template name="editUserChoice">
+    <div class="item" data-value="{{_id}}">{{fullName}}</div>
+</template>
+
+<template name="staffGroupEdit">
+    {{#if isInRole 'admin'}}
+        <div class="ui segment">
+
+            <h1 class="ui dividing header">Edit Information</h1>
+
+            <table class="ui very basic table">
+                <tbody>
+
+                    <tr>
+                        <td class="collapsing">Group name</td>
+                        <td>
+                            <div class="ui left icon fluid  input">
+                                <i class="copyright icon"></i>
+                                <input type="text" id="groupName" maxlength="33" value="{{name}}" placeholder="Group Name">
+                            </div>
+                        </td>
+                        <td class="right aligned collapsing">
+                            <button id="changeGroupName" class="ui button">
+                                Edit
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="collapsing">Add members</td>
+                        <td>
+                            <div class="ui multiple search normal selection fluid  dropdown">
+                                <input id="members" type="hidden">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Choose Group members</div>
+                                <div class="menu">
+                                    {{#each availableMembers}}
+                                        {{> editUserChoice}}
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </td>
+                        <td class="right aligned collapsing">
+                            <button id="addMembers" class="ui  button">
+                                Add
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="ui segment">
+            <h1 class="ui dividing header">Group Members:</h1>
+            {{#momentum plugin="slide-height" class="ui animated list" }}
+                {{#each groupMembers}}
+                    {{> editableGroupMember}}
+                {{/each}}
+            {{/momentum}}
+        </div>
+    {{/if}}
+</template>
+
+<template name="editableGroupMember">
+    <div class="item">
+
+        {{#if isInRole 'admin'}}
+            <div class="right floated content">
+                <i id="delete-icon" class="action-icon  large trash link icon"></i>
+            </div>
+        {{/if}}
+
+        <img class="ui avatar image" src={{profilePicture.url}}>
+
+        <div class="content">
+            <a class="header" href="{{pathFor 'user.profile' _id=_id}}">{{fullName}}</a>
+            <div class="description">{{profile.tutorialGroup}}</div>
+        </div>
+    </div>
+</template>

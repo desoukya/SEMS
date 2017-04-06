@@ -94,12 +94,14 @@ Template.EditPost.events({
 		let description = event.target.description.value;
 		let ownerId = Meteor.userId();
 		let postId = Session.get('postId')
+		var groupId = Template.parentData(1)._id;
 
 		let Post = {
 			postId,
 			title,
 			description,
 			ownerId,
+			groupId
 		}
 
 

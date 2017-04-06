@@ -33,6 +33,24 @@ Meteor.methods({
 				posts: postId
 			}
 		});
+		let group = StaffGroups.findOne({
+			_id: groupId
+		});
+		let members = group.members;
+		let icon = "<i class=\"hand peace icon\"></i>";
+		let content = "A new post on your group";
+		let link = `/staff-groups/${group.name}/posts`;
+		for(var i = 0; i < members.length; i++) {
+			if(members[i] != Meteor.userId()) {
+				Notifications.insert({
+					ownerId: members[i],
+					content: `${icon} ${content}`,
+					link: link,
+					read: false,
+					createdAt: Date.now()
+				});
+			}
+		}
 
 	},
 
@@ -68,7 +86,8 @@ Meteor.methods({
 			postId,
 			title,
 			description,
-			ownerId
+			ownerId,
+			groupId
 
 		} = Post;
 
@@ -88,6 +107,25 @@ Meteor.methods({
 					description: description
 				}
 			});
+
+			let group = StaffGroups.findOne({
+				_id: groupId
+			});
+			let members = group.members;
+			let icon = "<i class=\"hand peace icon\"></i>";
+			let content = "A post on your group has been updated";
+			let link = `/staff-groups/${group.name}/posts`;
+			for(var i = 0; i < members.length; i++) {
+				if(members[i] != Meteor.userId()) {
+					Notifications.insert({
+						ownerId: members[i],
+						content: `${icon} ${content}`,
+						link: link,
+						read: false,
+						createdAt: Date.now()
+					});
+				}
+			}
 		} else {
 			throw new Meteor.Error(401, "You're not authorized to update this post")
 		}

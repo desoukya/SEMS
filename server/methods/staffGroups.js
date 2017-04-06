@@ -8,10 +8,10 @@ Meteor.methods({
 		} = teamInfo
 
 		if(name == "") {
-			throw new Meteor.Error(401, "Please specify a team name");
+			throw new Meteor.Error(401, "Please specify a group name");
 		}
 		if(members == []) {
-			throw new Meteor.Error(401, "You can't create an empty team");
+			throw new Meteor.Error(401, "You can't create an empty group");
 		}
 		if(!(StaffGroups.findOne({
 				"name": name
@@ -47,47 +47,91 @@ Meteor.methods({
 			})) {
 			StaffGroups.remove(teamId)
 		} else {
-			throw new Meteor.Error("The staff team you're trying to delete is not found")
+			throw new Meteor.Error("The staff group you're trying to delete is not found")
 		}
-	},
+	}
 
-	updatePosts(teamInfo) {
+	,
+	addMembersToGroup(groupInfo) {
 		let {
-			_id,
-			postOwnerId,
-			posts,
-		} = teamInfo
+			groupId,
+			groupName,
+			membersCombined,
+			newMembers,
+		} = groupInfo
 
 
+		if(groupName == "") {
+			throw new Meteor.Error(401, "Please specify a group name");
+		}
+		if(membersCombined == []) {
+			throw new Meteor.Error(401, "You can't have an empty group");
+		}
 
-		var group = StaffGroups.findOne(_id: _id);
-		StaffGroups.update(_id, {
+		StaffGroups.update({
+			"_id": groupId
+		}, {
 			$set: {
-				posts: posts
+				"members": membersCombined,
+			}
+		})
+		let icon = "<i class=\"hand peace icon\"></i>";
+		let content = "You have been added to the staff group ( " + groupName + " )";
+		let link = `/staff-groups/${groupName}`;
+		//new members
+		if(newMembers.length != 0) {
+			for(var i = 0; i < newMembers.length; i++) {
+				if(newMembers[i] != Meteor.userId()) {
+					Notifications.insert({
+						ownerId: newMembers[i],
+						content: `${icon} ${content}`,
+						link: link,
+						read: false,
+						createdAt: Date.now()
+					});
+				}
+			}
+		}
+
+
+	},
+	removeFromGroup(groupInfo) {
+		let {
+			groupId,
+			groupName,
+			members,
+			removedMember
+		} = groupInfo
+
+		if(members == []) {
+			throw new Meteor.Error(401, "You can't have an empty group");
+		}
+
+		StaffGroups.update({
+			"_id": groupId
+		}, {
+			$set: {
+				"members": members,
 			}
 		})
 
-		let icon = "<i class=\"idea icon\"></i>";
-		let content = "New post on your team";
-		let link = `/staff-groups/${group.name}/posts`;
+		let icon = "<i class=\"hand peace icon\"></i>";
+		let content = "You have been removed from the staff group ( " + groupName + " )";
+		let link = `/staff-groups/${groupName}`;
+		//new members
 
-		for(var i = 0; i < group.members.length; i++) {
-			if(group.members[i] != postOwnerId) {
-				Notifications.insert({
-					ownerId: group.members[i],
-					content: `${icon} ${content}`,
-					link: link,
-					read: false,
-					createdAt: Date.now()
-				});
-			}
+		if(removedMember != Meteor.userId()) {
+			Notifications.insert({
+				ownerId: removedMember,
+				content: `${icon} ${content}`,
+				link: link,
+				read: false,
+				createdAt: Date.now()
+			});
 		}
 
+	},
 
 
-
-
-
-	}
 
 })
