@@ -5,5 +5,8 @@
         {{#if canPost}}
             <a class="item {{isActive 'staffGroup.posts'}}" href="{{pathFor 'staffGroup.posts' name=name}}">Posts</a>
         {{/if}}
+        {{#if canEdit}}
+            <a class="item {{isActive 'staffGroup.edit'}}" href="{{pathFor 'staffGroup.edit' name=name}}">Edit Group</a>
+        {{/if}}
     </div>
 </template>
