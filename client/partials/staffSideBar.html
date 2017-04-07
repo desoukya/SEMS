@@ -1,6 +1,6 @@
 <template name="staffSideBar">
     <div class="ui secondary vertical huge pointing menu">
-        <a class="item {{isActive 'staffGroup.info'}}" href="{{pathFor 'staffGroup.info' name=name }}">Team Info</a>
+        <a class="item {{isActive 'staffGroup.info'}}" href="{{pathFor 'staffGroup.info' name=name }}">Group Info</a>
         <a class="item {{isActive 'staffGroup.announcements'}}" href="{{pathFor 'staffGroup.announcements' name=name }}">Announcements</a>
         {{#if canPost}}
             <a class="item {{isActive 'staffGroup.posts'}}" href="{{pathFor 'staffGroup.posts' name=name}}">Posts</a>
