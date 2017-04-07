@@ -131,6 +131,25 @@ Meteor.methods({
 		}
 
 	},
+	sendNotification(groupInfo) {
+		let {
+			groupName,
+			members
+		} = groupInfo
+
+		let icon = "<i class=\"hand peace icon\"></i>";
+		let content = "You group name has been updated ( " + groupName + " )";
+		let link = `/staff-groups/${groupName}`;
+		for(var i = 0; i < members.length; i++) {
+			Notifications.insert({
+				ownerId: members[i],
+				content: `${icon} ${content}`,
+				link: link,
+				read: false,
+				createdAt: Date.now()
+			});
+		}
+	}
 
 
 
