@@ -182,12 +182,13 @@ Template.discussions.helpers({
 		var user = Meteor.users.findOne({
 			_id: Meteor.userId()
 		});
-
-		return Tags.find({
-			name: {
-				$nin: user.subscriptions
-			}
-		});
+		if(user.subscriptions) {
+			return Tags.find({
+				name: {
+					$nin: user.subscriptions
+				}
+			});
+		}
 	},
 
 

@@ -17,9 +17,12 @@ Template.question.helpers({
 		})
 		var questionsFollowed = user.questionsFollowed;
 		var found = false;
-		for(var i = 0; i < questionsFollowed.length; i++) {
-			if(questionsFollowed[i] == question) {
-				found = true;
+		if(questionsFollowed) {
+
+			for(var i = 0; i < questionsFollowed.length; i++) {
+				if(questionsFollowed[i] == question) {
+					found = true;
+				}
 			}
 		}
 		return found;

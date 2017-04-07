@@ -74,6 +74,13 @@ Template.staffGroupEdit.events({
 					$('#changeGroupName').removeClass('green');
 				}
 			});
+
+			let members = this.members
+			let groupInfo = {
+				groupName,
+				members
+			}
+			Meteor.call('sendNotification', groupInfo)
 			Router.go(`/staff-groups/${groupName}`);
 
 
