@@ -106,32 +106,33 @@ Template.profile.helpers({
 
 
 		var alreadyFollowedQuestions = Meteor.user().questionsFollowed;
+		if(alreadyFollowedQuestions) {
+			var existingQuestionsFollowed = Questions.find({
+				_id: {
+					$in: alreadyFollowedQuestions
+				}
+			}).fetch();
 
-		var existingQuestionsFollowed = Questions.find({
-			_id: {
-				$in: alreadyFollowedQuestions
+			if(alreadyFollowedQuestions.length !== existingQuestionsFollowed.length) {
+				//this step is done as followedQuestions is an array of strings, but existingQuestionsFollowed is an array of objects
+				var questions = []
+				for(var i = 0; i < existingQuestionsFollowed; i++) {
+					questions[i] = existingQuestionsFollowed[i]._id;
+				}
+
+				var userId = Meteor.userId();
+				let followedQuestions = {
+					questions: questions,
+					userId
+
+				}
+				Meteor.call('updateFollowedQuestions', followedQuestions, function(err) {
+					if(err) sAlert.error(err.reason);
+				})
 			}
-		}).fetch();
 
-		if(alreadyFollowedQuestions.length !== existingQuestionsFollowed.length) {
-			//this step is done as followedQuestions is an array of strings, but existingQuestionsFollowed is an array of objects
-			var questions = []
-			for(var i = 0; i < existingQuestionsFollowed; i++) {
-				questions[i] = existingQuestionsFollowed[i]._id;
-			}
-
-			var userId = Meteor.userId();
-			let followedQuestions = {
-				questions: questions,
-				userId
-
-			}
-			Meteor.call('updateFollowedQuestions', followedQuestions, function(err) {
-				if(err) sAlert.error(err.reason);
-			})
+			return Meteor.user().questionsFollowed;
 		}
-
-		return Meteor.user().questionsFollowed;
 	},
 
 });

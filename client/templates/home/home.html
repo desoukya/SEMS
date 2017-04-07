@@ -26,6 +26,41 @@
                     </div>
                 {{/if}}
 
+                {{#if isInSeveralGroups}}
+                    <!-- Users Group -->
+                    <a href="{{pathFor 'staffGroups.browse'}}" class="ui big blue button" id="home-team-button-extra-pad">
+                        <i class="users icon"></i>
+                        All Groups
+                    </a>
+                    <!-- Users Group -->
+
+                    <div class="ui horizontal divider">
+                        Or
+                    </div>
+
+                {{else}}
+
+                    {{#if isInGroup}}
+                        <!-- User's Group -->
+                        <a href="{{pathFor 'staffGroup.info' name=groupName}}" class="ui big blue button" id="home-team-button-extra-pad">
+                            <i class="users icon"></i>
+                            Your Group
+                        </a>
+                        <!-- User's Group -->
+
+                        <!-- Browse Teams -->
+                        <a href="{{pathFor 'staffGroups.browse'}}" class="ui big blue button">
+                            <i class="browser icon"></i>
+                            Browse Groups
+                        </a>
+                        <!-- /Browse Teams -->
+
+                        <div class="ui horizontal divider">
+                            Or
+                        </div>
+                    {{/if}}
+                {{/if}}
+
                 <!-- Explore materials button -->
                 <a href="{{pathFor 'schedule'}}" class="ui big green button">
                     <i class="folder open outline icon"></i>

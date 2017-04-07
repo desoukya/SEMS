@@ -4,6 +4,36 @@ Template.home.helpers({
 		return TeamUtils.isInTeam(Meteor.userId());
 	},
 
+	isInSeveralGroups() {
+		var groups = StaffGroups.find({
+			members: {
+				$in: [Meteor.userId()]
+			}
+		}).fetch();
+		if(groups.length > 1) {
+			return true;
+		}
+		return false;
+	},
+
+	isInGroup() {
+		var group = StaffGroups.findOne({
+			members: {
+				$in: [Meteor.userId()]
+			}
+		})
+		return group;
+	},
+
+	groupName() {
+		var group = StaffGroups.findOne({
+			members: {
+				$in: [Meteor.userId()]
+			}
+		})
+		return group.name;
+	},
+
 	getTeamSlug() {
 		return TeamUtils.getTeam(Meteor.userId()).slug;
 	},
