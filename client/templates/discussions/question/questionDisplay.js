@@ -29,10 +29,12 @@ Template.questionDisplay.helpers({
 			_id: userID
 		});
 		var alreadyFollowing = false;
-		for(var i = 0; i < user.questionsFollowed.length; i++) {
-			if(user.questionsFollowed[i] == this._id) {
-				alreadyFollowing = true;
-				break;
+		if(user.questionsFollowed) {
+			for(var i = 0; i < user.questionsFollowed.length; i++) {
+				if(user.questionsFollowed[i] == this._id) {
+					alreadyFollowing = true;
+					break;
+				}
 			}
 		}
 		return !(alreadyFollowing);
@@ -44,11 +46,12 @@ Template.questionDisplay.helpers({
 			_id: userID
 		});
 		var alreadyFollowing = false;
-
-		for(var i = 0; i < user.questionsFollowed.length; i++) {
-			if(user.questionsFollowed[i] == this._id) {
-				alreadyFollowing = true;
-				break;
+		if(user.questionsFollowed) {
+			for(var i = 0; i < user.questionsFollowed.length; i++) {
+				if(user.questionsFollowed[i] == this._id) {
+					alreadyFollowing = true;
+					break;
+				}
 			}
 		}
 		return alreadyFollowing;
