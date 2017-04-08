@@ -27,9 +27,12 @@ Meteor.methods({
 				"repo": githubRepo,
 				createdAt: Date.now()
 			})
+			let group = Teams.findOne({
+				name: name
+			});
 			let icon = "<i class=\"hand peace icon\"></i>";
 			let content = "You have been added to the staff group ( " + name + " )";
-			let link = `/staff-groups/${name}`;
+			let link = `/staff-groups/${group.slug}`;
 			for(var i = 0; i < members.length; i++) {
 				if(members[i] != Meteor.userId()) {
 					Notifications.insert({
