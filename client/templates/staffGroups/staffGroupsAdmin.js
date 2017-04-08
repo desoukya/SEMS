@@ -6,7 +6,9 @@ Template.staffGroups.onRendered(function() {
 })
 
 Template.createStaffGroup.helpers({
-
+	companies() {
+		return Companies.find({});
+	},
 	getStaffMembers() {
 		return Meteor.users.find({
 			roles: {
@@ -16,7 +18,9 @@ Template.createStaffGroup.helpers({
 	},
 	getStaffGroups() {
 
-		return StaffGroups.find({}, {
+		return Teams.find({
+			isForStaff: true
+		}, {
 			sort: {
 				createdAt: -1
 			}
@@ -31,11 +35,17 @@ Template.createStaffGroup.events({
 		let name = event.target.groupName.value;
 		let members = $('#members').val().split(",");
 		let posts = [];
+		let company = Companies.findOne({
+			_id: event.target.company.value
+		});
+		let githubRepo = "https://github.com/desoukya/sems"
 
 		let teamInfo = {
 			name,
 			members,
 			posts,
+			company,
+			githubRepo
 		}
 		Meteor.call('createStaffGroup', teamInfo, function(err) {
 			if(err) {
