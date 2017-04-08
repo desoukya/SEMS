@@ -26,29 +26,47 @@ Meteor.methods({
 			"ownerId": Meteor.userId(),
 			"createdAt": Date.now()
 		});
-		StaffGroups.update({
+		Teams.update({
 			_id: groupId
 		}, {
 			$push: {
 				posts: postId
 			}
 		});
-		let group = StaffGroups.findOne({
+		let group = Teams.findOne({
 			_id: groupId
 		});
-		let members = group.members;
-		let icon = "<i class=\"hand peace icon\"></i>";
-		let content = "A new post on your group";
-		let link = `/staff-groups/${group.name}/posts`;
-		for(var i = 0; i < members.length; i++) {
-			if(members[i] != Meteor.userId()) {
-				Notifications.insert({
-					ownerId: members[i],
-					content: `${icon} ${content}`,
-					link: link,
-					read: false,
-					createdAt: Date.now()
-				});
+		if(group.isForStaff == true) {
+			let members = group.members;
+			let icon = "<i class=\"hand peace icon\"></i>";
+			let content = "A new post on your group";
+			let link = `/staff-groups/${group.slug}/posts`;
+			for(var i = 0; i < members.length; i++) {
+				if(members[i] != Meteor.userId()) {
+					Notifications.insert({
+						ownerId: members[i],
+						content: `${icon} ${content}`,
+						link: link,
+						read: false,
+						createdAt: Date.now()
+					});
+				}
+			}
+		} else {
+			let members = group.members;
+			let icon = "<i class=\"hand peace icon\"></i>";
+			let content = "A new post on your team";
+			let link = `/teams/${group.slug}/posts`;
+			for(var i = 0; i < members.length; i++) {
+				if(members[i] != Meteor.userId()) {
+					Notifications.insert({
+						ownerId: members[i],
+						content: `${icon} ${content}`,
+						link: link,
+						read: false,
+						createdAt: Date.now()
+					});
+				}
 			}
 		}
 
@@ -67,7 +85,7 @@ Meteor.methods({
 			throw new Meteor.Error(404, 'The post you are trying to delete is not found');
 
 		if(userId == post.ownerId) {
-			StaffGroups.update({
+			Teams.update({
 				posts: postId
 			}, {
 				$pull: {
@@ -108,22 +126,40 @@ Meteor.methods({
 				}
 			});
 
-			let group = StaffGroups.findOne({
+			let group = Teams.findOne({
 				_id: groupId
 			});
-			let members = group.members;
-			let icon = "<i class=\"hand peace icon\"></i>";
-			let content = "The post ( " + title + " ) on your group has been updated";
-			let link = `/staff-groups/${group.name}/posts`;
-			for(var i = 0; i < members.length; i++) {
-				if(members[i] != Meteor.userId()) {
-					Notifications.insert({
-						ownerId: members[i],
-						content: `${icon} ${content}`,
-						link: link,
-						read: false,
-						createdAt: Date.now()
-					});
+			if(group.isForStaff == true) {
+				let members = group.members;
+				let icon = "<i class=\"hand peace icon\"></i>";
+				let content = "The post ( " + title + " ) on your group has been updated";
+				let link = `/staff-groups/${group.name}/posts`;
+				for(var i = 0; i < members.length; i++) {
+					if(members[i] != Meteor.userId()) {
+						Notifications.insert({
+							ownerId: members[i],
+							content: `${icon} ${content}`,
+							link: link,
+							read: false,
+							createdAt: Date.now()
+						});
+					}
+				}
+			} else {
+				let members = group.members;
+				let icon = "<i class=\"hand peace icon\"></i>";
+				let content = "The post ( " + title + " ) on your team has been updated";
+				let link = `/teams/${group.slug}/posts`;
+				for(var i = 0; i < members.length; i++) {
+					if(members[i] != Meteor.userId()) {
+						Notifications.insert({
+							ownerId: members[i],
+							content: `${icon} ${content}`,
+							link: link,
+							read: false,
+							createdAt: Date.now()
+						});
+					}
 				}
 			}
 		} else {

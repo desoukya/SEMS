@@ -5,6 +5,8 @@ Meteor.methods({
 			name,
 			members,
 			posts,
+			company,
+			githubRepo
 		} = teamInfo
 
 		if(name == "") {
@@ -13,13 +15,16 @@ Meteor.methods({
 		if(members == []) {
 			throw new Meteor.Error(401, "You can't create an empty group");
 		}
-		if(!(StaffGroups.findOne({
+		if(!(Teams.findOne({
 				"name": name
 			}))) {
-			StaffGroups.insert({
+			Teams.insert({
 				"name": name,
 				"members": members,
 				"posts": posts,
+				"isForStaff": true,
+				"company": company,
+				"repo": githubRepo,
 				createdAt: Date.now()
 			})
 			let icon = "<i class=\"hand peace icon\"></i>";
@@ -42,10 +47,10 @@ Meteor.methods({
 	},
 
 	deleteStaffGroup(teamId) {
-		if(StaffGroups.findOne({
+		if(Teams.findOne({
 				_id: teamId
 			})) {
-			StaffGroups.remove(teamId)
+			Teams.remove(teamId)
 		} else {
 			throw new Meteor.Error("The staff group you're trying to delete is not found")
 		}
@@ -58,6 +63,7 @@ Meteor.methods({
 			groupName,
 			membersCombined,
 			newMembers,
+			groupSlug
 		} = groupInfo
 
 
@@ -68,7 +74,7 @@ Meteor.methods({
 			throw new Meteor.Error(401, "You can't have an empty group");
 		}
 
-		StaffGroups.update({
+		Teams.update({
 			"_id": groupId
 		}, {
 			$set: {
@@ -77,7 +83,7 @@ Meteor.methods({
 		})
 		let icon = "<i class=\"hand peace icon\"></i>";
 		let content = "You have been added to the staff group ( " + groupName + " )";
-		let link = `/staff-groups/${groupName}`;
+		let link = `/staff-groups/${groupSlug}`;
 		//new members
 		if(newMembers.length != 0) {
 			for(var i = 0; i < newMembers.length; i++) {
@@ -100,14 +106,15 @@ Meteor.methods({
 			groupId,
 			groupName,
 			members,
-			removedMember
+			removedMember,
+			groupSlug
 		} = groupInfo
 
 		if(members == []) {
 			throw new Meteor.Error(401, "You can't have an empty group");
 		}
 
-		StaffGroups.update({
+		Teams.update({
 			"_id": groupId
 		}, {
 			$set: {
@@ -117,7 +124,7 @@ Meteor.methods({
 
 		let icon = "<i class=\"hand peace icon\"></i>";
 		let content = "You have been removed from the staff group ( " + groupName + " )";
-		let link = `/staff-groups/${groupName}`;
+		let link = `/staff-groups/${groupSlug}`;
 		//new members
 
 		if(removedMember != Meteor.userId()) {
@@ -134,12 +141,13 @@ Meteor.methods({
 	sendNotification(groupInfo) {
 		let {
 			groupName,
-			members
+			members,
+			groupSlug
 		} = groupInfo
 
 		let icon = "<i class=\"hand peace icon\"></i>";
 		let content = "You group name has been updated ( " + groupName + " )";
-		let link = `/staff-groups/${groupName}`;
+		let link = `/staff-groups/${groupSlug}`;
 		for(var i = 0; i < members.length; i++) {
 			Notifications.insert({
 				ownerId: members[i],

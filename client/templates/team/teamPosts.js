@@ -1,7 +1,7 @@
-Template.staffGroupPosts.onRendered(function() {
+Template.teamPosts.onRendered(function() {
 
 })
-Template.staffGroupPosts.helpers({
+Template.teamPosts.helpers({
 	getPosts() {
 		var postsIds = this.posts;
 		var posts = Posts.find({
@@ -32,7 +32,7 @@ Template.staffGroupPosts.helpers({
 
 })
 
-Template.staffGroupPosts.events({
+Template.teamPosts.events({
 	'click #add-button': function(event) {
 		event.preventDefault()
 		$('#post-create-modal').modal('show');

@@ -1,11 +1,26 @@
 <template name="sideBar">
     <div class="ui secondary vertical huge pointing menu">
-        <a class="item {{isActive 'team.info'}}" href="{{pathFor 'team.info' slug=slug }}">Team Info</a>
-        <a class="item {{isActive 'team.milestones'}}" href="{{pathFor 'team.milestones' slug=slug }}">Milestones</a>
-        <a class="item {{isActive 'team.announcements'}}" href="{{pathFor 'team.announcements' slug=slug }}">Announcements</a>
-        <a class="item {{isActive 'team.gradebook'}}" href="{{pathFor 'team.gradebook' slug=slug }}">Grades</a>
-        {{#if canEdit}}
-            <a class="item {{isActive 'team.edit'}}" href="{{pathFor 'team.edit' slug=slug }}">Edit Team</a>
+        {{#if viewingTeams}}
+            <a class="item {{isActive 'team.info'}}" href="{{pathFor 'team.info' slug=slug }}">Team Info</a>
+            <a class="item {{isActive 'team.milestones'}}" href="{{pathFor 'team.milestones' slug=slug }}">Milestones</a>
+            <a class="item {{isActive 'team.announcements'}}" href="{{pathFor 'team.announcements' slug=slug }}">Announcements</a>
+            <a class="item {{isActive 'team.gradebook'}}" href="{{pathFor 'team.gradebook' slug=slug }}">Grades</a>
+            {{#if canPost}}
+                <a class="item {{isActive 'team.posts'}}" href="{{pathFor 'team.posts' slug=slug}}">Posts</a>
+            {{/if}}
+            {{#if canEdit}}
+                <a class="item {{isActive 'team.edit'}}" href="{{pathFor 'team.edit' slug=slug }}">Edit Team</a>
+            {{/if}}
+        {{/if}}
+        {{#if viewingStaff }}
+            <a class="item {{isActive 'staffGroup.info'}}" href="{{pathFor 'staffGroup.info' slug=slug }}">Group Info</a>
+            <a class="item {{isActive 'staffGroup.announcements'}}" href="{{pathFor 'staffGroup.announcements' slug=slug }}">Announcements</a>
+            {{#if canPost}}
+                <a class="item {{isActive 'staffGroup.posts'}}" href="{{pathFor 'staffGroup.posts' slug=slug}}">Posts</a>
+            {{/if}}
+            {{#if canEdit}}
+                <a class="item {{isActive 'staffGroup.edit'}}" href="{{pathFor 'staffGroup.edit' slug=slug}}">Edit Group</a>
+            {{/if}}
         {{/if}}
     </div>
 </template>

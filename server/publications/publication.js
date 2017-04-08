@@ -111,9 +111,6 @@ Meteor.publish('allAnnouncements', function() {
 Meteor.publish('questions', function() {
 	return Questions.find({});
 });
-Meteor.publish('staffGroups', function() {
-	return StaffGroups.find({});
-});
 Meteor.publish('posts', function() {
 	return Posts.find({});
 });
