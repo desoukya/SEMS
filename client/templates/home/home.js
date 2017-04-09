@@ -5,10 +5,11 @@ Template.home.helpers({
 	},
 
 	isInSeveralGroups() {
-		var groups = StaffGroups.find({
+		var groups = Teams.find({
 			members: {
 				$in: [Meteor.userId()]
-			}
+			},
+			isForStaff: true
 		}).fetch();
 		if(groups.length > 1) {
 			return true;
@@ -17,19 +18,21 @@ Template.home.helpers({
 	},
 
 	isInGroup() {
-		var group = StaffGroups.findOne({
+		var group = Teams.findOne({
 			members: {
 				$in: [Meteor.userId()]
-			}
+			},
+			isForStaff: true
 		})
 		return group;
 	},
 
 	groupName() {
-		var group = StaffGroups.findOne({
+		var group = Teams.findOne({
 			members: {
 				$in: [Meteor.userId()]
-			}
+			},
+			isForStaff: true
 		})
 		return group.name;
 	},
@@ -37,7 +40,9 @@ Template.home.helpers({
 	getTeamSlug() {
 		return TeamUtils.getTeam(Meteor.userId()).slug;
 	},
-
+	getGroupSlug() {
+		return TeamUtils.getGroup(Meteor.userId()).slug;
+	},
 	teams() {
 		return Teams.find({}).map(function(item, index) {
 			item.number = index + 1;

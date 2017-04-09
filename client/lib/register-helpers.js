@@ -64,7 +64,15 @@ Template.registerHelper('colorOfTag', (name) => {
 
 });
 
+Template.registerHelper('viewingTeams', function() {
 
+	var routeName = Router.current().route.getName();
+	if(routeName == 'team.info' || routeName == 'team.about' || routeName == 'team.gradebook' || routeName == 'team.posts' || routeName == 'team.announcements' || routeName == 'team.milestones' || routeName == 'team.edit') {
+		return true;
+	}
+	return false;
+
+})
 // Based on this answer on SO :
 // http://stackoverflow.com/a/31525361/3357910
 // Passing variable to template and extend it to the current context

@@ -1,9 +1,13 @@
 Template.createAnnouncement.helpers({
 	teams() {
-		return Teams.find();
+		return Teams.find({
+			isForStaff: false
+		});
 	},
 	staffGroups() {
-		return StaffGroups.find();
+		return Teams.find({
+			isForStaff: true
+		});
 	}
 
 });

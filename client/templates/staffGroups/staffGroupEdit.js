@@ -34,12 +34,14 @@ Template.staffGroupEdit.events({
 		var membersCombined = oldMembers.concat(newMembers);
 		let groupId = this._id;
 		let groupName = this.name;
+		let groupSlug = Router.current().params.slug
 
 		let groupInfo = {
 			groupId,
 			groupName,
 			membersCombined,
 			newMembers,
+			groupSlug,
 
 		}
 
@@ -60,7 +62,7 @@ Template.staffGroupEdit.events({
 
 		} else {
 			var groupName = $('#groupName').val()
-			StaffGroups.update({
+			Teams.update({
 				_id: this._id
 			}, {
 				$set: {
@@ -76,12 +78,14 @@ Template.staffGroupEdit.events({
 			});
 
 			let members = this.members
+			let groupSlug = Router.current().params.slug
 			let groupInfo = {
 				groupName,
-				members
+				members,
+				groupSlug
 			}
 			Meteor.call('sendNotification', groupInfo)
-			Router.go(`/staff-groups/${groupName}`);
+			Router.go(`/staff-groups/${groupSlug}`);
 
 
 		}
@@ -104,19 +108,20 @@ Template.staffGroupEdit.onRendered(function() {
 Template.editableGroupMember.events({
 	'click #delete-icon': function(event, template) {
 		var groupId = Template.parentData(1)._id;
-		var group = StaffGroups.findOne({
+		var group = Teams.findOne({
 			_id: groupId
 		});
 		var groupName = group.name
 		var members = group.members;
 		var removedMember = this._id;
 		members.splice(removedMember, 1)
-
+		let groupSlug = Router.current().params.slug
 		var groupInfo = {
 			groupId,
 			groupName,
 			members,
-			removedMember
+			removedMember,
+			groupSlug
 		}
 
 
@@ -128,4 +133,4 @@ Template.editableGroupMember.events({
 			}
 		});
 	},
-});
+});;
