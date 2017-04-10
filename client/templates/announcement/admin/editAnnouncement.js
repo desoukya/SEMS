@@ -1,9 +1,13 @@
 Template.editAnnouncement.helpers({
 	availableTeams() {
-		return Teams.find();
+		return Teams.find({
+			isForStaff: false
+		});
 	},
-	staffTeams() {
-		return StaffTeams.find();
+	staffGroups() {
+		return Teams.find({
+			isForStaff: true
+		});
 	},
 
 	currentAnnouncementDropdownFormatted(teams) {
