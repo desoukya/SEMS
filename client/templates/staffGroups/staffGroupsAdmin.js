@@ -35,8 +35,9 @@ Template.createStaffGroup.events({
 		let name = event.target.groupName.value;
 		let members = $('#members').val().split(",");
 		let posts = [];
+		//cant create a team without a company, so using any company name
 		let company = Companies.findOne({
-			_id: event.target.company.value
+			name: "angular"
 		});
 		let githubRepo = "https://github.com/desoukya/sems"
 

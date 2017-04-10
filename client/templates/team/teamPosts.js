@@ -1,6 +1,15 @@
 Template.teamPosts.onRendered(function() {
 
 })
+Template.EditPost.helpers({
+
+	currentPost() {
+		let postId = Session.get('postId');
+		return Posts.findOne({
+			_id: postId
+		})
+	}
+})
 Template.teamPosts.helpers({
 	getPosts() {
 		var postsIds = this.posts;
@@ -28,6 +37,12 @@ Template.teamPosts.helpers({
 		} else {
 			return false;
 		}
+	},
+	availablePosts() {
+		if(this.posts.length != 0) {
+			return true
+		}
+		return false
 	}
 
 })
