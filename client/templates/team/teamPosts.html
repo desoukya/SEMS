@@ -45,32 +45,34 @@
     </h2>
 
     <form class="ui large form " id="editForm">
-        <div class="ui stacked segment">
+        {{#with currentPost}}
+            <div class="ui stacked segment">
 
-            <!-- Title -->
-            <div class="field">
-                <label>Title</label>
-                <div class="ui left icon input">
-                    <i class="minus icon"></i>
-                    <input type="text" name="title" placeholder="Post title" value="{{title}}">
+                <!-- Title -->
+                <div class="field">
+                    <label>Title</label>
+                    <div class="ui left icon input">
+                        <i class="minus icon"></i>
+                        <input type="text" name="title" placeholder="Post title" value="{{title}}">
+                    </div>
                 </div>
-            </div>
-            <!-- /title -->
+                <!-- /title -->
 
-            <!-- /description -->
-            <div class="field">
+                <!-- /description -->
+                <div class="field">
 
-                <label>Description</label>
-                <div class="ui left icon input">
-                    <i class="content icon"></i>
-                    <input type="text" name="description" placeholder="Post description" value="{{description}}">
+                    <label>Description</label>
+                    <div class="ui left icon input">
+                        <i class="content icon"></i>
+                        <input type="text" name="description" placeholder="Post description" value="{{description}}">
+                    </div>
                 </div>
+                <!-- /description -->
+
+                <input type="submit" class="ui fluid large green submit button" value="Edit">
+
             </div>
-            <!-- /description -->
-
-            <input type="submit" class="ui fluid large green submit button" value="Edit">
-
-        </div>
+        {{/with}}
     </form>
 
 </template>
@@ -107,46 +109,57 @@
             </a>
             <i class="help circle link big icon" id="help-icon" title="help"></i>
             {{> postHelpModal}}
-            <div class="ui segment">
-                <div class=" ui fluid divided items" style="word-break: break-all">
-                    {{#each getPosts}}
-                        <div class="item">
-                            <div class="content">
+            {{#if availablePosts}}
+                <div class="ui segment">
+                    <div class=" ui fluid divided items" style="word-break: break-all">
+                        {{#each getPosts}}
+                            <div class="item">
+                                <div class="content">
 
-                                <div class="full width header">
-                                    <span class="ui right floated tiny header icons group">
-                                        {{#if canEdit this.ownerId}}
+                                    <div class="full width header">
+                                        <span class="ui right floated tiny header icons group">
+                                            {{#if canEdit this.ownerId}}
 
-                                            <i id="edit-icon" class="edit link icon" title="Edit"></i>
-                                            <i id="delete-icon" class="trash red link icon" title="Delete"></i>
+                                                <i id="edit-icon" class="edit link icon" title="Edit"></i>
+                                                <i id="delete-icon" class="trash red link icon" title="Delete"></i>
 
-                                        {{/if}}
-                                    </span>
-                                    <span class="ui small header">{{title}}</span>
+                                            {{/if}}
+                                        </span>
+                                        <span class="ui small header">{{title}}</span>
+                                    </div>
+
+                                    <div class="meta">
+
+                                        <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
+                                            <i class="wait icon"></i>
+                                            {{formatDateHumanized createdAt}}
+                                        </span>
+                                    </div>
+
+                                    <div class="description">
+                                        {{#markdown}}{{description}}{{/markdown}}
+                                    </div>
+
+                                    <div class="full right width footer" align="right">
+                                        <a class="ui right small fotter" href="{{pathFor 'user.profile' _id=ownerId}}">{{getOwnerName ownerId}}</a>
+                                    </div>
+
                                 </div>
-
-                                <div class="meta">
-
-                                    <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
-                                        <i class="wait icon"></i>
-                                        {{formatDateHumanized createdAt}}
-                                    </span>
-                                </div>
-
-                                <div class="description">
-                                    {{#markdown}}{{description}}{{/markdown}}
-                                </div>
-
-                                <div class="full right width footer" align="right">
-                                    <a class="ui right small fotter" href="{{pathFor 'user.profile' _id=ownerId}}">{{getOwnerName ownerId}}</a>
-                                </div>
-
                             </div>
-                        </div>
-                    {{/each}}
+                        {{/each}}
 
+                    </div>
                 </div>
-            </div>
+            {{else}}
+                <div class="ui container grid">
+                    <div class="center aligned middle aligned column">
+                        <p>
+                            <i class="huge warning circle icon"></i>
+                        </p>
+                        <h1 class="large text">No posts Available yet</h1>
+                    </div>
+                </div>
+            {{/if}}
 
         </div>
     </div>
