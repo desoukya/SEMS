@@ -18,13 +18,7 @@ Template.home.helpers({
 	},
 
 	isInGroup() {
-		var group = Teams.findOne({
-			members: {
-				$in: [Meteor.userId()]
-			},
-			isForStaff: true
-		})
-		return group;
+		return TeamUtils.isInGroup(Meteor.userId());
 	},
 
 	groupName() {
