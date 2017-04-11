@@ -97,7 +97,7 @@ Template.staffGroupEdit.events({
 Template.staffGroupEdit.onRendered(function() {
 	$('.ui.search.dropdown')
 		.dropdown({
-			maxSelections: 8,
+			//maxSelections: 8,
 			forceSelection: false
 		});
 });
