@@ -13,9 +13,21 @@
                 <!-- /BestAnswers -->
                 <!-- Team Ribbon -->
                 {{#if teamId }}
-                    <h3>
-                        <a class="ui red big center left ribbon label" href="{{pathFor 'team.info' slug=teamSlug}}" title="Team">{{teamName}}</a>
-                    </h3>
+                    {{#if teamtype}}
+                        <h3>
+
+                            <a class="ui blue big center left ribbon label" href="{{pathFor 'team.info' slug=teamSlug}}" title="Team">
+                                <i class="university icon"></i>
+                                {{teamName}}</a>
+                        </h3>
+                    {{else}}
+                        <h3>
+
+                            <a class="ui red big center left ribbon label" href="{{pathFor 'team.info' slug=teamSlug}}" title="Team">
+                                <i class="student icon"></i>
+                                {{teamName}}</a>
+                        </h3>
+                    {{/if}}
                 {{/if}}
                 <!-- /Team Ribbon -->
 

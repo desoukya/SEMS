@@ -1,4 +1,5 @@
 Template.profile.onRendered(function() {
+	//Meteor.subscribe('usersSpecific', this._id)
 	$(".rating").rating();
 })
 
@@ -28,6 +29,13 @@ Template.profile.helpers({
 
 		if(team) {
 			return team.slug;
+		}
+	},
+	teamtype() {
+		var team = TeamUtils.getTeam(this._id);
+
+		if(team) {
+			return team.isForStaff;
 		}
 	},
 

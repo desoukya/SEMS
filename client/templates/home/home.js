@@ -1,6 +1,7 @@
 // Meteor.subscribe("leaderboardSortedTeams");
 Template.home.helpers({
 	isInTeam() {
+
 		return TeamUtils.isInTeam(Meteor.userId());
 	},
 
@@ -18,13 +19,7 @@ Template.home.helpers({
 	},
 
 	isInGroup() {
-		var group = Teams.findOne({
-			members: {
-				$in: [Meteor.userId()]
-			},
-			isForStaff: true
-		})
-		return group;
+		return TeamUtils.isInGroup(Meteor.userId());
 	},
 
 	groupName() {
