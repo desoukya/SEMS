@@ -44,23 +44,25 @@ Meteor.methods({
 				let icon = milestone ? '<i class="idea icon"></i>' : '<i class="announcement icon"></i>';
 
 				members.forEach(function(id) {
-					Notifications.insert({
-						ownerId: id,
-						content: `${icon} ${typeHint} : ${title}`,
-						link: link,
-						read: false,
-						createdAt: Date.now()
-					});
-					let member = Meteor.users.findOne({
-						_id: id
-					})
-					let memberemail = member.emails[0].address
-					Email.send({
-						to: memberemail,
-						from: Meteor.settings.systemEmail,
-						subject: "[SEMS] Announcements",
-						text: `Hello User, there is a new announcement on the system` + "\n" + typeHint + " " + title
-					});
+					if(id != ownerId) {
+						Notifications.insert({
+							ownerId: id,
+							content: `${icon} ${typeHint} : ${title}`,
+							link: link,
+							read: false,
+							createdAt: Date.now()
+						});
+						let member = Meteor.users.findOne({
+							_id: id
+						})
+						let memberemail = member.emails[0].address
+						Email.send({
+							to: memberemail,
+							from: Meteor.settings.systemEmail,
+							subject: "[SEMS] Announcements",
+							text: `Hello User, there is a new announcement on the system` + "\n" + typeHint + " " + title
+						});
+					}
 				}); //end inner loop
 
 			}); //end loop
