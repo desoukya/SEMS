@@ -8,7 +8,11 @@ Template.createAnnouncement.helpers({
 		return Teams.find({
 			isForStaff: true
 		});
-	}
+	},
+
+	// Description() {
+	// 	return Session.get('description')
+	// }
 
 });
 
@@ -42,6 +46,20 @@ Template.createAnnouncement.onRendered(function() {
 
 	$('.ui.dropdown').dropdown();
 	$('.ui.checkbox').checkbox();
+
+	//for preview
+	// $('#previewText').hide()
+	// Session.set('description', "nothing to preview")
+	//
+	// $('#preview').click(function() {
+	// 	$('.active').removeClass('active');
+	// 	$(this).addClass('active');
+	// });
+	//
+	// $('#text').click(function() {
+	// 	$('.active').removeClass('active');
+	// 	$(this).addClass('active');
+	// });
 });
 
 Template.createAnnouncement.events({
@@ -70,6 +88,7 @@ Template.createAnnouncement.events({
 				$('.ui.form').form('add errors', {
 					error: err.reason
 				});
+				//$('#announcement-create-modal').modal('hide');
 			} else {
 				sAlert.success('Your Announcement is published successfully !');
 				$('.ui.form').form('reset');
@@ -77,7 +96,9 @@ Template.createAnnouncement.events({
 				$('#announcement-create-modal').modal('hide');
 			}
 		});
-
+		$('#announcement-create-modal').modal('hide');
+		// $('.ui small modal').modal('hide');
+		// console.log("out")
 
 	},
 
@@ -90,5 +111,23 @@ Template.createAnnouncement.events({
 		}
 
 	},
+
+	//for preview
+
+	// 'click #preview ': function(event) {
+	//
+	//
+	// 	var description = $('#description').val();
+	// 	console.log(description);
+	// 	$('#previewText').show()
+	// 	$('#description').hide()
+	// 	Session.set('description', description)
+	//
+	// },
+	// 'click #text ': function(event) {
+	//
+	// 	$('#description').show()
+	// 	$('#previewText').hide()
+	// }
 
 })

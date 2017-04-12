@@ -18,6 +18,13 @@ Template.teamMilestones.helpers({
 			}
 		});
 	},
+	viewingTeams() {
+		var routeName = Router.current().route.getName();
+		if(routeName == 'team.milestones') {
+			return true;
+		}
+		return false;
+	},
 });
 
 Template.milestone.helpers({

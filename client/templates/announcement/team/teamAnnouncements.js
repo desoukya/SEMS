@@ -12,4 +12,12 @@ Template.teamAnnouncements.helpers({
 			}
 		});
 	},
+
+	viewingTeams() {
+		var routeName = Router.current().route.getName();
+		if(routeName == 'team.announcements') {
+			return true;
+		}
+		return false;
+	},
 });

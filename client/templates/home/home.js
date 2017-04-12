@@ -1,6 +1,7 @@
 // Meteor.subscribe("leaderboardSortedTeams");
 Template.home.helpers({
 	isInTeam() {
+
 		return TeamUtils.isInTeam(Meteor.userId());
 	},
 
