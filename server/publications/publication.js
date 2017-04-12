@@ -26,7 +26,6 @@ Meteor.publish('TeamUsers', function(teamSlug) {
 Meteor.publish('usersBasic', function() {
 	return Meteor.users.find({}, {
 		fields: {
-			name: 1,
 			profile: 1,
 			roles: 1
 		}
