@@ -138,6 +138,12 @@ Template.questionDisplay.events({
 		var user = Meteor.users.findOne({
 			_id: Meteor.userId()
 		});
+		/////////////// Analytics ///////////////
+		analytics.track('Clicked Follow', {
+			questionId: this._id,
+			questionTitle: this.title
+		});
+		/////////////// Analytics ///////////////
 		var alreadyfollowedQuestions = user.questionsFollowed;
 
 
@@ -160,6 +166,14 @@ Template.questionDisplay.events({
 	'click #unfollow-icon': function(event, template) {
 		event.preventDefault();
 		var question = this._id;
+
+		/////////////// Analytics ///////////////
+		analytics.track('Clicked unfollow', {
+			questionId: this._id,
+			questionTitle: this.title
+		});
+		/////////////// Analytics ///////////////
+
 		var user = Meteor.users.findOne({
 			_id: Meteor.userId()
 		});

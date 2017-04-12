@@ -98,7 +98,7 @@ Template.profile.helpers({
 				subscriptions,
 				userId
 			}
-			Meteor.call('updateSubscriptions', userSubscriptions, function(err) {
+			Meteor.call('removeSubscriptions', userSubscriptions, function(err) {
 				if(err) sAlert.error(err.reason);
 			})
 		}
@@ -162,7 +162,7 @@ Template.profiletag.events({
 			userId
 		}
 
-		Meteor.call('updateSubscriptions', userSubscriptions, function(err) {
+		Meteor.call('removeSubscriptions', userSubscriptions, function(err) {
 			if(err)
 				sAlert.error(err.reason);
 		})
