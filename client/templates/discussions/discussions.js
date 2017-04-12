@@ -94,7 +94,11 @@ Template.discussions.events({
 	},
 	'click #filterLabel': function(event, template) {
 
-
+		/////////////// Analytics ///////////////
+		analytics.track('Clicked on filter tag', {
+			tagName: event.target.text
+		});
+		/////////////// Analytics ///////////////
 		Session.set('tag', event.target.text);
 
 	},
@@ -104,29 +108,41 @@ Template.discussions.events({
 			_id: Meteor.userId()
 		});
 		var userSubs = user.subscriptions;
-		var subs = event.target.tag.value.split(",");
+		var newSubs;
+		if(event.target.tag.value) {
+			newSubs = event.target.tag.value.split(",");
+		}
+
 		var subscriptions = [];
 
 		if(userSubs != null) {
-			subscriptions = userSubs.concat(subs);
+			subscriptions = userSubs.concat(newSubs);
 
 		} else {
-			subscriptions = subs;
+			subscriptions = newSubs;
 		}
 		var userId = Meteor.userId();
-
 		let userSubscriptions = {
 			subscriptions,
+			newSubs,
 			userId
 		}
 
-		Meteor.call('updateSubscriptions', userSubscriptions, function(err) {
+		/////////////// Analytics ///////////////
+		analytics.track('Clicked Subscribe', {
+			newSubscriptions: newSubs
+		});
+		/////////////// Analytics ///////////////
+
+		Meteor.call('addSubscriptions', userSubscriptions, function(err) {
 			if(err) {
 				sAlert.error(err.reason);
+			} else {
+				sAlert.success('Your subscriptions are updated successfully');
 			}
 		})
 		$('.ui.multiple.selection.dropdown').dropdown('clear');
-		sAlert.success('Your subscriptions are updated successfully');
+
 
 
 
