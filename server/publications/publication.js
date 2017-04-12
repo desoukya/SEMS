@@ -11,9 +11,19 @@ Meteor.publish('currUser', function() {
 Meteor.publish('fullUsers', function() {
 	return Meteor.users.find({});
 });
+//users of each team
+Meteor.publish('TeamUsers', function(teamSlug) {
+	var TeamUsers = Teams.findOne({
+		slug: teamSlug
+	}).members
+	return Meteor.users.find({
+		_id: {
+			$in: TeamUsers
+		}
+	});
+});
 
-
-Meteor.publish('questionUsers', function() {
+Meteor.publish('usersBasic', function() {
 	return Meteor.users.find({}, {
 		fields: {
 			name: 1,
@@ -23,6 +33,7 @@ Meteor.publish('questionUsers', function() {
 	})
 })
 
+//for user profile
 Meteor.publish('usersSpecific', function(userId) {
 	return Meteor.users.find({
 		_id: userId
@@ -165,6 +176,13 @@ Meteor.publishComposite('questionData', function(questionSlug) {
 //-------------------------------------------
 //Teams
 //--------------------------------------------
+//for a specific team
+Meteor.publish('teamSpecific', function(slug) {
+	return Teams.find({
+		slug: slug
+	})
+})
+
 Meteor.publish('teamBasicInfo', function() {
 	return Teams.find({}, {
 		fields: {
@@ -251,7 +269,25 @@ Meteor.publish('allAnnouncements', function() {
 	return Announcements.find();
 });
 
+//Posts
+//-------------------------------
 
+
+Meteor.publish('posts', function() {
+	return Posts.find({});
+});
+
+
+Meteor.publish('postsSpecific', function(teamSlug) {
+	var teamPosts = Teams.findOne({
+		slug: teamSlug
+	}).posts
+	return Posts.find({
+		_id: {
+			$in: teamPosts
+		}
+	});
+});
 //-------------------------------------------
 
 //other
@@ -273,9 +309,6 @@ Meteor.publish('materials', function() {
 	return Materials.find({});
 });
 
-Meteor.publish('posts', function() {
-	return Posts.find({});
-});
 
 Meteor.publish('notifications', function() {
 	return Notifications.find({
