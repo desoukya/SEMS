@@ -5,6 +5,9 @@ Meteor.methods({
 		let {
 			slack
 		} = require('../slack');
+		let {
+			slackJTA
+		} = require('../slack');
 
 		let {
 			title,
@@ -88,6 +91,7 @@ Meteor.methods({
 
 
 		slack.send(message);
+		slackJTA.send(message);
 	},
 
 	deleteQuestion(questionId) {

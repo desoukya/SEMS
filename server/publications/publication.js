@@ -235,6 +235,14 @@ Meteor.publish('companies', function() {
 Meteor.publish("answers", function() {
 	return Answers.find({});
 });
+Meteor.publish("answersDiscussions", function() {
+	return Answers.find({}, {
+		fields: {
+			_id: 1,
+			bestAnswer: 1
+		}
+	});
+});
 Meteor.publish("answersProfileInfo", function() {
 	return Answers.find({}, {
 		fields: {
