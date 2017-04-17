@@ -1,3 +1,43 @@
+//USERS
+
+//----------------------------------------
+
+Meteor.publish('currUser', function() {
+	return Meteor.users.find({
+		_id: this.userId
+	});
+});
+
+Meteor.publish('fullUsers', function() {
+	return Meteor.users.find({});
+});
+//users of each team
+Meteor.publish('TeamUsers', function(teamSlug) {
+	var TeamUsers = Teams.findOne({
+		slug: teamSlug
+	}).members
+	return Meteor.users.find({
+		_id: {
+			$in: TeamUsers
+		}
+	});
+});
+
+Meteor.publish('usersBasic', function() {
+	return Meteor.users.find({}, {
+		fields: {
+			profile: 1,
+			roles: 1
+		}
+	})
+})
+
+//for user profile
+Meteor.publish('usersSpecific', function(userId) {
+	return Meteor.users.find({
+		_id: userId
+	})
+})
 Meteor.publish('users', function(roles = ROLES) {
 
 	// Checking that roles is an array of strings
@@ -43,88 +83,37 @@ Meteor.publish('users', function(roles = ROLES) {
 	// If user is not logged in return nothing to fire up ready()
 	return [];
 });
+//--------------------------------------------
 
-Meteor.publish('currUser', function() {
-	return Meteor.users.find({
-		_id: this.userId
-	});
-});
-
-Meteor.publish('images', function() {
-	return Images.find({});
-});
-
-Meteor.publish('survey', function() {
-	return Survey.find({});
-});
-
-Meteor.publish('fullUsers', function() {
-	return Meteor.users.find({});
-});
-
-Meteor.publish('files', function() {
-	return Files.find({});
-});
-
-Meteor.publish('materials', function() {
-	return Materials.find({});
-});
-
-Meteor.publish('teams', function() {
-	return Teams.find({});
-});
-Meteor.publish('tags', function() {
-	return Tags.find({});
-});
-Meteor.publish('tagsInfo', function() {
-	return Tags.find({}, {
-		fields: {
-			name: 1,
-			createdAt: 1,
-		}
-	});
-});
-
-
-Meteor.publish('companies', function() {
-	return Companies.find({});
-});
-
-Meteor.publish('announcements', function() {
-	return Announcements.find({
-		milestone: {
-			$ne: true
-		}
-	});
-});
-
-Meteor.publish('milestones', function() {
-	return Announcements.find({
-		milestone: true
-	});
-});
-
-Meteor.publish('allAnnouncements', function() {
-	return Announcements.find();
-});
+//QUESTIONS
+//------------------------------------------
 
 Meteor.publish('questions', function() {
 	return Questions.find({});
 });
-Meteor.publish('posts', function() {
-	return Posts.find({});
-});
-
-Meteor.publish("answers", function() {
-	return Answers.find({});
-});
-
-Meteor.publish('notifications', function() {
-	return Notifications.find({
-		ownerId: this.userId
+Meteor.publish('questionsBasicInfo', function() {
+	return Questions.find({}, {
+		fields: {
+			slug: 1,
+			ownerId: 1,
+			title: 1,
+			createdAt: 1,
+			upvotes: 1,
+			downvotes: 1,
+			viewers: 1,
+			tags: 1,
+			answers: 1
+		}
 	});
-
 });
+
+Meteor.publish('questionsIds', function() {
+	return Questions.find({}, {
+		fields: {
+			_id: 1
+		}
+	})
+})
 
 Meteor.publishComposite('questionData', function(questionSlug) {
 
@@ -183,3 +172,155 @@ Meteor.publishComposite('questionData', function(questionSlug) {
 	}
 
 });
+//-------------------------------------------
+//Teams
+//--------------------------------------------
+//for a specific team
+Meteor.publish('teamSpecific', function(slug) {
+	return Teams.find({
+		slug: slug
+	})
+})
+
+Meteor.publish('teamBasicInfo', function() {
+	return Teams.find({}, {
+		fields: {
+			_id: 1,
+			name: 1,
+			isForStaff: 1,
+			company: 1,
+			members: 1,
+			slug: 1
+		}
+	})
+})
+Meteor.publish('teams', function() {
+	return Teams.find({});
+});
+//---------------------------------------------
+//Tags
+//-----------------------------------
+Meteor.publish('tags', function() {
+	return Tags.find({});
+});
+Meteor.publish('tagsInfo', function() {
+	return Tags.find({}, {
+		fields: {
+			name: 1,
+			createdAt: 1,
+		}
+	});
+});
+
+Meteor.publish('tagsType', function() {
+	return Tags.find({}, {
+		fields: {
+			name: 1,
+			type: 1,
+		}
+	});
+});
+
+//-------------------------------------------
+
+//companies
+//---------------------------------------
+
+Meteor.publish('companies', function() {
+	return Companies.find({});
+});
+//-----------------------------------------------
+//answers
+//-----------------------------------------------
+Meteor.publish("answers", function() {
+	return Answers.find({});
+});
+Meteor.publish("answersDiscussions", function() {
+	return Answers.find({}, {
+		fields: {
+			_id: 1,
+			bestAnswer: 1
+		}
+	});
+});
+Meteor.publish("answersProfileInfo", function() {
+	return Answers.find({}, {
+		fields: {
+			_id: 1,
+			ownerId: 1,
+			bestAnswer: 1
+		}
+	});
+});
+
+//-----------------------------------------------
+
+//announcements
+//-----------------------------------------
+
+Meteor.publish('announcements', function() {
+	return Announcements.find({
+		milestone: {
+			$ne: true
+		}
+	});
+});
+
+Meteor.publish('milestones', function() {
+	return Announcements.find({
+		milestone: true
+	});
+});
+
+Meteor.publish('allAnnouncements', function() {
+	return Announcements.find();
+});
+
+//Posts
+//-------------------------------
+
+
+Meteor.publish('posts', function() {
+	return Posts.find({});
+});
+
+
+Meteor.publish('postsSpecific', function(teamSlug) {
+	var teamPosts = Teams.findOne({
+		slug: teamSlug
+	}).posts
+	return Posts.find({
+		_id: {
+			$in: teamPosts
+		}
+	});
+});
+//-------------------------------------------
+
+//other
+//---------------------------------------------
+
+Meteor.publish('images', function() {
+	return Images.find({});
+});
+
+Meteor.publish('survey', function() {
+	return Survey.find({});
+});
+
+Meteor.publish('files', function() {
+	return Files.find({});
+});
+
+Meteor.publish('materials', function() {
+	return Materials.find({});
+});
+
+
+Meteor.publish('notifications', function() {
+	return Notifications.find({
+		ownerId: this.userId
+	});
+
+});
+//-----------------------------------------------------

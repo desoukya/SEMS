@@ -141,7 +141,28 @@ Meteor.methods({
 			throw new Meteor.Error(401, "Can't perform this action");
 
 	},
-	updateSubscriptions(userSubscriptions) {
+	addSubscriptions(userSubscriptions) {
+		let {
+			subscriptions,
+			newSubs,
+			userId
+		} = userSubscriptions
+
+		if(!UserUtils.isLoggedIn)
+			throw new Meteor.Error(401, "Not authorized, please login first");
+		if(!newSubs)
+			throw new Meteor.Error(401, "Please choose tags to subscribe to first");
+
+
+		//let user = Meteor.user();
+		Meteor.users.update(userId, {
+			$set: {
+				subscriptions: subscriptions
+			}
+		});
+
+	},
+	removeSubscriptions(userSubscriptions) {
 		let {
 			subscriptions,
 			userId
@@ -149,6 +170,8 @@ Meteor.methods({
 
 		if(!UserUtils.isLoggedIn)
 			throw new Meteor.Error(401, "Not authorized, please login first");
+
+
 
 		//let user = Meteor.user();
 		Meteor.users.update(userId, {

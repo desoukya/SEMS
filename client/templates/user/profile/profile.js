@@ -1,4 +1,5 @@
 Template.profile.onRendered(function() {
+
 	$(".rating").rating();
 })
 
@@ -16,14 +17,15 @@ Template.profile.helpers({
 	},
 
 	teamId() {
+		//var team = Meteor.subscribe('teamSpecific', (this._id));
 		var team = TeamUtils.getTeam(this._id);
-
 		if(team) {
 			return team._id;
 		}
 	},
 
 	teamSlug() {
+		//var team = Meteor.subscribe('teamSpecific', (this._id));
 		var team = TeamUtils.getTeam(this._id);
 
 		if(team) {
@@ -31,7 +33,9 @@ Template.profile.helpers({
 		}
 	},
 
+
 	teamName() {
+		//var team = Meteor.subscribe('teamSpecific', (this._id));
 		var team = TeamUtils.getTeam(this._id);
 
 		if(team) {
@@ -94,7 +98,7 @@ Template.profile.helpers({
 				subscriptions,
 				userId
 			}
-			Meteor.call('updateSubscriptions', userSubscriptions, function(err) {
+			Meteor.call('removeSubscriptions', userSubscriptions, function(err) {
 				if(err) sAlert.error(err.reason);
 			})
 		}
@@ -158,7 +162,7 @@ Template.profiletag.events({
 			userId
 		}
 
-		Meteor.call('updateSubscriptions', userSubscriptions, function(err) {
+		Meteor.call('removeSubscriptions', userSubscriptions, function(err) {
 			if(err)
 				sAlert.error(err.reason);
 		})

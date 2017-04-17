@@ -14,7 +14,9 @@
                 <!-- Team Ribbon -->
                 {{#if teamId }}
                     <h3>
-                        <a class="ui red big center left ribbon label" href="{{pathFor 'team.info' slug=teamSlug}}" title="Team">{{teamName}}</a>
+                        <a class="ui red big center left ribbon label" href="{{pathFor 'team.info' slug=teamSlug}}" title="Team">
+                            <i class="student icon"></i>
+                            {{teamName}}</a>
                     </h3>
                 {{/if}}
                 <!-- /Team Ribbon -->
