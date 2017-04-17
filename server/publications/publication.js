@@ -32,6 +32,20 @@ Meteor.publish('usersBasic', function() {
 	}), Images.find({})]
 })
 
+//for editing staff groups
+Meteor.publish('staffUsersBasic', function() {
+	return [Meteor.users.find({
+		roles: {
+			$in: ['teaching-assistant', 'admin', 'junior-teaching-assistant', 'lecturer']
+		}
+	}, {
+		fields: {
+			profile: 1,
+			roles: 1
+		}
+	}), Images.find({})]
+})
+
 //for user profile
 Meteor.publish('usersSpecific', function(userId) {
 	return [Meteor.users.find({
