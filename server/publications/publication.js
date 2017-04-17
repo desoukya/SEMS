@@ -46,6 +46,7 @@ Meteor.publish('staffUsersBasic', function() {
 	}), Images.find({})]
 })
 
+
 //for user profile
 Meteor.publish('usersSpecific', function(userId) {
 	return [Meteor.users.find({
