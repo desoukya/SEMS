@@ -205,6 +205,7 @@ Meteor.publish('teamBasicInfo', function() {
 			isForStaff: 1,
 			company: 1,
 			members: 1,
+			siteUrl: 1,
 			slug: 1
 		}
 	})
