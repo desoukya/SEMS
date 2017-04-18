@@ -90,7 +90,7 @@ Meteor.methods({
 		})
 
 
-		slack.send(message);
+		//slack.send(message);
 		slackJTA.send(message);
 	},
 
