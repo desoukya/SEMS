@@ -159,8 +159,27 @@ Template.answer.events({
 
 		if(Meteor.userId() === question.ownerId) {
 			Meteor.call('markBestAnswer', data, function(err) {
-				if(err)
+				if(err) {
 					sAlert.error(err.reason);
+				} else {
+					var answer = Answers.findOne({
+						_id: data.answerId
+					})
+					var answerOwner = Meteor.users.findOne({
+						_id: answer.ownerId
+					}, {
+						fields: {
+							profile: 1,
+							roles: 1
+						}
+					})
+					/////////////// Analytics ///////////////
+					analytics.track('Marked a best answer', {
+						answerOwnerName: answerOwner.fullName(),
+						answerOwnerRole: answerOwner.roles
+					});
+					/////////////// Analytics ///////////////
+				}
 			});
 		}
 	}
