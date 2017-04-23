@@ -14,9 +14,8 @@ Template.newsFeed.helpers({
 	},
 	feed() {
 
-		let hours = new Date(Date.now() - (1 * 60 * 60 * 1000))
 		return NewsFeed.find({
-			feedOwnerId: Meteor.userId()
+			feedOwnerId: Meteor.userId(),
 		}, {
 			sort: {
 				createdAt: -1
@@ -72,4 +71,46 @@ Template.newsFeed.helpers({
 		})
 		return post.title
 	},
+	getNewestAnnouncements() {
+		return Announcements.find({
+			milestone: false,
+			global: true
+		}, {
+			sort: {
+				createdAt: -1
+			},
+			limit: 5
+		});
+	},
+	getTeamOrGroupSlug() {
+		var link = "home";
+		if(TeamUtils.isInTeam(Meteor.userId())) {
+			var team = TeamUtils.getTeam(Meteor.userId())
+
+			link = "/teams/" + team.slug + "/announcements"
+
+		} else {
+			if(TeamUtils.isInGroup(Meteor.userId())) {
+				var group = TeamUtils.getGroup(Meteor.userId())
+				link = "/staff-groups/" + group.slug + "/announcements"
+
+			}
+		}
+		return link;
+	},
+	getNewestMilestones() {
+		return Announcements.find({
+			milestone: true,
+			global: true
+		}, {
+			sort: {
+				createdAt: -1
+			},
+			limit: 5
+		});
+	},
+	getMilestoneLink(id) {
+		return "/milestones/" + id
+
+	}
 })

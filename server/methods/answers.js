@@ -116,6 +116,9 @@ Meteor.methods({
 					answers: answerId
 				}
 			});
+			NewsFeed.remove({
+				objectId: answerId
+			})
 			Answers.remove({
 				_id: answerId
 			});

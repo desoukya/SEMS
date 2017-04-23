@@ -77,7 +77,7 @@ Meteor.methods({
 				let icon = "<i class=\"tag icon\"></i>";
 				let link = `/discussions/${question.slug}`;
 
-				if(user._id != question.ownerId)
+				if(user._id != question.ownerId) {
 					Notifications.insert({
 						ownerId: user._id,
 						content: `${icon} ${user.profile.firstName}: ${content}`,
@@ -85,16 +85,17 @@ Meteor.methods({
 						read: false,
 						createdAt: Date.now()
 					});
-				NewsFeed.insert({
-					feedOwnerId: user._id,
-					eventOwnerId: Meteor.userId(),
-					content: ` just asked a question you subscribed to one of its tags`,
-					type: `question`,
-					link: link,
-					objectId: questionId,
-					createdAt: Date.now()
+					NewsFeed.insert({
+						feedOwnerId: user._id,
+						eventOwnerId: Meteor.userId(),
+						content: ` just asked a question you subscribed to one of its tags`,
+						type: `question`,
+						link: link,
+						objectId: questionId,
+						createdAt: Date.now()
 
-				})
+					})
+				}
 			}
 
 		})
@@ -138,6 +139,9 @@ Meteor.methods({
 				}
 			});
 
+			NewsFeed.remove({
+				objectId: questionId
+			})
 			// Delete self
 			Questions.remove({
 				_id: questionId

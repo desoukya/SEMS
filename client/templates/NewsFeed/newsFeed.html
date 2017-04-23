@@ -1,6 +1,6 @@
 <template name="newsFeed">
   <div class="ui container grid">
-    <div class="ten wide left column">
+    <div class="twelve wide left column">
       <h2>News Feed</h2>
       <div class="left row">
         <div class="ui feed">
@@ -53,6 +53,60 @@
             </div>
           {{/each}}
         </div>
+      </div>
+
+    </div>
+
+    <div class="four wide right column">
+      <div class="ui card">
+        <div class="content">
+          <div class="header">Announcements</div>
+        </div>
+        <div class="content">
+          <h4 class="ui sub header">Neweset five</h4>
+          <div class="ui small feed">
+            {{#each getNewestAnnouncements}}
+              <div class="event">
+                <div class="content">
+                  <a href="{{getTeamOrGroupSlug}}">
+                    {{title}}
+                  </a>
+                  <div class="right aligned date">
+                    {{formatDateHumanized createdAt}}
+                  </div>
+                </div>
+              </div>
+
+            {{/each}}
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ui card">
+        <div class="content">
+          <div class="header">Milestones</div>
+        </div>
+        <div class="content">
+          <h4 class="ui sub header">Neweset five</h4>
+          <div class="ui small feed">
+            {{#each getNewestMilestones}}
+              <div class="event">
+                <div class="content">
+                  <a href="{{getMilestoneLink _id}}">
+                    {{title}}
+                  </a>
+                  <div class="right aligned date">
+                    {{formatDateHumanized createdAt}}
+                  </div>
+                </div>
+              </div>
+            {{/each}}
+
+          </div>
+        </div>
+
       </div>
 
     </div>

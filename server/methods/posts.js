@@ -114,7 +114,9 @@ Meteor.methods({
 					posts: postId
 				}
 			});
-
+			NewsFeed.remove({
+				objectId: postId
+			})
 			Posts.remove(postId);
 		} else {
 			throw new Meteor.Error(401, 'You are not authorized to delete this post !');
