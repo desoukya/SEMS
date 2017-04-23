@@ -80,13 +80,25 @@ Meteor.methods({
 				var content = "A question you are following has a new answer"
 				let icon = "<i class=\"pointing up icon\"></i>";
 				let link = `/discussions/${question.slug}`;
-				if(answer.ownerId != user._id) Notifications.insert({
-					ownerId: user._id,
-					content: `${icon} ${user.profile.firstName}: ${content}`,
-					link: link,
-					read: false,
-					createdAt: Date.now()
-				});
+				if(answer.ownerId != user._id) {
+					Notifications.insert({
+						ownerId: user._id,
+						content: `${icon} ${user.profile.firstName}: ${content}`,
+						link: link,
+						read: false,
+						createdAt: Date.now()
+					});
+					NewsFeed.insert({
+						feedOwnerId: user._id,
+						eventOwnerId: Meteor.userId(),
+						content: ` just answered a question you are following.`,
+						type: `follow`,
+						link: link,
+						objectId: answerId,
+						createdAt: Date.now()
+
+					})
+				}
 			}
 		})
 	},

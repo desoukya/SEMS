@@ -85,16 +85,10 @@ Meteor.methods({
 						read: false,
 						createdAt: Date.now()
 					});
-			}
-
-		})
-		var users = Meteor.users.find({});
-		users.forEach(function(user) {
-			if(user._id != Meteor.userId()) {
 				NewsFeed.insert({
 					feedOwnerId: user._id,
 					eventOwnerId: Meteor.userId(),
-					content: ` just a question`,
+					content: ` just asked a question you subscribed to one of its tags`,
 					type: `question`,
 					link: link,
 					objectId: questionId,
@@ -102,7 +96,23 @@ Meteor.methods({
 
 				})
 			}
+
 		})
+		// var users = Meteor.users.find({});
+		// users.forEach(function(user) {
+		// 	if(user._id != Meteor.userId()) {
+		// 		NewsFeed.insert({
+		// 			feedOwnerId: user._id,
+		// 			eventOwnerId: Meteor.userId(),
+		// 			content: ` just a question`,
+		// 			type: `question`,
+		// 			link: link,
+		// 			objectId: questionId,
+		// 			createdAt: Date.now()
+		//
+		// 		})
+		// 	}
+		// })
 
 
 		//slack.send(message);

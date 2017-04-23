@@ -106,6 +106,15 @@ Meteor.publish('users', function(roles = ROLES) {
 Meteor.publish('questions', function() {
 	return Questions.find({});
 });
+Meteor.publish('questionsNewsFeed', function() {
+	return Questions.find({}, {
+		fields: {
+			title: 1,
+			tags: 1,
+			answers: 1
+		}
+	});
+});
 Meteor.publish('questionsBasicInfo', function() {
 	return Questions.find({}, {
 		fields: {

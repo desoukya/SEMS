@@ -1,6 +1,5 @@
 Template.newsFeed.helpers({
 
-
 	fullName() {
 		var eventOnwer = Meteor.users.findOne({
 			_id: this.eventOwnerId
@@ -14,6 +13,8 @@ Template.newsFeed.helpers({
 		return [eventOnwer]
 	},
 	feed() {
+
+		let hours = new Date(Date.now() - (1 * 60 * 60 * 1000))
 		return NewsFeed.find({
 			feedOwnerId: Meteor.userId()
 		}, {
@@ -48,16 +49,27 @@ Template.newsFeed.helpers({
 		})
 		return announcement.title
 	},
-	isABestAnswer() {
-		return this.type === 'bestAnswer'
+	isAnAnswer() {
+		return(this.type === 'bestAnswer' || this.type === 'follow')
 
 	},
-	questionTitleOfBestAnswer(objectId) {
+	questionTitleOfAnswer(objectId) {
 		let question = Questions.findOne({
 			answers: {
 				$in: [objectId]
 			}
 		})
 		return question.title
-	}
+	},
+
+	isAPost() {
+		return this.type === 'post'
+
+	},
+	postTitle(objectId) {
+		let post = Posts.findOne({
+			_id: objectId
+		})
+		return post.title
+	},
 })

@@ -50,6 +50,17 @@ Meteor.methods({
 						read: false,
 						createdAt: Date.now()
 					});
+
+					NewsFeed.insert({
+						feedOwnerId: members[i],
+						eventOwnerId: Meteor.userId(),
+						content: `posted on the group ${group.name}`,
+						type: `post`,
+						link: link,
+						objectId: postId,
+						createdAt: Date.now()
+
+					})
 				}
 			}
 		} else {
@@ -66,6 +77,17 @@ Meteor.methods({
 						read: false,
 						createdAt: Date.now()
 					});
+
+					NewsFeed.insert({
+						feedOwnerId: members[i],
+						eventOwnerId: Meteor.userId(),
+						content: ` posted on your team ${group.name}`,
+						type: `post`,
+						link: link,
+						objectId: postId,
+						createdAt: Date.now()
+
+					})
 				}
 			}
 		}

@@ -38,9 +38,15 @@
                   </div>
                 {{/if}}
 
-                {{#if isABestAnswer}}
+                {{#if isAnAnswer}}
                   <div class="extra">
-                    <a href="{{link}}">{{questionTitleOfBestAnswer objectId}}</a>
+                    <a href="{{link}}">{{questionTitleOfAnswer objectId}}</a>
+                  </div>
+                {{/if}}
+
+                {{#if isAPost}}
+                  <div class="extra">
+                    <a href="{{link}}">{{postTitle objectId}}</a>
                   </div>
                 {{/if}}
               </div>
