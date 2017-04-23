@@ -288,6 +288,7 @@ Meteor.methods({
 		// I shouldn't notify myself that I marked my answer as the
 		// best answer :v
 		if(Meteor.userId() !== answer.ownerId) {
+
 			Notifications.insert({
 				ownerId: answer.ownerId,
 				content: `${icon} ${content}`,
@@ -296,6 +297,24 @@ Meteor.methods({
 				createdAt: Date.now()
 			});
 		}
+		var users = Meteor.users.find({});
+		users.forEach(function(user) {
+			if(user._id != Meteor.userId()) {
+				NewsFeed.insert({
+					feedOwnerId: user._id,
+					eventOwnerId: Meteor.userId(),
+					content: ` marked a best answer to his question`,
+					type: `bestAnswer`,
+					link: link,
+					objectId: answerId,
+					createdAt: Date.now()
+
+				})
+			}
+		})
+
+
+
 	}
 
 });

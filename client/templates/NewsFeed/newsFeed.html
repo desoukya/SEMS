@@ -23,7 +23,7 @@
                 </div>
                 {{#if isAQuestion}}
                   <div class="extra">
-                    <a href="{{link}}">{{title objectId}}</a>
+                    <a href="{{link}}">{{questionTitle objectId}}</a>
                     <div class="extra">
                       {{#each tags objectId}}
                         {{> tag}}
@@ -33,7 +33,15 @@
                 {{/if}}
 
                 {{#if isAnAnnouncement}}
-                  <div class="extra"></div>
+                  <div class="extra">
+                    <a href="{{link}}">{{announcementTitle objectId}}</a>
+                  </div>
+                {{/if}}
+
+                {{#if isABestAnswer}}
+                  <div class="extra">
+                    <a href="{{link}}">{{questionTitleOfBestAnswer objectId}}</a>
+                  </div>
                 {{/if}}
               </div>
             </div>

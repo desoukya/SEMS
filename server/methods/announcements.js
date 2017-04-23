@@ -52,6 +52,17 @@ Meteor.methods({
 							read: false,
 							createdAt: Date.now()
 						});
+
+						NewsFeed.insert({
+							feedOwnerId: id,
+							eventOwnerId: Meteor.userId(),
+							content: ` has a new announcement`,
+							type: `announcement`,
+							link: link,
+							objectId: announcementId,
+							createdAt: Date.now()
+
+						})
 						let member = Meteor.users.findOne({
 							_id: id
 						})

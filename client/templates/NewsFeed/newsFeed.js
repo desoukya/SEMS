@@ -32,9 +32,31 @@ Template.newsFeed.helpers({
 		})
 		return question.tags
 	},
-	title(objectId) {
+	questionTitle(objectId) {
 		let question = Questions.findOne({
 			_id: objectId
+		})
+		return question.title
+	},
+	isAnAnnouncement() {
+		return this.type === 'announcement'
+
+	},
+	announcementTitle(objectId) {
+		let announcement = Announcements.findOne({
+			_id: objectId
+		})
+		return announcement.title
+	},
+	isABestAnswer() {
+		return this.type === 'bestAnswer'
+
+	},
+	questionTitleOfBestAnswer(objectId) {
+		let question = Questions.findOne({
+			answers: {
+				$in: [objectId]
+			}
 		})
 		return question.title
 	}
