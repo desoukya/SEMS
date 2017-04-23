@@ -311,7 +311,21 @@ Meteor.publish('postsSpecific', function(teamSlug) {
 		}
 	});
 });
+
+
 //-------------------------------------------
+
+//newsFeed
+
+Meteor.publish('newsFeed', function() {
+	return NewsFeed.find({});
+})
+Meteor.publish('newsFeedSpecific', function(userId) {
+	return NewsFeed.find({
+		feedOwnerId: userId
+	});
+})
+
 
 //other
 //---------------------------------------------

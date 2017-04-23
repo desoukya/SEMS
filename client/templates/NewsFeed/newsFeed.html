@@ -1,0 +1,46 @@
+<template name="newsFeed">
+  <div class="ui container grid">
+    <div class="ten wide left column">
+      <h2>News Feed</h2>
+      <div class="left row">
+        <div class="ui feed">
+          {{#each feed}}
+            <div class="event">
+              <div class="label">
+                {{#each eventOnwer}}
+                  <img class="ui small circular image" src="{{profilePicture.url}}">
+                {{/each}}
+              </div>
+              <div class="content">
+                <div class="summary">
+                  <a class="user" href="{{pathFor 'user.profile' _id=eventOwnerId}}">
+                    {{fullName}}
+                  </a>
+                  {{content}}
+                  <div class="date">
+                    {{formatDateHumanized createdAt}}
+                  </div>
+                </div>
+                {{#if isAQuestion}}
+                  <div class="extra">
+                    <a href="{{link}}">{{title objectId}}</a>
+                    <div class="extra">
+                      {{#each tags objectId}}
+                        {{> tag}}
+                      {{/each}}
+                    </div>
+                  </div>
+                {{/if}}
+
+                {{#if isAnAnnouncement}}
+                  <div class="extra"></div>
+                {{/if}}
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</template>
