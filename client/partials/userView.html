@@ -2,9 +2,13 @@
   <div class="item">
     {{#if isInTeam}}
       <a class="ui primary button" href="{{pathFor 'team.info' slug=getTeamSlug}}">Your team</a>
-    {{/if}}
-    {{#if isInGroup}}
-      <a class="ui primary button" href="{{pathFor 'staffGroup.info' slug=getGroupSlug}}">Your Group</a>
+    {{else}}
+      {{#if isInGroup}}
+        <a class="ui primary button" href="{{pathFor 'staffGroup.info' slug=getGroupSlug}}">Your Group</a>
+      {{else}}
+        <a>Not in a team</a>
+
+      {{/if}}
     {{/if}}
   </div>
   <!-- Notifications -->
