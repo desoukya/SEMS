@@ -134,9 +134,17 @@
       <!-- /Title -->
 
       <!-- Description -->
-      <div class="field">
-        <label>Description</label>
-        <textarea name="description"></textarea>
+      <div class="two fields">
+        <div class="required field">
+          <label>Description</label>
+          <textarea name="description" placeholder="Description"></textarea>
+        </div>
+        <div class="field">
+          <label>Preview</label>
+          <label name="markdown" id="markdown">
+            {{#markdown}}{{{instance.output.get}}}{{/markdown}}
+          </label>
+        </div>
       </div>
       <!-- /Description -->
 

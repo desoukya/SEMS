@@ -1,164 +1,175 @@
 <template name="createPost">
 
-    <h2 class="ui header">
-        <div class="content">
-            Create a Post
+  <h2 class="ui header">
+    <div class="content">
+      Create a Post
+    </div>
+  </h2>
+
+  <form class="ui large form " id="create">
+    <div class="ui stacked segment">
+
+      <!-- Title -->
+      <div class="field">
+        <label>Title</label>
+        <div class="ui left icon input">
+          <i class="minus icon"></i>
+          <input type="text" name="title" placeholder="Post title">
         </div>
-    </h2>
+      </div>
+      <!-- /title -->
 
-    <form class="ui large form " id="create">
-        <div class="ui stacked segment">
-
-            <!-- Title -->
-            <div class="field">
-                <label>Title</label>
-                <div class="ui left icon input">
-                    <i class="minus icon"></i>
-                    <input type="text" name="title" placeholder="Post title">
-                </div>
-            </div>
-            <!-- /title -->
-
-            <!-- /description -->
-            <div class="field">
-
-                <label>Description</label>
-                <textarea type="text" name="description" placeholder="Post description"></textarea>
-
-            </div>
-            <!-- /description -->
-
-            <input type="submit" id="createAPost" class="ui fluid large green submit button" value="Create a post">
-
+      <!-- /description -->
+      <div class="two fields">
+        <div class="required field">
+          <label>Description</label>
+          <textarea type="text" name="description" placeholder="Post Description"></textarea>
         </div>
-    </form>
+        <div class="field">
+          <label>Preview</label>
+          <label name="markdown" id="markdown">
+            {{#markdown}}{{{instance.output.get}}}{{/markdown}}
+          </label>
+        </div>
+      </div>
+      <!-- /description -->
+
+      <input type="submit" id="createAPost" class="ui fluid large green submit button" value="Create a post">
+
+    </div>
+  </form>
 
 </template>
 <template name="EditPost">
 
-    <h2 class="ui header">
-        <div class="content">
-            Edit Post
+  <h2 class="ui header">
+    <div class="content">
+      Edit Post
+    </div>
+  </h2>
+
+  <form class="ui large form " id="editForm">
+    {{#with currentPost}}
+      <div class="ui stacked segment">
+
+        <!-- Title -->
+        <div class="field">
+          <label>Title</label>
+          <div class="ui left icon input">
+            <i class="minus icon"></i>
+            <input type="text" name="title" placeholder="Post title" value="{{title}}">
+          </div>
         </div>
-    </h2>
+        <!-- /title -->
 
-    <form class="ui large form " id="editForm">
-        {{#with currentPost}}
-            <div class="ui stacked segment">
+        <!-- /description -->
+        <div class="two fields">
+          <div class="required field">
+            <label>Description</label>
+            <textarea type="text" name="description" placeholder="Post Description" value="{{description}}"></textarea>
+          </div>
+          <div class="field">
+            <label>Preview</label>
+            <label name="markdown" id="markdown">
+              {{#markdown}}{{{instance.output.get}}}{{/markdown}}
+            </label>
+          </div>
+        </div>
+        <!-- /description -->
 
-                <!-- Title -->
-                <div class="field">
-                    <label>Title</label>
-                    <div class="ui left icon input">
-                        <i class="minus icon"></i>
-                        <input type="text" name="title" placeholder="Post title" value="{{title}}">
-                    </div>
-                </div>
-                <!-- /title -->
+        <input type="submit" class="ui fluid large green submit button" value="Edit">
 
-                <!-- /description -->
-                <div class="field">
-
-                    <label>Description</label>
-
-                    <textarea type="text" name="description" placeholder="Post description" value="{{description}}"></textarea>
-
-                </div>
-                <!-- /description -->
-
-                <input type="submit" class="ui fluid large green submit button" value="Edit">
-
-            </div>
-        {{/with}}
-    </form>
+      </div>
+    {{/with}}
+  </form>
 
 </template>
 <template name="teamPosts">
 
-    <!-- edit post Modal -->
-    <div class="ui small modal" id="post-edit-modal">
-        <div class="ui stackable container padded grid">
-            <div class="sixteen wide centered column">
-                {{>EditPost }}
+  <!-- edit post Modal -->
+  <div class="ui small modal" id="post-edit-modal">
+    <div class="ui stackable container padded grid">
+      <div class="sixteen wide centered column">
+        {{>EditPost }}
 
-            </div>
-        </div>
+      </div>
     </div>
-    <!-- /edit post Modal -->
+  </div>
+  <!-- /edit post Modal -->
 
-    <!-- Create post Modal -->
-    <div class="ui small modal" id="post-create-modal">
-        <div class="ui stackable container padded grid">
-            <div class="sixteen wide centered column">
-                {{>createPost }}
+  <!-- Create post Modal -->
+  <div class="ui small modal" id="post-create-modal">
+    <div class="ui stackable container padded grid">
+      <div class="sixteen wide centered column">
+        {{>createPost }}
 
-            </div>
-        </div>
+      </div>
     </div>
-    <!-- /Create post Modal -->
+  </div>
+  <!-- /Create post Modal -->
 
-    <div data-class="ui middle aligned left aligned container grid">
+  <div data-class="ui middle aligned left aligned container grid">
 
-        <div class="ui eighteen wide left column">
-            <a id="add-button" class="ui blue button">
-                <i class="write icon"></i>
-                Create Post
-            </a>
-            <i class="help circle link big icon" id="help-icon" title="help"></i>
-            {{> postHelpModal}}
-            {{#if availablePosts}}
-                <div class="ui segment">
-                    <div class=" ui fluid divided items" style="word-break: break-all">
-                        {{#each getPosts}}
-                            <div class="item">
-                                <div class="content">
+    <div class="ui eighteen wide left column">
+      <a id="add-button" class="ui blue button">
+        <i class="write icon"></i>
+        Create Post
+      </a>
+      <i class="help circle link big icon" id="help-icon" title="help"></i>
+      {{> postHelpModal}}
+      {{#if availablePosts}}
+        <div class="ui segment">
+          <div class=" ui fluid divided items" style="word-break: break-all">
+            {{#each getPosts}}
+              <div class="item">
+                <div class="content">
 
-                                    <div class="full width header">
-                                        <span class="ui right floated tiny header icons group">
-                                            {{#if canEdit this.ownerId}}
+                  <div class="full width header">
+                    <span class="ui right floated tiny header icons group">
+                      {{#if canEdit this.ownerId}}
 
-                                                <i id="edit-icon" class="edit link icon" title="Edit"></i>
-                                                <i id="delete-icon" class="trash red link icon" title="Delete"></i>
+                        <i id="edit-icon" class="edit link icon" title="Edit"></i>
+                        <i id="delete-icon" class="trash red link icon" title="Delete"></i>
 
-                                            {{/if}}
-                                        </span>
-                                        <span class="ui small header">{{title}}</span>
-                                    </div>
+                      {{/if}}
+                    </span>
+                    <span class="ui small header">{{title}}</span>
+                  </div>
 
-                                    <div class="meta">
+                  <div class="meta">
 
-                                        <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
-                                            <i class="wait icon"></i>
-                                            {{formatDateHumanized createdAt}}
-                                        </span>
-                                    </div>
+                    <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">
+                      <i class="wait icon"></i>
+                      {{formatDateHumanized createdAt}}
+                    </span>
+                  </div>
 
-                                    <div class="description">
-                                        {{#markdown}}{{description}}{{/markdown}}
-                                    </div>
+                  <div class="description">
+                    {{#markdown}}{{description}}{{/markdown}}
+                  </div>
 
-                                    <div class="full right width footer" align="right">
-                                        <a class="ui right small fotter" href="{{pathFor 'user.profile' _id=ownerId}}">{{getOwnerName ownerId}}</a>
-                                    </div>
+                  <div class="full right width footer" align="right">
+                    <a class="ui right small fotter" href="{{pathFor 'user.profile' _id=ownerId}}">{{getOwnerName ownerId}}</a>
+                  </div>
 
-                                </div>
-                            </div>
-                        {{/each}}
-
-                    </div>
                 </div>
-            {{else}}
-                <div class="ui container grid">
-                    <div class="center aligned middle aligned column">
-                        <p>
-                            <i class="huge warning circle icon"></i>
-                        </p>
-                        <h1 class="large text">No posts Available yet</h1>
-                    </div>
-                </div>
-            {{/if}}
+              </div>
+            {{/each}}
 
+          </div>
         </div>
+      {{else}}
+        <div class="ui container grid">
+          <div class="center aligned middle aligned column">
+            <p>
+              <i class="huge warning circle icon"></i>
+            </p>
+            <h1 class="large text">No posts Available yet</h1>
+          </div>
+        </div>
+      {{/if}}
+
     </div>
+  </div>
 
 </template>

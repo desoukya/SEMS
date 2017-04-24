@@ -8,6 +8,16 @@ Template.createAnswerForm.helpers({
 
 	}
 })
+Template.createAnswerForm.onCreated(function() {
+	var template = this;
+	template.input = new ReactiveVar('')
+	template.output = new ReactiveVar('')
+	template.autorun(() => {
+		var input = template.input.get()
+		template.output.set(input);
+	})
+
+})
 
 Template.createAnswerForm.events({
 	'submit #create-answer-form': function(event, template) {
@@ -33,5 +43,9 @@ Template.createAnswerForm.events({
 		});
 
 	},
+	'keyup textarea': function(event, template) {
+		var input = template.$(event.currentTarget).val();
+		template.input.set(input);
+	}
 
 });

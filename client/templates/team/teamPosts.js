@@ -1,6 +1,26 @@
 Template.teamPosts.onRendered(function() {
 
 })
+Template.createPost.onCreated(function() {
+	var template = this;
+	template.input = new ReactiveVar('')
+	template.output = new ReactiveVar('')
+	template.autorun(() => {
+		var input = template.input.get()
+		template.output.set(input);
+	})
+
+})
+Template.EditPost.onCreated(function() {
+	var template = this;
+	template.input = new ReactiveVar('')
+	template.output = new ReactiveVar('')
+	template.autorun(() => {
+		var input = template.input.get()
+		template.output.set(input);
+	})
+
+})
 Template.EditPost.helpers({
 
 	currentPost() {
@@ -73,6 +93,7 @@ Template.teamPosts.events({
 		$('#post-help-modal').modal('show');
 	},
 
+
 })
 
 Template.createPost.events({
@@ -101,6 +122,10 @@ Template.createPost.events({
 		$('#post-create-modal').modal('hide');
 
 	},
+	'keyup textarea': function(event, template) {
+		var input = template.$(event.currentTarget).val();
+		template.input.set(input);
+	}
 })
 Template.EditPost.events({
 	'submit #editForm': function(event) {
@@ -130,5 +155,9 @@ Template.EditPost.events({
 		$('#post-edit-modal').modal('hide');
 
 	},
+	'keyup textarea': function(event, template) {
+		var input = template.$(event.currentTarget).val();
+		template.input.set(input);
+	}
 
 })
