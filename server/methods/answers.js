@@ -318,7 +318,7 @@ Meteor.methods({
 				NewsFeed.insert({
 					feedOwnerId: user._id,
 					eventOwnerId: Meteor.userId(),
-					content: ` marked a best answer to his question`,
+					content: ` marked a best answer to his/her question`,
 					type: `bestAnswer`,
 					link: link,
 					objectId: answerId,
