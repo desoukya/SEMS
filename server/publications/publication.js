@@ -205,6 +205,15 @@ Meteor.publish('teamSpecific', function(slug) {
 		slug: slug
 	})
 })
+Meteor.publish('teamsSlug', function() {
+	return Teams.find({}, {
+		fields: {
+			members: 1,
+			isForStaff: 1,
+			slug: 1
+		}
+	})
+})
 
 Meteor.publish('teamBasicInfo', function() {
 	return Teams.find({}, {
