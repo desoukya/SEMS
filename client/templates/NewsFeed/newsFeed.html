@@ -5,56 +5,69 @@
       <div class="ui container segment">
         <h2>News Feed</h2>
         <div class="left row">
-          <div class="ui feed">
-            {{#each feed}}
-              <div class="event">
-                <div class="label">
-                  {{#each eventOnwer}}
-                    <img class="ui small circular image" src="{{profilePicture.url}}">
-                  {{/each}}
-                </div>
-                <div class="content">
-                  <div class="summary">
-                    <a class="user" href="{{pathFor 'user.profile' _id=eventOwnerId}}">
-                      {{fullName}}
-                    </a>
-                    {{content}}
-                    <div class="date">
-                      {{formatDateHumanized createdAt}}
-                    </div>
+          {{#if newsFeedEmtpy}}
+            <div class="ui feed">
+
+              {{#each feed}}
+                <div class="event">
+                  <div class="label">
+                    {{#each eventOnwer}}
+                      <img class="ui small circular image" src="{{profilePicture.url}}">
+                    {{/each}}
                   </div>
-                  {{#if isAQuestion}}
-                    <div class="extra">
-                      <a href="{{link}}">{{questionTitle objectId}}</a>
-                      <div class="extra">
-                        {{#each tags objectId}}
-                          {{> tag}}
-                        {{/each}}
+                  <div class="content">
+                    <div class="summary">
+                      <a class="user" href="{{pathFor 'user.profile' _id=eventOwnerId}}">
+                        {{fullName}}
+                      </a>
+                      {{content}}
+                      <div class="date">
+                        {{formatDateHumanized createdAt}}
                       </div>
                     </div>
-                  {{/if}}
+                    {{#if isAQuestion}}
+                      <div class="extra">
+                        <a href="{{link}}">{{questionTitle objectId}}</a>
+                        <div class="extra">
+                          {{#each tags objectId}}
+                            {{> tag}}
+                          {{/each}}
+                        </div>
+                      </div>
+                    {{/if}}
 
-                  {{#if isAnAnnouncement}}
-                    <div class="extra">
-                      <a href="{{link}}">{{announcementTitle objectId}}</a>
-                    </div>
-                  {{/if}}
+                    {{#if isAnAnnouncement}}
+                      <div class="extra">
+                        <a href="{{link}}">{{announcementTitle objectId}}</a>
+                      </div>
+                    {{/if}}
 
-                  {{#if isAnAnswer}}
-                    <div class="extra">
-                      <a href="{{link}}">{{questionTitleOfAnswer objectId}}</a>
-                    </div>
-                  {{/if}}
+                    {{#if isAnAnswer}}
+                      <div class="extra">
+                        <a href="{{link}}">{{questionTitleOfAnswer objectId}}</a>
+                      </div>
+                    {{/if}}
 
-                  {{#if isAPost}}
-                    <div class="extra">
-                      <a href="{{link}}">{{postTitle objectId}}</a>
-                    </div>
-                  {{/if}}
+                    {{#if isAPost}}
+                      <div class="extra">
+                        <a href="{{link}}">{{postTitle objectId}}</a>
+                      </div>
+                    {{/if}}
+                  </div>
                 </div>
+              {{/each}}
+
+            </div>
+          {{else}}
+            <div class="ui container grid">
+              <div class="center aligned middle aligned column">
+                <p>
+                  <i class="huge warning circle icon"></i>
+                </p>
+                <h1 class="large text">Your news feed is empty for now</h1>
               </div>
-            {{/each}}
-          </div>
+            </div>
+          {{/if}}
         </div>
 
       </div>

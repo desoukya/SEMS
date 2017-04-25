@@ -22,6 +22,16 @@ Template.newsFeed.helpers({
 			}
 		});
 	},
+	newsFeedEmtpy() {
+
+		if(NewsFeed.find({
+				feedOwnerId: Meteor.userId()
+			}).count() != 0) {
+			return true
+		} else {
+			return false
+		}
+	},
 	isAQuestion() {
 		return this.type === 'question'
 

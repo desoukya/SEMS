@@ -55,8 +55,6 @@ Meteor.methods({
 			}]
 
 		};
-
-
 		//var user = Meteor.users.findOne({_id: question.ownerId});
 		users = Meteor.users.find({});
 		users.forEach(function(user) {
@@ -85,35 +83,37 @@ Meteor.methods({
 						read: false,
 						createdAt: Date.now()
 					});
-					NewsFeed.insert({
-						feedOwnerId: user._id,
-						eventOwnerId: Meteor.userId(),
-						content: ` just asked a question you subscribed to one of its tags`,
-						type: `question`,
-						link: link,
-						objectId: questionId,
-						createdAt: Date.now()
+					if(Roles.userIsInRole(user._id, [STUDENT, SCRUM])) {
+						NewsFeed.insert({
+							feedOwnerId: user._id,
+							eventOwnerId: Meteor.userId(),
+							content: ` just asked a question you subscribed to one of its tags`,
+							type: `question`,
+							link: link,
+							objectId: questionId,
+							createdAt: Date.now()
 
-					})
+						})
+					}
 				}
 			}
 
 		})
-		// var users = Meteor.users.find({});
-		// users.forEach(function(user) {
-		// 	if(user._id != Meteor.userId()) {
-		// 		NewsFeed.insert({
-		// 			feedOwnerId: user._id,
-		// 			eventOwnerId: Meteor.userId(),
-		// 			content: ` just a question`,
-		// 			type: `question`,
-		// 			link: link,
-		// 			objectId: questionId,
-		// 			createdAt: Date.now()
-		//
-		// 		})
-		// 	}
-		// })
+		var users = Meteor.users.find({});
+		users.forEach(function(user) {
+			if(user._id != Meteor.userId() && Roles.userIsInRole(user._id, [ADMIN, LECTURER, TA, JTA])) {
+				NewsFeed.insert({
+					feedOwnerId: user._id,
+					eventOwnerId: Meteor.userId(),
+					content: ` just asked a question`,
+					type: `question`,
+					link: link,
+					objectId: questionId,
+					createdAt: Date.now()
+
+				})
+			}
+		})
 
 
 		//slack.send(message);
