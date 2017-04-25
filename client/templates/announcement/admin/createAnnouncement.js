@@ -15,6 +15,16 @@ Template.createAnnouncement.helpers({
 	// }
 
 });
+Template.createAnnouncement.onCreated(function() {
+	var template = this;
+	template.input = new ReactiveVar('')
+	template.output = new ReactiveVar('')
+	template.autorun(() => {
+		var input = template.input.get()
+		template.output.set(input);
+	})
+
+})
 
 Template.createAnnouncement.onRendered(function() {
 	$(document)
@@ -111,6 +121,10 @@ Template.createAnnouncement.events({
 		}
 
 	},
+	'keyup textarea': function(event, template) {
+		var input = template.$(event.currentTarget).val();
+		template.input.set(input);
+	}
 
 	//for preview
 

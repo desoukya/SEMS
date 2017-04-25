@@ -50,6 +50,17 @@ Meteor.methods({
 						read: false,
 						createdAt: Date.now()
 					});
+
+					NewsFeed.insert({
+						feedOwnerId: members[i],
+						eventOwnerId: Meteor.userId(),
+						content: `posted on the group ${group.name}`,
+						type: `post`,
+						link: link,
+						objectId: postId,
+						createdAt: Date.now()
+
+					})
 				}
 			}
 		} else {
@@ -66,6 +77,17 @@ Meteor.methods({
 						read: false,
 						createdAt: Date.now()
 					});
+
+					NewsFeed.insert({
+						feedOwnerId: members[i],
+						eventOwnerId: Meteor.userId(),
+						content: ` posted on your team ${group.name}`,
+						type: `post`,
+						link: link,
+						objectId: postId,
+						createdAt: Date.now()
+
+					})
 				}
 			}
 		}
@@ -92,7 +114,9 @@ Meteor.methods({
 					posts: postId
 				}
 			});
-
+			NewsFeed.remove({
+				objectId: postId
+			})
 			Posts.remove(postId);
 		} else {
 			throw new Meteor.Error(401, 'You are not authorized to delete this post !');

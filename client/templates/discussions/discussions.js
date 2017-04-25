@@ -2,6 +2,16 @@ Session.setDefault('pageSize', 15);
 Session.setDefault('page', 0);
 //Session.setDefault('loading', true);
 Session.setDefault('tag', 'All');
+Template.questionForm.onCreated(function() {
+	var template = this;
+	template.input = new ReactiveVar('')
+	template.output = new ReactiveVar('')
+	template.autorun(() => {
+		var input = template.input.get()
+		template.output.set(input);
+	})
+
+})
 Template.discussions.onRendered(function() {
 	$('.ui.accordion').accordion();
 	$('.ui.form').form({
@@ -217,6 +227,12 @@ Template.questionForm.helpers({
 	},
 
 });
+Template.questionForm.events({
+	'keyup textarea': function(event, template) {
+		var input = template.$(event.currentTarget).val();
+		template.input.set(input);
+	}
+})
 
 
 function animateForm() {
