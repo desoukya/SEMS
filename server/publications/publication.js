@@ -209,6 +209,7 @@ Meteor.publish('teamsSlug', function() {
 	return Teams.find({}, {
 		fields: {
 			members: 1,
+			company: 1,
 			isForStaff: 1,
 			slug: 1
 		}
@@ -308,6 +309,18 @@ Meteor.publish('milestones', function() {
 
 Meteor.publish('allAnnouncements', function() {
 	return Announcements.find();
+});
+Meteor.publish('announcementsFeed', function() {
+	return Announcements.find({}, {
+		fields: {
+			_id: 1,
+			title: 1,
+			createdAt: 1,
+			ownerId: 1,
+			global: 1,
+			milestone: 1
+		}
+	});
 });
 
 //Posts
