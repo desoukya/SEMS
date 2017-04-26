@@ -93,7 +93,7 @@ Template.newsFeed.helpers({
 		});
 	},
 	getTeamOrGroupSlug() {
-		var link = "home";
+		var link = "/";
 		if(TeamUtils.isInTeam(Meteor.userId())) {
 			var team = TeamUtils.getTeam(Meteor.userId())
 

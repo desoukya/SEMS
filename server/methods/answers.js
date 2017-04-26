@@ -48,6 +48,7 @@ Meteor.methods({
 				content: `${icon} ${content}`,
 				link: link,
 				read: false,
+				objectId: answerId,
 				createdAt: Date.now()
 			});
 			var username = ""
@@ -86,6 +87,7 @@ Meteor.methods({
 						content: `${icon} ${user.profile.firstName}: ${content}`,
 						link: link,
 						read: false,
+						objectId: answerId,
 						createdAt: Date.now()
 					});
 					NewsFeed.insert({
@@ -118,6 +120,12 @@ Meteor.methods({
 			});
 			NewsFeed.remove({
 				objectId: answerId
+			})
+			Notifications.remove({
+				objectId: answerId
+			})
+			Notifications.remove({
+				parentObjectId: answerId
 			})
 			Answers.remove({
 				_id: answerId
@@ -201,6 +209,7 @@ Meteor.methods({
 				content: `${icon} ${user.profile.firstName} ${content}`,
 				link: link,
 				read: false,
+				objectId: answerId,
 				createdAt: Date.now()
 			});
 		}
@@ -259,6 +268,7 @@ Meteor.methods({
 				content: `${icon} ${content}`,
 				link: link,
 				read: false,
+				objectId: answerId,
 				createdAt: Date.now()
 			});
 		}
@@ -309,6 +319,7 @@ Meteor.methods({
 				content: `${icon} ${content}`,
 				link: link,
 				read: false,
+				objectId: answerId,
 				createdAt: Date.now()
 			});
 		}

@@ -36,8 +36,10 @@ Meteor.methods({
 
 				let members = team.members;
 				let link;
+				let staffGroupId = "none";
 				if(team.isForStaff) {
 					link = milestone ? `/milestones/${announcementId}` : `/staff-groups/${team.slug}/announcements`;
+					staffGroupId = team._id;
 				} else {
 					link = milestone ? `/milestones/${announcementId}` : `/teams/${team.slug}/announcements`;
 				}
@@ -50,6 +52,8 @@ Meteor.methods({
 							content: `${icon} ${typeHint} : ${title}`,
 							link: link,
 							read: false,
+							objectId: announcementId,
+							parentObjectId: staffGroupId, //the group to view the announcement
 							createdAt: Date.now()
 						});
 
@@ -60,6 +64,7 @@ Meteor.methods({
 							type: `announcement`,
 							link: link,
 							objectId: announcementId,
+							parentObjectId: staffGroupId,
 							createdAt: Date.now()
 
 						})
@@ -147,6 +152,19 @@ Meteor.methods({
 
 		} else
 			throw new Meteor.Error(401, 'Not authorized to edit an Announcement');
+	},
+
+	deleteAnnouncement(announcementId) {
+
+
+		Notifications.remove({
+			objectId: announcementId
+		})
+		NewsFeed.remove({
+			objectId: announcementId
+		})
+		Announcements.remove(announcementId);
+
 	},
 
 });

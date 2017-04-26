@@ -356,6 +356,13 @@ Meteor.publish('newsFeedSpecific', function(userId) {
 		feedOwnerId: userId
 	});
 })
+Meteor.publish('newsFeedBasic', function() {
+	return NewsFeed.find({
+		objectId: 1,
+		_id: 1,
+		feedOwnerId: 1
+	})
+})
 
 
 //other

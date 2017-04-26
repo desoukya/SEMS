@@ -81,6 +81,7 @@ Meteor.methods({
 						content: `${icon} ${user.profile.firstName}: ${content}`,
 						link: link,
 						read: false,
+						objectId: questionId,
 						createdAt: Date.now()
 					});
 					if(Roles.userIsInRole(user._id, [STUDENT, SCRUM])) {
@@ -142,6 +143,12 @@ Meteor.methods({
 			NewsFeed.remove({
 				objectId: questionId
 			})
+			Notifications.remove({
+				objectId: questionId
+			});
+			Notifications.remove({
+				parentObjectId: questionId
+			});
 			// Delete self
 			Questions.remove({
 				_id: questionId
@@ -247,6 +254,7 @@ Meteor.methods({
 				content: `${icon} ${user.profile.firstName} ${content}`,
 				link: link,
 				read: false,
+				objectId: questionId,
 				createdAt: Date.now()
 			});
 		}
@@ -312,6 +320,7 @@ Meteor.methods({
 				content: `${icon} ${content}`,
 				link: link,
 				read: false,
+				objectId: questionId,
 				createdAt: Date.now()
 			});
 
