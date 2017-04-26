@@ -12,7 +12,7 @@ Meteor.methods({
 		if(name == "") {
 			throw new Meteor.Error(401, "Please specify a group name");
 		}
-		if(members == []) {
+		if(members == null) {
 			throw new Meteor.Error(401, "You can't create an empty group");
 		}
 		if(!(Teams.findOne({

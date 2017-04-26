@@ -143,6 +143,9 @@ Meteor.methods({
 			NewsFeed.remove({
 				objectId: questionId
 			})
+			NewsFeed.remove({
+				parentObjectId: questionId
+			})
 			Notifications.remove({
 				objectId: questionId
 			});

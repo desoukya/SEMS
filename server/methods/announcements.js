@@ -36,7 +36,7 @@ Meteor.methods({
 
 				let members = team.members;
 				let link;
-				let staffGroupId = "none";
+				let staffGroupId = teamId;
 				if(team.isForStaff) {
 					link = milestone ? `/milestones/${announcementId}` : `/staff-groups/${team.slug}/announcements`;
 					staffGroupId = team._id;

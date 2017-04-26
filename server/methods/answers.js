@@ -49,6 +49,7 @@ Meteor.methods({
 				link: link,
 				read: false,
 				objectId: answerId,
+				parentObjectId: questionId,
 				createdAt: Date.now()
 			});
 			var username = ""
@@ -88,6 +89,7 @@ Meteor.methods({
 						link: link,
 						read: false,
 						objectId: answerId,
+						parentObjectId: questionId,
 						createdAt: Date.now()
 					});
 					NewsFeed.insert({
@@ -97,6 +99,7 @@ Meteor.methods({
 						type: `follow`,
 						link: link,
 						objectId: answerId,
+						parentObjectId: questionId,
 						createdAt: Date.now()
 
 					})
@@ -121,6 +124,7 @@ Meteor.methods({
 			NewsFeed.remove({
 				objectId: answerId
 			})
+
 			Notifications.remove({
 				objectId: answerId
 			})
@@ -210,6 +214,7 @@ Meteor.methods({
 				link: link,
 				read: false,
 				objectId: answerId,
+				parentObjectId: question._id,
 				createdAt: Date.now()
 			});
 		}
@@ -269,6 +274,7 @@ Meteor.methods({
 				link: link,
 				read: false,
 				objectId: answerId,
+				parentObjectId: question._id,
 				createdAt: Date.now()
 			});
 		}
@@ -307,38 +313,50 @@ Meteor.methods({
 				bestAnswer: marked
 			}
 		});
-		let icon = "<i class=\"yellow star icon\"></i>";
-		let content = "your answer is marked as best answer";
-		let link = `/discussions/${question.slug}`;
-		// I shouldn't notify myself that I marked my answer as the
-		// best answer :v
-		if(Meteor.userId() !== answer.ownerId) {
+		if(marked == true) {
+			let icon = "<i class=\"yellow star icon\"></i>";
+			let content = "your answer is marked as best answer";
+			let link = `/discussions/${question.slug}`;
+			// I shouldn't notify myself that I marked my answer as the
+			// best answer :v
+			if(Meteor.userId() !== answer.ownerId) {
 
-			Notifications.insert({
-				ownerId: answer.ownerId,
-				content: `${icon} ${content}`,
-				link: link,
-				read: false,
-				objectId: answerId,
-				createdAt: Date.now()
+				Notifications.insert({
+					ownerId: answer.ownerId,
+					content: `${icon} ${content}`,
+					link: link,
+					read: false,
+					objectId: answerId,
+					parentObjectId: question._id,
+					createdAt: Date.now()
+				});
+			}
+			var users = Meteor.users.find({});
+			users.forEach(function(user) {
+				if(user._id != Meteor.userId()) {
+					NewsFeed.insert({
+						feedOwnerId: user._id,
+						eventOwnerId: Meteor.userId(),
+						content: ` marked a best answer to his/her question`,
+						type: `bestAnswer`,
+						link: link,
+						objectId: answerId,
+						parentObjectId: question._id,
+						createdAt: Date.now()
+
+					})
+				}
+			})
+		} else {
+			NewsFeed.remove({
+				type: 'bestAnswer',
+				objectId: answerId
+			});
+			Notifications.remove({
+				content: "<i class=\"yellow star icon\"></i> your answer is marked as best answer",
+				objectId: answerId
 			});
 		}
-		var users = Meteor.users.find({});
-		users.forEach(function(user) {
-			if(user._id != Meteor.userId()) {
-				NewsFeed.insert({
-					feedOwnerId: user._id,
-					eventOwnerId: Meteor.userId(),
-					content: ` marked a best answer to his/her question`,
-					type: `bestAnswer`,
-					link: link,
-					objectId: answerId,
-					createdAt: Date.now()
-
-				})
-			}
-		})
-
 
 
 	}
