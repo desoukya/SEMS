@@ -122,5 +122,12 @@ Template.newsFeed.helpers({
 	getMilestoneLink(id) {
 		return "/milestones/" + id
 
+	},
+	inATeamOrGroup() {
+		if(TeamUtils.isInTeam(Meteor.userId()) || TeamUtils.isInGroup(Meteor.userId())) {
+			return true
+		} else {
+			return false;
+		}
 	}
 })
