@@ -1,96 +1,96 @@
 <template name="home">
-    <div class="ui page full screen grid">
-        <div class="row">
-            <div data-class="ui center aligned middle aligned column">
-                <!-- Header -->
-                <h1 class="big text">Welcome to Software Engineering Course 2017</h1>
-                <!-- /Header -->
+  <div class="ui page full screen grid">
+    <div class="row">
+      <div data-class="ui center aligned middle aligned column">
+        <!-- Header -->
+        <h1 class="big text">Welcome to Software Engineering Course 2017</h1>
+        <!-- /Header -->
 
-                {{#if isInTeam}}
-                    <!-- User's Team -->
-                    <a href="{{pathFor 'team.info' slug=getTeamSlug}}" class="ui big blue button" id="home-team-button-extra-pad">
+        <!--  {{#if isInTeam}}
+              <!       <! User's Team -->
+        <!--    <a href="{{pathFor 'team.info' slug=getTeamSlug}}" class="ui big blue button" id="home-team-button-extra-pad">
                         <i class="users icon"></i>
                         Your team
                     </a>
-                    <!-- User's Team -->
+                    <! User's Team -->
 
-                    <!-- Browse Teams -->
-                    <a href="{{pathFor 'team.browse'}}" class="ui big blue button">
+        <!-- Browse Teams -->
+        <!--    <a href="{{pathFor 'team.browse'}}" class="ui big blue button">
                         <i class="browser icon"></i>
                         Browse Teams
                     </a>
-                    <!-- /Browse Teams -->
+                     /Browse Teams -->
 
-                    <div class="ui horizontal divider">
+        <!--    <div class="ui horizontal divider">
                         Or
                     </div>
                 {{/if}}
 
                 {{#if isInSeveralGroups}}
-                    <!-- Users Group -->
-                    <a href="{{pathFor 'staffGroups.browse'}}" class="ui big blue button" id="home-team-button-extra-pad">
+                     Users Group -->
+        <!--      <a href="{{pathFor 'staffGroups.browse'}}" class="ui big blue button" id="home-team-button-extra-pad">
                         <i class="browser icon"></i>
                         All Groups
                     </a>
-                    <!-- Users Group -->
+                     Users Group -->
 
-                    <div class="ui horizontal divider">
+        <!--    <div class="ui horizontal divider">
                         Or
                     </div>
 
                 {{else}}
 
                     {{#if isInGroup}}
-                        <!-- User's Group -->
-                        <a href="{{pathFor 'staffGroup.info' slug=getGroupSlug}}" class="ui big blue button" id="home-team-button-extra-pad">
+                         User's Group -->
+        <!--          <a href="{{pathFor 'staffGroup.info' slug=getGroupSlug}}" class="ui big blue button" id="home-team-button-extra-pad">
                             <i class="hand peace icon"></i>
                             Your Group
                         </a>
-                        <!-- User's Group -->
+                         User's Group -->
 
-                        <!-- Browse Teams -->
-                        <a href="{{pathFor 'staffGroups.browse'}}" class="ui big blue button">
+        <!-- Browse Teams -->
+        <!--        <a href="{{pathFor 'staffGroups.browse'}}" class="ui big blue button">
                             <i class="browser icon"></i>
                             Browse Groups
                         </a>
-                        <!-- /Browse Teams -->
+                         /Browse Teams -->
 
-                        <div class="ui horizontal divider">
+        <!--                        <div class="ui horizontal divider">
                             Or
                         </div>
                     {{/if}}
-                {{/if}}
+                {{/if}} -->
 
-                <!-- Explore materials button -->
-                <a href="{{pathFor 'schedule'}}" class="ui big green button">
-                    <i class="folder open outline icon"></i>
-                    Explore Course Materials
-                </a>
-                <br>
-                <br>
-                <div class="ui horizontal divider"></div>
-                <br>
-                <!-- /Explore materials button -->
-                <!-- {{#if currentUser}}
+        <!-- Explore materials button -->
+        <a href="{{pathFor 'schedule'}}" class="ui big green button">
+          <i class="folder open outline icon"></i>
+          Explore Course Materials
+        </a>
+        <br>
+        <br>
+        <div class="ui horizontal divider"></div>
+        <br>
+        <!-- /Explore materials button -->
+        <!-- {{#if currentUser}}
           <h1 class = "leaderboard-title"><span>Sprint</span> Leaderboard</h1>
           {{> reactiveTableFilter id="myFilter" label="Filter Teams" fields=["name"] }}
          {{> reactiveTable class="ui selectable celled table" collection=teams settings=leaderboardSettings}}
         {{/if}} -->
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <template name="imageRenderTmpl">
-    <img src="{{image}}" class="ui centered tiny rounded image" alt="">
+  <img src="{{image}}" class="ui centered tiny rounded image" alt="">
 </template>
 
 <template name="numberRenderTmpl">
-    {{#if isFirst number}}
-        <div class="ui yellow big ribbon label center aligned">
-            <i class="empty star icon"></i>
-            Top Dogs</div>
-    {{else}}
-        <div class="center aligned">{{number}}</div>
-    {{/if}}
+  {{#if isFirst number}}
+    <div class="ui yellow big ribbon label center aligned">
+      <i class="empty star icon"></i>
+      Top Dogs</div>
+  {{else}}
+    <div class="center aligned">{{number}}</div>
+  {{/if}}
 </template>

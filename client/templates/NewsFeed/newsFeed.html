@@ -38,7 +38,7 @@
 
                     {{#if isAnAnnouncement}}
                       <div class="extra">
-                        <a href="{{link}}">{{announcementTitle objectId}}</a>
+                        <a href="{{getTeamOrGroupSlug}}">{{announcementTitle objectId}}</a>
                       </div>
                     {{/if}}
 
@@ -74,31 +74,33 @@
     </div>
 
     <div class=" ui four wide right column">
-      <div class="ui card">
-        <div class="content">
-          <div class="header">Announcements</div>
-        </div>
-        <div class="content">
-          <h4 class="ui sub header">Neweset five</h4>
-          <div class="ui small feed">
-            {{#each getNewestAnnouncements}}
-              <div class="event">
-                <div class="content">
-                  <a href="{{getTeamOrGroupSlug}}">
-                    {{title}}
-                  </a>
-                  <div class="right aligned date">
-                    {{formatDateHumanized createdAt}}
+      {{#if inATeamOrGroup}}
+        <div class="ui card">
+          <div class="content">
+            <div class="header">Announcements</div>
+          </div>
+          <div class="content">
+            <h4 class="ui sub header">Neweset five</h4>
+            <div class="ui small feed">
+              {{#each getNewestAnnouncements}}
+                <div class="event">
+                  <div class="content">
+                    <a href="{{getTeamOrGroupSlug}}">
+                      {{title}}
+                    </a>
+                    <div class="right aligned date">
+                      {{formatDateHumanized createdAt}}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-            {{/each}}
+              {{/each}}
 
+            </div>
           </div>
-        </div>
 
-      </div>
+        </div>
+      {{/if}}
 
       <div class="ui card">
         <div class="content">
