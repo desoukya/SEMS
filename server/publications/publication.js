@@ -106,6 +106,15 @@ Meteor.publish('users', function(roles = ROLES) {
 Meteor.publish('questions', function() {
 	return Questions.find({});
 });
+Meteor.publish('questionsNewsFeed', function() {
+	return Questions.find({}, {
+		fields: {
+			title: 1,
+			tags: 1,
+			answers: 1
+		}
+	});
+});
 Meteor.publish('questionsBasicInfo', function() {
 	return Questions.find({}, {
 		fields: {
@@ -194,6 +203,16 @@ Meteor.publishComposite('questionData', function(questionSlug) {
 Meteor.publish('teamSpecific', function(slug) {
 	return Teams.find({
 		slug: slug
+	})
+})
+Meteor.publish('teamsSlug', function() {
+	return Teams.find({}, {
+		fields: {
+			members: 1,
+			company: 1,
+			isForStaff: 1,
+			slug: 1
+		}
 	})
 })
 
@@ -291,6 +310,18 @@ Meteor.publish('milestones', function() {
 Meteor.publish('allAnnouncements', function() {
 	return Announcements.find();
 });
+Meteor.publish('announcementsFeed', function() {
+	return Announcements.find({}, {
+		fields: {
+			_id: 1,
+			title: 1,
+			createdAt: 1,
+			ownerId: 1,
+			global: 1,
+			milestone: 1
+		}
+	});
+});
 
 //Posts
 //-------------------------------
@@ -311,7 +342,21 @@ Meteor.publish('postsSpecific', function(teamSlug) {
 		}
 	});
 });
+
+
 //-------------------------------------------
+
+//newsFeed
+
+Meteor.publish('newsFeed', function() {
+	return NewsFeed.find({});
+})
+Meteor.publish('newsFeedSpecific', function(userId) {
+	return NewsFeed.find({
+		feedOwnerId: userId
+	});
+})
+
 
 //other
 //---------------------------------------------

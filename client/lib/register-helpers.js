@@ -1,6 +1,9 @@
 Template.registerHelper('equals', function(a, b) {
 	return a === b;
 });
+Template.registerHelper('instance', function() {
+	return Template.instance();
+})
 
 Template.registerHelper('formatDate', function(date) {
 	//need to confirm date format

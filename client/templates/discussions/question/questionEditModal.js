@@ -3,7 +3,6 @@ Template.questionEditModal.onRendered(function() {
 		allowAdditions: true
 	});
 });
-
 Template.questionEditModal.helpers({
 	separatedTags() {
 		return this.tags.join();
