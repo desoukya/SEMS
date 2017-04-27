@@ -56,7 +56,7 @@ Meteor.methods({
 					NewsFeed.insert({
 						feedOwnerId: members[i],
 						eventOwnerId: Meteor.userId(),
-						content: `posted on the group ${group.name}`,
+						content: `posted on the group ${group.name}.`,
 						type: `post`,
 						link: link,
 						objectId: postId,
@@ -86,7 +86,7 @@ Meteor.methods({
 					NewsFeed.insert({
 						feedOwnerId: members[i],
 						eventOwnerId: Meteor.userId(),
-						content: ` posted on your team ${group.name}`,
+						content: ` posted on your team ${group.name}.`,
 						type: `post`,
 						link: link,
 						objectId: postId,

@@ -3,7 +3,8 @@
 
     <div class="ui twelve wide left column">
       <div class="ui container segment">
-        <h2>News Feed</h2>
+        <h1>
+          <i class="small feed icon"></i>News Feed</h1>
         <div class="left row">
           {{#if newsFeedEmtpy}}
             <div class="ui feed">
@@ -27,8 +28,10 @@
                     </div>
                     {{#if isAQuestion}}
                       <div class="extra">
+                        <i class="write icon"></i>
                         <a href="{{link}}">{{questionTitle objectId}}</a>
                         <div class="extra">
+                          <i class="tags icon"></i>
                           {{#each tags objectId}}
                             {{> tag}}
                           {{/each}}
@@ -38,18 +41,21 @@
 
                     {{#if isAnAnnouncement}}
                       <div class="extra">
+                        <i class="announcement icon"></i>
                         <a href="{{getTeamOrGroupSlug}}">{{announcementTitle objectId}}</a>
                       </div>
                     {{/if}}
 
                     {{#if isAnAnswer}}
                       <div class="extra">
+                        <i class="write icon"></i>
                         <a href="{{link}}">{{questionTitleOfAnswer objectId}}</a>
                       </div>
                     {{/if}}
 
                     {{#if isAPost}}
                       <div class="extra">
+                        <i class="content icon"></i>
                         <a href="{{link}}">{{postTitle objectId}}</a>
                       </div>
                     {{/if}}
@@ -77,7 +83,8 @@
       {{#if inATeamOrGroup}}
         <div class="ui card">
           <div class="content">
-            <div class="header">Announcements</div>
+            <div class="header">
+              <i class="announcement icon"></i>Announcements</div>
           </div>
           <div class="content">
             <h4 class="ui sub header">Neweset five</h4>
@@ -104,7 +111,9 @@
 
       <div class="ui card">
         <div class="content">
-          <div class="header">Milestones</div>
+          <div class="header">
+            <i class="idea icon"></i>
+            Milestones</div>
         </div>
         <div class="content">
           <h4 class="ui sub header">Neweset five</h4>

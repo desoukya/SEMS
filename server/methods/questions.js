@@ -88,7 +88,7 @@ Meteor.methods({
 						NewsFeed.insert({
 							feedOwnerId: user._id,
 							eventOwnerId: Meteor.userId(),
-							content: ` just asked a question you subscribed to one of its tags`,
+							content: ` just asked a question you subscribed to one of its tags.`,
 							type: `question`,
 							link: link,
 							objectId: questionId,
@@ -106,7 +106,7 @@ Meteor.methods({
 				NewsFeed.insert({
 					feedOwnerId: user._id,
 					eventOwnerId: Meteor.userId(),
-					content: ` just asked a question`,
+					content: ` just asked a question.`,
 					type: `question`,
 					link: link,
 					objectId: questionId,

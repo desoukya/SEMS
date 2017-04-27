@@ -60,7 +60,7 @@ Meteor.methods({
 						NewsFeed.insert({
 							feedOwnerId: id,
 							eventOwnerId: Meteor.userId(),
-							content: ` has a new announcement`,
+							content: ` has a new announcement.`,
 							type: `announcement`,
 							link: link,
 							objectId: announcementId,
