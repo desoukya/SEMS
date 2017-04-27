@@ -104,15 +104,23 @@ Template.manageUsers.events({
 		for(var id in pairs) {
 			if(pairs.hasOwnProperty(id)) {
 				/////////////// Analytics ///////////////
-				analytics.track('Updated user role', {
-					updateUsersname: Meteor.users.findOne({
-						_id: id
-					}).fullName(),
-					oldRole: Meteor.users.findOne({
-						_id: id
-					}).roles,
-					newRole: pairs[id]
-				});
+				let oldRole = Meteor.users.findOne({
+					_id: id
+				}).roles[0]
+
+				let newRole = pairs[id]
+
+				if(oldRole != newRole) {
+					analytics.track('Updated user role', {
+						updateUsersname: Meteor.users.findOne({
+							_id: id
+						}).fullName(),
+						oldRole: Meteor.users.findOne({
+							_id: id
+						}).roles,
+						newRole: pairs[id]
+					});
+				}
 				/////////////// Analytics ///////////////
 				Meteor.call('updateRole', id, pairs[id]);
 
