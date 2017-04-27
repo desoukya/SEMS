@@ -115,10 +115,8 @@ Template.manageUsers.events({
 						updateUsersname: Meteor.users.findOne({
 							_id: id
 						}).fullName(),
-						oldRole: Meteor.users.findOne({
-							_id: id
-						}).roles,
-						newRole: pairs[id]
+						oldRole: oldRole,
+						newRole: newRole
 					});
 				}
 				/////////////// Analytics ///////////////
