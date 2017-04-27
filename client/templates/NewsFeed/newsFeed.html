@@ -28,8 +28,10 @@
                     </div>
                     {{#if isAQuestion}}
                       <div class="extra">
+                        <i class="write icon"></i>
                         <a href="{{link}}">{{questionTitle objectId}}</a>
                         <div class="extra">
+                          <i class="tags icon"></i>
                           {{#each tags objectId}}
                             {{> tag}}
                           {{/each}}
@@ -39,18 +41,21 @@
 
                     {{#if isAnAnnouncement}}
                       <div class="extra">
+                        <i class="announcement icon"></i>
                         <a href="{{getTeamOrGroupSlug}}">{{announcementTitle objectId}}</a>
                       </div>
                     {{/if}}
 
                     {{#if isAnAnswer}}
                       <div class="extra">
+                        <i class="write icon"></i>
                         <a href="{{link}}">{{questionTitleOfAnswer objectId}}</a>
                       </div>
                     {{/if}}
 
                     {{#if isAPost}}
                       <div class="extra">
+                        <i class="content icon"></i>
                         <a href="{{link}}">{{postTitle objectId}}</a>
                       </div>
                     {{/if}}
