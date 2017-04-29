@@ -15,8 +15,9 @@ Template.questionDisplay.helpers({
 		let question = Questions.findOne({
 			_id: this._id
 		})
-
-		return question.isClosed();
+		if(question)
+			return question.isClosed();
+		else return false;
 	},
 	canEdit() {
 		return this.ownerId === Meteor.userId() || Roles.userIsInRole(Meteor.userId(), [ADMIN, LECTURER, TA, JTA]);
