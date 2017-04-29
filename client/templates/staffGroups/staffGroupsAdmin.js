@@ -33,7 +33,12 @@ Template.createStaffGroup.events({
 	'submit .form': function(event) {
 		event.preventDefault();
 		let name = event.target.groupName.value;
-		let members = $('#members').val().split(",");
+		let members;
+		if($('#members').val() != "") {
+			members = $('#members').val().split(",");
+		} else {
+			members = null
+		};
 		let posts = [];
 		//cant create a team without a company, so using any company name
 		let company = Companies.findOne({

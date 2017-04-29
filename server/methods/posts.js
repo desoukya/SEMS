@@ -48,16 +48,19 @@ Meteor.methods({
 						content: `${icon} ${content}`,
 						link: link,
 						read: false,
+						objectId: postId,
+						parentObjectId: groupId,
 						createdAt: Date.now()
 					});
 
 					NewsFeed.insert({
 						feedOwnerId: members[i],
 						eventOwnerId: Meteor.userId(),
-						content: `posted on the group ${group.name}`,
+						content: `posted on the group ${group.name}.`,
 						type: `post`,
 						link: link,
 						objectId: postId,
+						parentObjectId: groupId,
 						createdAt: Date.now()
 
 					})
@@ -75,16 +78,19 @@ Meteor.methods({
 						content: `${icon} ${content}`,
 						link: link,
 						read: false,
+						objectId: postId,
+						parentObjectId: groupId,
 						createdAt: Date.now()
 					});
 
 					NewsFeed.insert({
 						feedOwnerId: members[i],
 						eventOwnerId: Meteor.userId(),
-						content: ` posted on your team ${group.name}`,
+						content: ` posted on your team ${group.name}.`,
 						type: `post`,
 						link: link,
 						objectId: postId,
+						parentObjectId: groupId,
 						createdAt: Date.now()
 
 					})
@@ -117,6 +123,9 @@ Meteor.methods({
 			NewsFeed.remove({
 				objectId: postId
 			})
+			Notifications.remove({
+				objectId: postId
+			});
 			Posts.remove(postId);
 		} else {
 			throw new Meteor.Error(401, 'You are not authorized to delete this post !');
@@ -165,6 +174,7 @@ Meteor.methods({
 							content: `${icon} ${content}`,
 							link: link,
 							read: false,
+							objectId: postId,
 							createdAt: Date.now()
 						});
 					}
@@ -181,6 +191,8 @@ Meteor.methods({
 							content: `${icon} ${content}`,
 							link: link,
 							read: false,
+							objectId: postId,
+							parentObjectId: groupId,
 							createdAt: Date.now()
 						});
 					}

@@ -10,8 +10,8 @@ Template.tagsEdit.helpers({
 });
 
 Template.tagsEdit.onRendered(function() {
-	$('.ui.dropdown').dropdown({
-		allowAdditions: true,
+	$('#type').dropdown({
+		//allowAdditions: true,
 		direction: 'downward'
 	});
 })

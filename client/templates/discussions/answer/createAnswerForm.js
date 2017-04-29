@@ -1,12 +1,16 @@
 Template.createAnswerForm.helpers({
 	questionClosed() {
-		let questionId = Template.parentData(1)._id;
-		let question = Questions.findOne({
-			_id: questionId
-		})
-		return !(question.isClosed())
+		if(Template.parentData(1)) {
+			let questionId = Template.parentData(1)._id;
+			let question = Questions.findOne({
+				_id: questionId
+			})
+			return !(question.isClosed())
 
+		}
+		return false;
 	}
+
 })
 Template.createAnswerForm.onCreated(function() {
 	var template = this;

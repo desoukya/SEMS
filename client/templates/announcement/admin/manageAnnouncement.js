@@ -43,8 +43,13 @@ Template.manageAnnouncement.events({
 					//do nothing
 				},
 				onApprove() {
-					Announcements.remove(self._id);
+					var announcementId = self._id;
+					Meteor.call('deleteAnnouncement', announcementId, function(err) {
+						if(err)
+							sAlert.error(err.reason);
+					})
 				}
+
 			}).modal('show');
 	},
 

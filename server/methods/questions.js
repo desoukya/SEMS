@@ -81,13 +81,14 @@ Meteor.methods({
 						content: `${icon} ${user.profile.firstName}: ${content}`,
 						link: link,
 						read: false,
+						objectId: questionId,
 						createdAt: Date.now()
 					});
 					if(Roles.userIsInRole(user._id, [STUDENT, SCRUM])) {
 						NewsFeed.insert({
 							feedOwnerId: user._id,
 							eventOwnerId: Meteor.userId(),
-							content: ` just asked a question you subscribed to one of its tags`,
+							content: ` just asked a question you subscribed to one of its tags.`,
 							type: `question`,
 							link: link,
 							objectId: questionId,
@@ -105,7 +106,7 @@ Meteor.methods({
 				NewsFeed.insert({
 					feedOwnerId: user._id,
 					eventOwnerId: Meteor.userId(),
-					content: ` just asked a question`,
+					content: ` just asked a question.`,
 					type: `question`,
 					link: link,
 					objectId: questionId,
@@ -142,6 +143,15 @@ Meteor.methods({
 			NewsFeed.remove({
 				objectId: questionId
 			})
+			NewsFeed.remove({
+				parentObjectId: questionId
+			})
+			Notifications.remove({
+				objectId: questionId
+			});
+			Notifications.remove({
+				parentObjectId: questionId
+			});
 			// Delete self
 			Questions.remove({
 				_id: questionId
@@ -247,6 +257,7 @@ Meteor.methods({
 				content: `${icon} ${user.profile.firstName} ${content}`,
 				link: link,
 				read: false,
+				objectId: questionId,
 				createdAt: Date.now()
 			});
 		}
@@ -312,6 +323,7 @@ Meteor.methods({
 				content: `${icon} ${content}`,
 				link: link,
 				read: false,
+				objectId: questionId,
 				createdAt: Date.now()
 			});
 

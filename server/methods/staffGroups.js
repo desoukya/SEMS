@@ -12,7 +12,7 @@ Meteor.methods({
 		if(name == "") {
 			throw new Meteor.Error(401, "Please specify a group name");
 		}
-		if(members == []) {
+		if(members == null) {
 			throw new Meteor.Error(401, "You can't create an empty group");
 		}
 		if(!(Teams.findOne({
@@ -40,6 +40,7 @@ Meteor.methods({
 						content: `${icon} ${content}`,
 						link: link,
 						read: false,
+						objectId: group._id,
 						createdAt: Date.now()
 					});
 				}
@@ -53,6 +54,15 @@ Meteor.methods({
 		if(Teams.findOne({
 				_id: teamId
 			})) {
+			Notifications.remove({
+				objectId: teamId
+			});
+			Notifications.remove({
+				parentObjectId: teamId
+			});
+			NewsFeed.remove({
+				parentObjectId: teamId
+			})
 			Teams.remove(teamId)
 		} else {
 			throw new Meteor.Error("The staff group you're trying to delete is not found")
@@ -96,6 +106,7 @@ Meteor.methods({
 						content: `${icon} ${content}`,
 						link: link,
 						read: false,
+						objectId: groupId,
 						createdAt: Date.now()
 					});
 				}
@@ -136,6 +147,7 @@ Meteor.methods({
 				content: `${icon} ${content}`,
 				link: link,
 				read: false,
+				objectId: groupId,
 				createdAt: Date.now()
 			});
 		}
@@ -147,6 +159,10 @@ Meteor.methods({
 			members,
 			groupSlug
 		} = groupInfo
+		let group = Teams.findOne({
+			name: groupName,
+			isForStaff: true
+		})
 
 		let icon = "<i class=\"hand peace icon\"></i>";
 		let content = "You group name has been updated ( " + groupName + " )";
@@ -157,6 +173,7 @@ Meteor.methods({
 				content: `${icon} ${content}`,
 				link: link,
 				read: false,
+				objectId: group._id,
 				createdAt: Date.now()
 			});
 		}
