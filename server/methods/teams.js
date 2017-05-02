@@ -82,7 +82,6 @@ Meteor.methods({
 				_id: userId,
 				roles: 'student',
 			});
-
 			if(!!member && !TeamUtils.isInTeam(userId)) {
 				Teams.update({
 					_id: teamId
