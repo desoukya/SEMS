@@ -27,7 +27,9 @@ Meteor.publish('usersBasic', function() {
 	return [Meteor.users.find({}, {
 		fields: {
 			profile: 1,
-			roles: 1
+			roles: 1,
+			subscriptions: 1,
+			questionsFollowed: 1
 		}
 	}), Images.find({})]
 })
@@ -41,7 +43,9 @@ Meteor.publish('staffUsersBasic', function() {
 	}, {
 		fields: {
 			profile: 1,
-			roles: 1
+			roles: 1,
+			subscriptions: 1,
+			questionsFollowed: 1
 		}
 	}), Images.find({})]
 })
@@ -67,6 +71,8 @@ Meteor.publish('users', function(roles = ROLES) {
 			profile: 1,
 			roles: 1,
 			pendingSurvey: 1,
+			subscriptions: 1,
+			questionsFollowed: 1
 		}
 	};
 

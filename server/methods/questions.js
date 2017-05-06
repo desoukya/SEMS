@@ -131,7 +131,7 @@ Meteor.methods({
 
 
 		//slack.send(message);
-		//slackJTA.send(message);
+		slackJTA.send(message);
 	},
 
 	deleteQuestion(questionId) {
