@@ -98,10 +98,6 @@ Meteor.methods({
 					}
 				}
 			}
-
-		})
-		var users = Meteor.users.find({});
-		users.forEach(function(user) {
 			if(user._id != Meteor.userId() && Roles.userIsInRole(user._id, [ADMIN, LECTURER, TA, JTA])) {
 				NewsFeed.insert({
 					feedOwnerId: user._id,
@@ -114,7 +110,24 @@ Meteor.methods({
 
 				})
 			}
+
+
 		})
+		// var users = Meteor.users.find({});
+		// users.forEach(function(user) {
+		// 	if(user._id != Meteor.userId() && Roles.userIsInRole(user._id, [ADMIN, LECTURER, TA, JTA])) {
+		// 		NewsFeed.insert({
+		// 			feedOwnerId: user._id,
+		// 			eventOwnerId: Meteor.userId(),
+		// 			content: ` just asked a question.`,
+		// 			type: `question`,
+		// 			link: link,
+		// 			objectId: questionId,
+		// 			createdAt: Date.now()
+		//
+		// 		})
+		// 	}
+		// })
 
 
 		//slack.send(message);
