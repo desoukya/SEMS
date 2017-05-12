@@ -20,6 +20,12 @@ Meteor.publish('TeamUsers', function(teamSlug) {
 		_id: {
 			$in: TeamUsers
 		}
+	}, {
+		fields: {
+			profile: 1,
+			roles: 1,
+			pendingSurvey: 1
+		}
 	}), Images.find({})];
 });
 
@@ -28,6 +34,7 @@ Meteor.publish('usersBasic', function() {
 		fields: {
 			profile: 1,
 			roles: 1,
+			pendingSurvey: 1,
 			subscriptions: 1,
 			questionsFollowed: 1
 		}
@@ -44,6 +51,7 @@ Meteor.publish('staffUsersBasic', function() {
 		fields: {
 			profile: 1,
 			roles: 1,
+			pendingSurvey: 1,
 			subscriptions: 1,
 			questionsFollowed: 1
 		}
