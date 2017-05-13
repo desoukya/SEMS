@@ -43,7 +43,7 @@ Template.progress.helpers({
 
     }
 
-console.log(totalPoints);
+//console.log(totalPoints);
     return totalPoints;
 
   },
@@ -115,7 +115,7 @@ Template.donecards.helpers({
 
 Template.progress.events({
   'submit .new-todocard': function(event) {
-    console.log("test");
+  //  console.log("test");
     // Prevent default browser form submit
     event.preventDefault();
 
@@ -124,9 +124,9 @@ Template.progress.events({
     //console.log("test");
     var description = event.target.description.value;
     var ownerId = Meteor.userId();
-    console.log(ownerId);
+  //  console.log(ownerId);
     var team = Teams.findOne({ members: Meteor.userId() });
-    console.log(team);
+    //console.log(team);
     var teamId = team._id;
     var type = "todo";
   //  var teamId = this._id;

@@ -11,40 +11,8 @@ Template.issuedisplay.helpers({
 
     return Issues.find({teamId: teamId1});
   },
-  comments(){
-    var team = Teams.findOne({ members: Meteor.userId() });
-    var teamId1 = team._id;
-    var issues = Issues.find({teamId: teamId1}).fetch();
-    //console.log(issues[0].comments[0]);
-  //  console.log(commentObjects());
-  for (var i = 0; i < issues.length; i++) {
-    for (var j = 0; j < issues.comments.length; j++) {
-      issues[i].comments[j]
-    }
-    issues[i]
-  }
-
-    return Issues.find({teamId: teamId1});
-  },
-  commentObjects2() {
-    let commentsIds = this.comments || [];
-    //console.log(this.comments.content);
-    console.log(commentsIds);
-    return Comments.find({ _id: { $in: commentsIds } }, { sort: { createdAt: 1 } });
-  },
-
 
 });
-
-Template.commentDisplay.helpers({
-  commentObjects1() {
-    let commentsIds = this.comments || [];
-    //console.log(this.comments.content);
-    console.log(commentsIds);
-    return Comments.find({ _id: { $in: commentsIds } }, { sort: { createdAt: 1 } });
-  },
-});
-
 
 Template.issueform.helpers({
 
@@ -52,8 +20,8 @@ Template.issueform.helpers({
     var team = Teams.findOne({ members: Meteor.userId() });
     var teamId1 = team._id;
     //console.log(Stories.find({teamId: teamId1}));
-    console.log("teststory");
-    console.log(Stories.find({teamId: teamId1}));
+  //  console.log("teststory");
+  //  console.log(Stories.find({teamId: teamId1}));
     return Stories.find({teamId: teamId1});
   },
 

@@ -10,10 +10,10 @@ $('#teamside').show();
 
 Template.teammanagement.helpers({
 //  console.log("test"),
-
+//should be rechecked for redundancy
   teamsideB() {
   var routeName = Router.current().route.getName();
-    console.log(routeName);
+    //console.log(routeName);
     if(routeName == "teammanagement"){
       return true;
     }
