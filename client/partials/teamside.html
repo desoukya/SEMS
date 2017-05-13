@@ -1,0 +1,25 @@
+<template name="teamside">
+  <div id="teamside" class="ui left demo vertical visible inverted sidebar labeled icon menu">
+    <a class="item {{isActive 'backlog'}}" href="{{pathFor 'backlog'}}">
+      <i class="hourglass half icon"></i>
+      Backlog
+    </a>
+    <a class="item {{isActive 'issues'}}" href="{{pathFor 'issues'}}">
+      <i class="block layout icon"></i>
+      Issues
+    </a>
+    <a class="item  {{isActive 'progress'}}" href="{{pathFor 'progress'}}">
+      <i class="sticky note layout icon"></i>
+      Progress
+    </a>
+    <a class="item">
+      <i class="users icon"></i>
+      People
+    </a>
+    <a class="item {{isActive 'calendarteam'}}" href="{{pathFor 'calendarteam'}}">
+      <i class="calendar outline icon"></i>
+      Calendar
+    </a>
+    </div>
+
+</template>

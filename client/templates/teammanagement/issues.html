@@ -1,0 +1,119 @@
+<template name="issues">
+  <div class="ui container grid">
+    <div class="sixteen wide right column">
+      {{> issuedisplay}}
+
+      <div align= "right" class="ui blue button" id="toggle-issue-form-button">Add a Issue</div>
+      {{> issueform}}
+    </div>
+  </div>
+</template>
+
+
+<template name="issueform">
+    <div class="ui segment transition hidden" id="add-issue-form">
+        <form class="ui form new-issue">
+            <!-- Title -->
+            <div class="field">
+                <label>
+                    Issue Title
+                    </label>
+                <input class="small" type="text" name="title" placeholder="Type a title"/>
+            </div>
+            <!-- /Title -->
+            <!-- Story -->
+            <div class="field">
+                <label>
+                    Story
+                    </label>
+                <!--    <div class="ui multiple search normal selection fluid  dropdown">
+                      <input type="hidden" name="story">
+                      <i class="dropdown icon"></i>
+                      <div class="default text">User Story</div>
+                      <div class="menu">
+                        {{#each stories}}
+                          {{> story}}
+                        {{/each}}
+                      </div>
+                    </div> -->
+                    <input class="small" type="text" name="story" placeholder="Story Title"/>
+            </div>
+            <!-- /Story -->
+            <!-- Description -->
+            <div class="field">
+                <label>Description</label>
+                <textarea name="description"></textarea>
+            </div>
+            <!-- /Description -->
+
+
+            <input type="submit" class="ui fluid large green submit button" value="submit">
+        </form>
+    </div>
+</template>
+
+<template name="issuedisplay">
+  {{#each issues}}
+  <div class="ui clearing white padded segment">
+  <div class="ui cards">
+  <div class="card">
+    <div class="content">
+      <div class="header">{{title}}</div>
+      <div class="meta">{{owner.fullName}}</div>
+      <div class="description">
+        {{description}}
+      </div>
+    </div>
+  </div>
+  </div>
+
+  {{> commentDisplay}}
+  {{> commentIssue}}
+</div>
+  {{/each}}
+</template>
+
+<template name="commentDisplay">
+  {{#each commentObjects}}
+  <div class="ui comments">
+  <div class="comment">
+    <div class="content">
+      <a class="author">{{owner.fullName}}</a>
+      <div class="metadata">
+        <div class="date">{{formatDateHumanized createdAt}}</div>
+        </div>
+      <div class="text">
+        {{content}}
+      </div>
+    </div>
+  </div>
+</div>
+  {{/each}}
+</template>
+
+<template name="commentIssue">
+  <form class="ui reply form">
+
+      <div class="ui accordion">
+        <div class="two fields">
+
+      <div class="five wide field">
+        <textarea name="comment" rows="1"></textarea>
+      </div>
+
+      <div class="three wide field">
+        <input class="ui submit tiny blue basic button" type="submit" id="add-comment-button" value="comment"/>
+      </div>
+
+    </div>
+  </div>
+
+</form>
+
+
+</template>
+
+<!--<template name="story">
+  <div class="item" data-value="{{_id}}"></div>
+</template>
+-->

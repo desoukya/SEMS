@@ -76,8 +76,18 @@ Meteor.publish('teams', function() {
 Meteor.publish('tags', function() {
 	return Tags.find({});
 });
-
-
+Meteor.publish('stories', function() {
+	return Stories.find({});
+});
+Meteor.publish('cards', function() {
+	return Cards.find({});
+});
+Meteor.publish('issues', function() {
+	return Issues.find({});
+});
+Meteor.publish('comments', function() {
+	return Comments.find({});
+});
 Meteor.publish('companies', function() {
 	return Companies.find({});
 });
