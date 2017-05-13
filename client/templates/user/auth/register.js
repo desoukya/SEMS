@@ -73,17 +73,16 @@ Template.register.onRendered(function() {
                 }]
             },
 
-            user: {
-                identifier: 'email',
-                rules: [{
-                    type: 'empty',
-                    prompt: 'Please enter your GUC email address'
-                }]
-                {
-                   type: 'regExp[/^([a-zA-Z0-9_\.-]+)@(student\.)?guc\.edu\.eg$/]',
-                    prompt: 'Please enter a Valid GUC Gmail'
-                }]
-            },
+						user: {
+					identifier: 'email',
+					rules: [{
+						type: 'empty',
+						prompt: 'Please enter your GUC email address'
+					}, {
+						type: 'regExp[/^([a-zA-Z0-9_\.-]+)@(student\.)?guc\.edu\.eg$/]',
+						prompt: 'Please enter a Valid GUC Gmail'
+					}]
+				},
 
             pass: {
                 identifier: 'pass',
@@ -157,3 +156,5 @@ Template.register.onRendered(function() {
 
     $('.ui.checkbox').checkbox();
     $('.ui.dropdown').dropdown();
+
+	});
