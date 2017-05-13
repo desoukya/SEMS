@@ -27,9 +27,18 @@
       </div>
 
       <!-- Announcement Description -->
-      <div class="field">
-        <label>Description</label>
-        <textarea name="description" placeholder="Description"></textarea>
+
+      <div class="two fields">
+        <div class="required field">
+          <label>Description</label>
+          <textarea name="description" placeholder="Description"></textarea>
+        </div>
+        <div class="field">
+          <label>Preview</label>
+          <label name="markdown" id="markdown">
+            {{#markdown}}{{{instance.output.get}}}{{/markdown}}
+          </label>
+        </div>
       </div>
       <!-- /Announcement Description -->
 
@@ -39,13 +48,21 @@
         <div class="field">
           <div class="ui multiple search selection dropdown">
             <input type="hidden" name="companies">
-            <div class="default text">Select Companies</div>
+            <div class="default text">Select Teams and Groups</div>
             <i class="dropdown icon"></i>
 
             <div class="menu">
+              <div class="header">Teams</div>
+
               {{#each teams}}
-                <div class="item" data-value="{{_id}}">{{companyName}}</div>
+                <div class="item" data-value="{{_id}}">{{name}}</div>
               {{/each}}
+              <div class="header">Staff Groups</div>
+
+              {{#each staffGroups}}
+                <div class="item" data-value="{{_id}}">{{name}}</div>
+              {{/each}}
+
             </div>
           </div>
         </div>

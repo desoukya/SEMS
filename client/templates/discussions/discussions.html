@@ -1,5 +1,113 @@
 <template name="discussions">
+
   <div class="ui container grid">
+
+    <!-- subscriptions -->
+    <div class="three wide left column">
+
+      <!-- filter tags -->
+      <form>
+        <div class="centered row">
+
+          <h2>Filters:</h2>
+          <div class="ui list">
+            <div class="ui styled fluid accordion">
+
+              <div class="title ">
+                <i class="dropdown icon"></i>
+                All Tags</div>
+              <div class="content ">
+                <p class="transition visible" style="display: block !important;">
+                  <div class="item">
+                    <a class="ui green horizontal label" id="filterLabel">All
+                      <div class="detail">{{countAllOpenedQuestions}}</div>
+                    </a>
+                  </div>
+                </p>
+              </div>
+
+              <div class="title ">
+                <i class="dropdown icon"></i>
+                Lectures</div>
+              <div class="content ">
+                <p class="transition visible" style="display: block !important;">
+                  {{#each lectureTags}}
+                    <div class="item">
+                      {{> filterTag}}
+                    </div>
+                  {{/each}}
+                </p>
+              </div>
+
+              <div class="title ">
+                <i class="dropdown icon"></i>
+                Labs</div>
+              <div class="content ">
+                <p class="transition visible" style="display: block !important;">
+                  {{#each labTags}}
+                    <div class="item">
+                      {{> filterTag}}
+                    </div>
+                  {{/each}}
+                </p>
+              </div>
+
+              <div class="title ">
+                <i class="dropdown icon"></i>
+                Project</div>
+              <div class="content ">
+                <p class="transition visible" style="display: block !important;">
+                  {{#each projectTags}}
+                    <div class="item">
+                      {{> filterTag}}
+                    </div>
+                  {{/each}}
+                </p>
+              </div>
+              <div class="title ">
+                <i class="dropdown icon"></i>
+                Topics</div>
+              <div class="content ">
+                <p class="transition visible" style="display: block !important;">
+                  {{#each topicTags}}
+                    <div class="item">
+                      {{> filterTag}}
+                    </div>
+                  {{/each}}
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- /filter tags -->
+
+      <form class="form-register">
+        <div class="field">
+          <h1></h1>
+          <h2>Still need help?</h2>
+          <h3>Subscribe to available tags for future updates</h3>
+          <div class="ui fluid multiple selection dropdown" name="tag" id="input">
+            <input type="hidden" name="tag">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Tag</div>
+            <div class="menu">
+              {{#each subTags}}
+                <div class="item" data-value="{{this.name}}">{{this.name}}</div>
+
+              {{/each}}
+            </div>
+          </div>
+          <button class="ui green button">
+            Subscribe
+          </button>
+        </div>
+      </form>
+
+    </div>
+    <!--/ subscriptions -->
+
     <div class="twelve wide centered column">
       <!-- Question SearchBox -->
       {{> questionsSearchBox}}
@@ -26,22 +134,31 @@
       <!-- /Title -->
 
       <!-- Description -->
-      <div class="field">
-        <label>Description</label>
-        <textarea name="description"></textarea>
+      <div class="two fields">
+        <div class="required field">
+          <label>Description</label>
+          <textarea name="description" placeholder="Description"></textarea>
+        </div>
+        <div class="field">
+          <label>Preview</label>
+          <label name="markdown" id="markdown">
+            {{#markdown}}{{{instance.output.get}}}{{/markdown}}
+          </label>
+        </div>
       </div>
       <!-- /Description -->
 
       <!-- Tags -->
       <div class="field">
         <label>Tags</label>
-        <div class="ui fluid multiple selection search dropdown">
-          <input id="tags" name="tags" type="hidden">
+        <div class="ui fluid multiple selection dropdown" name="tag">
+          <input type="hidden" name="tag">
           <i class="dropdown icon"></i>
-          <div class="default text">Tags</div>
+          <div class="default text">Select Tag</div>
           <div class="menu">
             {{#each allTags}}
-              <div class="item" data-value="{{this}}">{{this}}</div>
+              <div class="item" data-value="{{this.name}}">{{this.name}}</div>
+
             {{/each}}
           </div>
         </div>
@@ -90,12 +207,14 @@
 
     </div>
   </div>
+
   <div class="ui segment">
 
     <div class="ui divided items">
-      {{#EasySearch.Each index=questionsIndex }}
+
+      {{#each questionsTags}}
         {{> question}}
-      {{/EasySearch.Each}}
+      {{/each}}
     </div>
 
     {{#EasySearch.IfInputEmpty index=questionsIndex}}
@@ -116,6 +235,7 @@
 
     {{> EasySearch.Pagination index=questionsIndex maxPages=9 customRenderPagination="navigator"}}
   </div>
+
 </template>
 
 <template name="navigator">
@@ -124,4 +244,12 @@
       <a data-class="page item {{pageClasses this}} ">{{content}}</a>
     {{/each}}
   </div>
+</template>
+
+<template name="filterTag">
+  <!-- Filter tag -->
+  <a class="ui {{colorOfTag name}} horizontal label" id="filterLabel">{{this.name}}
+    <div class="detail">{{countOpenedQuestionsPerTag this.name}}</div>
+  </a>
+  <!-- /Filter tag -->
 </template>

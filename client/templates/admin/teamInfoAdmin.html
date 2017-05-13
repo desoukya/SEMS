@@ -1,4 +1,4 @@
-<template name = "teamInfoAdmin">
+<template name="teamInfoAdmin">
     <div class="ui container">
         <div class="header">{{name}}</div>
         <div class="content">
@@ -6,33 +6,37 @@
             <br>
             <div class="ui five stackable cards">
                 {{#each question in questions}}
-                <div class="card">
-                    <div class="content">
-                        <div class="header">{{question.id}}</div>
-                        <p class="ui grey tiny header">{{question.ques}}</p>
+                    <div class="card">
+                        <div class="content">
+                            <div class="header">{{question.id}}</div>
+                            <p class="ui grey tiny header">{{question.ques}}</p>
+                        </div>
+                        <div class="extra">
+                            Av. score:
+                            <strong class="ui {{getColor question}} tiny header survey-score">
+                                {{averageQuestionScore question}}</strong>
+                        </div>
                     </div>
-                    <div class="extra">
-                        Av. score: <strong class="ui {{getColor question}} tiny header survey-score">  {{averageQuestionScore question}}</strong>
-                    </div>
-                </div>
                 {{/each}}
             </div>
             <div class="ui section divider"></div>
             <h2>User questions</h2>
-            <br> {{#each teamMem in members}}
-            <h4>{{teamMem.fullName}}</h4>
-            <div class="ui eight stackable cards">
-                {{#each userQuestion in teamMem.questions}}
-                <div class="card ques-text" data-content="{{userQuestion.ques}}">
-                    <div class="content">
-                        <div class="header">{{userQuestion.id}}</div>
-                    </div>
-                    <div class="extra">
-                        Av. score: <strong class="ui {{getColor userQuestion}} tiny header survey-score">{{averageQuestionScore userQuestion}}</strong>
-                    </div>
+            <br>
+            {{#each teamMem in members}}
+                <h4>{{teamMem.fullName}}</h4>
+                <div class="ui eight stackable cards">
+                    {{#each userQuestion in teamMem.questions}}
+                        <div class="card ques-text" data-content="{{userQuestion.ques}}">
+                            <div class="content">
+                                <div class="header">{{userQuestion.id}}</div>
+                            </div>
+                            <div class="extra">
+                                Av. score:
+                                <strong class="ui {{getColor userQuestion}} tiny header survey-score">{{averageQuestionScore userQuestion}}</strong>
+                            </div>
+                        </div>
+                    {{/each}}
                 </div>
-                {{/each}}
-            </div>
             {{/each}}
         </div>
     </div>

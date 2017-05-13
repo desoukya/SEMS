@@ -1,24 +1,31 @@
 {
-  "adminEmail": "email",
-  "systemEmail": "email",
+  "adminEmail": "adminEmail",
+  "systemEmail": "systemEmail",
 
   "environment": "production|development",
   "githubSecret": "SECRET_API_KEY",
   "githubId": "App_ID",
   "slack": {
-    "hookUrl": "SLACK_HOOK_URL"
+    "hookUrl": "hookUrl"
   },
-  "MAIL_URL": "your_smtp_string",
-  "ROOT_URL": "ROOT_URL_IP_OR_DOMAIN",
+  "MAIL_URL": "MAIL_URL",
+  "ROOT_URL": "ROOT_URL",
+  "MONGO_URL": "MONGO_URL",
 
   "DDP_LOGS": true,
-
+  "kadira": {
+    "appId": "appId",
+    "appSecret": "appSecret"
+  }
+,
   "public": {
     "analyticsSettings": {
       "Mixpanel": {
-        "token": "Your token here",
+        "token": "token",
         "people": true
       }
     }
   }
+
+
 }

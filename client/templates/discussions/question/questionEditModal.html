@@ -28,13 +28,13 @@
         <!-- Tags -->
         <div class="field">
           <label>Tags</label>
-          <div class="ui fluid multiple selection search dropdown">
+          <div class="ui fluid multiple selection dropdown">
             <input id="tags" name="tags" type="hidden" value="{{separatedTags}}">
             <i class="dropdown icon"></i>
             <div class="default text">Tags</div>
             <div class="menu">
-              {{#each tags}}
-                <div class="item" data-value="{{this}}">{{this}}</div>
+              {{#each allTags}}
+                <div class="item" data-value="{{this.name}}">{{this.name}}</div>
               {{/each}}
             </div>
           </div>

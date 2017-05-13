@@ -1,4 +1,16 @@
 <template name="userView">
+  <div class="item">
+    {{#if isInTeam}}
+      <a class="ui primary button" href="{{pathFor 'team.info' slug=getTeamSlug}}">Your team</a>
+    {{else}}
+      {{#if isInGroup}}
+        <a class="ui primary button" href="{{pathFor 'staffGroup.info' slug=getGroupSlug}}">Your Group</a>
+      {{else}}
+        <a>Not in a team</a>
+
+      {{/if}}
+    {{/if}}
+  </div>
   <!-- Notifications -->
   <a class="ui dropdown item" href="#" id="notification-dropdown">
 

@@ -1,133 +1,136 @@
 <template name="profileEdit">
-  <div class="ui stackable container grid">
-    <div class="twelve wide centered column">
+    <div class="ui stackable container grid">
+        <div class="twelve wide centered column">
 
-      <!-- Edit profile -->
-      <div class="ui segment" id="profile-wrapper">
+            <!-- Edit profile -->
+            <div class="ui segment" id="profile-wrapper">
 
-        <!-- Profile picture -->
-        <div class="centered column">
-          <div class="ui small centered circular image" id="profile-picture-wrapper">
-            <div class="ui dimmer">
-              <div class="content">
-                <div class="center" id="upload-dimmer">
-                  <i class="big cloud upload icon"></i>
+                <!-- Profile picture -->
+                <div class="centered column">
+                    <div class="ui small centered circular image" id="profile-picture-wrapper">
+                        <div class="ui dimmer">
+                            <div class="content">
+                                <div class="center" id="upload-dimmer">
+                                    <i class="big cloud upload icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <img class="ui small centered circular image" src="{{profilePicture.url}}"/>
+                    </div>
+                    <input type="file" id="upload-profile-picture" class="ui centered" style="display:none">
                 </div>
-              </div>
+                <!-- /Profile picture -->
+
+                <!-- Form -->
+                <form class="ui form">
+                    <!-- Name -->
+                    <div class="two fields">
+                        <div class="field">
+                            <label>First Name</label>
+                            <input placeholder="First Name" value="{{profile.firstName}}" name="fname" type="text">
+                        </div>
+                        <div class="field">
+                            <label>Last Name</label>
+                            <input placeholder="Last Name" value="{{profile.lastName}}" name="lname" type="text">
+                        </div>
+                    </div>
+                    <!-- /Name -->
+
+                    <!-- Password -->
+
+                    <div class="field">
+                        <label>Current Password</label>
+                        <input type="password" name="current_pass">
+                    </div>
+
+                    <div class="field">
+                        <label>New Password</label>
+                        <input type="password" name="new_pass">
+                    </div>
+
+                    <div class="field">
+                        <label>Repeat Password</label>
+                        <input type="password" name="repass">
+                    </div>
+                    <!-- /Password -->
+
+                    <div class="two fields">
+                        <!-- GUC ID -->
+                        <div class="required field">
+                            <label>GUC ID</label>
+                            <input placeholder="xy-abcdef" value="{{profile.GUCId}}" name="gucid" type="text">
+                        </div>
+                        <!-- /GUC ID -->
+
+                        <!-- Tutorial Group -->
+                        <div class="required field">
+                            <label>Tutorial group</label>
+                            <div class="ui search selection dropdown">
+                                <input type="hidden" value="{{profile.tutorialGroup}}" name="tutorial_group">
+                                <div class="default text">Tutorial</div>
+                                <i class="dropdown icon"></i>
+
+                                <div class="menu">
+                                    <div class="item" data-value="CSEN 10">CSEN 10</div>
+                                    <div class="item" data-value="CSEN 11">CSEN 11</div>
+                                    <div class="item" data-value="CSEN 12">CSEN 12</div>
+                                    <div class="item" data-value="CSEN 13">CSEN 13</div>
+                                    <div class="item" data-value="CSEN 14">CSEN 14</div>
+                                    <div class="item" data-value="CSEN 15">CSEN 15</div>
+                                    <div class="item" data-value="CSEN 16">CSEN 16</div>
+                                    <div class="item" data-value="CSEN 17">CSEN 17</div>
+                                    <div class="item" data-value="CSEN 18">CSEN 18</div>
+                                    <div class="item" data-value="CSEN 19">CSEN 19</div>
+                                    <div class="item" data-value="BI 15">BI 15</div>
+                                    <div class="item" data-value="BI 16">BI 16</div>
+                                    <div class="item" data-value="BI 17">BI 17</div>
+                                    <div class="item" data-value="BI 18">BI 18</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Tutorial Group -->
+                    </div>
+
+                    <h4 class="ui dividing header">Additional information</h4>
+
+                    <div class="two fields">
+                        <!-- Phone number -->
+                        <div class="field">
+                            <label>Phone number</label>
+                            <input placeholder="0123456789" name="mobile" value={{profile.mobile}} type="tel">
+                        </div>
+                        <!-- /Phone number -->
+
+                        <!-- Github account -->
+                        <div class="field">
+                            <label>
+                                <i class="large github icon"></i>Github username</label>
+                            <input type="text" name="github_user" value="{{profile.githubUser}}" placeholder="geeky-developer">
+                        </div>
+                        <!-- /Github account -->
+                    </div>
+
+                    <!-- Email Toggle -->
+                    <div class="field">
+                        <div class="ui toggle checkbox">
+                            <input type="checkbox" checked={{isPublic}} name="public_mail" tabindex="0" class="hidden">
+                            <label>Display my Email address on profile</label>
+                        </div>
+                    </div>
+                    <!-- /Email Toggle -->
+
+                    <!-- Save button -->
+                    <input class="ui green submit fluid button" type="submit" value="Save" id="update-profile-button">
+                    <!-- /Save button -->
+
+                    <div class="ui error message"></div>
+
+                </form>
+                <!-- /Form -->
+
             </div>
-            <img class="ui small centered circular image" src="{{profilePicture.url}}"/>
-          </div>
-          <input type="file" id="upload-profile-picture" class="ui centered" style="display:none">
+            <!-- Edit profile -->
+
         </div>
-        <!-- /Profile picture -->
-
-        <!-- Form -->
-        <form class="ui form">
-          <!-- Name -->
-          <div class="two fields">
-            <div class="field">
-              <label>First Name</label>
-              <input placeholder="First Name" value="{{profile.firstName}}" name="fname" type="text">
-            </div>
-            <div class="field">
-              <label>Last Name</label>
-              <input placeholder="Last Name" value="{{profile.lastName}}" name="lname" type="text">
-            </div>
-          </div>
-          <!-- /Name -->
-
-          <!-- Password -->
-
-          <div class="field">
-            <label>Current Password</label>
-            <input type="password" name="current_pass">
-          </div>
-
-          <div class="field">
-            <label>New Password</label>
-            <input type="password" name="new_pass">
-          </div>
-
-          <div class="field">
-            <label>Repeat Password</label>
-            <input type="password" name="repass">
-          </div>
-          <!-- /Password -->
-
-          <div class="two fields">
-            <!-- GUC ID -->
-            <div class="required field">
-              <label>GUC ID</label>
-              <input placeholder="xy-abcdef" value="{{profile.GUCId}}" name="gucid" type="text">
-            </div>
-            <!-- /GUC ID -->
-
-            <!-- Tutorial Group -->
-            <div class="required field">
-              <label>Tutorial group</label>
-              <div class="ui search selection dropdown">
-                <input type="hidden" value="{{profile.tutorialGroup}}" name="tutorial_group">
-                <div class="default text">Tutorial</div>
-                <i class="dropdown icon"></i>
-
-                <div class="menu">
-                  <div class="item" data-value="CSEN 10">CSEN 10</div>
-                  <div class="item" data-value="CSEN 11">CSEN 11</div>
-                  <div class="item" data-value="CSEN 12">CSEN 12</div>
-                  <div class="item" data-value="CSEN 13">CSEN 13</div>
-                  <div class="item" data-value="CSEN 14">CSEN 14</div>
-                  <div class="item" data-value="CSEN 15">CSEN 15</div>
-                  <div class="item" data-value="CSEN 16">CSEN 16</div>
-                  <div class="item" data-value="DMET">DMET</div>
-                  <div class="item" data-value="BI 15">BI 15</div>
-                  <div class="item" data-value="BI 16">BI 16</div>
-                  <div class="item" data-value="BI 17">BI 17</div>
-                </div>
-              </div>
-            </div>
-            <!-- /Tutorial Group -->
-          </div>
-
-          <h4 class="ui dividing header">Additional information</h4>
-
-          <div class="two fields">
-            <!-- Phone number -->
-            <div class="field">
-              <label>Phone number</label>
-              <input placeholder="0123456789" name="mobile" value={{profile.mobile}} type="tel">
-            </div>
-            <!-- /Phone number -->
-
-            <!-- Github account -->
-            <div class="field">
-              <label>
-                <i class="large github icon"></i>Github username</label>
-              <input type="text" name="github_user" value="{{profile.githubUser}}" placeholder="geeky-developer">
-            </div>
-            <!-- /Github account -->
-          </div>
-
-          <!-- Email Toggle -->
-          <div class="field">
-            <div class="ui toggle checkbox">
-              <input type="checkbox" checked={{isPublic}} name="public_mail" tabindex="0" class="hidden">
-              <label>Display my Email address on profile</label>
-            </div>
-          </div>
-          <!-- /Email Toggle -->
-
-          <!-- Save button -->
-          <input class="ui green submit fluid button" type="submit" value="Save" id="update-profile-button">
-          <!-- /Save button -->
-
-          <div class="ui error message"></div>
-
-        </form>
-        <!-- /Form -->
-
-      </div>
-      <!-- Edit profile -->
-
     </div>
-  </div>
 </template>

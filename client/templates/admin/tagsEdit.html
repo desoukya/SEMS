@@ -1,0 +1,55 @@
+<template name="tagsEdit">
+    <!-- container -->
+
+    <div class="ui container grid" align="center">
+
+        <div class="ui six wide left column" align="left">
+            <form class="form-register">
+                <h3>Create a new Tag</h3>
+                <div class="ui right labeled left icon input">
+                    <i class="tags icon"></i>
+                    <input type="text" placeholder="Enter tags" name="tagName">
+                    <button class="ui green tag button" type="submit">
+                        Add new Tag
+                    </button>
+                </div>
+
+                <div>
+                    <select class="ui dropdown" id="type">
+                        <option value="">Type</option>
+                        <option value="topic">Topic</option>
+                        <option value="lecture">Lectures</option>
+                        <option value="lab">Labs</option>
+                        <option value="project">Project</option>
+                    </select>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="ui six wide centered column">
+
+            <table class="ui celled padded unstackable table ">
+                <th align="center" style="font-size:300%">Tags</th>
+                <tbody class="left aligned">
+
+                    <td class="left aligned">
+
+                        {{#each tags}}
+                            <li style="font-size:100%">{{name}}
+
+                                <i id="delete-icon" class="trash red link icon"></i>
+                                <i class="wait icon"></i>
+                                {{formatDateHumanized createdAt}}
+                            </li>
+                        {{/each}}
+
+                    </td>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+    <!-- container -->
+</template>
