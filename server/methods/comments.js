@@ -100,6 +100,9 @@ Meteor.methods({
         }
       });
 
+    } else if (collectionType === 'issue'){
+      Issues.update({ _id: collectionId }, { $addToSet: { comments: commentId } });
+
     }
 
 
