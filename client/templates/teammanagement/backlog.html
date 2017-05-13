@@ -1,0 +1,177 @@
+<template name="storyform">
+    <div class="ui segment transition hidden" id="add-story-form">
+        <form class="ui form new-story">
+            <!-- Title -->
+            <div class="field">
+                <label>
+                    Story Title
+                    </label>
+                <input class="small" type="text" name="title" placeholder="Type a title"/>
+            </div>
+            <!-- /Title -->
+            <!-- Owner -->
+            <div class="field">
+                <label>
+                    Assignee
+                    </label>
+                    <div class="ui multiple search normal selection fluid  dropdown">
+                      <input type="hidden" name="assignee">
+                      <i class="dropdown icon"></i>
+                      <div class="default text">Assignee</div>
+                      <div class="menu">
+                        {{#each teamMembersAvailable}}
+                          {{> memberAssign}}
+                        {{/each}}
+                      </div>
+                    </div>
+            </div>
+            <!-- /Owner -->
+            <!-- Sprint -->
+            <div class="field">
+                <label>
+                    Sprint
+                    </label>
+                <input class="small" type="text" name="sprint" placeholder="Please write Sprint number"/>
+            </div>
+            <!-- Sprint -->
+            <!-- Description -->
+            <div class="field">
+                <label>Description</label>
+                <textarea name="description"></textarea>
+            </div>
+            <!-- /Description -->
+
+            <div class="field">
+                <label>
+                    Priority (Min 1 - Max 5)
+                    </label>
+                <input class="small" type="text" name="priority" placeholder="Please write the priority of this sprint"/>
+            </div>
+
+            <div class="field">
+                <label>
+                    Points (Min 1 - Max 10)
+                    </label>
+                <input class="small" type="text" name="points" placeholder="Please write the number of points for this story"/>
+            </div>
+
+
+
+            <input type="submit" class="ui fluid large green submit button" value="submit">
+        </form>
+    </div>
+</template>
+
+<template name="storybutton">
+  <div class="twelve wide centered column">
+    {{#if isInRole "scrum-master"}}
+<div align= "right" class="ui blue button" id="toggle-story-form-button">Add a Story</div>
+    {{/if}}
+</div>
+</template>
+
+<template name="memberAssign">
+  <div class="item" data-value="{{_id}}">{{fullName}}</div>
+</template>
+
+
+
+<template name="storycards">
+  <div class="fifteen wide centered column">
+
+  <table class="ui compact celled table">
+  <thead>
+    <tr>
+      <th>Story Title</th>
+      <th>Story Description</th>
+      <th>Assignee Name</th>
+      <th>Sprint Number</th>
+      <th>Priority</th>
+      <th>Points</th>
+      {{#if isInRole "scrum-master"}}
+      <th>Delete</th>
+      {{/if}}
+      <th>Approved</th>
+      <th>Achieved</th>
+    </tr>
+  </thead>
+  {{#each stories}}
+  <tbody>
+    <tr>
+      <td>{{title}}</td>
+      <td>{{description}}</td>
+      <td>{{owner.fullName}}</td>
+      <td>{{sprint}}</td>
+      <td>{{> rating}}</td>
+      <td>{{points}}</td>
+      {{#if isInRole "scrum-master"}}
+    <td class="collapsing">
+      <div id="delete-story" class="ui bottom attached button">
+           <i class="trash red link icon"></i>
+           Delete
+         </div></td>
+         {{/if}}
+         {{#if notapproved}}
+         {{#if canEdit}}
+         <td class="collapsing">
+           <div class="ui fitted slider checkbox">
+             <input id="approve-story" type="checkbox"> <label></label>
+           </div>
+         </td>
+         {{else}}
+         <td class="collapsing">
+           <i class="large remove red icon"></i>
+         </td>
+         {{/if}}
+         {{else}}
+         <td class="collapsing">
+           <i class="large checkmark green icon"></i>
+         </td>
+         {{/if}}
+         {{#if notachieved}}
+         {{#if isInRole "scrum-master"}}
+         <td class="collapsing">
+           <div class="ui fitted slider checkbox">
+             <input id="achieve-story" type="checkbox"> <label></label>
+           </div>
+         </td>
+         {{/if}}
+         {{else}}
+         <td class="collapsing">
+           <i class="large checkmark green icon"></i>
+         </td>
+         {{/if}}
+    </tr>
+    </tbody>
+    {{/each}}
+  <tfoot class="full-width">
+    <tr>
+
+      <th colspan="9">
+        {{> storybutton}}
+
+
+      </th>
+    </tr>
+  </tfoot>
+</table>
+
+</div>
+</template>
+
+<template name = "rating">
+  <div class="ui star rating" data-rating="{{priority}}" data-max-rating="5"></div>
+</template>
+
+
+
+<template name="backlog">
+<div class="ui container grid">
+  <div class="twelve wide right column">
+  {{> storycards}}
+  <div class="ui hidden divider"></div>
+    {{> storyform}}
+
+</div>
+</div>
+</template>

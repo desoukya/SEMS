@@ -1,6 +1,8 @@
 // ES6
 Template.header.onRendered(function() {
 
+	Meteor.subscribe('teams');
+
 	Meteor.call('getNodeEnv', function(err, env) {
 		if(env === 'development') {
 			$('.ui.large.top.hidden.menu').addClass('teal inverted');
@@ -17,5 +19,12 @@ Template.header.helpers({
 		} else {
 			return false;
 		}
-	}
+	},
+
+		isInTeam1() {
+			//console.log(TeamUtils.isInTeam(Meteor.userId()));
+			return TeamUtils.isInTeam(Meteor.userId());
+		},
+
+
 });

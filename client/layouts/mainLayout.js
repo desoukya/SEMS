@@ -6,4 +6,10 @@ Template.body.onRendered(function() {
 			element.setAttribute("class", element.getAttribute("data-class"));
 		});
 	});
+	
+  //.sidebar('toggle')
+
+
+
+
 });
