@@ -1,13 +1,17 @@
 Template.tagsEdit.helpers({
 
 	tags: function() {
-		return Tags.find({});
+		return Tags.find({}, {
+			sort: {
+				createdAt: -1
+			}
+		});
 	}
 });
 
 Template.tagsEdit.onRendered(function() {
-	$('.ui.dropdown').dropdown({
-		allowAdditions: true,
+	$('#type').dropdown({
+		//allowAdditions: true,
 		direction: 'downward'
 	});
 })

@@ -22,6 +22,12 @@
             {{/if}}
             <!-- /Team Button-->
 
+            <!-- staff group Button-->
+            {{#if isInRole "admin,teaching-assistant,junior-teaching-assistant,lecturer"}}
+                <a class="item {{isActive 'staffGroups.browse'}}" href="{{pathFor 'staffGroups.browse'}}">Staff Groups</a>
+            {{/if}}
+            <!-- /staff group Button-->
+
             <!-- Discussions Button-->
             {{#if currentUser}}
                 <a class="item {{isActive 'discussions'}}" href="{{pathFor 'discussions'}}">Discussions</a>
@@ -29,9 +35,9 @@
             <!-- /Discussions Button-->
 
             <!-- Hall of Fame Button-->
-            {{#if currentUser}}
-                <a class="item {{isActive 'hallOfFame'}}" href="{{pathFor 'hallOfFame'}}">Hall of Fame</a>
-            {{/if}}
+
+            <a class="item {{isActive 'hallOfFame'}}" href="{{pathFor 'hallOfFame'}}">Hall of Fame</a>
+
             <!-- /Hall of Fame Button-->
 
             {{#if currentUser}}

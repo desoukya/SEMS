@@ -15,8 +15,9 @@ Template.questionDisplay.helpers({
 		let question = Questions.findOne({
 			_id: this._id
 		})
-
-		return question.isClosed();
+		if(question)
+			return question.isClosed();
+		else return false;
 	},
 	canEdit() {
 		return this.ownerId === Meteor.userId() || Roles.userIsInRole(Meteor.userId(), [ADMIN, LECTURER, TA, JTA]);
@@ -29,10 +30,12 @@ Template.questionDisplay.helpers({
 			_id: userID
 		});
 		var alreadyFollowing = false;
-		for(var i = 0; i < user.questionsFollowed.length; i++) {
-			if(user.questionsFollowed[i] == this._id) {
-				alreadyFollowing = true;
-				break;
+		if(user.questionsFollowed) {
+			for(var i = 0; i < user.questionsFollowed.length; i++) {
+				if(user.questionsFollowed[i] == this._id) {
+					alreadyFollowing = true;
+					break;
+				}
 			}
 		}
 		return !(alreadyFollowing);
@@ -44,11 +47,12 @@ Template.questionDisplay.helpers({
 			_id: userID
 		});
 		var alreadyFollowing = false;
-
-		for(var i = 0; i < user.questionsFollowed.length; i++) {
-			if(user.questionsFollowed[i] == this._id) {
-				alreadyFollowing = true;
-				break;
+		if(user.questionsFollowed) {
+			for(var i = 0; i < user.questionsFollowed.length; i++) {
+				if(user.questionsFollowed[i] == this._id) {
+					alreadyFollowing = true;
+					break;
+				}
 			}
 		}
 		return alreadyFollowing;
@@ -135,6 +139,12 @@ Template.questionDisplay.events({
 		var user = Meteor.users.findOne({
 			_id: Meteor.userId()
 		});
+		/////////////// Analytics ///////////////
+		analytics.track('Clicked Follow', {
+			questionId: this._id,
+			questionTitle: this.title
+		});
+		/////////////// Analytics ///////////////
 		var alreadyfollowedQuestions = user.questionsFollowed;
 
 
@@ -157,6 +167,14 @@ Template.questionDisplay.events({
 	'click #unfollow-icon': function(event, template) {
 		event.preventDefault();
 		var question = this._id;
+
+		/////////////// Analytics ///////////////
+		analytics.track('Clicked unfollow', {
+			questionId: this._id,
+			questionTitle: this.title
+		});
+		/////////////// Analytics ///////////////
+
 		var user = Meteor.users.findOne({
 			_id: Meteor.userId()
 		});

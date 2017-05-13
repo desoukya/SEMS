@@ -1,4 +1,5 @@
 Meteor.methods({
+
   addComment(data) {
     let { collectionId, content, collectionType } = data;
 
@@ -150,5 +151,6 @@ Meteor.methods({
 
 
   }
+
 
 });

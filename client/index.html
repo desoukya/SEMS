@@ -3,6 +3,19 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+    var startTime = new Date(); //Start the clock!
+
+    window.onbeforeunload = function () { //When the user leaves the page(closes the window/tab, clicks a link)...
+      var endTime = new Date(); //Get the current time.
+      var timeSpent = (endTime - startTime); //Find out how long it's been in milliseconds.
+      mixpanel.track('SessionTime', {
+        $duration: (timeSpent / 60000)
+      });
+    }
+  </script>
+
 </head>
 
 <body>

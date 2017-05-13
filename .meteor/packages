@@ -34,7 +34,6 @@ juliancwirko:s-alert
 sewdn:search-source
 okgrow:analytics
 tinytest@1.0.12
-omarkamal95:se-productivity-metrics
 http@1.2.10
 msavin:mongol
 sems:momentum
@@ -60,3 +59,6 @@ cfs:graphicsmagick
 shell-server
 juliancwirko:postcss
 less
+npm-bcrypt
+meteorhacks:kadira
+meteorhacks:meteor-down

@@ -1,5 +1,6 @@
 Template.userView.onRendered(function() {
 	$('.ui.dropdown').dropdown();
+	Meteor.subscribe('teamsSlug')
 })
 
 Template.userView.events({
@@ -47,6 +48,18 @@ Template.userView.helpers({
 				createdAt: -1
 			}
 		}).count();
-	}
+	},
+	isInTeam() {
+		return TeamUtils.isInTeam(Meteor.userId())
+	},
+	isInGroup() {
+		return TeamUtils.isInGroup(Meteor.userId())
+	},
+	getTeamSlug() {
+		return TeamUtils.getTeam(Meteor.userId()).slug;
+	},
+	getGroupSlug() {
+		return TeamUtils.getGroup(Meteor.userId()).slug;
+	},
 
 });

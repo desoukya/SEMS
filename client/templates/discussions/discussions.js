@@ -1,7 +1,17 @@
 Session.setDefault('pageSize', 15);
 Session.setDefault('page', 0);
-Session.setDefault('loading', true);
+//Session.setDefault('loading', true);
 Session.setDefault('tag', 'All');
+Template.questionForm.onCreated(function() {
+	var template = this;
+	template.input = new ReactiveVar('')
+	template.output = new ReactiveVar('')
+	template.autorun(() => {
+		var input = template.input.get()
+		template.output.set(input);
+	})
+
+})
 Template.discussions.onRendered(function() {
 	$('.ui.accordion').accordion();
 	$('.ui.form').form({
@@ -94,7 +104,11 @@ Template.discussions.events({
 	},
 	'click #filterLabel': function(event, template) {
 
-
+		/////////////// Analytics ///////////////
+		analytics.track('Clicked on filter tag', {
+			tagName: event.target.text
+		});
+		/////////////// Analytics ///////////////
 		Session.set('tag', event.target.text);
 
 	},
@@ -104,29 +118,41 @@ Template.discussions.events({
 			_id: Meteor.userId()
 		});
 		var userSubs = user.subscriptions;
-		var subs = event.target.tag.value.split(",");
+		var newSubs;
+		if(event.target.tag.value) {
+			newSubs = event.target.tag.value.split(",");
+		}
+
 		var subscriptions = [];
 
 		if(userSubs != null) {
-			subscriptions = userSubs.concat(subs);
+			subscriptions = userSubs.concat(newSubs);
 
 		} else {
-			subscriptions = subs;
+			subscriptions = newSubs;
 		}
 		var userId = Meteor.userId();
-
 		let userSubscriptions = {
 			subscriptions,
+			newSubs,
 			userId
 		}
 
-		Meteor.call('updateSubscriptions', userSubscriptions, function(err) {
+		/////////////// Analytics ///////////////
+		analytics.track('Clicked Subscribe', {
+			newSubscriptions: newSubs
+		});
+		/////////////// Analytics ///////////////
+
+		Meteor.call('addSubscriptions', userSubscriptions, function(err) {
 			if(err) {
 				sAlert.error(err.reason);
+			} else {
+				sAlert.success('Your subscriptions are updated successfully');
 			}
 		})
 		$('.ui.multiple.selection.dropdown').dropdown('clear');
-		sAlert.success('Your subscriptions are updated successfully');
+
 
 
 
@@ -182,12 +208,13 @@ Template.discussions.helpers({
 		var user = Meteor.users.findOne({
 			_id: Meteor.userId()
 		});
-
-		return Tags.find({
-			name: {
-				$nin: user.subscriptions
-			}
-		});
+		if(user.subscriptions) {
+			return Tags.find({
+				name: {
+					$nin: user.subscriptions
+				}
+			});
+		}
 	},
 
 
@@ -200,6 +227,12 @@ Template.questionForm.helpers({
 	},
 
 });
+Template.questionForm.events({
+	'keyup textarea': function(event, template) {
+		var input = template.$(event.currentTarget).val();
+		template.input.set(input);
+	}
+})
 
 
 function animateForm() {
@@ -217,11 +250,20 @@ Template.questionsSearchBox.helpers({
 
 		if(tagName[0] === "All") {
 
-			return Questions.find({});
+
+			return Questions.find({}, {
+				sort: {
+					createdAt: -1
+				}
+			});
 		} else {
 
 			return Questions.find({
 				'tags': tagName[0]
+			}, {
+				sort: {
+					createdAt: -1
+				}
 			}).fetch();
 		}
 	},
