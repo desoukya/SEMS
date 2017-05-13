@@ -1,4 +1,5 @@
 Meteor.methods({
+
   addComment(data) {
     let { collectionId, content, collectionType } = data;
 
@@ -100,6 +101,9 @@ Meteor.methods({
         }
       });
 
+    } else if (collectionType === 'issue'){
+      Issues.update({ _id: collectionId }, { $addToSet: { comments: commentId } });
+
     }
 
 
@@ -147,5 +151,6 @@ Meteor.methods({
 
 
   }
+
 
 });

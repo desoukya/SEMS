@@ -1,6 +1,24 @@
+Template.editAnnouncement.onCreated(function() {
+	var template = this;
+	template.input = new ReactiveVar('')
+	template.output = new ReactiveVar('')
+	template.autorun(() => {
+		var input = template.input.get()
+		template.output.set(input);
+	})
+
+})
+
 Template.editAnnouncement.helpers({
 	availableTeams() {
-		return Teams.find();
+		return Teams.find({
+			isForStaff: false
+		});
+	},
+	staffGroups() {
+		return Teams.find({
+			isForStaff: true
+		});
 	},
 
 	currentAnnouncementDropdownFormatted(teams) {
@@ -106,5 +124,9 @@ Template.editAnnouncement.events({
 			$('.selection.dropdown').removeClass('disabled');
 
 	},
+	'keyup textarea': function(event, template) {
+		var input = template.$(event.currentTarget).val();
+		template.input.set(input);
+	}
 
 })

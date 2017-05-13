@@ -1,58 +1,59 @@
 Template.register.events({
-    'submit form': function(event) {
+	'submit form': function(event) {
 
-        event.preventDefault();
+		event.preventDefault();
 
-        var firstName = event.target.firstname.value;
-        var lastName = event.target.lastname.value;
-        var email = event.target.email.value;
-        var password = event.target.pass.value;
-        var GUCId = event.target.gucid.value;
-        var tutorialGroup = event.target.tutorial_group.value;
+		var firstName = event.target.firstname.value;
+		var lastName = event.target.lastname.value;
+		var email = event.target.email.value;
+		var password = event.target.pass.value;
+		var GUCId = event.target.gucid.value;
+		var tutorialGroup = event.target.tutorial_group.value;
 
-        // Optionals
-        var mobile = event.target.mobile.value;
-        var githubUser = event.target.github_user.value;
-        var publicEmail = $(event.target.public_mail).prop('checked');
+		// Optionals
+		var mobile = event.target.mobile.value;
+		var githubUser = event.target.github_user.value;
+		var publicEmail = $(event.target.public_mail).prop('checked');
 
-        var userData = {
-            firstName,
-            lastName,
-            email,
-            password,
-            GUCId,
-            tutorialGroup,
-            mobile,
-            githubUser,
-            publicEmail,
-        };
+		var userData = {
+			firstName,
+			lastName,
+			email,
+			password,
+			GUCId,
+			tutorialGroup,
+			mobile,
+			githubUser,
+			publicEmail,
+		};
 
-        Meteor.call('registerUser', userData, function(err) {
-            if (err)
-                sAlert.error(err.reason);
-            else
-                Router.go('/');
+		Meteor.call('registerUser', userData, function(err) {
+			if(err)
+				sAlert.error(err.reason);
+			else
+				Router.go('/');
 
-        });
+		});
 
-    },
+	},
 
-    'click #honor-code-open': function(event, template) {
-        event.preventDefault();
+	'click #honor-code-open': function(event, template) {
+		event.preventDefault();
 
-        $('#honor-code-modal').modal({
-            onDeny() {
-                $('#honor-code-checkbox').checkbox('uncheck');
-            },
-            onApprove() {
-                $('#honor-code-checkbox').checkbox('check');
-            }
-        }).modal('show');
-    },
+		$('#honor-code-modal').modal({
+			onDeny() {
+				$('#honor-code-checkbox').checkbox('uncheck');
+			},
+			onApprove() {
+				$('#honor-code-checkbox').checkbox('check');
+			}
+		}).modal('show');
+	},
 
 });
 
 Template.register.onRendered(function() {
+
     $('.ui.form').form({
         inline: true,
         fields: {
@@ -77,8 +78,9 @@ Template.register.onRendered(function() {
                 rules: [{
                     type: 'empty',
                     prompt: 'Please enter your GUC email address'
-                }, {
-                    type: 'regExp[/^([a-zA-Z0-9_\.-]+)@(student\.)?guc\.edu\.eg$/]',
+                }]
+                {
+                   type: 'regExp[/^([a-zA-Z0-9_\.-]+)@(student\.)?guc\.edu\.eg$/]',
                     prompt: 'Please enter a Valid GUC Gmail'
                 }]
             },
@@ -155,4 +157,3 @@ Template.register.onRendered(function() {
 
     $('.ui.checkbox').checkbox();
     $('.ui.dropdown').dropdown();
-});

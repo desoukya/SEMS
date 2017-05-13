@@ -1,0 +1,176 @@
+<template name ="progress">
+  <div class="ui container grid">
+    <div class="five wide right column">
+      <h1>TO DO:</h1>
+          {{> todocards}}
+      <div align= "right" class="ui blue button" id="toggle-todocard-form-button">Add a Card</div>
+          {{>todocardform}}
+
+
+    </div>
+  <div class="five wide center column">
+    <h1>DOING:</h1>
+          {{> doingcards}}
+      <div align= "right" class="ui blue button" id="toggle-doingcard-form-button">Add a Card</div>
+         {{>doingcardform}}
+
+
+    </div>
+  <div class="five wide left column">
+    <h1>DONE:</h1>
+          {{> donecards}}
+      <div align= "right" class="ui blue button" id="toggle-donecard-form-button">Add a Card</div>
+         {{>donecardform}}
+
+
+    </div>
+    <div class="center row">
+      {{> progressbar}}
+    </div>
+
+
+
+  </div>
+</template>
+
+<template name="progressbar">
+  <div class="fifteen wide left column">
+  <div class="ui teal progress" id="bar">
+      <div class="bar"></div>
+        <div class="label"></div>
+      </div>
+    </div>
+
+</template>
+
+<template name="todocards">
+{{#each todocardsdisp}}
+  <div class="ui card">
+
+  <div class="content">
+
+    <div class="header">{{title}}</div>
+    <div class="meta">{{owner.fullName}}</div>
+    <div class="description">{{description}}</div>
+
+  </div>
+  {{#if canEdit}}
+  <div id="delete-todocard" class="ui bottom attached button">
+       <i class="trash red link icon"></i>
+       Delete
+     </div>
+  {{/if}}
+
+</div>
+{{/each}}
+</template>
+
+<template name="doingcards">
+{{#each doingcardsdisp}}
+  <div class="ui card">
+
+  <div class="content">
+
+    <div class="header">{{title}}</div>
+    <div class="meta">{{owner.fullName}}</div>
+    <div class="description">{{description}}</div>
+
+  </div>
+  {{#if canEdit}}
+  <div id="delete-doingcard" class="ui bottom attached button">
+       <i class="trash red link icon"></i>
+       Delete
+     </div>
+  {{/if}}
+
+</div>
+{{/each}}
+</template>
+
+<template name="donecards">
+{{#each donecardsdisp}}
+  <div class="ui card">
+
+  <div class="content">
+
+    <div class="header">{{title}}</div>
+    <div class="meta">{{owner.fullName}}</div>
+    <div class="description">{{description}}</div>
+
+  </div>
+  {{#if canEdit}}
+  <div id="delete-donecard" class="ui bottom attached button">
+       <i class="trash red link icon"></i>
+       Delete
+     </div>
+  {{/if}}
+
+</div>
+{{/each}}
+</template>
+
+<template name="todocardform">
+    <div class="ui segment transition hidden" id="add-todocard-form">
+        <form class="ui form new-todocard">
+            <!-- Title -->
+            <div class="field">
+                <label>
+                    To Do Card Title
+                    </label>
+                <input class="small" type="text" name="title" placeholder="Type a title"/>
+            </div>
+            <!-- /Title -->
+            <!-- Description -->
+            <div class="field">
+                <label>Description</label>
+                <textarea name="description"></textarea>
+            </div>
+            <!-- /Description -->
+            <input type="submit" class="ui fluid large green submit button" value="submit">
+        </form>
+    </div>
+</template>
+
+<template name="doingcardform">
+    <div class="ui segment transition hidden" id="add-doingcard-form">
+        <form class="ui form new-doingcard">
+            <!-- Title -->
+            <div class="field">
+                <label>
+                    Doing Card Title
+                    </label>
+                <input class="small" type="text" name="title" placeholder="Type a title"/>
+            </div>
+            <!-- /Title -->
+            <!-- Description -->
+            <div class="field">
+                <label>Description</label>
+                <textarea name="description"></textarea>
+            </div>
+            <!-- /Description -->
+            <input type="submit" class="ui fluid large green submit button" value="submit">
+        </form>
+    </div>
+</template>
+
+<template name="donecardform">
+    <div class="ui segment transition hidden" id="add-donecard-form">
+        <form class="ui form new-donecard">
+            <!-- Title -->
+            <div class="field">
+                <label>
+                    Done Card Title
+                    </label>
+                <input class="small" type="text" name="title" placeholder="Type a title"/>
+            </div>
+            <!-- /Title -->
+            <!-- Description -->
+            <div class="field">
+                <label>Description</label>
+                <textarea name="description"></textarea>
+            </div>
+            <!-- /Description -->
+            <input type="submit" class="ui fluid large green submit button" value="submit">
+        </form>
+    </div>
+</template>

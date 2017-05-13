@@ -1,45 +1,75 @@
 <template name="browseTeam">
-  <div class="main header">
-    <h1 class="ui huge text centered ">Teams</h1>
-  </div>
 
-  <div class="ui divider container"></div>
+    {{#if viewingTeams}}
+        <div class="main header">
+            <h1 class="ui huge text centered ">Teams</h1>
+        </div>
 
-  <div class="ui stackable container four column very relaxed grid">
-    {{#each teams}}
-      <div class="column">
-        {{>teamCard}}
-      </div>
-    {{/each}}
-  </div>
+        <div class="ui divider container"></div>
+        <div class="ui stackable container four column very relaxed grid">
+            {{#each teams}}
+                <div class="column">
+                    {{>teamCard}}
+                </div>
+            {{/each}}
+        </div>
+    {{/if}}
+    {{#if viewingStaff}}
+        <div class="main header">
+            <h1 class="ui huge text centered ">Groups</h1>
+        </div>
+
+        <div class="ui divider container"></div>
+        <div class="ui stackable container four column very relaxed grid">
+            {{#each staffGroups}}
+                <div class="column">
+                    {{>staffGroupCard}}
+                </div>
+            {{/each}}
+        </div>
+    {{/if}}
 </template>
 
 <template name="teamCard">
-  <div class="ui card">
-    <a class="image" id="logo-link" href="{{pathFor 'team.info' slug=slug}}">
-      <img class="team logo" src="{{image}}">
-    </a>
+    <div class="ui card">
+        <a class="image" id="logo-link" href="{{pathFor 'team.info' slug=slug}}">
+            <img class="team logo" src="{{image}}">
+        </a>
 
-    <div class="content">
-      <a class="header" href="{{pathFor 'team.info' slug=slug}}">{{name}}</a>
-      <div class="meta">
-        <a href="#">Members Count :
-          {{membersCount}}</a>
+        <div class="content">
+            <a class="header" href="{{pathFor 'team.info' slug=slug}}">{{name}}</a>
+            <div class="meta">
+                <a href="#">Members Count :
+                    {{membersCount}}</a>
 
-        {{#if siteUrl}}
-          <a target="_blank" href="{{siteUrl}}" class="right floated icon">
-            <i class="blue large server link icon"></i>
-          </a>
-        {{/if}}
+                {{#if siteUrl}}
+                    <a target="_blank" href="{{siteUrl}}" class="right floated icon">
+                        <i class="blue large server link icon"></i>
+                    </a>
+                {{/if}}
 
-        {{#if ionicId}}
-          <span class="right floated icon ionic-copy" data-clipboard-text="{{ionicId}}">
-            <i class="blue large mobile link icon"></i>
-          </span>
-        {{/if}}
-      </div>
+                {{#if ionicId}}
+                    <span class="right floated icon ionic-copy" data-clipboard-text="{{ionicId}}">
+                        <i class="blue large mobile link icon"></i>
+                    </span>
+                {{/if}}
+            </div>
+
+        </div>
 
     </div>
+</template>
+<template name="staffGroupCard">
+    <div class="ui card">
 
-  </div>
+        <div class="content">
+            <a class="header" href="{{pathFor 'staffGroup.info' slug=slug}}">{{name}}</a>
+            <div class="meta">
+                <a href="#">Members Count :
+                    {{membersCount}}</a>
+            </div>
+
+        </div>
+
+    </div>
 </template>

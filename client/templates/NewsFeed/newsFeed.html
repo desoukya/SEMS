@@ -1,0 +1,141 @@
+<template name="newsFeed">
+  <div class="ui container grid">
+
+    <div class="ui twelve wide left column">
+      <div class="ui container segment">
+        <h1>
+          <i class="small feed icon"></i>News Feed</h1>
+        <div class="left row">
+          {{#if newsFeedEmtpy}}
+            <div class="ui feed">
+
+              {{#each feed}}
+                <div class="event">
+                  <div class="label">
+                    {{#each eventOnwer}}
+                      <img class="ui small circular image" src="{{profilePicture.url}}">
+                    {{/each}}
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <a class="user" href="{{pathFor 'user.profile' _id=eventOwnerId}}">
+                        {{fullName}}
+                      </a>
+                      {{content}}
+                      <div class="date">
+                        {{formatDateHumanized createdAt}}
+                      </div>
+                    </div>
+                    {{#if isAQuestion}}
+                      <div class="extra">
+                        <i class="write icon"></i>
+                        <a href="{{link}}">{{questionTitle objectId}}</a>
+                        <div class="extra">
+                          <i class="tags icon"></i>
+                          {{#each tags objectId}}
+                            {{> tag}}
+                          {{/each}}
+                        </div>
+                      </div>
+                    {{/if}}
+
+                    {{#if isAnAnnouncement}}
+                      <div class="extra">
+                        <i class="announcement icon"></i>
+                        <a href="{{getTeamOrGroupSlug}}">{{announcementTitle objectId}}</a>
+                      </div>
+                    {{/if}}
+
+                    {{#if isAnAnswer}}
+                      <div class="extra">
+                        <i class="write icon"></i>
+                        <a href="{{link}}">{{questionTitleOfAnswer objectId}}</a>
+                      </div>
+                    {{/if}}
+
+                    {{#if isAPost}}
+                      <div class="extra">
+                        <i class="content icon"></i>
+                        <a href="{{link}}">{{postTitle objectId}}</a>
+                      </div>
+                    {{/if}}
+                  </div>
+                </div>
+              {{/each}}
+
+            </div>
+          {{else}}
+            <div class="ui container grid">
+              <div class="center aligned middle aligned column">
+                <p>
+                  <i class="huge warning circle icon"></i>
+                </p>
+                <h1 class="large text">Your news feed is empty for now</h1>
+              </div>
+            </div>
+          {{/if}}
+        </div>
+
+      </div>
+    </div>
+
+    <div class=" ui four wide right column">
+      {{#if inATeamOrGroup}}
+        <div class="ui card">
+          <div class="content">
+            <div class="header">
+              <i class="announcement icon"></i>Announcements</div>
+          </div>
+          <div class="content">
+            <h4 class="ui sub header">Neweset five</h4>
+            <div class="ui small feed">
+              {{#each getNewestAnnouncements}}
+                <div class="event">
+                  <div class="content">
+                    <a href="{{getTeamOrGroupSlug}}">
+                      {{title}}
+                    </a>
+                    <div class="right aligned date">
+                      {{formatDateHumanized createdAt}}
+                    </div>
+                  </div>
+                </div>
+
+              {{/each}}
+
+            </div>
+          </div>
+
+        </div>
+      {{/if}}
+
+      <div class="ui card">
+        <div class="content">
+          <div class="header">
+            <i class="idea icon"></i>
+            Milestones</div>
+        </div>
+        <div class="content">
+          <h4 class="ui sub header">Neweset five</h4>
+          <div class="ui small feed">
+            {{#each getNewestMilestones}}
+              <div class="event">
+                <div class="content">
+                  <a href="{{getMilestoneLink _id}}">
+                    {{title}}
+                  </a>
+                  <div class="right aligned date">
+                    {{formatDateHumanized createdAt}}
+                  </div>
+                </div>
+              </div>
+            {{/each}}
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</template>

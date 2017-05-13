@@ -1,7 +1,6 @@
 // ES6
 Meteor.methods({
 	createAnnouncement(announcement) {
-		// TODO: Check the arguments passed from client - Never Trusted !
 
 		let {
 			title,
@@ -34,31 +33,55 @@ Meteor.methods({
 					_id: teamId
 				});
 
+
 				let members = team.members;
-				let link = milestone ? `/milestones/${announcementId}` : `/teams/${team.slug}/announcements`;
+				let link;
+				let staffGroupId = teamId;
+				if(team.isForStaff) {
+					link = milestone ? `/milestones/${announcementId}` : `/staff-groups/${team.slug}/announcements`;
+					staffGroupId = team._id;
+				} else {
+					link = milestone ? `/milestones/${announcementId}` : `/teams/${team.slug}/announcements`;
+				}
 				let icon = milestone ? '<i class="idea icon"></i>' : '<i class="announcement icon"></i>';
 
 				members.forEach(function(id) {
-					Notifications.insert({
-						ownerId: id,
-						content: `${icon} ${typeHint} : ${title}`,
-						link: link,
-						read: false,
-						createdAt: Date.now()
-					});
-					let member = Meteor.users.findOne({
-						_id: id
-					})
-					let memberemail = member.emails[0].address
-					Email.send({
-						to: memberemail,
-						from: Meteor.settings.systemEmail,
-						subject: "[SEMS] Announcements",
-						text: `Hello User, there is a new announcement on the system` + "\n" + typeHint + " " + title
-					});
-				});
+					if(id != ownerId) {
+						Notifications.insert({
+							ownerId: id,
+							content: `${icon} ${typeHint} : ${title}`,
+							link: link,
+							read: false,
+							objectId: announcementId,
+							parentObjectId: staffGroupId, //the group to view the announcement
+							createdAt: Date.now()
+						});
 
-			});
+						NewsFeed.insert({
+							feedOwnerId: id,
+							eventOwnerId: Meteor.userId(),
+							content: ` has a new announcement.`,
+							type: `announcement`,
+							link: link,
+							objectId: announcementId,
+							parentObjectId: staffGroupId,
+							createdAt: Date.now()
+
+						})
+						let member = Meteor.users.findOne({
+							_id: id
+						})
+						let memberemail = member.emails[0].address
+						Email.send({
+							to: memberemail,
+							from: Meteor.settings.systemEmail,
+							subject: "[SEMS] Announcements",
+							text: `Hello User, there is a new announcement on the system` + "\n" + typeHint + " " + title
+						});
+					}
+				}); //end inner loop
+
+			}); //end loop
 
 			let color = milestone ? '#002fbe' : '#fbfa62';
 			let {
@@ -129,6 +152,19 @@ Meteor.methods({
 
 		} else
 			throw new Meteor.Error(401, 'Not authorized to edit an Announcement');
+	},
+
+	deleteAnnouncement(announcementId) {
+
+
+		Notifications.remove({
+			objectId: announcementId
+		})
+		NewsFeed.remove({
+			objectId: announcementId
+		})
+		Announcements.remove(announcementId);
+
 	},
 
 });
