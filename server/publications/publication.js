@@ -117,8 +117,12 @@ Meteor.publish('users', function(roles = ROLES) {
 //QUESTIONS
 //------------------------------------------
 
+
+  
+  
 Meteor.publish('questions', function() {
 	return Questions.find({});
+
 });
 Meteor.publish('questionsNewsFeed', function() {
 	return Questions.find({}, {
@@ -404,5 +408,19 @@ Meteor.publish('notifications', function() {
 		ownerId: this.userId
 	});
 
+});
+  
+  
+  Meteor.publish('stories', function() {
+	return Stories.find({});
+});
+Meteor.publish('cards', function() {
+	return Cards.find({});
+});
+Meteor.publish('issues', function() {
+	return Issues.find({});
+});
+Meteor.publish('comments', function() {
+	return Comments.find({});
 });
 //-----------------------------------------------------
