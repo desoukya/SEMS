@@ -31,7 +31,13 @@ Software Engineering Management System
  - User Rating
  - News Feed
  
- To run this project on Localhost:
+ ### Perfromance Enhancements were applied to:
+ 
+ - Profile Route
+ - Discussions Route
+ - Teams Route
+ 
+ ## To run this project on Localhost:
   
   1. Make a new file "settings.json".
   2. Copy the content of the file "settings.template.json" in the new file.
