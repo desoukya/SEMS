@@ -6,18 +6,16 @@
   "githubSecret": "SECRET_API_KEY",
   "githubId": "App_ID",
   "slack": {
-    "hookUrl": "hookUrl"
+    "hookUrl": "slackHookURL1",
+    "hookJTA": "slackHookURL2"
   },
   "MAIL_URL": "MAIL_URL",
   "ROOT_URL": "ROOT_URL",
   "MONGO_URL": "MONGO_URL",
 
   "DDP_LOGS": true,
-  "kadira": {
-    "appId": "appId",
-    "appSecret": "appSecret"
-  }
-,
+
+
   "public": {
     "analyticsSettings": {
       "Mixpanel": {
