@@ -31,7 +31,7 @@ Software Engineering Management System
  - User Rating
  - News Feed
  
- ### Perfromance Enhancements were applied to:
+ ### Performance Enhancements were applied to:
  
  - Profile Route
  - Discussions Route
