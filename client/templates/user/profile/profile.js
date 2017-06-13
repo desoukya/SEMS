@@ -1,3 +1,8 @@
+Template.profile.onRendered(function() {
+
+	$(".rating").rating();
+})
+
 Template.profile.helpers({
 	isCurrentUser() {
 		return Meteor.userId() === this._id;
@@ -12,14 +17,15 @@ Template.profile.helpers({
 	},
 
 	teamId() {
+		//var team = Meteor.subscribe('teamSpecific', (this._id));
 		var team = TeamUtils.getTeam(this._id);
-
 		if(team) {
 			return team._id;
 		}
 	},
 
 	teamSlug() {
+		//var team = Meteor.subscribe('teamSpecific', (this._id));
 		var team = TeamUtils.getTeam(this._id);
 
 		if(team) {
@@ -27,7 +33,9 @@ Template.profile.helpers({
 		}
 	},
 
+
 	teamName() {
+		//var team = Meteor.subscribe('teamSpecific', (this._id));
 		var team = TeamUtils.getTeam(this._id);
 
 		if(team) {
@@ -45,6 +53,26 @@ Template.profile.helpers({
 
 		return bestAnswersCount;
 
+	},
+
+	calculateRating() {
+		var answersCount = this.allAnswersCount(this._id).answersCount;
+		var bestAnswersCount = this.allAnswersCount(this._id).bestAnswersCount;
+		var rating = (Number)(bestAnswersCount / answersCount) * 100;
+		var stars = 0;
+		if(rating >= 90) {
+			stars = 4
+		}
+		if(rating >= 80 && rating <= 89) {
+			stars = 3
+		}
+		if(rating >= 65 && rating <= 79) {
+			stars = 2
+		}
+		if(rating >= 50 && rating <= 64) {
+			stars = 1
+		}
+		return stars;
 	},
 	getSubscriptions() {
 
@@ -70,7 +98,7 @@ Template.profile.helpers({
 				subscriptions,
 				userId
 			}
-			Meteor.call('updateSubscriptions', userSubscriptions, function(err) {
+			Meteor.call('removeSubscriptions', userSubscriptions, function(err) {
 				if(err) sAlert.error(err.reason);
 			})
 		}
@@ -79,35 +107,36 @@ Template.profile.helpers({
 
 	},
 	getFollowedQuestions() {
-		Meteor.subscribe('questions');
+
 
 		var alreadyFollowedQuestions = Meteor.user().questionsFollowed;
+		if(alreadyFollowedQuestions) {
+			var existingQuestionsFollowed = Questions.find({
+				_id: {
+					$in: alreadyFollowedQuestions
+				}
+			}).fetch();
 
-		var existingQuestionsFollowed = Questions.find({
-			_id: {
-				$in: alreadyFollowedQuestions
+			if(alreadyFollowedQuestions.length !== existingQuestionsFollowed.length) {
+				//this step is done as followedQuestions is an array of strings, but existingQuestionsFollowed is an array of objects
+				var questions = []
+				for(var i = 0; i < existingQuestionsFollowed; i++) {
+					questions[i] = existingQuestionsFollowed[i]._id;
+				}
+
+				var userId = Meteor.userId();
+				let followedQuestions = {
+					questions: questions,
+					userId
+
+				}
+				Meteor.call('updateFollowedQuestions', followedQuestions, function(err) {
+					if(err) sAlert.error(err.reason);
+				})
 			}
-		}).fetch();
 
-		if(alreadyFollowedQuestions.length !== existingQuestionsFollowed.length) {
-			//this step is done as followedQuestions is an array of strings, but existingQuestionsFollowed is an array of objects
-			var questions = []
-			for(var i = 0; i < existingQuestionsFollowed; i++) {
-				questions[i] = existingQuestionsFollowed[i]._id;
-			}
-
-			var userId = Meteor.userId();
-			let followedQuestions = {
-				questions: questions,
-				userId
-
-			}
-			Meteor.call('updateFollowedQuestions', followedQuestions, function(err) {
-				if(err) sAlert.error(err.reason);
-			})
+			return Meteor.user().questionsFollowed;
 		}
-
-		return Meteor.user().questionsFollowed;
 	},
 
 });
@@ -133,7 +162,7 @@ Template.profiletag.events({
 			userId
 		}
 
-		Meteor.call('updateSubscriptions', userSubscriptions, function(err) {
+		Meteor.call('removeSubscriptions', userSubscriptions, function(err) {
 			if(err)
 				sAlert.error(err.reason);
 		})

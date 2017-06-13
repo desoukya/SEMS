@@ -24,7 +24,12 @@
                     {{#if global}}
                         <a class="ui green tiny label">global</a>
                     {{else}}
-                        <a class="ui orange tiny label">team-specific</a>
+                        {{#if viewingTeams}}
+                            <a class="ui orange tiny label">team-specific</a>
+                        {{else}}
+                            <a class="ui red tiny label">Staff-specific</a>
+
+                        {{/if}}
                     {{/if}}
                 </span>
                 <span class="date meta" data-content="{{detailedDate createdAt}}" data-variation="mini" data-position="right center">

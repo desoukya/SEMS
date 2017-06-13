@@ -1,12 +1,26 @@
 Template.createAnswerForm.helpers({
 	questionClosed() {
-		let questionId = Template.parentData(1)._id;
-		let question = Questions.findOne({
-			_id: questionId
-		})
-		return !(question.isClosed())
+		if(Template.parentData(1)) {
+			let questionId = Template.parentData(1)._id;
+			let question = Questions.findOne({
+				_id: questionId
+			})
+			return !(question.isClosed())
 
+		}
+		return false;
 	}
+
+})
+Template.createAnswerForm.onCreated(function() {
+	var template = this;
+	template.input = new ReactiveVar('')
+	template.output = new ReactiveVar('')
+	template.autorun(() => {
+		var input = template.input.get()
+		template.output.set(input);
+	})
+
 })
 
 Template.createAnswerForm.events({
@@ -33,5 +47,9 @@ Template.createAnswerForm.events({
 		});
 
 	},
+	'keyup textarea': function(event, template) {
+		var input = template.$(event.currentTarget).val();
+		template.input.set(input);
+	}
 
 });
