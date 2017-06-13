@@ -15,23 +15,26 @@ Software Engineering Management System
 - Notifications
 
 ## Features added in 2017
-- Team Management tools
+- Team Management tools (By Karim)
   - Backlog
   - User Stories
   - Issues
   - Calender
- - Tags
- - Tags subscriptions
- - Discussions Filters
- - Follow/Unfollow questions
- - Open/Close questions
- - Markdown Preview
- - Staff Groups
- - Posts
- - User Rating
- - News Feed
+  - Assigning team members to user stories
+  - Sprint work Progress
+- Features added to increase usability (By Yasmeen)
+  - Tags
+  - Tags subscriptions
+  - Discussions Filters
+  - Follow/Unfollow questions
+  - Open/Close questions
+  - Markdown Preview
+  - Staff Groups
+  - Posts
+  - User Rating
+  - News Feed
  
- ### Performance Enhancements were applied to:
+ ### Performance Enhancements were applied to: (By Yasmeen)
  
  - Profile Route
  - Discussions Route
